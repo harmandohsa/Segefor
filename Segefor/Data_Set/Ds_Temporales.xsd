@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Ds_Temporales" targetNamespace="http://tempuri.org/Ds_Temporales.xsd" xmlns:mstns="http://tempuri.org/Ds_Temporales.xsd" xmlns="http://tempuri.org/Ds_Temporales.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="Ds_Temporales" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="Ds_Temporales" msprop:Generator_UserDSName="Ds_Temporales">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DtSubregion" msprop:Generator_TableClassName="DtSubregionDataTable" msprop:Generator_TableVarName="tableDtSubregion" msprop:Generator_TablePropName="DtSubregion" msprop:Generator_RowDeletingName="DtSubregionRowDeleting" msprop:Generator_RowChangingName="DtSubregionRowChanging" msprop:Generator_RowEvHandlerName="DtSubregionRowChangeEventHandler" msprop:Generator_RowDeletedName="DtSubregionRowDeleted" msprop:Generator_UserTableName="DtSubregion" msprop:Generator_RowChangedName="DtSubregionRowChanged" msprop:Generator_RowEvArgName="DtSubregionRowChangeEvent" msprop:Generator_RowClassName="DtSubregionRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RegionId" msprop:Generator_ColumnVarNameInTable="columnRegionId" msprop:Generator_ColumnPropNameInRow="RegionId" msprop:Generator_ColumnPropNameInTable="RegionIdColumn" msprop:Generator_UserColumnName="RegionId" type="xs:string" minOccurs="0" />
+              <xs:element name="RegionNombre" msprop:Generator_ColumnVarNameInTable="columnRegionNombre" msprop:Generator_ColumnPropNameInRow="RegionNombre" msprop:Generator_ColumnPropNameInTable="RegionNombreColumn" msprop:Generator_UserColumnName="RegionNombre" type="xs:string" minOccurs="0" />
+              <xs:element name="SubRegionId" msprop:Generator_ColumnVarNameInTable="columnSubRegionId" msprop:Generator_ColumnPropNameInRow="SubRegionId" msprop:Generator_ColumnPropNameInTable="SubRegionIdColumn" msprop:Generator_UserColumnName="SubRegionId" type="xs:string" minOccurs="0" />
+              <xs:element name="SubRegionNombre" msprop:Generator_ColumnVarNameInTable="columnSubRegionNombre" msprop:Generator_ColumnPropNameInRow="SubRegionNombre" msprop:Generator_ColumnPropNameInTable="SubRegionNombreColumn" msprop:Generator_UserColumnName="SubRegionNombre" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Dt_Articulo_Dictamen_Juridico" msprop:Generator_TableClassName="Dt_Articulo_Dictamen_JuridicoDataTable" msprop:Generator_TableVarName="tableDt_Articulo_Dictamen_Juridico" msprop:Generator_RowChangedName="Dt_Articulo_Dictamen_JuridicoRowChanged" msprop:Generator_TablePropName="Dt_Articulo_Dictamen_Juridico" msprop:Generator_RowDeletingName="Dt_Articulo_Dictamen_JuridicoRowDeleting" msprop:Generator_RowChangingName="Dt_Articulo_Dictamen_JuridicoRowChanging" msprop:Generator_RowEvHandlerName="Dt_Articulo_Dictamen_JuridicoRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_Articulo_Dictamen_JuridicoRowDeleted" msprop:Generator_RowClassName="Dt_Articulo_Dictamen_JuridicoRow" msprop:Generator_UserTableName="Dt_Articulo_Dictamen_Juridico" msprop:Generator_RowEvArgName="Dt_Articulo_Dictamen_JuridicoRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id_Articulo" msprop:Generator_ColumnVarNameInTable="columnId_Articulo" msprop:Generator_ColumnPropNameInRow="Id_Articulo" msprop:Generator_ColumnPropNameInTable="Id_ArticuloColumn" msprop:Generator_UserColumnName="Id_Articulo" type="xs:int" minOccurs="0" />
+              <xs:element name="Articulo" msprop:Generator_ColumnVarNameInTable="columnArticulo" msprop:Generator_ColumnPropNameInRow="Articulo" msprop:Generator_ColumnPropNameInTable="ArticuloColumn" msprop:Generator_UserColumnName="Articulo" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Dt_Analisis_Dictamen_Juridico" msprop:Generator_TableClassName="Dt_Analisis_Dictamen_JuridicoDataTable" msprop:Generator_TableVarName="tableDt_Analisis_Dictamen_Juridico" msprop:Generator_TablePropName="Dt_Analisis_Dictamen_Juridico" msprop:Generator_RowDeletingName="Dt_Analisis_Dictamen_JuridicoRowDeleting" msprop:Generator_RowChangingName="Dt_Analisis_Dictamen_JuridicoRowChanging" msprop:Generator_RowEvHandlerName="Dt_Analisis_Dictamen_JuridicoRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_Analisis_Dictamen_JuridicoRowDeleted" msprop:Generator_UserTableName="Dt_Analisis_Dictamen_Juridico" msprop:Generator_RowChangedName="Dt_Analisis_Dictamen_JuridicoRowChanged" msprop:Generator_RowEvArgName="Dt_Analisis_Dictamen_JuridicoRowChangeEvent" msprop:Generator_RowClassName="Dt_Analisis_Dictamen_JuridicoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id_Analisis" msprop:Generator_ColumnVarNameInTable="columnId_Analisis" msprop:Generator_ColumnPropNameInRow="Id_Analisis" msprop:Generator_ColumnPropNameInTable="Id_AnalisisColumn" msprop:Generator_UserColumnName="Id_Analisis" type="xs:int" minOccurs="0" />
+              <xs:element name="Analisis" msprop:Generator_ColumnVarNameInTable="columnAnalisis" msprop:Generator_ColumnPropNameInRow="Analisis" msprop:Generator_ColumnPropNameInTable="AnalisisColumn" msprop:Generator_UserColumnName="Analisis" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Dt_Enmienda_Dictamen_Juridico" msprop:Generator_TableClassName="Dt_Enmienda_Dictamen_JuridicoDataTable" msprop:Generator_TableVarName="tableDt_Enmienda_Dictamen_Juridico" msprop:Generator_RowChangedName="Dt_Enmienda_Dictamen_JuridicoRowChanged" msprop:Generator_TablePropName="Dt_Enmienda_Dictamen_Juridico" msprop:Generator_RowDeletingName="Dt_Enmienda_Dictamen_JuridicoRowDeleting" msprop:Generator_RowChangingName="Dt_Enmienda_Dictamen_JuridicoRowChanging" msprop:Generator_RowEvHandlerName="Dt_Enmienda_Dictamen_JuridicoRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_Enmienda_Dictamen_JuridicoRowDeleted" msprop:Generator_RowClassName="Dt_Enmienda_Dictamen_JuridicoRow" msprop:Generator_UserTableName="Dt_Enmienda_Dictamen_Juridico" msprop:Generator_RowEvArgName="Dt_Enmienda_Dictamen_JuridicoRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id_Enmienda" msprop:Generator_ColumnVarNameInTable="columnId_Enmienda" msprop:Generator_ColumnPropNameInRow="Id_Enmienda" msprop:Generator_ColumnPropNameInTable="Id_EnmiendaColumn" msprop:Generator_UserColumnName="Id_Enmienda" type="xs:int" minOccurs="0" />
+              <xs:element name="Enmienda" msprop:Generator_ColumnVarNameInTable="columnEnmienda" msprop:Generator_ColumnPropNameInRow="Enmienda" msprop:Generator_ColumnPropNameInTable="EnmiendaColumn" msprop:Generator_UserColumnName="Enmienda" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Dt_Motivo_Oficio_Dev" msprop:Generator_TableClassName="Dt_Motivo_Oficio_DevDataTable" msprop:Generator_TableVarName="tableDt_Motivo_Oficio_Dev" msprop:Generator_TablePropName="Dt_Motivo_Oficio_Dev" msprop:Generator_RowDeletingName="Dt_Motivo_Oficio_DevRowDeleting" msprop:Generator_RowChangingName="Dt_Motivo_Oficio_DevRowChanging" msprop:Generator_RowEvHandlerName="Dt_Motivo_Oficio_DevRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_Motivo_Oficio_DevRowDeleted" msprop:Generator_UserTableName="Dt_Motivo_Oficio_Dev" msprop:Generator_RowChangedName="Dt_Motivo_Oficio_DevRowChanged" msprop:Generator_RowEvArgName="Dt_Motivo_Oficio_DevRowChangeEvent" msprop:Generator_RowClassName="Dt_Motivo_Oficio_DevRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdMotivo" msprop:Generator_ColumnVarNameInTable="columnIdMotivo" msprop:Generator_ColumnPropNameInRow="IdMotivo" msprop:Generator_ColumnPropNameInTable="IdMotivoColumn" msprop:Generator_UserColumnName="IdMotivo" type="xs:int" minOccurs="0" />
+              <xs:element name="Motivo" msprop:Generator_ColumnVarNameInTable="columnMotivo" msprop:Generator_ColumnPropNameInRow="Motivo" msprop:Generator_ColumnPropNameInTable="MotivoColumn" msprop:Generator_UserColumnName="Motivo" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Dt_Inventario" msprop:Generator_TableClassName="Dt_InventarioDataTable" msprop:Generator_TableVarName="tableDt_Inventario" msprop:Generator_RowChangedName="Dt_InventarioRowChanged" msprop:Generator_TablePropName="Dt_Inventario" msprop:Generator_RowDeletingName="Dt_InventarioRowDeleting" msprop:Generator_RowChangingName="Dt_InventarioRowChanging" msprop:Generator_RowEvHandlerName="Dt_InventarioRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_InventarioRowDeleted" msprop:Generator_RowClassName="Dt_InventarioRow" msprop:Generator_UserTableName="Dt_Inventario" msprop:Generator_RowEvArgName="Dt_InventarioRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Rodal" msdata:Caption="IdMotivo" msprop:Generator_ColumnVarNameInTable="columnRodal" msprop:Generator_ColumnPropNameInRow="Rodal" msprop:Generator_ColumnPropNameInTable="RodalColumn" msprop:Generator_UserColumnName="Rodal" type="xs:int" minOccurs="0" />
+              <xs:element name="EspecieId" msdata:Caption="Motivo" msprop:Generator_ColumnVarNameInTable="columnEspecieId" msprop:Generator_ColumnPropNameInRow="EspecieId" msprop:Generator_ColumnPropNameInTable="EspecieIdColumn" msprop:Generator_UserColumnName="EspecieId" type="xs:int" minOccurs="0" />
+              <xs:element name="Especie" msprop:Generator_ColumnVarNameInTable="columnEspecie" msprop:Generator_ColumnPropNameInRow="Especie" msprop:Generator_ColumnPropNameInTable="EspecieColumn" msprop:Generator_UserColumnName="Especie" type="xs:string" minOccurs="0" />
+              <xs:element name="Area" msprop:Generator_ColumnVarNameInTable="columnArea" msprop:Generator_ColumnPropNameInRow="Area" msprop:Generator_ColumnPropNameInTable="AreaColumn" msprop:Generator_UserColumnName="Area" type="xs:double" minOccurs="0" />
+              <xs:element name="Densidad" msprop:Generator_ColumnVarNameInTable="columnDensidad" msprop:Generator_ColumnPropNameInRow="Densidad" msprop:Generator_ColumnPropNameInTable="DensidadColumn" msprop:Generator_UserColumnName="Densidad" type="xs:double" minOccurs="0" />
+              <xs:element name="Dap" msprop:Generator_ColumnVarNameInTable="columnDap" msprop:Generator_ColumnPropNameInRow="Dap" msprop:Generator_ColumnPropNameInTable="DapColumn" msprop:Generator_UserColumnName="Dap" type="xs:double" minOccurs="0" />
+              <xs:element name="Altura" msprop:Generator_ColumnVarNameInTable="columnAltura" msprop:Generator_ColumnPropNameInRow="Altura" msprop:Generator_ColumnPropNameInTable="AlturaColumn" msprop:Generator_UserColumnName="Altura" type="xs:double" minOccurs="0" />
+              <xs:element name="Volumen" msprop:Generator_ColumnVarNameInTable="columnVolumen" msprop:Generator_ColumnPropNameInRow="Volumen" msprop:Generator_ColumnPropNameInTable="VolumenColumn" msprop:Generator_UserColumnName="Volumen" type="xs:double" minOccurs="0" />
+              <xs:element name="YearEst" msprop:Generator_ColumnVarNameInTable="columnYearEst" msprop:Generator_ColumnPropNameInRow="YearEst" msprop:Generator_ColumnPropNameInTable="YearEstColumn" msprop:Generator_UserColumnName="YearEst" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Dt_Poligono" msprop:Generator_TableClassName="Dt_PoligonoDataTable" msprop:Generator_TableVarName="tableDt_Poligono" msprop:Generator_TablePropName="Dt_Poligono" msprop:Generator_RowDeletingName="Dt_PoligonoRowDeleting" msprop:Generator_RowChangingName="Dt_PoligonoRowChanging" msprop:Generator_RowEvHandlerName="Dt_PoligonoRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_PoligonoRowDeleted" msprop:Generator_UserTableName="Dt_Poligono" msprop:Generator_RowChangedName="Dt_PoligonoRowChanged" msprop:Generator_RowEvArgName="Dt_PoligonoRowChangeEvent" msprop:Generator_RowClassName="Dt_PoligonoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" minOccurs="0" />
+              <xs:element name="X" msprop:Generator_ColumnVarNameInTable="columnX" msprop:Generator_ColumnPropNameInRow="X" msprop:Generator_ColumnPropNameInTable="XColumn" msprop:Generator_UserColumnName="X" type="xs:double" minOccurs="0" />
+              <xs:element name="Y" msprop:Generator_ColumnVarNameInTable="columnY" msprop:Generator_ColumnPropNameInRow="Y" msprop:Generator_ColumnPropNameInTable="YColumn" msprop:Generator_UserColumnName="Y" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Dt_InventarioSAF" msprop:Generator_TableClassName="Dt_InventarioSAFDataTable" msprop:Generator_TableVarName="tableDt_InventarioSAF" msprop:Generator_RowChangedName="Dt_InventarioSAFRowChanged" msprop:Generator_TablePropName="Dt_InventarioSAF" msprop:Generator_RowDeletingName="Dt_InventarioSAFRowDeleting" msprop:Generator_RowChangingName="Dt_InventarioSAFRowChanging" msprop:Generator_RowEvHandlerName="Dt_InventarioSAFRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_InventarioSAFRowDeleted" msprop:Generator_RowClassName="Dt_InventarioSAFRow" msprop:Generator_UserTableName="Dt_InventarioSAF" msprop:Generator_RowEvArgName="Dt_InventarioSAFRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EspecieId" msdata:Caption="Motivo" msprop:Generator_ColumnVarNameInTable="columnEspecieId" msprop:Generator_ColumnPropNameInRow="EspecieId" msprop:Generator_ColumnPropNameInTable="EspecieIdColumn" msprop:Generator_UserColumnName="EspecieId" type="xs:int" minOccurs="0" />
+              <xs:element name="Especie" msprop:Generator_ColumnVarNameInTable="columnEspecie" msprop:Generator_ColumnPropNameInRow="Especie" msprop:Generator_ColumnPropNameInTable="EspecieColumn" msprop:Generator_UserColumnName="Especie" type="xs:string" minOccurs="0" />
+              <xs:element name="CntArboles" msdata:Caption="Area" msprop:Generator_ColumnVarNameInTable="columnCntArboles" msprop:Generator_ColumnPropNameInRow="CntArboles" msprop:Generator_ColumnPropNameInTable="CntArbolesColumn" msprop:Generator_UserColumnName="CntArboles" type="xs:double" minOccurs="0" />
+              <xs:element name="Dap" msprop:Generator_ColumnVarNameInTable="columnDap" msprop:Generator_ColumnPropNameInRow="Dap" msprop:Generator_ColumnPropNameInTable="DapColumn" msprop:Generator_UserColumnName="Dap" type="xs:double" minOccurs="0" />
+              <xs:element name="Altura" msprop:Generator_ColumnVarNameInTable="columnAltura" msprop:Generator_ColumnPropNameInRow="Altura" msprop:Generator_ColumnPropNameInTable="AlturaColumn" msprop:Generator_UserColumnName="Altura" type="xs:double" minOccurs="0" />
+              <xs:element name="Distancia" msprop:Generator_ColumnVarNameInTable="columnDistancia" msprop:Generator_ColumnPropNameInRow="Distancia" msprop:Generator_ColumnPropNameInTable="DistanciaColumn" msprop:Generator_UserColumnName="Distancia" type="xs:string" minOccurs="0" />
+              <xs:element name="Volumen" msprop:Generator_ColumnVarNameInTable="columnVolumen" msprop:Generator_ColumnPropNameInRow="Volumen" msprop:Generator_ColumnPropNameInTable="VolumenColumn" msprop:Generator_UserColumnName="Volumen" type="xs:double" minOccurs="0" />
+              <xs:element name="YearEst" msprop:Generator_ColumnVarNameInTable="columnYearEst" msprop:Generator_ColumnPropNameInRow="YearEst" msprop:Generator_ColumnPropNameInTable="YearEstColumn" msprop:Generator_UserColumnName="YearEst" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Dt_EspecieArb" msprop:Generator_TableClassName="Dt_EspecieArbDataTable" msprop:Generator_TableVarName="tableDt_EspecieArb" msprop:Generator_TablePropName="Dt_EspecieArb" msprop:Generator_RowDeletingName="Dt_EspecieArbRowDeleting" msprop:Generator_RowChangingName="Dt_EspecieArbRowChanging" msprop:Generator_RowEvHandlerName="Dt_EspecieArbRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_EspecieArbRowDeleted" msprop:Generator_UserTableName="Dt_EspecieArb" msprop:Generator_RowChangedName="Dt_EspecieArbRowChanged" msprop:Generator_RowEvArgName="Dt_EspecieArbRowChangeEvent" msprop:Generator_RowClassName="Dt_EspecieArbRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EspecieId" msprop:Generator_ColumnVarNameInTable="columnEspecieId" msprop:Generator_ColumnPropNameInRow="EspecieId" msprop:Generator_ColumnPropNameInTable="EspecieIdColumn" msprop:Generator_UserColumnName="EspecieId" type="xs:string" minOccurs="0" />
+              <xs:element name="Especie" msprop:Generator_ColumnVarNameInTable="columnEspecie" msprop:Generator_ColumnPropNameInRow="Especie" msprop:Generator_ColumnPropNameInTable="EspecieColumn" msprop:Generator_UserColumnName="Especie" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Dt_Productos_Exportacion" msprop:Generator_TableClassName="Dt_Productos_ExportacionDataTable" msprop:Generator_TableVarName="tableDt_Productos_Exportacion" msprop:Generator_RowChangedName="Dt_Productos_ExportacionRowChanged" msprop:Generator_TablePropName="Dt_Productos_Exportacion" msprop:Generator_RowDeletingName="Dt_Productos_ExportacionRowDeleting" msprop:Generator_RowChangingName="Dt_Productos_ExportacionRowChanging" msprop:Generator_RowEvHandlerName="Dt_Productos_ExportacionRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_Productos_ExportacionRowDeleted" msprop:Generator_RowClassName="Dt_Productos_ExportacionRow" msprop:Generator_UserTableName="Dt_Productos_Exportacion" msprop:Generator_RowEvArgName="Dt_Productos_ExportacionRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Codigo_Producto" msprop:Generator_ColumnVarNameInTable="columnCodigo_Producto" msprop:Generator_ColumnPropNameInRow="Codigo_Producto" msprop:Generator_ColumnPropNameInTable="Codigo_ProductoColumn" msprop:Generator_UserColumnName="Codigo_Producto" type="xs:int" minOccurs="0" />
+              <xs:element name="Nombre_Producto" msprop:Generator_ColumnVarNameInTable="columnNombre_Producto" msprop:Generator_ColumnPropNameInRow="Nombre_Producto" msprop:Generator_ColumnPropNameInTable="Nombre_ProductoColumn" msprop:Generator_UserColumnName="Nombre_Producto" type="xs:string" minOccurs="0" />
+              <xs:element name="CodigoFSC" msprop:Generator_ColumnVarNameInTable="columnCodigoFSC" msprop:Generator_ColumnPropNameInRow="CodigoFSC" msprop:Generator_ColumnPropNameInTable="CodigoFSCColumn" msprop:Generator_UserColumnName="CodigoFSC" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Dt_Productos_Importacion" msprop:Generator_TableClassName="Dt_Productos_ImportacionDataTable" msprop:Generator_TableVarName="tableDt_Productos_Importacion" msprop:Generator_RowChangedName="Dt_Productos_ImportacionRowChanged" msprop:Generator_TablePropName="Dt_Productos_Importacion" msprop:Generator_RowDeletingName="Dt_Productos_ImportacionRowDeleting" msprop:Generator_RowChangingName="Dt_Productos_ImportacionRowChanging" msprop:Generator_RowEvHandlerName="Dt_Productos_ImportacionRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_Productos_ImportacionRowDeleted" msprop:Generator_RowClassName="Dt_Productos_ImportacionRow" msprop:Generator_UserTableName="Dt_Productos_Importacion" msprop:Generator_RowEvArgName="Dt_Productos_ImportacionRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Codigo_Producto" msprop:Generator_ColumnVarNameInTable="columnCodigo_Producto" msprop:Generator_ColumnPropNameInRow="Codigo_Producto" msprop:Generator_ColumnPropNameInTable="Codigo_ProductoColumn" msprop:Generator_UserColumnName="Codigo_Producto" type="xs:int" minOccurs="0" />
+              <xs:element name="Nombre_Producto" msprop:Generator_ColumnVarNameInTable="columnNombre_Producto" msprop:Generator_ColumnPropNameInRow="Nombre_Producto" msprop:Generator_ColumnPropNameInTable="Nombre_ProductoColumn" msprop:Generator_UserColumnName="Nombre_Producto" type="xs:string" minOccurs="0" />
+              <xs:element name="CodigoFSC" msprop:Generator_ColumnVarNameInTable="columnCodigoFSC" msprop:Generator_ColumnPropNameInRow="CodigoFSC" msprop:Generator_ColumnPropNameInTable="CodigoFSCColumn" msprop:Generator_UserColumnName="CodigoFSC" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Dt_PoligonoBosque" msprop:Generator_TableClassName="Dt_PoligonoBosqueDataTable" msprop:Generator_TableVarName="tableDt_PoligonoBosque" msprop:Generator_TablePropName="Dt_PoligonoBosque" msprop:Generator_RowDeletingName="Dt_PoligonoBosqueRowDeleting" msprop:Generator_RowChangingName="Dt_PoligonoBosqueRowChanging" msprop:Generator_RowEvHandlerName="Dt_PoligonoBosqueRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_PoligonoBosqueRowDeleted" msprop:Generator_UserTableName="Dt_PoligonoBosque" msprop:Generator_RowChangedName="Dt_PoligonoBosqueRowChanged" msprop:Generator_RowEvArgName="Dt_PoligonoBosqueRowChangeEvent" msprop:Generator_RowClassName="Dt_PoligonoBosqueRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" minOccurs="0" />
+              <xs:element name="X" msprop:Generator_ColumnVarNameInTable="columnX" msprop:Generator_ColumnPropNameInRow="X" msprop:Generator_ColumnPropNameInTable="XColumn" msprop:Generator_UserColumnName="X" type="xs:double" minOccurs="0" />
+              <xs:element name="Y" msprop:Generator_ColumnVarNameInTable="columnY" msprop:Generator_ColumnPropNameInRow="Y" msprop:Generator_ColumnPropNameInTable="YColumn" msprop:Generator_UserColumnName="Y" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Dt_PoligonoIntervenir" msprop:Generator_TableClassName="Dt_PoligonoIntervenirDataTable" msprop:Generator_TableVarName="tableDt_PoligonoIntervenir" msprop:Generator_TablePropName="Dt_PoligonoIntervenir" msprop:Generator_RowDeletingName="Dt_PoligonoIntervenirRowDeleting" msprop:Generator_RowChangingName="Dt_PoligonoIntervenirRowChanging" msprop:Generator_RowEvHandlerName="Dt_PoligonoIntervenirRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_PoligonoIntervenirRowDeleted" msprop:Generator_UserTableName="Dt_PoligonoIntervenir" msprop:Generator_RowChangedName="Dt_PoligonoIntervenirRowChanged" msprop:Generator_RowEvArgName="Dt_PoligonoIntervenirRowChangeEvent" msprop:Generator_RowClassName="Dt_PoligonoIntervenirRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" minOccurs="0" />
+              <xs:element name="X" msprop:Generator_ColumnVarNameInTable="columnX" msprop:Generator_ColumnPropNameInRow="X" msprop:Generator_ColumnPropNameInTable="XColumn" msprop:Generator_UserColumnName="X" type="xs:double" minOccurs="0" />
+              <xs:element name="Y" msprop:Generator_ColumnVarNameInTable="columnY" msprop:Generator_ColumnPropNameInRow="Y" msprop:Generator_ColumnPropNameInTable="YColumn" msprop:Generator_UserColumnName="Y" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Dt_PoligonoProteccion" msprop:Generator_TableClassName="Dt_PoligonoProteccionDataTable" msprop:Generator_TableVarName="tableDt_PoligonoProteccion" msprop:Generator_RowChangedName="Dt_PoligonoProteccionRowChanged" msprop:Generator_TablePropName="Dt_PoligonoProteccion" msprop:Generator_RowDeletingName="Dt_PoligonoProteccionRowDeleting" msprop:Generator_RowChangingName="Dt_PoligonoProteccionRowChanging" msprop:Generator_RowEvHandlerName="Dt_PoligonoProteccionRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_PoligonoProteccionRowDeleted" msprop:Generator_RowClassName="Dt_PoligonoProteccionRow" msprop:Generator_UserTableName="Dt_PoligonoProteccion" msprop:Generator_RowEvArgName="Dt_PoligonoProteccionRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" minOccurs="0" />
+              <xs:element name="X" msprop:Generator_ColumnVarNameInTable="columnX" msprop:Generator_ColumnPropNameInRow="X" msprop:Generator_ColumnPropNameInTable="XColumn" msprop:Generator_UserColumnName="X" type="xs:double" minOccurs="0" />
+              <xs:element name="Y" msprop:Generator_ColumnVarNameInTable="columnY" msprop:Generator_ColumnPropNameInRow="Y" msprop:Generator_ColumnPropNameInTable="YColumn" msprop:Generator_UserColumnName="Y" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Dt_PoligonoAreaRepo" msprop:Generator_TableClassName="Dt_PoligonoAreaRepoDataTable" msprop:Generator_TableVarName="tableDt_PoligonoAreaRepo" msprop:Generator_TablePropName="Dt_PoligonoAreaRepo" msprop:Generator_RowDeletingName="Dt_PoligonoAreaRepoRowDeleting" msprop:Generator_RowChangingName="Dt_PoligonoAreaRepoRowChanging" msprop:Generator_RowEvHandlerName="Dt_PoligonoAreaRepoRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_PoligonoAreaRepoRowDeleted" msprop:Generator_UserTableName="Dt_PoligonoAreaRepo" msprop:Generator_RowChangedName="Dt_PoligonoAreaRepoRowChanged" msprop:Generator_RowEvArgName="Dt_PoligonoAreaRepoRowChangeEvent" msprop:Generator_RowClassName="Dt_PoligonoAreaRepoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" minOccurs="0" />
+              <xs:element name="X" msprop:Generator_ColumnVarNameInTable="columnX" msprop:Generator_ColumnPropNameInRow="X" msprop:Generator_ColumnPropNameInTable="XColumn" msprop:Generator_UserColumnName="X" type="xs:double" minOccurs="0" />
+              <xs:element name="Y" msprop:Generator_ColumnVarNameInTable="columnY" msprop:Generator_ColumnPropNameInRow="Y" msprop:Generator_ColumnPropNameInTable="YColumn" msprop:Generator_UserColumnName="Y" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Dt_EspecieRepo" msprop:Generator_TableClassName="Dt_EspecieRepoDataTable" msprop:Generator_TableVarName="tableDt_EspecieRepo" msprop:Generator_RowChangedName="Dt_EspecieRepoRowChanged" msprop:Generator_TablePropName="Dt_EspecieRepo" msprop:Generator_RowDeletingName="Dt_EspecieRepoRowDeleting" msprop:Generator_RowChangingName="Dt_EspecieRepoRowChanging" msprop:Generator_RowEvHandlerName="Dt_EspecieRepoRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_EspecieRepoRowDeleted" msprop:Generator_RowClassName="Dt_EspecieRepoRow" msprop:Generator_UserTableName="Dt_EspecieRepo" msprop:Generator_RowEvArgName="Dt_EspecieRepoRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EspecieId" msprop:Generator_ColumnVarNameInTable="columnEspecieId" msprop:Generator_ColumnPropNameInRow="EspecieId" msprop:Generator_ColumnPropNameInTable="EspecieIdColumn" msprop:Generator_UserColumnName="EspecieId" type="xs:string" minOccurs="0" />
+              <xs:element name="Especie" msprop:Generator_ColumnVarNameInTable="columnEspecie" msprop:Generator_ColumnPropNameInRow="Especie" msprop:Generator_ColumnPropNameInTable="EspecieColumn" msprop:Generator_UserColumnName="Especie" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Dt_Bosque" msprop:Generator_TableClassName="Dt_BosqueDataTable" msprop:Generator_TableVarName="tableDt_Bosque" msprop:Generator_TablePropName="Dt_Bosque" msprop:Generator_RowDeletingName="Dt_BosqueRowDeleting" msprop:Generator_RowChangingName="Dt_BosqueRowChanging" msprop:Generator_RowEvHandlerName="Dt_BosqueRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_BosqueRowDeleted" msprop:Generator_UserTableName="Dt_Bosque" msprop:Generator_RowChangedName="Dt_BosqueRowChanged" msprop:Generator_RowEvArgName="Dt_BosqueRowChangeEvent" msprop:Generator_RowClassName="Dt_BosqueRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Rodal" msprop:Generator_ColumnVarNameInTable="columnRodal" msprop:Generator_ColumnPropNameInRow="Rodal" msprop:Generator_ColumnPropNameInTable="RodalColumn" msprop:Generator_UserColumnName="Rodal" type="xs:string" minOccurs="0" />
+              <xs:element name="ClaseDesarrolloId" msprop:Generator_ColumnVarNameInTable="columnClaseDesarrolloId" msprop:Generator_ColumnPropNameInRow="ClaseDesarrolloId" msprop:Generator_ColumnPropNameInTable="ClaseDesarrolloIdColumn" msprop:Generator_UserColumnName="ClaseDesarrolloId" type="xs:int" minOccurs="0" />
+              <xs:element name="ClaseDesarrollo" msprop:Generator_ColumnVarNameInTable="columnClaseDesarrollo" msprop:Generator_ColumnPropNameInRow="ClaseDesarrollo" msprop:Generator_ColumnPropNameInTable="ClaseDesarrolloColumn" msprop:Generator_UserColumnName="ClaseDesarrollo" type="xs:string" minOccurs="0" />
+              <xs:element name="EspecieId" msprop:Generator_ColumnVarNameInTable="columnEspecieId" msprop:Generator_ColumnPropNameInRow="EspecieId" msprop:Generator_ColumnPropNameInTable="EspecieIdColumn" msprop:Generator_UserColumnName="EspecieId" type="xs:int" minOccurs="0" />
+              <xs:element name="Especie" msprop:Generator_ColumnVarNameInTable="columnEspecie" msprop:Generator_ColumnPropNameInRow="Especie" msprop:Generator_ColumnPropNameInTable="EspecieColumn" msprop:Generator_UserColumnName="Especie" type="xs:string" minOccurs="0" />
+              <xs:element name="NomCientificoEspecie" msprop:Generator_ColumnVarNameInTable="columnNomCientificoEspecie" msprop:Generator_ColumnPropNameInRow="NomCientificoEspecie" msprop:Generator_ColumnPropNameInTable="NomCientificoEspecieColumn" msprop:Generator_UserColumnName="NomCientificoEspecie" type="xs:string" minOccurs="0" />
+              <xs:element name="Densidad" msprop:Generator_ColumnVarNameInTable="columnDensidad" msprop:Generator_ColumnPropNameInRow="Densidad" msprop:Generator_ColumnPropNameInTable="DensidadColumn" msprop:Generator_UserColumnName="Densidad" type="xs:double" minOccurs="0" />
+              <xs:element name="Area" msprop:Generator_ColumnVarNameInTable="columnArea" msprop:Generator_ColumnPropNameInRow="Area" msprop:Generator_ColumnPropNameInTable="AreaColumn" msprop:Generator_UserColumnName="Area" type="xs:double" minOccurs="0" />
+              <xs:element name="Edad" msprop:Generator_ColumnVarNameInTable="columnEdad" msprop:Generator_ColumnPropNameInRow="Edad" msprop:Generator_ColumnPropNameInTable="EdadColumn" msprop:Generator_UserColumnName="Edad" type="xs:double" minOccurs="0" />
+              <xs:element name="DAP" msprop:Generator_ColumnVarNameInTable="columnDAP" msprop:Generator_ColumnPropNameInRow="DAP" msprop:Generator_ColumnPropNameInTable="DAPColumn" msprop:Generator_UserColumnName="DAP" type="xs:double" minOccurs="0" />
+              <xs:element name="Altura" msprop:Generator_ColumnVarNameInTable="columnAltura" msprop:Generator_ColumnPropNameInRow="Altura" msprop:Generator_ColumnPropNameInTable="AlturaColumn" msprop:Generator_UserColumnName="Altura" type="xs:double" minOccurs="0" />
+              <xs:element name="EstratoId" msprop:Generator_ColumnVarNameInTable="columnEstratoId" msprop:Generator_ColumnPropNameInRow="EstratoId" msprop:Generator_ColumnPropNameInTable="EstratoIdColumn" msprop:Generator_UserColumnName="EstratoId" type="xs:int" minOccurs="0" />
+              <xs:element name="Estrato" msprop:Generator_ColumnVarNameInTable="columnEstrato" msprop:Generator_ColumnPropNameInRow="Estrato" msprop:Generator_ColumnPropNameInTable="EstratoColumn" msprop:Generator_UserColumnName="Estrato" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dt_Poligono_Repoblacion" msprop:Generator_TableClassName="dt_Poligono_RepoblacionDataTable" msprop:Generator_TableVarName="tabledt_Poligono_Repoblacion" msprop:Generator_RowChangedName="dt_Poligono_RepoblacionRowChanged" msprop:Generator_TablePropName="dt_Poligono_Repoblacion" msprop:Generator_RowDeletingName="dt_Poligono_RepoblacionRowDeleting" msprop:Generator_RowChangingName="dt_Poligono_RepoblacionRowChanging" msprop:Generator_RowEvHandlerName="dt_Poligono_RepoblacionRowChangeEventHandler" msprop:Generator_RowDeletedName="dt_Poligono_RepoblacionRowDeleted" msprop:Generator_RowClassName="dt_Poligono_RepoblacionRow" msprop:Generator_UserTableName="dt_Poligono_Repoblacion" msprop:Generator_RowEvArgName="dt_Poligono_RepoblacionRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" minOccurs="0" />
+              <xs:element name="X" msprop:Generator_ColumnVarNameInTable="columnX" msprop:Generator_ColumnPropNameInRow="X" msprop:Generator_ColumnPropNameInTable="XColumn" msprop:Generator_UserColumnName="X" type="xs:double" minOccurs="0" />
+              <xs:element name="Y" msprop:Generator_ColumnVarNameInTable="columnY" msprop:Generator_ColumnPropNameInRow="Y" msprop:Generator_ColumnPropNameInTable="YColumn" msprop:Generator_UserColumnName="Y" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Dt_Poligono_Region" msprop:Generator_TableClassName="Dt_Poligono_RegionDataTable" msprop:Generator_TableVarName="tableDt_Poligono_Region" msprop:Generator_TablePropName="Dt_Poligono_Region" msprop:Generator_RowDeletingName="Dt_Poligono_RegionRowDeleting" msprop:Generator_RowChangingName="Dt_Poligono_RegionRowChanging" msprop:Generator_RowEvHandlerName="Dt_Poligono_RegionRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_Poligono_RegionRowDeleted" msprop:Generator_UserTableName="Dt_Poligono_Region" msprop:Generator_RowChangedName="Dt_Poligono_RegionRowChanged" msprop:Generator_RowEvArgName="Dt_Poligono_RegionRowChangeEvent" msprop:Generator_RowClassName="Dt_Poligono_RegionRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="X" msprop:Generator_ColumnVarNameInTable="columnX" msprop:Generator_ColumnPropNameInRow="X" msprop:Generator_ColumnPropNameInTable="XColumn" msprop:Generator_UserColumnName="X" type="xs:string" minOccurs="0" />
+              <xs:element name="Y" msprop:Generator_ColumnVarNameInTable="columnY" msprop:Generator_ColumnPropNameInRow="Y" msprop:Generator_ColumnPropNameInTable="YColumn" msprop:Generator_UserColumnName="Y" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

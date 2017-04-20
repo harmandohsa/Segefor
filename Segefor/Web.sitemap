@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode url="~/Webforms/Wfrm_Inicio.aspx?appel=0" title="Inicio"  description="">
+    <siteMapNode url="~/Webforms/Wfrm_GestionNueva.aspx" title="Gestiones nuevas" description="">
+      <siteMapNode url="~/Webforms/Wfrm_RegistroForestal.aspx" title="Registro Nacional Forestal" description="">
+        <siteMapNode url="~/Webforms/Wfrm_Inscripcion_TecPro.aspx" title="Técnicos y Profesionales" description=""></siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="~/Webforms/Wfrm_Seguimiento_Secretaria.aspx" title="Seguimiento Secretaria" description=""></siteMapNode>
+    <siteMapNode url="~/Webforms/Wfrm_Seguimiento_SubRegional.aspx" title="Seguimiento SubRegional" description=""></siteMapNode>
+    </siteMapNode>
+    <siteMapNode url="~/Webforms/Wfrm_AdminPerfil.aspx" title="Administración - Perfil de Usuario" description=""></siteMapNode>
+    <siteMapNode url="~/Webforms/Wfrm_CambioClave.aspx" title="Administración - Contraseña" description=""></siteMapNode>
+    <siteMapNode url="~/Webforms/Wfrm_Inmuebles.aspx" title="Administración - Inmuebles" description=""></siteMapNode>
+    <siteMapNode url="~/Webforms/Wfrm_Rnf_Catalogo_Profesion.aspx" title="Catálogo de Profesiones" description=""></siteMapNode>
+    <siteMapNode url="~/Webforms/Wfrm_Profesion_ActividadProfesional.aspx" title="Profesión por actividad profesional" description=""></siteMapNode>
+    <siteMapNode url="~/Webforms/Wfrm_Mant_perfiles.aspx" title="Administración General - Perfiles" description=""></siteMapNode>
+    <siteMapNode url="~/Webforms/Wfrm_Usuario.aspx" title="Administración General - Usuarios" description=""></siteMapNode>
+    <siteMapNode url="~/Webforms/Wfrm_Permisos.aspx" title="Administración General - Permisos" description=""></siteMapNode>
+  </siteMapNode>
+</siteMap>

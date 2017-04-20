@@ -1,0 +1,236 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.Master.cs" Inherits="SEGEFOR.MasterPages.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SEGEFOR</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href="../css/plugins/iCheck/custom.css" rel="stylesheet"/>
+    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet"/>
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"/>
+
+    
+    
+    
+    <script src="../Scripts/jquery.min.js"></script>
+    
+
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body>
+    <form runat="server">
+<asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
+        <div id="wrapper">
+
+    <nav class="navbar-default navbar-static-side" role="navigation" runat="server" >
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> <span>
+                            <img runat="server" id="ImgPerfilFake" visible="false" alt="image" class="img-circle" src="img/profile_small.jpg" />
+                            <asp:Image runat="server" Visible="false"   Width="50px" Height="50px"  ImageUrl="~/WebContenedor/Wfrm_Foto_Perfil.aspx" ID="ImgPerfil"  class="img-circle"  alt="foto perfil" />
+                             </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><asp:Label runat="server" ID="lblUsuario"></asp:Label></strong>
+                             </span> <span class="text-muted text-xs block"><asp:Label runat="server" Text="Puesto" ID="LblTipoUsuario"></asp:Label></span> </span> </a>
+                        <%--<ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a href="profile.html">Profile</a></li>
+                            <li><a href="contacts.html">Contacts</a></li>
+                            <li><a href="mailbox.html">Mailbox</a></li>
+                            <li class="divider"></li>
+                            <li><a href="login.html">Logout</a></li>
+                        </ul>--%>
+                    </div>
+                    <div class="logo-element">
+                        <img src="../Imagenes/LOGO.PNG"  width="50px"/>
+                    </div>
+                </li>
+                <li runat="server" id="MenuAdm">
+                    <li >
+                        <a href="../WebForms/Wfrm_Inicio.aspx?appel=ctiVKPaat!o%3d" ><img src="../Imagenes/24x24/home.png" />  <span class="nav-label">Inicio</span></a>
+                    </li>
+                    <li id="MnuGest" visible="false"  runat="server">
+                        <a><img src="../Imagenes/24x24/list.png" /><span class="nav-label">Gestiones</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li runat="server" id="MnuGestNeuva" visible="false"><a href="../WebForms/Wfrm_GestionNueva.aspx?appel=ctiVKPaat!o%3d">Gestiones nuevas</a></li>
+                            <li runat="server" id="MnuGestEnmiendas" visible="false"><a>Enmiendas</a></li>
+                            <li runat="server" id="MnuGestMod" visible="false" ><a>Modificaciones</a></li>
+                            <li runat="server" id="MnuGestCurso" visible="false"><a href="../WebForms/Wfrm_SeguimientoUsuario.aspx">Gestiones en Curso  (historial)</a></li>
+                            <li runat="server" id="MnuGestHistorial" visible="false"><a href="../WebForms/Wfrm_Historial_Gestion.aspx">Historial</a></li>
+                            <li runat="server" id="MnuPlanManejo" visible="false"><a href="../WebForms/Wfrm_PlanManejo.aspx">Planes de Manejo</a></li>
+                        </ul>
+                    </li>
+                    <li id="MnuNot" runat="server" visible="false">
+                        <a><img src="../Imagenes/24x24/stop_watch.png" /><span class="nav-label">Notificaciones</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li runat="server" id="MnuNotJuridico" visible="false"><a href="../WebForms/Wfrm_Notificacion_deJuridico.aspx?appel=ctiVKPaat!o%3d">Notificaciones de Jurídico</a></li>
+                        </ul>
+                    </li>
+                    <li id="MnuConsulta" runat="server" visible="false">
+                        <a><img src="../Imagenes/24x24/stop_watch.png" /><span class="nav-label">Consultas</span><%--<span class="fa arrow">--%></span></a>
+                    </li>
+                    <li id="MnuRep" runat="server" visible="false">
+                        <a><img src="../Imagenes/24x24/printer.png" /><span class="nav-label">Reportes</span><%--<span class="fa arrow">--%></span></a>
+                    </li>
+                    <li id="MnuAdmPlanManejo" visible="false" runat="server">
+                        <a><img src="../Imagenes/24x24/graph.png" /><span class="nav-label">Adm.Plan de Manejo</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li runat="server" id="MnuAdmPlanEmisionNotas" visible="false"><a>Emisión de notas de bosque</a></li>
+                            <li runat="server" id="MnuAdmPlanInformeAv" visible="false" ><a>Informe de avances</a></li>
+                        </ul>
+                    </li>
+                    <li id="MnuAyda" visible="false" runat="server">
+                        <a><img src="../Imagenes/24x24/help.png" /><span class="nav-label">Ayuda</span><%--<span class="fa arrow">--%></span></a>
+                    </li>
+                    <li id="MnuAdmin" visible="false" runat="server">
+                        <a><img src="../Imagenes/24x24/cog.png" /><span class="nav-label">Administrar</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li runat="server" id="MnuAdmPerfil" visible="false"><a href="../WebForms/Wfrm_AdminPerfil.aspx">Perfil de usuario</a></li>
+                            <li runat="server" id="MnuAdmClave" visible="false" ><a href="../WebForms/Wfrm_CambioClave.aspx?appel=q%2fq9lWw8kNI%3d">Contraseña</a></li>
+                            <li runat="server" id="MnuAdmInmu" visible="false"><a href="../WebForms/Wfrm_Inmuebles.aspx">Inmuebles</a></li>
+                        </ul>
+                    </li>
+                    <li id="MnuAdminGen" runat="server" visible="false">
+                        <a><img src="../Imagenes/24x24/cog.png" /><span class="nav-label">Administración General</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li runat="server" id="ManCatalogoAdminGen" visible="false">
+                                <a href="#" runat="server">Catálogos<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li  runat="server" id="MnuCatAdminGenPerfil" visible="true"><a href="../WebForms/Wfrm_Mant_perfiles.aspx">Perfiles</a></li>
+                                    <li  runat="server" id="MnuUsuarios" visible="true"><a href="../WebForms/Wfrm_Usuario.aspx">Usuarios</a></li>
+                                    <li  runat="server" id="MnuPermisosAdmin" visible="true"><a href="../WebForms/Wfrm_Permisos.aspx">Permisos</a></li>
+                                    <li  runat="server" id="MnuAdminRegionesSubRegiones" visible="true"><a href="../WebForms/Wfrm_MantRegionSubregion.aspx">Regiones - Sub Regiones</a></li>
+                                    <li  runat="server" id="MnuAdminEspecies" visible="true"><a href="../WebForms/Wfrm_Especies.aspx">Especies</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li id="MnuAdminAproFores" runat="server" visible="false">
+                        <a><img src="../Imagenes/24x24/cog.png" /><span class="nav-label">Admin. Aprovechamiento</span><%--<span class="fa arrow"></span>--%></a>
+                    </li>
+                    <li id="MnuAdminIncentivos" runat="server" visible="false">
+                        <a><img src="../Imagenes/24x24/cog.png" /><span class="nav-label">Admin. Incentivos</span><%--<span class="fa arrow"></span>--%></a>
+                    </li>
+                    <li id="MnuAdminRnf" runat="server" visible="false">
+                        <a><img src="../Imagenes/24x24/cog.png" /><span class="nav-label">Admin. Registro Forestal</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li runat="server" id="MnuCatalogoRnf" visible="false">
+                                <a href="#" runat="server">Catálogos<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li  runat="server" id="MnuCatalogoRnfProfesion" visible="false"><a href="../WebForms/Wfrm_Rnf_Catalogo_Profesion.aspx">Profesiones</a></li>
+                                    <li  runat="server" id="MnuCatalogoRnfProfesionActividadProfesional" visible="false"><a href="../WebForms/Wfrm_Profesion_ActividadProfesional.aspx">Profesion por actividad profesional</a></li>
+                                    <li  runat="server" id="MnuImagenesBosquesNaturales" visible="false"><a href="../WebForms/Wfrm_CatalogoImgBosque.aspx">Imagenes Bosques Naturales</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+        <div id="page-wrapper" class="white-bg">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header" runat="server" id="lines">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            
+        </div>
+        <div class="navbar-header"   style="padding-left:5em;padding-top:1em;">
+            <img src="../Imagenes/LOGO.PNG"  width="50px"/>
+            <h3><asp:Label runat="server" ID="Label1">Sistema Electrónico de Gestión Forestal -INAB-</asp:Label></h3>    
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown" runat="server" id="Notif">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-envelope"></i>  <span class="label label-warning">0</span>
+                    </a>
+                   
+                </li>
+                <li>
+                    <asp:LinkButton runat="server" ID="LnkSalir" CausesValidation="false">
+                        <i class="fa fa-sign-out"></i> Salir
+                    </asp:LinkButton>
+                    <%--<a  runat="server" id="LnkSalir" href="~/Wfrm_Login.aspx">
+                        
+                    </a>--%>
+                </li>
+            </ul> 
+        </nav>
+        </div>
+        <div id="content">
+        <div class="main">
+        <asp:UpdateProgress ID="upUpdateProgressFlotante" runat="server" DisplayAfter="3" DynamicLayout="false">
+                <ProgressTemplate>
+                    <div class="Transparencia"></div>
+                    <div class="UpdateProgressFlotante">
+                        <asp:Image ID="imgUpdateProgressFlotante"  ImageUrl="~/Imagenes/loading_page.gif" runat="server" />
+                    </div>
+                </ProgressTemplate>
+            </asp:UpdateProgress>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div style="padding-bottom:1em;"></div>
+                    <asp:SiteMapPath ID="SiteMapPath1" CssClass="breadcrumb" runat="server"></asp:SiteMapPath>    
+            </div>
+            
+            <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+        </div>
+        <div class="clear"></div>
+    </div>
+        <div class="footer">
+            <div class="pull-right">
+                <%--10GB of <strong>250GB</strong> Free.--%>
+            </div>
+            <div>
+                <strong>Instituto Nacional de Bosques -INAB-</strong>&copy; <%: DateTime.Now.Year %>
+            </div>
+        </div>
+
+        </div>
+        </div>
+    </form>
+    
+
+
+    <!-- Mainly scripts -->
+    <script src="../js/jquery-2.1.1.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="../js/inspinia.js"></script>
+    <%--<script src="../js/plugins/pace/pace.min.js"></script>--%>
+
+    <!-- masked -->
+    <script src="../js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+     <!-- iCheck -->
+    <script src="../js/plugins/iCheck/icheck.min.js"></script>
+
+    <%--Mensajes--%>
+    <script src="../js/bootbox.min.js" type="text/javascript"></script>
+    <script>
+        function Message(Mensaje) {
+            bootbox.alert(Mensaje);
+        }
+    </script>
+</body>
+
+</html>
