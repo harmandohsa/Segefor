@@ -311,6 +311,7 @@
     <Content Include="css\animate.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\jasny\jasny-bootstrap.min.css" />
     <Content Include="css\patterns\1.png" />
     <Content Include="css\patterns\2.png" />
     <Content Include="css\patterns\3.png" />
@@ -901,6 +902,7 @@
     <Content Include="js\demo\rickshaw-demo.js" />
     <Content Include="js\demo\sparkline-demo.js" />
     <Content Include="js\inspinia.js" />
+    <Content Include="js\jasny\jasny-bootstrap.min.js" />
     <Content Include="js\jquery-2.1.1.js" />
     <Content Include="js\jquery-ui-1.10.4.min.js" />
     <Content Include="js\jquery-ui.custom.min.js" />
@@ -2770,7 +2772,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -240,10 +240,41 @@ namespace SEGEFOR.Clases
             return Regex.IsMatch(clave, @"^(?=.*[¡,@,#,$,%,^,&,*,(,),_,-,+,=,{,},\,|,:,;,<,>,.,?,/]).{8,20}$");
         }
 
+        public bool IsNumeric(object Expression)
+        {
+            double num;
+            return double.TryParse(Convert.ToString(Expression), NumberStyles.Any, (IFormatProvider)NumberFormatInfo.InvariantInfo, out num);
+        }
+
         public bool TieneGuion(string texto)
         {
-            // Return true if strIn is in valid e-mail format.
-            return Regex.IsMatch(texto, @"[0-9]-[0123456789k]{1}$");
+            bool Retorno = true;
+            int CuantosCarc = texto.Length;
+            string UltCarac = texto[CuantosCarc-1].ToString();
+            for (int i = 0; i < texto.Length; i++)
+            {
+                if (i != CuantosCarc - 1)
+                {
+                    if (IsNumeric(texto[i].ToString()))
+                    {
+                        Retorno = true;
+                        
+                    }
+                    else
+                    {
+                        Retorno = false;
+                        break;
+                    }
+                }
+                else
+                {
+                    if ((IsNumeric(texto[i].ToString())) || (texto[i].ToString().ToUpper() == "F"))
+                        Retorno = true;
+                    else
+                        return false;
+                }
+            }
+            return Retorno;
         }
 
         public bool TieneNumero(string clave)

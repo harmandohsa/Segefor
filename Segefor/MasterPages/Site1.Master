@@ -18,7 +18,7 @@
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet"/>
     <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"/>
-
+    <link href="../css/jasny/jasny-bootstrap.min.css" rel="stylesheet" />
     
     
     
@@ -231,6 +231,8 @@
             bootbox.alert(Mensaje);
         }
     </script>
+
+    <script src="../js/jasny/jasny-bootstrap.min.js"></script>
 </body>
 
 </html>

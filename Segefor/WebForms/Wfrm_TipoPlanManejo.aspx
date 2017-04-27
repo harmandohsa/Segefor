@@ -285,6 +285,7 @@
         }
 
         function VerificaCriterioPendiente() {
+            
             document.getElementById('<%=TxtAreaProteccion.ClientID%>').value = TotalCriterios();
             var Area = document.getElementById('<%=TxtAreaInmueble.ClientID%>').value
             if (TotalSuperficie() > parseFloat(Area)) {
@@ -625,27 +626,27 @@
                                         <div class="col-sm-12">
                                             <telerik:RadTabStrip id="RadTabStrip1" SelectedIndex="0" runat="server" MultiPageID="RadMultiPage1" Skin="Silk">
                                                 <Tabs>
-                                                    <telerik:RadTab runat="server" Text="Información General (Fincas y Propietarios)" Selected="true"></telerik:RadTab> <%--0--%>
-                                                    <telerik:RadTab runat="server" Text="Información General (Representantes Legales)"></telerik:RadTab> <%--1--%>
-                                                    <telerik:RadTab runat="server" Text="Información General (Datos de Notificación)"></telerik:RadTab> <%--2--%>
-                                                    <telerik:RadTab runat="server" Text="Información General (Datos Plan Manejo)"></telerik:RadTab> <%--3--%>
-                                                    <telerik:RadTab runat="server" Text="Características Biofísicas"></telerik:RadTab> <%--4--%>
+                                                    <telerik:RadTab runat="server" Text="1. Información General (Fincas y Propietarios)" Selected="true"></telerik:RadTab> <%--0--%>
+                                                    <telerik:RadTab runat="server" Text="1.1 Información General (Representantes Legales)"></telerik:RadTab> <%--1--%>
+                                                    <telerik:RadTab runat="server" Text="1.2 Información General (Datos de Notificación)"></telerik:RadTab> <%--2--%>
+                                                    <telerik:RadTab runat="server" Text="1.3 Información General (Datos Plan Manejo)"></telerik:RadTab> <%--3--%>
+                                                    <telerik:RadTab runat="server" Text="2 Características Biofísicas"></telerik:RadTab> <%--4--%>
                                                     <telerik:RadTab runat="server" Text="Plan de Investigación" Visible="false"></telerik:RadTab> <%--5--%>
                                                     <telerik:RadTab runat="server" Text="Descripción de la Plaga" Visible="false"></telerik:RadTab> <%--6--%>
                                                     <telerik:RadTab runat="server" Text="Medidas de Control" Visible="false"></telerik:RadTab> <%--7--%>
-                                                    <telerik:RadTab runat="server" Text="Aprovechamiento Forestal"></telerik:RadTab> <%--8--%>
+                                                    <telerik:RadTab runat="server" Text="3 Inventario Forestal"></telerik:RadTab> <%--8--%>
                                                     <telerik:RadTab runat="server" Text="Actividades de Aprovechamiento" Visible="false"></telerik:RadTab> <%--9--%>
                                                     <telerik:RadTab runat="server" Text="Acciones de repoblación forestal del área boscosa dañada" Visible="false"></telerik:RadTab> <%--10--%>
-                                                    <telerik:RadTab runat="server" Text="Planificación del Manejo" Visible="false"></telerik:RadTab> <%--11--%> 
-                                                    <telerik:RadTab runat="server" Text="Protección Forestal" Visible="false"></telerik:RadTab> <%--12--%>
-                                                    <telerik:RadTab runat="server" Text="Cronograma"></telerik:RadTab> <%--13--%> 
-                                                    <telerik:RadTab runat="server" Text="Anexos"></telerik:RadTab> <%--13--%> 
+                                                    <telerik:RadTab runat="server" Text="4 Planificación del Manejo" Visible="false"></telerik:RadTab> <%--11--%> 
+                                                    <telerik:RadTab runat="server" Text="5 Medidas de protección" Visible="false"></telerik:RadTab> <%--12--%>
+                                                    <telerik:RadTab runat="server" Text="6 Cronograma de Actividades"></telerik:RadTab> <%--13--%> 
+                                                    <telerik:RadTab runat="server" Text="7 Anexos (Mapas, Otros)"></telerik:RadTab> <%--13--%> 
                                                 </Tabs>
                                             </telerik:RadTabStrip>
                                             <telerik:RadMultiPage ID="RadMultiPage1" runat="server" SelectedIndex="0"  Width="100%"> 
                                                 <telerik:RadPageView ID="RadPageFincas" runat="server"> <%--Información General (Fincas y Propietarios)--%>
                                                     <div class="ibox-title">
-                                                        <h2><strong>Información General (Fincas y Propietarios)</strong></h2>
+                                                        <h2><strong>1. Información General (Fincas y Propietarios)</strong></h2>
                                                     </div>
                                                     <div class="ibox-content">
                                                         <div><label class="col-sm-2 control-label centradolabel">Nombre de la finca:</label>
@@ -1382,7 +1383,7 @@
                                                         <div style="padding-bottom:2em;"  runat="server" id="DivSeparador12"></div>
                                                         <div class="ibox-content" runat="server" id="DivAreaPedrogosidad">
                                                             <div><label class="col-sm-2 control-label centradolabel">Pedregosidad (ha):</label>
-                                                                <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtPedregosidad"  onkeyup="VerificaCriterioPedregosidad()" step="any" min="0"  type="number"  CssClass="form-control" ></asp:TextBox></div>
+                                                                <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtPedregosidad" onkeyup="VerificaCriterioPedregosidad()" step="any" min="0"  type="number"  CssClass="form-control" ></asp:TextBox></div>
                                                                 %
                                                                 <div class="col-sm-2"><asp:TextBox runat="server" Enabled="false" ID="TxtPorPedregosidad" step="any" min="0"  type="number"  CssClass="form-control"></asp:TextBox></div>
                                                             </div>
@@ -1390,7 +1391,7 @@
                                                         <div style="padding-bottom:2em;"  runat="server" id="DivSeparador13"></div>
                                                         <div class="ibox-content" runat="server" id="DivAreaAnegamiento">
                                                             <div><label class="col-sm-2 control-label centradolabel">Anegamiento (ha):</label>
-                                                                <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtAnegamiento" onkeyup="VerificaCriterioAnegamiento()"  step="any" min="0"  type="number"  CssClass="form-control" ></asp:TextBox></div>
+                                                                <div class="col-sm-2"><asp:TextBox runat="server"  ID="TxtAnegamiento" onkeyup="VerificaCriterioAnegamiento()"  step="any" min="0"  type="number"  CssClass="form-control" ></asp:TextBox></div>
                                                                 %
                                                                 <div class="col-sm-2"><asp:TextBox runat="server" Enabled="false" ID="TxtPorAnegamiento" step="any" min="0"  type="number"  CssClass="form-control"></asp:TextBox></div>
                                                             </div>
@@ -1398,7 +1399,7 @@
                                                         <div style="padding-bottom:2em;"  runat="server" id="DivSeparador14"></div>
                                                         <div class="ibox-content" runat="server" id="DivAreaBosqueGalaria">
                                                             <div><label class="col-sm-2 control-label centradolabel">Bosque de galería (ha):</label>
-                                                                <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtBosqueGaleria" onkeyup="VerificaCriterioBosqueGaleria()" step="any" min="0"  type="number"  CssClass="form-control" ></asp:TextBox></div>
+                                                                <div class="col-sm-2"><asp:TextBox runat="server" Text="0" ID="TxtBosqueGaleria" onkeyup="VerificaCriterioBosqueGaleria()" step="any" min="0"  type="number"  CssClass="form-control" ></asp:TextBox></div>
                                                                 %
                                                                 <div class="col-sm-2"><asp:TextBox runat="server" Enabled="false" ID="TxtPorBosqueGaleria" step="any" min="0"  type="number"  CssClass="form-control"></asp:TextBox></div>
                                                             </div>
@@ -1509,7 +1510,7 @@
                                                 </telerik:RadPageView>
                                                 <telerik:RadPageView ID="RadPageRepresentantes" runat="server" Visible="false"> <%--Información General (Representantes Legales)--%>
                                                     <div class="ibox-title">
-                                                        <h2><strong>Información General (Representantes Legales)</strong></h2>
+                                                        <h2><strong>1.1 Información General (Representantes Legales)</strong></h2>
                                                     </div>
                                                     <div runat="server" id="DivPropietariosRep">
                                                         <div class="ibox-content" runat="server">
@@ -1637,7 +1638,7 @@
                                                   <telerik:RadPageView ID="RadPageDatosNotifica" runat="server" Visible="false"> <%--Información General (Datos de Notificación)--%>
                                                     <div class="ibox float-e-margins">
                                                         <div class="ibox-title">
-                                                            <h3><strong>DATOS DE NOTIFICACIÓN</strong></h3>
+                                                            <h2><strong>1.3 Información General (Datos de Notificación)</strong></h2>
                                                         </div>
                                                     </div>
                                                     <div class="ibox-content">
@@ -1699,7 +1700,7 @@
                                                 </telerik:RadPageView>
                                                 <telerik:RadPageView ID="RadPageDatosPlan" runat="server" Visible="false"> <%--Información General ((Datos Plan Manejo))--%>
                                                     <div class="ibox-title">
-                                                        <h2><strong>Información General (Datos Plan Manejo)</strong></h2>
+                                                        <h2><strong>1.4 Información General (Datos Plan Manejo)</strong></h2>
                                                     </div>
                                                     <div class="ibox-content">
                                                         <div><label class="col-sm-5 control-label centradolabel">Tiempo de Ejecución del Plan de Manejo Forestal (Años):</label>
@@ -2266,7 +2267,7 @@
                                                                     </telerik:GridTemplateColumn>  
 
                                                                     <telerik:GridBoundColumn DataField="Edad" UniqueName="Edad"  HeaderText="Edad" Visible="false" HeaderStyle-Width="1px"></telerik:GridBoundColumn>
-                                                                    <telerik:GridTemplateColumn DataField="Edad" HeaderText="Edad Promedio"  UniqueName="EdadEdit" HeaderStyle-Width="80px" >
+                                                                    <telerik:GridTemplateColumn DataField="Edad" HeaderText="Año"  UniqueName="EdadEdit" HeaderStyle-Width="80px" >
                                                                         <ItemTemplate>
                                                                             <asp:TextBox runat="server" ID="TxtEdad" CssClass="form-control"></asp:TextBox>
                                                                         </ItemTemplate>
@@ -2418,7 +2419,7 @@
                                                     </div>
                                                     <div style="padding-bottom:2em;"></div>
                                                     <div class="ibox-content">
-                                                        <div><label class="col-sm-6 control-label centradolabel">Datos de regresión utilizados para la estimación de las alturas </label>
+                                                        <div><label class="col-sm-6 control-label centradolabel">Datos de regresión utilizados para la estimación de las alturas (R2 Y CME) </label>
                                                             <div class="col-sm-5"><asp:TextBox runat="server" ID="TxtDatosRegresion"  TextMode="MultiLine" Height="100px" CssClass="form-control"></asp:TextBox></div>
                                                         </div>
                                                     </div>
@@ -2771,7 +2772,7 @@
                                                                         </telerik:GridTemplateColumn>  
 
                                                                         <telerik:GridBoundColumn DataField="Edad" UniqueName="Edad"  HeaderText="Edad" Visible="false" HeaderStyle-Width="1px"></telerik:GridBoundColumn>
-                                                                        <telerik:GridTemplateColumn DataField="Edad" HeaderText="Edad Promedio"  UniqueName="EdadEdit" HeaderStyle-Width="80px" >
+                                                                        <telerik:GridTemplateColumn DataField="Edad" HeaderText="Año"  UniqueName="EdadEdit" HeaderStyle-Width="80px" >
                                                                             <ItemTemplate>
                                                                                 <asp:TextBox runat="server" ID="TxtEdad" CssClass="form-control"></asp:TextBox>
                                                                             </ItemTemplate>
@@ -3769,6 +3770,7 @@
             <asp:TextBox runat="server" ID="TxtSubRegionId" Text="0" style="display:none;"></asp:TextBox>
             <asp:TextBox runat="server" ID="TxtRegion" Text="0" style="display:none;"></asp:TextBox>
             <asp:TextBox runat="server" ID="TxtSubRegion" Text="0" style="display:none;"></asp:TextBox>
+            <asp:TextBox runat="server" ID="TxtRegionId" Text="0" style="display:none;"></asp:TextBox>
         </ContentTemplate>
     </asp:UpdatePanel>
     <script>

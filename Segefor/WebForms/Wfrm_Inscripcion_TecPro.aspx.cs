@@ -236,6 +236,14 @@ namespace SEGEFOR.WebForms
                     LblMensaje.Text = LblMensaje.Text + ", Debe ingresar nu número de NIT";
                 HayError = true;
             }
+            if ((TxtNit.Text != "") && (ClUtilitarios.TieneGuion(TxtNit.Text) != true))
+            {
+                if (LblMensaje.Text == "")
+                    LblMensaje.Text = LblMensaje.Text + "El Nit no tiene el formato correcto";
+                else
+                    LblMensaje.Text = LblMensaje.Text + ", El Nit no tiene el formato correcto";
+                HayError = true;
+            }
             if ((CboProfesion.Text == "") || (CboProfesion.SelectedValue == "") ||(CboProfesion.SelectedValue == "0"))
             {
                 if (LblMensaje.Text == "")

@@ -110,7 +110,7 @@
                             <div class="col-sm-5"><telerik:RadComboBox ID="CboGrado" Width="100%" runat="server"></telerik:RadComboBox></div>
                         </div>
                         <div><label class="col-sm-1 control-label centradolabel">NIT:</label>
-                            <div class="col-sm-5"><asp:TextBox runat="server" ID="TxtNit" CssClass="form-control"></asp:TextBox></div>
+                            <div class="col-sm-5"><asp:TextBox runat="server" ID="TxtNit"  CssClass="form-control"></asp:TextBox></div>
                         </div>
                     </div>
                     <div style="padding-bottom:2em;"></div>

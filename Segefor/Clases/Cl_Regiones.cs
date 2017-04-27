@@ -204,5 +204,25 @@ namespace SEGEFOR.Clases
                 cn.Close();
             }
         }
+
+        public int GetRegionId(int MunicipioId)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("SP_GetRegionId", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@MunicipioId", OleDbType.Integer).Value = MunicipioId;
+                cmd.Parameters.Add("@Resul", OleDbType.Integer).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToInt32(cmd.Parameters["@Resul"].Value);
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
     }
 }

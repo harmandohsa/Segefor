@@ -118,6 +118,19 @@ namespace SEGEFOR.WebForms
             }
         }
 
+        bool ValidarNit(string nit)
+        {
+            bool Valido = true;
+            for (int i = 0; i < nit.Length; i++)
+            {
+                if (nit[i].ToString() == "-")
+                    Valido = true;
+                else
+                    Valido = false;
+            }
+            return Valido;
+        }
+
         void BtnModFoto_Click(object sender, EventArgs e)
         {
             ClUsuario.Insertar_Actividad_Pagina(14, Convert.ToInt32(Session["UsuarioId"]), ClUsuario.CorrId_ActividadPagina(), 2);
