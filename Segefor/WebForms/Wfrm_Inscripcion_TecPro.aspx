@@ -166,7 +166,7 @@
                         <div class="ibox-content">
                         <div class="col-sm-5">
                             <asp:Button runat="server" Text="Vista Previa"  ID="BtnVistaPrevia" class="btn btn-primary" />
-                            <asp:Button runat="server" Text="Enviar Solicitud"  ID="BtnEnviar" class="btn btn-primary" />
+                            <asp:Button runat="server" Text="Enviar Solicitud"  ID="BtnEnviar" data-loading-text="Enviando..." class="btn btn-primary" />
                         </div>
                         </div>
                         <div style="padding-bottom:2em;"></div>
@@ -196,6 +196,13 @@
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green',
+            });
+            $('#<%=BtnEnviar.ClientID%>').click(function () {
+                $(this).button('loading').delay(100000).queue(function () {
+                    $(this).button('reset');
+                    $(this).dequeue();
+                    $(this).data('loading-text', 'Cargando...');
+                });
             });
         }
 

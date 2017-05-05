@@ -610,6 +610,7 @@
                                     <h2><strong><asp:Label runat="server" ID="LblTipoPlan"></asp:Label></strong></h2>
                                     <asp:Button runat="server" Text="Vista Previa"   ID="BtnVistaPrevia" class="btn btn-primary" />
                                     <a class="btn btn-primary m-b" runat="server" id="BtnPrintSolicitud">Imprimir Solicitud</a>
+                                    <a class="btn btn-primary m-b" runat="server" id="BtnIrAnexos">Imprimir Anexos</a>
                                 </div >
                                 <div class="ibox-title">
                                     <a class="btn btn-primary m-b" runat="server" id="BtnEnviarSol">Enviar Solicitud</a>
@@ -927,11 +928,7 @@
                                                                                     <asp:ImageButton runat="server" ID="ImgDelFinca" ImageUrl="~/Imagenes/24x24/delete.png" formnovalidate ToolTip="Eliminar" CommandName="CmdDel"/>
                                                                                 </ItemTemplate>
                                                                         </telerik:GridTemplateColumn> 
-                                                                        <telerik:GridTemplateColumn HeaderText="Polígono Finca" Visible="true" UniqueName="PolFinca">
-                                                                                <ItemTemplate>
-                                                                                    <asp:ImageButton runat="server" ID="ImgPolFinca" ImageUrl="~/Imagenes/24x24/ubication.png" formnovalidate ToolTip="Polígono Finca" CommandName="CmdPolFinca"/>
-                                                                                </ItemTemplate>
-                                                                        </telerik:GridTemplateColumn> 
+                                                                        
                                                                     </Columns>        
                                                                 </MasterTableView>
                                                                 <FilterMenu EnableTheming="true">
@@ -1717,13 +1714,13 @@
                                                     <div class="ibox-content">
                                                         <h3>Propuesta de Manejo</h3>
                                                         <div><label class="col-sm-5 control-label centradolabel">Volumen a extraer (metros cubicos)</label>
-                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtVolExtraer"  step="any" min="0" type="number"  CssClass="form-control" ></asp:TextBox></div>
+                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtVolExtraer" Enabled="false"  CssClass="form-control" ></asp:TextBox></div>
                                                         </div>
                                                     </div>
                                                     <div style="padding-bottom:2em;"></div>
                                                     <div class="ibox-content">
                                                         <div><label class="col-sm-5 control-label centradolabel">Sistema de Corta</label>
-                                                            <div class="col-sm-6"><asp:TextBox runat="server" ID="TxtSistemaCorta"  CssClass="form-control" ></asp:TextBox></div>
+                                                            <div class="col-sm-6"><asp:TextBox runat="server" ID="TxtSistemaCorta" Enabled="false" CssClass="form-control" ></asp:TextBox></div>
                                                         </div>
                                                     </div>
                                                     <div style="padding-bottom:2em;"></div>
@@ -2289,9 +2286,9 @@
                                                                     </telerik:GridTemplateColumn>
 
                                                                     <telerik:GridBoundColumn DataField="Tratamiento" UniqueName="Tratamiento"  HeaderText="Tratamiento" Visible="false" HeaderStyle-Width="0px"></telerik:GridBoundColumn>
-                                                                    <telerik:GridTemplateColumn DataField="Tratamiento" HeaderText="Tratamiento Silvicultural"  UniqueName="Tratamiento_Edit" HeaderStyle-Width="150px" >
+                                                                    <telerik:GridTemplateColumn DataField="Tratamiento" HeaderText="Tratamiento Silvicultural"  UniqueName="Tratamiento_Edit" HeaderStyle-Width="300px" >
                                                                         <ItemTemplate>
-                                                                            <telerik:RadComboBox runat="server" ID="CboTratamiento" Width="130px"></telerik:RadComboBox>
+                                                                            <telerik:RadComboBox runat="server" ID="CboTratamiento" Width="300px"></telerik:RadComboBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>  
 
@@ -2794,9 +2791,9 @@
                                                                         </telerik:GridTemplateColumn>
 
                                                                         <telerik:GridBoundColumn DataField="Tratamiento" UniqueName="Tratamiento"  HeaderText="Tratamiento" Visible="false" HeaderStyle-Width="0px"></telerik:GridBoundColumn>
-                                                                        <telerik:GridTemplateColumn DataField="Tratamiento" HeaderText="Tratamiento Silvicultural"  UniqueName="Tratamiento_Edit" HeaderStyle-Width="150px" >
+                                                                        <telerik:GridTemplateColumn DataField="Tratamiento" HeaderText="Tratamiento Silvicultural"  UniqueName="Tratamiento_Edit" HeaderStyle-Width="250px" >
                                                                             <ItemTemplate>
-                                                                                <telerik:RadComboBox runat="server" ID="CboTratamiento" AutoPostBack="true" Width="130px" OnSelectedIndexChanged="CboTratamiento_SelectedIndexChanged"></telerik:RadComboBox>
+                                                                                <telerik:RadComboBox runat="server" ID="CboTratamiento" AutoPostBack="true" Width="230px" OnSelectedIndexChanged="CboTratamiento_SelectedIndexChanged"></telerik:RadComboBox>
                                                                             </ItemTemplate>
                                                                         </telerik:GridTemplateColumn>  
                                                                         <telerik:GridBoundColumn DataField="Existe" UniqueName="Existe"  HeaderText="Existe" Visible="false" HeaderStyle-Width="0px"></telerik:GridBoundColumn>
@@ -3644,6 +3641,86 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="ibox-content" runat="server" >
+                                                        <div><h3><label class="col-sm-5 control-label centradolabel">Poligonos</label></h3></div>
+
+                                                    </div>
+                                                    <div class="ibox-content">
+                                                        <telerik:RadGrid runat="server" ID="GrdInmueblePol" Skin="MetroTouch" PageSize="20" 
+                                                            AutoGenerateColumns="false" Width="100%" AllowSorting="true" 
+                                                                AllowPaging="true" GridLines="Both" >
+                                                                        
+                                                            <PagerStyle Mode="NumericPages" NextPageText="Siguiente" 
+                                                                PrevPageText="Anterior" Position="Bottom" 
+                                                                PagerTextFormat="Change page: {4} &amp;nbsp;Pagina &lt;strong&gt;{0}&lt;/strong&gt; de &lt;strong&gt;{1}&lt;/strong&gt;, registros &lt;strong&gt;{2}&lt;/strong&gt; a &lt;strong&gt;{3}&lt;/strong&gt; de &lt;strong&gt;{5}&lt;/strong&gt;." 
+                                                                PageSizeLabelText="Regitros"/>
+                                                            <MasterTableView Caption="" DataKeyNames="InmuebleId,Departamento,Municipio,Direccion,Finca,Area" NoMasterRecordsText="No Hay Registros" ShowFooter="true">
+                                                                <Columns>
+                                                                    <telerik:GridBoundColumn DataField="InmuebleId" Visible="false" HeaderText="Departamnto" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="Departamento" HeaderText="Departamento" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="Municipio" HeaderText="Municipio" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="Direccion" HeaderText="Ubicación" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="Finca" HeaderText="Finca" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="Area" HeaderText="Área" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                    <telerik:GridTemplateColumn HeaderText="Polígono Finca" Visible="true" UniqueName="PolFinca">
+                                                                        <ItemTemplate>
+                                                                            <asp:ImageButton runat="server" ID="ImgPolFinca" ImageUrl="~/Imagenes/24x24/ubication.png" formnovalidate ToolTip="Polígono Finca" CommandName="CmdPolFinca"/>
+                                                                        </ItemTemplate>
+                                                                    </telerik:GridTemplateColumn> 
+                                                                    <telerik:GridTemplateColumn HeaderText="Polígono Área Bosque" Visible="true" UniqueName="PolFincaBosque">
+                                                                        <ItemTemplate>
+                                                                            <asp:ImageButton runat="server" ID="ImgPolBosque" ImageUrl="~/Imagenes/24x24/ubication.png" formnovalidate ToolTip="Polígono Área Bosque" CommandName="PolFincaBosque"/>
+                                                                        </ItemTemplate>
+                                                                    </telerik:GridTemplateColumn> 
+                                                                    <telerik:GridTemplateColumn HeaderText="Polígono Área Intervenir" Visible="true" UniqueName="PolFincaIntervenir">
+                                                                        <ItemTemplate>
+                                                                            <asp:ImageButton runat="server" ID="ImgPolIntervenir" ImageUrl="~/Imagenes/24x24/ubication.png" formnovalidate ToolTip="Polígono Área Intervenir" CommandName="PolFincaIntervenir"/>
+                                                                        </ItemTemplate>
+                                                                    </telerik:GridTemplateColumn> 
+                                                                    <telerik:GridTemplateColumn HeaderText="Polígono Área Protección" Visible="true" UniqueName="PolFincaProteccion">
+                                                                        <ItemTemplate>
+                                                                            <asp:ImageButton runat="server" ID="ImgPolProteccion" ImageUrl="~/Imagenes/24x24/ubication.png" formnovalidate ToolTip="Polígono Área Protección" CommandName="PolFincaProteccion"/>
+                                                                        </ItemTemplate>
+                                                                    </telerik:GridTemplateColumn> 
+                                                                </Columns>        
+                                                            </MasterTableView>
+                                                            <FilterMenu EnableTheming="true">
+                                                                <CollapseAnimation Duration="200" Type="OutQuint" />
+                                                            </FilterMenu>
+                                                        </telerik:RadGrid>
+                                                        </div>
+                                                        <div class="ibox-content" runat="server" >
+                                                            <div class="col-sm-6">
+                                                                <h4><label class="col-sm-6 control-label centradolabel">Poligono de Repoblación</label></h4>
+                                                                <asp:ImageButton runat="server" ID="ImgPolRepoblacion" ImageUrl="~/Imagenes/24x24/ubication.png" />
+                                                            </div>
+                                                            <div class="col-sm-1">
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        <div class="ibox-content" runat="server" >
+                                                            <div class="col-sm-5">
+                                                                <h4><label class="col-sm-5 control-label centradolabel">Censo / Muestreo</label></h4>
+                                                                <asp:ImageButton runat="server" ID="ImgPrintCenso" ImageUrl="~/Imagenes/24x24/blank.png" />
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        <div class="ibox-content" runat="server" >
+                                                            <div class="col-sm-10">
+                                                                <div class="alert alert-danger alert-dismissable" runat="server" id="DivErrPoligonoPrint" visible="false">
+                                                                    <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                    <asp:Label runat="server" ID="LblErrPoligono" Font-Bold="true"></asp:Label>
+                                                                </div>
+                                                                <div class="alert alert-success alert-dismissable" runat="server" id="Div13" visible="false">
+                                                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                    <asp:Label runat="server" ID="Label14" Font-Bold="true">Error</asp:Label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                 </telerik:RadPageView>
                                             </telerik:RadMultiPage>
                                         </div>
@@ -3756,6 +3833,9 @@
                             </div>
                             
                         </ContentTemplate>
+                    </telerik:RadWindow>
+                    <telerik:RadWindow runat="server" ID="RadWinCenso" Modal="true" Height="420px" Width="650px" Title="Censo/Muestro" Behaviors="Default">
+
                     </telerik:RadWindow>
                     </Windows>
                 </telerik:RadWindowManager>

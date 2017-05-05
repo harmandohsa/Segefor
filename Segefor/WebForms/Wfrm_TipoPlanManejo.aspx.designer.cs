@@ -40,6 +40,15 @@ namespace SEGEFOR.WebForms {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor BtnPrintSolicitud;
         
         /// <summary>
+        /// BtnIrAnexos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor BtnIrAnexos;
+        
+        /// <summary>
         /// BtnEnviarSol control.
         /// </summary>
         /// <remarks>
@@ -4801,6 +4810,69 @@ namespace SEGEFOR.WebForms {
         protected global::System.Web.UI.WebControls.Label LblGoodAnexo;
         
         /// <summary>
+        /// GrdInmueblePol control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid GrdInmueblePol;
+        
+        /// <summary>
+        /// ImgPolRepoblacion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImgPolRepoblacion;
+        
+        /// <summary>
+        /// ImgPrintCenso control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImgPrintCenso;
+        
+        /// <summary>
+        /// DivErrPoligonoPrint control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivErrPoligonoPrint;
+        
+        /// <summary>
+        /// LblErrPoligono control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblErrPoligono;
+        
+        /// <summary>
+        /// Div13 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div13;
+        
+        /// <summary>
+        /// Label14 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label14;
+        
+        /// <summary>
         /// RadWindowManager1 control.
         /// </summary>
         /// <remarks>
@@ -4943,6 +5015,15 @@ namespace SEGEFOR.WebForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid GrdArboles;
+        
+        /// <summary>
+        /// RadWinCenso control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadWindow RadWinCenso;
         
         /// <summary>
         /// TxtUsrOwnPlan control.

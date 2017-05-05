@@ -10,87 +10,105 @@
 namespace SEGEFOR.WebForms {
     
     
-    public partial class Wfrm_SeguimientoUsuario {
+    public partial class Wfrm_PoligonoMapa {
         
         /// <summary>
-        /// DivOpcionesINAB control.
+        /// Head1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivOpcionesINAB;
+        protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
         
         /// <summary>
-        /// GrdSolicitudes control.
+        /// ImpresionPoligono control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid GrdSolicitudes;
+        protected global::System.Web.UI.HtmlControls.HtmlForm ImpresionPoligono;
         
         /// <summary>
-        /// RadWindowManager1 control.
+        /// ScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadWindowManager RadWindowManager1;
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// RadWindow1 control.
+        /// LblTitulo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadWindow RadWindow1;
+        protected global::System.Web.UI.WebControls.Label LblTitulo;
         
         /// <summary>
-        /// RadWindowDetalle control.
+        /// LblFinca control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadWindow RadWindowDetalle;
+        protected global::System.Web.UI.WebControls.Label LblFinca;
         
         /// <summary>
-        /// LblTitConfirmacion control.
+        /// LblArea control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblTitConfirmacion;
+        protected global::System.Web.UI.WebControls.Label LblArea;
         
         /// <summary>
-        /// GrdDetalle control.
+        /// titulo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid GrdDetalle;
+        protected global::System.Web.UI.WebControls.Label titulo;
         
         /// <summary>
-        /// RadWinAnexos control.
+        /// proyeccion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadWindow RadWinAnexos;
+        protected global::System.Web.UI.WebControls.Label proyeccion;
         
         /// <summary>
-        /// TxtGestionId control.
+        /// datun control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtGestionId;
+        protected global::System.Web.UI.WebControls.Label datun;
+        
+        /// <summary>
+        /// logo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image logo;
+        
+        /// <summary>
+        /// GvistaPuntos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GvistaPuntos;
     }
 }

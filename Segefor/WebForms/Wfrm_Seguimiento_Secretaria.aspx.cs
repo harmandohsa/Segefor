@@ -125,7 +125,9 @@ namespace SEGEFOR.WebForms
 
         void IngVerAnexos_Click(object sender, ImageClickEventArgs e)
         {
-            if (ClGestion.Tiene_Anexos_Inventerio(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true))) == 1)
+            if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 3)
+            {
+                if (ClGestion.Tiene_Anexos_Inventerio(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true))) == 1)
                 {
                     //Llamada 0 = PV, AF 1 = SAF
                     int Actividad = ClGestion.Get_Actividad_RegistroId(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
@@ -133,7 +135,7 @@ namespace SEGEFOR.WebForms
                     int Tipo = 0;
                     if ((Categoria == 2) || (Categoria == 3))
                         Tipo = 0;
-                    else if (Categoria == 4) 
+                    else if (Categoria == 4)
                         Tipo = 1;
                     else if (Categoria == 6)
                         Tipo = 2;
@@ -152,8 +154,15 @@ namespace SEGEFOR.WebForms
                     string popupScript = "window.open('" + url + "', 'popup_window', 'left=100,top=100,resizable=yes');";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "script", popupScript, true);
                 }
-                
             }
+            else if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 2)
+            {
+                int Id = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                string GestionNo = ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gun"].ToString()), true);
+                String js = "window.open('Wfrm_AnexosPlanManejo.aspx?idgestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(Id.ToString(), true)) + "&NUG=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionNo.ToString(), true)) + "', '_blank');";
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Open Signature.aspx", js, true);
+            }
+        }
         
 
         void BtnEnviaGestion_Click(object sender, EventArgs e)

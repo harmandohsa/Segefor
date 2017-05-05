@@ -27,6 +27,7 @@ namespace SEGEFOR.WebForms
         Cl_Poligono ClPoligono;
         Cl_Gestion_Registro Cl_Gestion;
         Cl_Regiones ClRegiones;
+        Cl_Manejo_Impresion ClManejoImpresion;
 
         DataSet DsPropietarios = new DataSet("Propietarios");
         DataSet DsRepresentantes = new DataSet("Representantes");
@@ -50,6 +51,7 @@ namespace SEGEFOR.WebForms
             ClPoligono = new Cl_Poligono();
             Cl_Gestion = new Cl_Gestion_Registro();
             ClRegiones = new Cl_Regiones();
+            ClManejoImpresion = new Cl_Manejo_Impresion();
 
             DataTable DtPropietarios = DsPropietarios.Tables.Add("Propietarios");
             DataColumn Existe = DtPropietarios.Columns.Add("Existe", typeof(Boolean));
@@ -253,6 +255,11 @@ namespace SEGEFOR.WebForms
             CboEtapa.SelectedIndexChanged += CboEtapa_SelectedIndexChanged;
             BtnGeneraRepo.ServerClick += BtnGeneraRepo_ServerClick;
             BtnGrabarCompromisoRepo.ServerClick += BtnGrabarCompromisoRepo_ServerClick;
+            GrdInmueblePol.NeedDataSource += GrdInmueblePol_NeedDataSource;
+            GrdInmueblePol.ItemCommand += GrdInmueblePol_ItemCommand;
+            ImgPolRepoblacion.Click += ImgPolRepoblacion_Click;
+            ImgPrintCenso.Click += ImgPrintCenso_Click;
+            BtnIrAnexos.ServerClick += BtnIrAnexos_ServerClick;
 
             if (Session["UsuarioId"] == null)
             {
@@ -432,6 +439,121 @@ namespace SEGEFOR.WebForms
                 }
             }
 
+        }
+
+        void BtnIrAnexos_ServerClick(object sender, EventArgs e)
+        {
+            RadTabStrip1.SelectedIndex = 14;
+            RadPageFincas.Visible = false;
+            RadPageRepresentantes.Visible = false;
+            RadPageDatosNotifica.Visible = false;
+            RadPageDatosPlan.Visible = false;
+            RadPageCaracBio.Visible = false;
+            RadPagePlanInvestigacion.Visible = false;
+            RadPagePlaga.Visible = false;
+            RadPageMedidasdeControl.Visible = false;
+            RadPageAprovechamiento.Visible = false;
+            RadPageActividadesApro.Visible = false;
+            RadPageRepoblacion.Visible = false;
+            RadPagePlanificacionManejo.Visible = false;
+            RadPageProteccionForestal.Visible = false;
+            RadPageCronograma.Visible = false;
+            RadPageAnexo.Visible = true;
+        }
+
+        void ImgPrintCenso_Click(object sender, ImageClickEventArgs e)
+        {
+            DataSet DsBoleta = ClManejoImpresion.Boleta(Convert.ToInt32(TxtAsignacionId.Text),1);
+            Session["Boleta"] = DsBoleta;
+            //DsBoleta.Clear();
+            RadWinCenso.Title = "Censo / Muestro";
+            RadWinCenso.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepCenso.aspx";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWinCenso.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+        }
+
+
+        void ImgPolRepoblacion_Click(object sender, ImageClickEventArgs e)
+        {
+            if (ClPoligono.Existe_Poligono_Repoblacion(Convert.ToInt32(TxtAsignacionId.Text), 1) == 0)
+            {
+                DivErrPoligonoPrint.Visible = true;
+                LblErrPoligono.Text = "Aún no se ha cargado el poligono repoblación";
+            }
+            else
+            {
+                String js = "window.open('Wfrm_PoligonoMapa.aspx?ImmobilienId=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("0", true)) + "&identificateur=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(TxtAsignacionId.Text, true)) + "&typbericht=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("1", true)) + "&processus=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("5", true)) + "', '_blank');";
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Open Signature.aspx", js, true);
+            }
+        }
+
+       
+        void GrdInmueblePol_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            DivErrPoligonoPrint.Visible = false;
+            if (e.CommandName == "CmdPolFinca")
+            {
+                if (ClPoligono.Existe_Poligono_Inmueble(Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["InmuebleId"])) == 0)
+                {
+                    DivErrPoligonoPrint.Visible = true;
+                    LblErrPoligono.Text = "Este finca aún no se ha cargado su poligono";
+                }
+                else
+                {
+                    String js = "window.open('Wfrm_PoligonoMapa.aspx?ImmobilienId=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["InmuebleId"].ToString(), true)) + "&typbericht=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("1", true)) + "&processus=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("1", true)) + "', '_blank');";
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Open Signature.aspx", js, true);
+                }
+            }
+            else if (e.CommandName == "PolFincaBosque")
+            {
+                if (ClPoligono.Existe_Poligono_AreaBosque(Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["InmuebleId"]),Convert.ToInt32(TxtAsignacionId.Text),1) == 0)
+                {
+                    DivErrPoligonoPrint.Visible = true;
+                    LblErrPoligono.Text = "Este finca aún no se ha cargado su poligono de área de bosque";
+                }
+                else
+                {
+                    String js = "window.open('Wfrm_PoligonoMapa.aspx?ImmobilienId=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["InmuebleId"].ToString(), true)) + "&identificateur=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(TxtAsignacionId.Text, true)) + "&typbericht=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("1", true)) + "&processus=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("2", true)) + "', '_blank');";
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Open Signature.aspx", js, true);
+                }
+            }
+            else if (e.CommandName == "PolFincaIntervenir")
+            {
+                if (ClPoligono.Existe_Poligono_AreaIntervenir(Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["InmuebleId"]), Convert.ToInt32(TxtAsignacionId.Text), 1) == 0)
+                {
+                    DivErrPoligonoPrint.Visible = true;
+                    LblErrPoligono.Text = "Este finca aún no se ha cargado su poligono de área a intervenir";
+                }
+                else
+                {
+                    String js = "window.open('Wfrm_PoligonoMapa.aspx?ImmobilienId=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["InmuebleId"].ToString(), true)) + "&identificateur=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(TxtAsignacionId.Text, true)) + "&typbericht=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("1", true)) + "&processus=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("3", true)) + "', '_blank');";
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Open Signature.aspx", js, true);
+                }
+            }
+            else if (e.CommandName == "PolFincaProteccion")
+            {
+                if (ClPoligono.Existe_Poligono_AreaProteccion(Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["InmuebleId"]), Convert.ToInt32(TxtAsignacionId.Text), 1) == 0)
+                {
+                    DivErrPoligonoPrint.Visible = true;
+                    LblErrPoligono.Text = "Este finca aún no se ha cargado su poligono de área de protección";
+                }
+                else
+                {
+                    String js = "window.open('Wfrm_PoligonoMapa.aspx?ImmobilienId=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["InmuebleId"].ToString(), true)) + "&identificateur=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(TxtAsignacionId.Text, true)) + "&typbericht=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("1", true)) + "&processus=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("4", true)) + "', '_blank');";
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Open Signature.aspx", js, true);
+                }
+            }
+        }
+
+        void GrdInmueblePol_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            ClUtilitarios.LlenaGrid(ClManejo.Get_TempFincaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text)), GrdInmueblePol);
+            DataSet dsInmuebles = ClManejo.Get_TempFincaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text));
+            for (int i = 0; i < dsInmuebles.Tables["Datos"].Rows.Count; i++)
+            {
+                if (dsInmuebles.Tables["Datos"].Rows[i]["TipoDoc_PropiedadId"].ToString() == "3")
+                    GrdInmueblePol.Columns[6].HeaderText = "Poseedores";
+            }
+            dsInmuebles.Clear();
         }
 
         void BtnGrabarCompromisoRepo_ServerClick(object sender, EventArgs e)
@@ -1129,6 +1251,74 @@ namespace SEGEFOR.WebForms
             }
         }
 
+        public static void DeleteAll(DirectoryInfo source)
+        {
+            foreach (FileInfo fi in source.GetFiles())
+            {
+                fi.Delete();
+            }
+            source.Delete();
+        }
+
+        public static void CopyAll(DirectoryInfo source, DirectoryInfo target)
+        {
+            Directory.CreateDirectory(target.FullName);
+
+            // Copy each file into the new directory.
+            foreach (FileInfo fi in source.GetFiles())
+            {
+                Console.WriteLine(@"Copying {0}\{1}", target.FullName, fi.Name);
+                fi.CopyTo(Path.Combine(target.FullName, fi.Name), true);
+            }
+
+            // Copy each subdirectory using recursion.
+            foreach (DirectoryInfo diSourceSubDir in source.GetDirectories())
+            {
+                DirectoryInfo nextTargetSubDir =
+                    target.CreateSubdirectory(diSourceSubDir.Name);
+                CopyAll(diSourceSubDir, nextTargetSubDir);
+            }
+        }
+
+        void CopiarAnexos(int AsignacionId, int GestionId)
+        {
+            string sourceDirectory = Server.MapPath(".") + @"\Archivos\Anexos\MapaPendiente\" + AsignacionId;
+            string targetDirectory = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaPendiente\" + GestionId;
+            DirectoryInfo diSource = new DirectoryInfo(sourceDirectory);
+            DirectoryInfo diTarget = new DirectoryInfo(targetDirectory);
+            CopyAll(diSource, diTarget);
+            DeleteAll(diSource);
+
+            string sourceDirectoryCro = Server.MapPath(".") + @"\Archivos\Anexos\Croquis\" + AsignacionId;
+            string targetDirectoryCro = Server.MapPath(".") + @"\Archivos\AnexosPM\Croquis\" + GestionId;
+            DirectoryInfo diSourceCro = new DirectoryInfo(sourceDirectoryCro);
+            DirectoryInfo diTargetCro = new DirectoryInfo(targetDirectoryCro);
+            CopyAll(diSourceCro, diTargetCro);
+            DeleteAll(diSourceCro);
+
+            string sourceDirectoryRonda = Server.MapPath(".") + @"\Archivos\Anexos\MapaRonda\" + AsignacionId;
+            string targetDirectoryRonda = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaRonda\" + GestionId;
+            DirectoryInfo diSourceRonda = new DirectoryInfo(sourceDirectoryRonda);
+            DirectoryInfo diTargetRonda = new DirectoryInfo(targetDirectoryRonda);
+            CopyAll(diSourceRonda, diTargetRonda);
+            DeleteAll(diSourceRonda);
+
+            string sourceDirectoryUbi = Server.MapPath(".") + @"\Archivos\Anexos\MapaUbicacion\" + AsignacionId;
+            string targetDirectoryUbi = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaUbicacion\" + GestionId;
+            DirectoryInfo diSourceUbi = new DirectoryInfo(sourceDirectoryUbi);
+            DirectoryInfo diTargetUbi = new DirectoryInfo(targetDirectoryUbi);
+            CopyAll(diSourceUbi, diTargetUbi);
+            DeleteAll(diSourceUbi);
+
+            string sourceDirectoryUsoActual = Server.MapPath(".") + @"\Archivos\Anexos\MapaUsoActual\" + AsignacionId;
+            string targetDirectoryUsoActual = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaUsoActual\" + GestionId;
+            DirectoryInfo diSourceUsoActual = new DirectoryInfo(sourceDirectoryUsoActual);
+            DirectoryInfo diTargetUsoActual = new DirectoryInfo(targetDirectoryUsoActual);
+            CopyAll(diSourceUsoActual, diTargetUsoActual);
+            DeleteAll(diSourceUsoActual);
+
+        }
+
 
         void BtnYes_ServerClick(object sender, EventArgs e)
         {
@@ -1141,6 +1331,7 @@ namespace SEGEFOR.WebForms
             Cl_Gestion.Insertar_Gestion(GestionId, NUG, Convert.ToInt32(PersonaId), Convert.ToInt32(TxtSubRegionId.Text), 13, 2, Correlativo_Anual);
             ClManejo.Traslada_TempManejo(GestionId, AsignacionId);
             ClManejo.Traslada_PlanManejo_ConvierteXml(GestionId, AsignacionId);
+            CopiarAnexos(AsignacionId, GestionId);
             ClManejo.Elimina_TempPlanManejo(AsignacionId);
             string Mensaje = "Su solicitud fue enviada exitosamente, con Numero Único de Gestión (NUG): " + NUG + ". Por lo que solicitamos presentarse a la oficina Subregional " + TxtSubRegion.Text + ", con la documentación que deberá presentar para dar trámite a su solicitud.";
             ClUtilitarios.EnvioCorreo(Session["Correo_Usuario"].ToString(), ClPersona.Nombre_Usuario(Convert.ToInt32(Session["PersonaId"])).ToString(), "Solicitud SEGEFOR", Mensaje, 0, "", "");
@@ -1472,7 +1663,15 @@ namespace SEGEFOR.WebForms
             {
                 TotalAreaRepoMEtodo = Math.Round(TotalAreaRepoMEtodo + Convert.ToDouble(GrdEspeciesRepoblacion.Items[i].GetDataKeyValue("AreaRepo")),2);
             }
-            if (TotalAreaRepoMEtodo != Convert.ToDouble(TxtAreaCompromiso.Text))
+            if (TxtAreaCompromiso.Text == "")
+            {
+                if (lblMensajeErrorGen.Text == "")
+                    lblMensajeErrorGen.Text = lblMensajeErrorGen.Text + "Debe ingresar el área de compromiso";
+                else
+                    lblMensajeErrorGen.Text = lblMensajeErrorGen.Text + ", debe ingresar el área de compromiso";
+                HayError = true;
+            }
+            if ((TxtAreaCompromiso.Text != "") && (TotalAreaRepoMEtodo != Convert.ToDouble(TxtAreaCompromiso.Text)))
             {
                 if (lblMensajeErrorGen.Text == "")
                     lblMensajeErrorGen.Text = lblMensajeErrorGen.Text + "El área de compromiso debe ser igual a la sumatoria de las áreas del descripción del metodo";
@@ -2101,11 +2300,10 @@ namespace SEGEFOR.WebForms
                 RadComboBox combo = (RadComboBox)o;
                 GridDataItem item = (GridDataItem)combo.NamingContainer;
                 ImageButton ImgArboles = (ImageButton)item.FindControl("ImgArboles");
-                if (combo.SelectedValue == "1")
+                if ((combo.SelectedValue == "1") ||  (combo.SelectedValue == "6"))
                 {
                 
                     ImgArboles.Visible = false;
-
                 }
                 else
                 {
@@ -2348,7 +2546,7 @@ namespace SEGEFOR.WebForms
             }
             else
             {
-                TxtVolExtraer.Text = TotalExtrae.ToString();
+                //TxtVolExtraer.Text = TotalExtrae.ToString();
             }
             return Valido;
         }
@@ -2398,9 +2596,6 @@ namespace SEGEFOR.WebForms
                                 object VolTotal = ((RadNumericTextBox)this.GrdSilvicultural.Items[i].FindControl("TxtVolTotal")).Text;
                                 if (VolTotal == "")
                                     VolTotal = 0;
-                                
-                                
-                                
                                 ClManejo.Insert_Silvicultura_MaderableExtrae(AsignacionId, Convert.ToInt32(GrdSilvicultural.Items[i].OwnerTableView.DataKeyValues[i]["Correlativo"]), Convert.ToInt32(TxtTurno), Convert.ToDecimal(VolTroza), Convert.ToDecimal(VolLena), Convert.ToDecimal(VolTotal), Convert.ToInt32(TratamientoId));
                             }
                         }
@@ -2410,7 +2605,15 @@ namespace SEGEFOR.WebForms
                 if (Agrego == true)
                 {
                     DivGodSilvicultura.Visible = true;
-                    LblGoodSilvicultura.Text = "Productos maderables ingresados correctamente";
+                    LblGoodSilvicultura.Text = "Productos maderables ingresados correctamente, los valores de Volumen a extraer y Sistemas de corta de la pestaña de información general planificación de manejo fueron actualizados automaticamente, debera grabarlos.";
+                    if (TxtVolExtraer.Text == "")
+                    {
+                        TxtVolExtraer.Text = ClManejo.Sum_VolTotalSilvicultura(Convert.ToInt32(TxtAsignacionId.Text)).ToString();
+                    }
+                    if (TxtSistemaCorta.Text == "")
+                    {
+                        TxtSistemaCorta.Text = ClManejo.Get_TratamientoSilvicultura(Convert.ToInt32(TxtAsignacionId.Text)).ToString();
+                    }
                 }
             }
             
@@ -2857,7 +3060,7 @@ namespace SEGEFOR.WebForms
         void 
             CboTipoIngresoDatos_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            DataSet ExisteBoleta = ClManejo.Get_Datos_Boleta(Convert.ToInt32(TxtAsignacionId.Text));
+            DataSet ExisteBoleta = ClManejo.Get_Datos_Boleta(Convert.ToInt32(TxtAsignacionId.Text),1);
             if (ExisteBoleta.Tables["Datos"].Rows.Count > 0)
             {
                 DivOtraEcuacion.Visible = true;
@@ -2996,53 +3199,53 @@ namespace SEGEFOR.WebForms
             for (int i = 0; i < GrdResumen.Items.Count; i++)
             {
 
-                object TxtAreaRodal = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtAreaRodal")).Text;
-                RadNumericTextBox TxtAreaRodalTxt = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtAreaRodal"));
-                if (TxtAreaRodal.ToString() == "")
-                {
-                    TxtAreaRodalTxt.BackColor = Color.Red;
-                    NoHayDato = true;
-                }
-                else
-                {
-                    TxtAreaRodalTxt.BackColor = Color.White;
-                }
+                //object TxtAreaRodal = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtAreaRodal")).Text;
+                //RadNumericTextBox TxtAreaRodalTxt = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtAreaRodal"));
+                //if (TxtAreaRodal.ToString() == "")
+                //{
+                //    TxtAreaRodalTxt.BackColor = Color.Red;
+                //    NoHayDato = true;
+                //}
+                //else
+                //{
+                //    TxtAreaRodalTxt.BackColor = Color.White;
+                //}
 
-                object TxtEdad = ((TextBox)this.GrdResumen.Items[i].FindControl("TxtEdad")).Text;
-                TextBox TxtEdadTxt = ((TextBox)this.GrdResumen.Items[i].FindControl("TxtEdad"));
-                if (TxtEdad.ToString() == "")
-                {
-                    TxtEdadTxt.BackColor = Color.Red;
-                    NoHayDato = true;
-                }
-                else
-                {
-                    TxtEdadTxt.BackColor = Color.White;
-                }
+                //object TxtEdad = ((TextBox)this.GrdResumen.Items[i].FindControl("TxtEdad")).Text;
+                //TextBox TxtEdadTxt = ((TextBox)this.GrdResumen.Items[i].FindControl("TxtEdad"));
+                //if (TxtEdad.ToString() == "")
+                //{
+                //    TxtEdadTxt.BackColor = Color.Red;
+                //    NoHayDato = true;
+                //}
+                //else
+                //{
+                //    TxtEdadTxt.BackColor = Color.White;
+                //}
 
-                object TxtPendiente = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtPendiente")).Text;
-                RadNumericTextBox TxtPendienteTxt = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtPendiente"));
-                if (TxtPendiente.ToString() == "")
-                {
-                    TxtPendienteTxt.BackColor = Color.Red;
-                    NoHayDato = true;
-                }
-                else
-                {
-                    TxtPendienteTxt.BackColor = Color.White;
-                }
+                //object TxtPendiente = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtPendiente")).Text;
+                //RadNumericTextBox TxtPendienteTxt = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtPendiente"));
+                //if (TxtPendiente.ToString() == "")
+                //{
+                //    TxtPendienteTxt.BackColor = Color.Red;
+                //    NoHayDato = true;
+                //}
+                //else
+                //{
+                //    TxtPendienteTxt.BackColor = Color.White;
+                //}
 
-                object TxtINC = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtINC")).Text;
-                RadNumericTextBox TxtINCTxt = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtINC"));
-                if (TxtINC.ToString() == "")
-                {
-                    TxtINCTxt.BackColor = Color.Red;
-                    NoHayDato = true;
-                }
-                else
-                {
-                    TxtINCTxt.BackColor = Color.White;
-                }
+                //object TxtINC = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtINC")).Text;
+                //RadNumericTextBox TxtINCTxt = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtINC"));
+                //if (TxtINC.ToString() == "")
+                //{
+                //    TxtINCTxt.BackColor = Color.Red;
+                //    NoHayDato = true;
+                //}
+                //else
+                //{
+                //    TxtINCTxt.BackColor = Color.White;
+                //}
 
                 object TxtDap = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtDap")).Text;
                 RadNumericTextBox TxtDapTxt = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtDap"));
@@ -3338,7 +3541,7 @@ namespace SEGEFOR.WebForms
 
         void GrdBoleta_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            ClUtilitarios.LlenaGrid(ClManejo.Get_Datos_Boleta(Convert.ToInt32(TxtAsignacionId.Text)), GrdBoleta);
+            ClUtilitarios.LlenaGrid(ClManejo.Get_Datos_Boleta(Convert.ToInt32(TxtAsignacionId.Text), 1), GrdBoleta);
         }
 
         bool ValidaCargaboleta()
@@ -4937,6 +5140,15 @@ namespace SEGEFOR.WebForms
                 TxtCortaAnual.Text = dsDatosInfoGeneral.Tables["Datos"].Rows[0]["CortaAnual"].ToString();
                 CboTipoGarantia.SelectedValue = dsDatosInfoGeneral.Tables["Datos"].Rows[0]["Tipo_GarantiaId"].ToString();
                 CboTipoGarantia.Text = dsDatosInfoGeneral.Tables["Datos"].Rows[0]["Tipo_Garantia"].ToString();
+                
+            }
+            if (TxtVolExtraer.Text == "")
+            {
+                TxtVolExtraer.Text = ClManejo.Sum_VolTotalSilvicultura(Convert.ToInt32(TxtAsignacionId.Text)).ToString();
+            }
+            if (TxtSistemaCorta.Text == "")
+            {
+                TxtSistemaCorta.Text = ClManejo.Get_TratamientoSilvicultura(Convert.ToInt32(TxtAsignacionId.Text)).ToString();
             }
             dsDatosInfoGeneral.Clear();
             DataSet dsDatosEspecies = ClManejo.EspeciesInfoGeneral_PlanManejo(Convert.ToInt32(TxtAsignacionId.Text));
@@ -5365,6 +5577,7 @@ namespace SEGEFOR.WebForms
                 else
                     BtnAddFincaPlan.Visible = false;
                 GrdInmuebles.Rebind();
+                GrdInmueblePol.Rebind();
                 BloquearFinca();
                 LimpiarFinca();
 
@@ -5386,6 +5599,7 @@ namespace SEGEFOR.WebForms
                 else
                     BtnAddFincaPlan.Visible = false;
                 GrdInmuebles.Rebind();
+                GrdInmueblePol.Rebind();
                 BloquearFinca();
                 LimpiarFinca();
                 int AsignacionId = Convert.ToInt32(TxtAsignacionId.Text);
@@ -5502,7 +5716,15 @@ namespace SEGEFOR.WebForms
 
         void GrdInmuebles_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+            
             ClUtilitarios.LlenaGrid(ClManejo.Get_TempFincaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text)), GrdInmuebles);
+            DataSet dsInmuebles = ClManejo.Get_TempFincaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text));
+            for (int i = 0; i < dsInmuebles.Tables["Datos"].Rows.Count ; i++)
+            {
+                if (dsInmuebles.Tables["Datos"].Rows[i]["TipoDoc_PropiedadId"].ToString() == "3")
+                    GrdInmuebles.Columns[6].HeaderText= "Poseedores";
+            }
+            dsInmuebles.Clear();
         }
 
         void CboDepartamento_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
@@ -5571,6 +5793,7 @@ namespace SEGEFOR.WebForms
                     {
                         ClManejo.InsertTempFincaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text), InmuebleId);
                         GrdInmuebles.Rebind();
+                        GrdInmueblePol.Rebind();
                         DivGoodFinca.Visible = true;
                         LblGoodFinca.Text = "Finca/Inmueble agregado correctamente";
                         BloquearFinca();

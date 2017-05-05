@@ -32,7 +32,11 @@
                                         <div class="col-sm-2">
                                             <asp:ImageButton runat="server" ID="ImgVerinfo" ImageUrl="~/Imagenes/24x24/pdf.png" formnovalidate ToolTip="Ver Información"/>
                                             <asp:Label runat="server" Text="Ver Solicitud"></asp:Label>
-                                    </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <asp:ImageButton runat="server" ID="IngVerAnexos" ImageUrl="~/Imagenes/24x24/blank.png" formnovalidate ToolTip="Ver Anexos"/>
+                                            <asp:Label runat="server" Text="Ver Anexos" ID="LblAnexos"></asp:Label>
+                                        </div>
 
                                     </div>
                                     <div style="padding-bottom:1em;"></div>
@@ -83,11 +87,11 @@
                                     <asp:Image ID="Image1" runat="server" ImageUrl="~/Imagenes/ask.png" />
                                 </div>
                                 <div class="col-sm-2">
-                                    <asp:Button runat="server" Text="Sí"  ID="BtnYes" class="btn btn-primary" />
+                                    <asp:Button runat="server" Text="Sí"  ID="BtnYes" data-loading-text="Enviando..."  class="btn btn-primary" />
                                 </div>
-                                <div class="col-sm-2">
+                                <%--<div class="col-sm-2">
                                     <asp:Button runat="server" Text="No"  ID="BtnNo" class="btn btn-primary" />
-                                </div>
+                                </div>--%>
                             </div>
                             
                         </ContentTemplate>
@@ -96,4 +100,15 @@
                 </telerik:RadWindowManager>
         </ContentTemplate>
     </asp:UpdatePanel>
+    <script>
+        function pageLoad() {
+            $('#<%=BtnYes.ClientID%>').click(function () {
+                $(this).button('loading').delay(100000).queue(function () {
+                    $(this).button('reset');
+                    $(this).dequeue();
+                    $(this).data('loading-text', 'Cargando...');
+                });
+            });
+        }
+    </script>
 </asp:Content>

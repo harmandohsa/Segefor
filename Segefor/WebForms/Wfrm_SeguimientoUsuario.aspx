@@ -89,6 +89,9 @@
                             
                         </ContentTemplate>
                     </telerik:RadWindow>
+                    <telerik:RadWindow runat="server" ID="RadWinAnexos" Modal="true" Height="850px" Width="850px" Title="Censo/Muestro" Behaviors="Default">
+
+                    </telerik:RadWindow>
                 </Windows>
             </telerik:RadWindowManager>
             <asp:TextBox runat="server" ID="TxtGestionId" Visible="false"></asp:TextBox>

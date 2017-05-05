@@ -35,6 +35,7 @@ namespace SEGEFOR.WebForms
             ImgVerinfo.Click += ImgVerinfo_Click;
             BtnVistaPreviaResolucion.Click += BtnVistaPreviaResolucion_Click;
             BtnEnviarRes.Click += BtnEnviarRes_Click;
+            IngVerAnexos.Click += IngVerAnexos_Click;
 
             if (Session["UsuarioId"] == null)
             {
@@ -103,6 +104,47 @@ namespace SEGEFOR.WebForms
                 }
                 else
                     DivResolucion.Visible = true;
+            }
+        }
+
+        void IngVerAnexos_Click(object sender, ImageClickEventArgs e)
+        {
+            if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 3)
+            {
+                if (ClGestion.Tiene_Anexos_Inventerio(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true))) == 1)
+                {
+                    //Llamada 0 = PV, AF 1 = SAF
+                    int Actividad = ClGestion.Get_Actividad_RegistroId(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                    int Categoria = ClGestion.Get_CategoriaRNFId(Actividad);
+                    int Tipo = 0;
+                    if ((Categoria == 2) || (Categoria == 3))
+                        Tipo = 0;
+                    else if (Categoria == 4)
+                        Tipo = 1;
+                    else if (Categoria == 6)
+                        Tipo = 2;
+
+                    Session["Datos_InventarioForestal"] = ClGestion.Impresion_Inventario_Forestal(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), Tipo);
+                    RadWindow1.Title = "Inventario Forestal";
+                    RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepInventarioForestal.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(Tipo.ToString(), true)) + "";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+                }
+                if (ClGestion.Tiene_Anexos_Poligono(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true))) == 1)
+                {
+                    int Id = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                    string url = "";
+                    //url = "/Mapas/MenuMapas.aspx?Id=" + Id;
+                    url = "/Segefor_new/Mapas/MenuMapas.aspx?Id=" + Id;
+                    string popupScript = "window.open('" + url + "', 'popup_window', 'left=100,top=100,resizable=yes');";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "script", popupScript, true);
+                }
+            }
+            else if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 2)
+            {
+                int Id = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                string GestionNo = ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gun"].ToString()), true);
+                String js = "window.open('Wfrm_AnexosPlanManejo.aspx?idgestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(Id.ToString(), true)) + "&NUG=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionNo.ToString(), true)) + "', '_blank');";
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Open Signature.aspx", js, true);
             }
         }
 

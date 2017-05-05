@@ -49,6 +49,24 @@ namespace SEGEFOR.WebForms {
         protected global::System.Web.UI.WebControls.ImageButton ImgVerinfo;
         
         /// <summary>
+        /// IngVerAnexos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton IngVerAnexos;
+        
+        /// <summary>
+        /// LblAnexos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblAnexos;
+        
+        /// <summary>
         /// DivResolucion control.
         /// </summary>
         /// <remarks>
@@ -182,14 +200,5 @@ namespace SEGEFOR.WebForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnYes;
-        
-        /// <summary>
-        /// BtnNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnNo;
     }
 }

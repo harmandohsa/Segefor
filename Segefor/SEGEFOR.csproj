@@ -1331,7 +1331,9 @@
     <Content Include="Scripts\JSMapas.js" />
     <Content Include="WebContenedor\Wfrm_Foto_Perfil.aspx" />
     <Content Include="WebContenedor\Wfrm_VerAnexo.aspx" />
+    <Content Include="WebForms\WebForm1.aspx" />
     <Content Include="WebForms\Wfrm_AdminPerfil.aspx" />
+    <Content Include="WebForms\Wfrm_AnexosPlanManejo.aspx" />
     <Content Include="WebForms\Wfrm_BosqueNatural.aspx" />
     <Content Include="WebForms\Wfrm_CambioClave.aspx" />
     <Content Include="WebForms\Wfrm_CatalogoImgBosque.aspx" />
@@ -1359,6 +1361,7 @@
     <Content Include="WebForms\Wfrm_Permisos.aspx" />
     <Content Include="WebForms\Wfrm_PlanManejo.aspx" />
     <Content Include="WebForms\Wfrm_Poligno_Region.aspx" />
+    <Content Include="WebForms\Wfrm_PoligonoMapa.aspx" />
     <Content Include="WebForms\Wfrm_Profesion_ActividadProfesional.aspx" />
     <Content Include="WebForms\Wfrm_RegistroCompleto.aspx" />
     <Content Include="packages.config" />
@@ -1448,6 +1451,7 @@
     <Content Include="WebForms\Wfrm_VerDocumentosHistorial.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_ConstanciaRRF.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_PlanManejoForestal.aspx" />
+    <Content Include="WeForms_Reportes\Wfrm_RepCenso.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepConstanciaAdmisionExp.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepDictamenJuridico.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepFormularioBosqueNatural.aspx" />
@@ -1685,6 +1689,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Rpt_Caratula.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Rpt_Censo.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_Censo.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reportes\Rpt_ConstanciaAdmisionExp.cs">
@@ -2044,12 +2054,26 @@
     <Compile Include="WebContenedor\Wfrm_VerAnexo.aspx.designer.cs">
       <DependentUpon>Wfrm_VerAnexo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebForms\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebForms\Wfrm_AdminPerfil.aspx.cs">
       <DependentUpon>Wfrm_AdminPerfil.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="WebForms\Wfrm_AdminPerfil.aspx.designer.cs">
       <DependentUpon>Wfrm_AdminPerfil.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_AnexosPlanManejo.aspx.cs">
+      <DependentUpon>Wfrm_AnexosPlanManejo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_AnexosPlanManejo.aspx.designer.cs">
+      <DependentUpon>Wfrm_AnexosPlanManejo.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebForms\Wfrm_BosqueNatural.aspx.cs">
       <DependentUpon>Wfrm_BosqueNatural.aspx</DependentUpon>
@@ -2247,6 +2271,13 @@
     <Compile Include="WebForms\Wfrm_Poligno_Region.aspx.designer.cs">
       <DependentUpon>Wfrm_Poligno_Region.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebForms\Wfrm_PoligonoMapa.aspx.cs">
+      <DependentUpon>Wfrm_PoligonoMapa.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_PoligonoMapa.aspx.designer.cs">
+      <DependentUpon>Wfrm_PoligonoMapa.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebForms\Wfrm_Profesion_ActividadProfesional.aspx.cs">
       <DependentUpon>Wfrm_Profesion_ActividadProfesional.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2365,6 +2396,13 @@
     </Compile>
     <Compile Include="WeForms_Reportes\Wfrm_PlanManejoForestal.aspx.designer.cs">
       <DependentUpon>Wfrm_PlanManejoForestal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WeForms_Reportes\Wfrm_RepCenso.aspx.cs">
+      <DependentUpon>Wfrm_RepCenso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeForms_Reportes\Wfrm_RepCenso.aspx.designer.cs">
+      <DependentUpon>Wfrm_RepCenso.aspx</DependentUpon>
     </Compile>
     <Compile Include="WeForms_Reportes\Wfrm_RepConstanciaAdmisionExp.aspx.cs">
       <DependentUpon>Wfrm_RepConstanciaAdmisionExp.aspx</DependentUpon>
@@ -2516,6 +2554,10 @@
     <EmbeddedResource Include="Reportes\Rpt_Caratula.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_Caratula.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Rpt_Censo.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_Censo.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\Rpt_ConstanciaAdmisionExp.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2772,7 +2814,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

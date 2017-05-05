@@ -10,7 +10,25 @@
 namespace SEGEFOR.WebForms {
     
     
-    public partial class Wfrm_Seguimiento_Notificacion_deJuridico_SubRegional {
+    public partial class Wfrm_AnexosPlanManejo {
+        
+        /// <summary>
+        /// form1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        
+        /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
         /// LblNug control.
@@ -22,166 +40,121 @@ namespace SEGEFOR.WebForms {
         protected global::System.Web.UI.WebControls.Label LblNug;
         
         /// <summary>
-        /// LblSolicitante control.
+        /// GrdAnexoCroquia control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblSolicitante;
+        protected global::Telerik.Web.UI.RadGrid GrdAnexoCroquia;
         
         /// <summary>
-        /// LblIdentificacion control.
+        /// GrdAnexoMapaUsoActual control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblIdentificacion;
+        protected global::Telerik.Web.UI.RadGrid GrdAnexoMapaUsoActual;
         
         /// <summary>
-        /// ImgVerinfo control.
+        /// GrdAnexoMapaPendiente control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImgVerinfo;
+        protected global::Telerik.Web.UI.RadGrid GrdAnexoMapaPendiente;
         
         /// <summary>
-        /// ImgVerProvidencia control.
+        /// GrdAnexoMapaUbicacion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImgVerProvidencia;
+        protected global::Telerik.Web.UI.RadGrid GrdAnexoMapaUbicacion;
         
         /// <summary>
-        /// ImgVerDictamenJuridico control.
+        /// GrdAnexoMapaRonda control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImgVerDictamenJuridico;
+        protected global::Telerik.Web.UI.RadGrid GrdAnexoMapaRonda;
         
         /// <summary>
-        /// Label2 control.
+        /// GrdInmueblePol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::Telerik.Web.UI.RadGrid GrdInmueblePol;
         
         /// <summary>
-        /// LblEstado control.
+        /// ImgPolRepoblacion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblEstado;
+        protected global::System.Web.UI.WebControls.ImageButton ImgPolRepoblacion;
         
         /// <summary>
-        /// DivConEnmiendas control.
+        /// ImgPrintCenso control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivConEnmiendas;
+        protected global::System.Web.UI.WebControls.ImageButton ImgPrintCenso;
         
         /// <summary>
-        /// BtnVistaPreviaOficio control.
+        /// DivErrPoligonoPrint control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnVistaPreviaOficio;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivErrPoligonoPrint;
         
         /// <summary>
-        /// BtnEnviarOficio control.
+        /// LblErrPoligono control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnEnviarOficio;
+        protected global::System.Web.UI.WebControls.Label LblErrPoligono;
         
         /// <summary>
-        /// DivSinEnmiendas control.
+        /// Div13 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivSinEnmiendas;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div13;
         
         /// <summary>
-        /// OptApruebaInscripción control.
+        /// Label14 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList OptApruebaInscripción;
+        protected global::System.Web.UI.WebControls.Label Label14;
         
         /// <summary>
-        /// DivCarga control.
+        /// TxtId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivCarga;
-        
-        /// <summary>
-        /// RadUploadExp control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadAsyncUpload RadUploadExp;
-        
-        /// <summary>
-        /// BtnVPResolucion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnVPResolucion;
-        
-        /// <summary>
-        /// BtnGrabaResolucion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnGrabaResolucion;
-        
-        /// <summary>
-        /// DivError control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivError;
-        
-        /// <summary>
-        /// LblMensaje control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblMensaje;
+        protected global::System.Web.UI.WebControls.TextBox TxtId;
         
         /// <summary>
         /// RadWindowManager1 control.
@@ -193,48 +166,21 @@ namespace SEGEFOR.WebForms {
         protected global::Telerik.Web.UI.RadWindowManager RadWindowManager1;
         
         /// <summary>
-        /// RadWindow1 control.
+        /// RadVerAnexo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadWindow RadWindow1;
+        protected global::Telerik.Web.UI.RadWindow RadVerAnexo;
         
         /// <summary>
-        /// RadWindowConfirm control.
+        /// RadWinCenso control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadWindow RadWindowConfirm;
-        
-        /// <summary>
-        /// LblTitConfirmacion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblTitConfirmacion;
-        
-        /// <summary>
-        /// Image1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image1;
-        
-        /// <summary>
-        /// BtnYes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnYes;
+        protected global::Telerik.Web.UI.RadWindow RadWinCenso;
     }
 }

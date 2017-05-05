@@ -225,6 +225,31 @@ namespace SEGEFOR.Clases
             }
         }
 
+
+
+        public DataSet GetFincaPlanManejoPol(int GestionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_GetFincaPlanManejoPol", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = GestionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
         public void EliminarTempFincaPlanManejo(int AsignacionId, int InmuebleId)
         {
             try
@@ -1761,7 +1786,7 @@ namespace SEGEFOR.Clases
             }
         }
 
-        public DataSet Get_Datos_Boleta(int AsignacionId)
+        public DataSet Get_Datos_Boleta(int AsignacionId, int Tipo)
         {
             try
             {
@@ -1771,6 +1796,7 @@ namespace SEGEFOR.Clases
                 OleDbCommand cmd = new OleDbCommand("Sp_Get_Datos_Boleta", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = AsignacionId;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
                 OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
                 adp.Fill(ds, "DATOS");
                 cn.Close();
@@ -3614,6 +3640,46 @@ namespace SEGEFOR.Clases
             {
                 cn.Close();
                 return ds;
+            }
+        }
+
+        public double Sum_VolTotalSilvicultura(int AsignacionId)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Get_Sum_VolTotalSilvicultura", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = @AsignacionId;
+                cmd.Parameters.Add("@Resul", OleDbType.Double).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToDouble(cmd.Parameters["@Resul"].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
+
+        public string Get_TratamientoSilvicultura(int AsignacionId)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Get_TratamientoSilvicultura", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = @AsignacionId;
+                cmd.Parameters.Add("@Resul", OleDbType.VarChar,200).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return cmd.Parameters["@Resul"].Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return "";
             }
         }
 

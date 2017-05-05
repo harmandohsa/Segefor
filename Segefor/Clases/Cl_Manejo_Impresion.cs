@@ -876,5 +876,34 @@ namespace SEGEFOR.Clases
             }
         }
 
+
+        public DataSet Boleta(int Id, int Origen)
+        {
+            Cl_Manejo ClManejo;
+            ClManejo = new Cl_Manejo();
+
+            Ds_PlanManejo Ds_BoletaPrint = new Ds_PlanManejo();
+            DataSet dsDatos = ClManejo.Get_Datos_Boleta(Id, 2);
+            Ds_BoletaPrint.Tables["Dt_Censo"].Clear();
+            for (int i = 0; i < dsDatos.Tables["Datos"].Rows.Count; i++)
+            {
+                DataRow row = Ds_BoletaPrint.Tables["Dt_Censo"].NewRow();
+                row["Turno"] = 0;
+                row["Rodal"] = dsDatos.Tables["Datos"].Rows[i]["Rodal"];
+                row["No"] = dsDatos.Tables["Datos"].Rows[i]["No"];
+                row["DAP"] = dsDatos.Tables["Datos"].Rows[i]["DAP"];
+                row["Altura"] = dsDatos.Tables["Datos"].Rows[i]["Altura"];
+                row["NombreCientifico"] = dsDatos.Tables["Datos"].Rows[i]["Nombre_Cientifico"];
+                row["Troza"] = dsDatos.Tables["Datos"].Rows[i]["Troza"];
+                row["X"] = dsDatos.Tables["Datos"].Rows[i]["X"];
+                row["Y"] = dsDatos.Tables["Datos"].Rows[i]["Y"];
+                Ds_BoletaPrint.Tables["Dt_Censo"].Rows.Add(row);
+            }
+            dsDatos.Clear();
+
+            return Ds_BoletaPrint;
+
+        }
+
     }
 }

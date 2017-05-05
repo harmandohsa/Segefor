@@ -233,36 +233,47 @@ namespace SEGEFOR.WebForms
             }
             else if (e.CommandName == "CmdAnexos")
             {
-                if (ClGestion.Tiene_Anexos_Inventerio(Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["GestionId"])) == 1)
+                if (e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ModuloId"].ToString() == "3")
                 {
-                    //Llamada 0 = PV, AF 1 = SAF
-                    int Actividad = ClGestion.Get_Actividad_RegistroId(Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["GestionId"]));
-                    int Categoria = ClGestion.Get_CategoriaRNFId(Actividad);
-                    int Tipo = 0;
-                    if ((Categoria == 2) || (Categoria == 3))
-                        Tipo = 0;
-                    else if (Categoria == 4) 
-                        Tipo = 1;
-                    else if (Categoria == 6)
-                        Tipo = 2;
-                     if (Categoria != 1)
-                     {
-                         Session["Datos_InventarioForestal"] = ClGestion.Impresion_Inventario_Forestal(Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["GestionId"]), Tipo);
-                         RadWindow1.Title = "Inventario Forestal";
-                         RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepInventarioForestal.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(Tipo.ToString(), true)) + "";
-                         ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
-                     }
+                    if (ClGestion.Tiene_Anexos_Inventerio(Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["GestionId"])) == 1)
+                    {
+                        //Llamada 0 = PV, AF 1 = SAF
+                        int Actividad = ClGestion.Get_Actividad_RegistroId(Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["GestionId"]));
+                        int Categoria = ClGestion.Get_CategoriaRNFId(Actividad);
+                        int Tipo = 0;
+                        if ((Categoria == 2) || (Categoria == 3))
+                            Tipo = 0;
+                        else if (Categoria == 4)
+                            Tipo = 1;
+                        else if (Categoria == 6)
+                            Tipo = 2;
+                        if (Categoria != 1)
+                        {
+                            Session["Datos_InventarioForestal"] = ClGestion.Impresion_Inventario_Forestal(Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["GestionId"]), Tipo);
+                            RadWindow1.Title = "Inventario Forestal";
+                            RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepInventarioForestal.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(Tipo.ToString(), true)) + "";
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+                        }
+                    }
+                    if (ClGestion.Tiene_Anexos_Poligono(Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["GestionId"])) == 1)
+                    {
+                        int Id = Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["GestionId"]);
+                        string url = "";
+                        //url =  "/Segefor_new/Mapas/MenuMapas.aspx?Id=" + Id;
+                        string RutaMapa = System.Configuration.ConfigurationManager.AppSettings["SitioMapas"];
+                        url = RutaMapa + "/MenuMapas.aspx?Id=" + Id;
+                        string popupScript = "window.open('" + url + "', 'popup_window', 'left=100,top=100,resizable=yes');";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "script", popupScript, true);
+                    }
                 }
-                if (ClGestion.Tiene_Anexos_Poligono(Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["GestionId"])) == 1)
+                else if (e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ModuloId"].ToString() == "2")
                 {
                     int Id = Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["GestionId"]);
-                    string url = "";
-                    //url =  "/Segefor_new/Mapas/MenuMapas.aspx?Id=" + Id;
-                    string RutaMapa = System.Configuration.ConfigurationManager.AppSettings["SitioMapas"];
-                    url = RutaMapa + "/MenuMapas.aspx?Id=" + Id;
-                    string popupScript = "window.open('" + url + "', 'popup_window', 'left=100,top=100,resizable=yes');";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "script", popupScript, true);
+                    string GestionNo = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["NUG"].ToString();
+                    String js = "window.open('Wfrm_AnexosPlanManejo.aspx?idgestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(Id.ToString(), true)) + "&NUG=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionNo.ToString(), true)) + "', '_blank');";
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Open Signature.aspx", js, true);
                 }
+                
                 
             }
         }
@@ -291,6 +302,9 @@ namespace SEGEFOR.WebForms
                 else if (item.GetDataKeyValue("ModuloId").ToString() == "2")
                 {
                     item["actividad"].Text =  ClManejo.Get_Actividad_Manejo(Convert.ToInt32(item.GetDataKeyValue("GestionId")));
+                    ImageButton Anexo;
+                    Anexo = (ImageButton)item.FindControl("ImgAnexos");
+                    Anexo.Visible = true;
                 }
             }
         }

@@ -160,7 +160,7 @@
                         <telerik:RadWindow RenderMode="Lightweight" ID="RadWindow1" runat="server" ShowContentDuringLoad="false" Width="800px"
                             Height="600px" Title="Telerik RadWindow" Behaviors="Default">
                         </telerik:RadWindow>
-                        <telerik:RadWindow runat="server" ID="RadWindowConfirm" Modal="true" Height="220px" Width="350px" Title="Confirmación" Behaviors="None">
+                        <telerik:RadWindow runat="server" ID="RadWindowConfirm" Modal="true" Height="220px" Width="350px" Title="Confirmación" Behaviors="Close">
                         <ContentTemplate>
                             <asp:Label ID="LblTitConfirmacion" ForeColor="Red" Font-Bold="true" Text="" runat="server" />
                             <br />
@@ -170,11 +170,11 @@
                                     <asp:Image ID="Image1" runat="server" ImageUrl="~/Imagenes/ask.png" />
                                 </div>
                                 <div class="col-sm-2">
-                                    <asp:Button runat="server" Text="Sí"  ID="BtnYes" class="btn btn-primary" />
+                                    <asp:Button runat="server" Text="Sí"  ID="BtnYes" data-loading-text="Enviando..."  class="btn btn-primary" />
                                 </div>
-                                <div class="col-sm-2">
+                                <%--<div class="col-sm-2">
                                     <asp:Button runat="server" Text="No"  ID="BtnNo" class="btn btn-primary" />
-                                </div>
+                                </div>--%>
                             </div>
                             
                         </ContentTemplate>
@@ -184,4 +184,15 @@
                 <asp:TextBox runat="server" ID="TxtMotivoId" Visible="false"></asp:TextBox>
         </ContentTemplate>
     </asp:UpdatePanel>
+    <script>
+        function pageLoad() {
+            $('#<%=BtnYes.ClientID%>').click(function () {
+                $(this).button('loading').delay(100000).queue(function () {
+                    $(this).button('reset');
+                    $(this).dequeue();
+                    $(this).data('loading-text', 'Cargando...');
+                });
+            });
+        }
+    </script>
 </asp:Content>

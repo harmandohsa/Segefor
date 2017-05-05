@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,8 @@ namespace SEGEFOR.Clases
 {
     public class Cl_Poligono
     {
+        OleDbConnection cn = new OleDbConnection(System.Configuration.ConfigurationManager.AppSettings["Conexion"]);
+        DataSet ds = new DataSet();
 
         public bool Actualizar_Poligono(XmlDocument pPoligono, ref int pId, ref String pPoligonoGML, int Usrcre, ref string ErrorMapa)
         {
@@ -453,6 +456,360 @@ namespace SEGEFOR.Clases
 
 
         }
-        
+
+        public DataSet puntos_poligonos_Inmueble(int InmuebleId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_puntos_poligonos_Inmueble", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public int Existe_Poligono_Inmueble(int InmuebleId)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Existe_Poligono_Inmueble", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                cmd.Parameters.Add("@Resul", OleDbType.Integer).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToInt32(cmd.Parameters["@Resul"].Value);
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
+
+        public DataSet obtener_poligonos_Inmueble(int InmuebleId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_obtener_poligonos_Inmueble", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+
+        public DataSet puntos_poligonos_AreaBosque(int InmuebleId, int Id, int Tipo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_puntos_poligonos_AreaBosque", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public int Existe_Poligono_AreaBosque(int InmuebleId, int Id, int Tipo)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Existe_Poligono_AreaBosque", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                cmd.Parameters.Add("@Resul", OleDbType.Integer).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToInt32(cmd.Parameters["@Resul"].Value);
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
+
+        public DataSet obtener_poligonos_AreaBosque(int InmuebleId, int Id, int Tipo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_obtener_poligonos_AreaBosque", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public DataSet puntos_poligonos_AreaIntervenir(int InmuebleId, int Id, int Tipo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_puntos_poligonos_AreaIntervenir", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public int Existe_Poligono_AreaIntervenir(int InmuebleId, int Id, int Tipo)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Existe_Poligono_AreaIntervenir", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                cmd.Parameters.Add("@Resul", OleDbType.Integer).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToInt32(cmd.Parameters["@Resul"].Value);
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
+
+        public DataSet obtener_poligonos_AreaIntervenir(int InmuebleId, int Id, int Tipo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_obtener_poligonos_AreaIntervenir", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+
+        public DataSet puntos_poligonos_AreaProteccion(int InmuebleId, int Id, int Tipo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_puntos_poligonos_AreaProteccion", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public int Existe_Poligono_AreaProteccion(int InmuebleId, int Id, int Tipo)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Existe_Poligono_AreaProteccion", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                cmd.Parameters.Add("@Resul", OleDbType.Integer).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToInt32(cmd.Parameters["@Resul"].Value);
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
+
+        public DataSet obtener_poligonos_AreaProteccion(int InmuebleId, int Id, int Tipo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_obtener_poligonos_AreaProteccion", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+
+        public DataSet puntos_poligonos_Repoblacion(int Id, int Tipo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_puntos_poligonos_Repoblacion", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public int Existe_Poligono_Repoblacion(int Id, int Tipo)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Existe_Poligono_Repoblacion", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                cmd.Parameters.Add("@Resul", OleDbType.Integer).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToInt32(cmd.Parameters["@Resul"].Value);
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
+
+        public DataSet obtener_poligonos_Repoblacion(int Id, int Tipo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_obtener_poligonos_Repoblacion", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
     }
 }
