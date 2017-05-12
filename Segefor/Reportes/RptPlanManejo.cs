@@ -178,7 +178,7 @@ namespace SEGEFOR.Reportes {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section DetailSection11 {
+        public CrystalDecisions.CrystalReports.Engine.Section DetailSection26 {
             get {
                 return this.ReportDefinition.Sections[16];
             }
@@ -186,7 +186,7 @@ namespace SEGEFOR.Reportes {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section DetailSection12 {
+        public CrystalDecisions.CrystalReports.Engine.Section DetailSection11 {
             get {
                 return this.ReportDefinition.Sections[17];
             }
@@ -194,7 +194,7 @@ namespace SEGEFOR.Reportes {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section DetailSection13 {
+        public CrystalDecisions.CrystalReports.Engine.Section DetailSection27 {
             get {
                 return this.ReportDefinition.Sections[18];
             }
@@ -202,7 +202,7 @@ namespace SEGEFOR.Reportes {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section DetailSection14 {
+        public CrystalDecisions.CrystalReports.Engine.Section DetailSection28 {
             get {
                 return this.ReportDefinition.Sections[19];
             }
@@ -210,7 +210,7 @@ namespace SEGEFOR.Reportes {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section DetailSection15 {
+        public CrystalDecisions.CrystalReports.Engine.Section DetailSection12 {
             get {
                 return this.ReportDefinition.Sections[20];
             }
@@ -218,7 +218,7 @@ namespace SEGEFOR.Reportes {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section DetailSection24 {
+        public CrystalDecisions.CrystalReports.Engine.Section DetailSection13 {
             get {
                 return this.ReportDefinition.Sections[21];
             }
@@ -226,7 +226,7 @@ namespace SEGEFOR.Reportes {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section DetailSection25 {
+        public CrystalDecisions.CrystalReports.Engine.Section DetailSection14 {
             get {
                 return this.ReportDefinition.Sections[22];
             }
@@ -234,7 +234,7 @@ namespace SEGEFOR.Reportes {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section DetailSection16 {
+        public CrystalDecisions.CrystalReports.Engine.Section DetailSection15 {
             get {
                 return this.ReportDefinition.Sections[23];
             }
@@ -242,7 +242,7 @@ namespace SEGEFOR.Reportes {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section DetailSection17 {
+        public CrystalDecisions.CrystalReports.Engine.Section DetailSection24 {
             get {
                 return this.ReportDefinition.Sections[24];
             }
@@ -250,7 +250,7 @@ namespace SEGEFOR.Reportes {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section DetailSection18 {
+        public CrystalDecisions.CrystalReports.Engine.Section DetailSection25 {
             get {
                 return this.ReportDefinition.Sections[25];
             }
@@ -258,7 +258,7 @@ namespace SEGEFOR.Reportes {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section DetailSection19 {
+        public CrystalDecisions.CrystalReports.Engine.Section DetailSection16 {
             get {
                 return this.ReportDefinition.Sections[26];
             }
@@ -266,7 +266,7 @@ namespace SEGEFOR.Reportes {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section DetailSection20 {
+        public CrystalDecisions.CrystalReports.Engine.Section DetailSection17 {
             get {
                 return this.ReportDefinition.Sections[27];
             }
@@ -274,7 +274,7 @@ namespace SEGEFOR.Reportes {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section ReportFooterSection10 {
+        public CrystalDecisions.CrystalReports.Engine.Section DetailSection18 {
             get {
                 return this.ReportDefinition.Sections[28];
             }
@@ -282,9 +282,33 @@ namespace SEGEFOR.Reportes {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
+        public CrystalDecisions.CrystalReports.Engine.Section DetailSection19 {
             get {
                 return this.ReportDefinition.Sections[29];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.CrystalReports.Engine.Section DetailSection20 {
+            get {
+                return this.ReportDefinition.Sections[30];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.CrystalReports.Engine.Section ReportFooterSection10 {
+            get {
+                return this.ReportDefinition.Sections[31];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
+            get {
+                return this.ReportDefinition.Sections[32];
             }
         }
     }

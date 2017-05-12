@@ -1823,6 +1823,12 @@
       <DependentUpon>Rpt_SolicitudPlanManejo.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SubReportes\RptSubRepDescripcionMuestreo.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptSubRepDescripcionMuestreo.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SubReportes\RptSubRep_Analisis_DictamenJuridico.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1905,6 +1911,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Rpt_SubRepSilviculturaPlanManejo.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SubReportes\Rpt_SubRep_AnalisisMuestreo.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_SubRep_AnalisisMuestreo.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SubReportes\Rpt_SubRep_AprovechamientoMuestreo.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_SubRep_AprovechamientoMuestreo.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SubReportes\Rpt_SubRep_AprovechamientoPlanManejo.cs">
@@ -2643,6 +2661,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_SolicitudPlanManejo.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubReportes\RptSubRepDescripcionMuestreo.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptSubRepDescripcionMuestreo.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubReportes\RptSubRep_Analisis_DictamenJuridico.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RptSubRep_Analisis_DictamenJuridico.cs</LastGenOutput>
@@ -2698,6 +2720,14 @@
     <EmbeddedResource Include="SubReportes\Rpt_SubRepSilviculturaPlanManejo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_SubRepSilviculturaPlanManejo.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubReportes\Rpt_SubRep_AnalisisMuestreo.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_SubRep_AnalisisMuestreo.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubReportes\Rpt_SubRep_AprovechamientoMuestreo.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_SubRep_AprovechamientoMuestreo.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="SubReportes\Rpt_SubRep_AprovechamientoPlanManejo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2814,7 +2844,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

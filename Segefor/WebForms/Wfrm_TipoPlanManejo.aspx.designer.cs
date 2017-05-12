@@ -3010,6 +3010,24 @@ namespace SEGEFOR.WebForms {
         protected global::Telerik.Web.UI.RadComboBox CboTipoInventario;
         
         /// <summary>
+        /// LbltitPanCenso control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbltitPanCenso;
+        
+        /// <summary>
+        /// LblCargueCenso control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblCargueCenso;
+        
+        /// <summary>
         /// RadUploadBoleta control.
         /// </summary>
         /// <remarks>
@@ -3154,6 +3172,60 @@ namespace SEGEFOR.WebForms {
         protected global::System.Web.UI.WebControls.TextBox TxtDatosRegresion;
         
         /// <summary>
+        /// DivMuestroUno control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivMuestroUno;
+        
+        /// <summary>
+        /// CboFormaParcela control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox CboFormaParcela;
+        
+        /// <summary>
+        /// TxtAreaMuestreada control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtAreaMuestreada;
+        
+        /// <summary>
+        /// DivMuestroDos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivMuestroDos;
+        
+        /// <summary>
+        /// CboTipoMuestreo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox CboTipoMuestreo;
+        
+        /// <summary>
+        /// TxtIntensidadMuestreo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtIntensidadMuestreo;
+        
+        /// <summary>
         /// btnGrabarAprovechamiento control.
         /// </summary>
         /// <remarks>
@@ -3197,6 +3269,78 @@ namespace SEGEFOR.WebForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblGoodAprovechamiento;
+        
+        /// <summary>
+        /// DivAnaEstadistico control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivAnaEstadistico;
+        
+        /// <summary>
+        /// GrdMuestreo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid GrdMuestreo;
+        
+        /// <summary>
+        /// TxtAnalisis Descriptivo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtAnalisisDescriptivo;
+        
+        /// <summary>
+        /// BtnGrabarAnalisis control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor BtnGrabarAnalisis;
+        
+        /// <summary>
+        /// DivErrAnalisis control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivErrAnalisis;
+        
+        /// <summary>
+        /// LblErrAnalisis control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblErrAnalisis;
+        
+        /// <summary>
+        /// DivGodAnalisis control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivGodAnalisis;
+        
+        /// <summary>
+        /// LblGodAnalisis control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblGodAnalisis;
         
         /// <summary>
         /// DivProdNoForesalUno control.

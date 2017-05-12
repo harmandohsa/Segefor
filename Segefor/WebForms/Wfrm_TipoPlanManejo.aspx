@@ -597,6 +597,12 @@
                 }
             }
         }
+
+        function CopiaCap() {
+            var Cap = document.getElementById('<%=TxtCap.ClientID%>').value;
+            
+            document.getElementById('<%=TxtCortaAnual.ClientID%>').value = Cap;
+        }
     </script>
 
     <asp:UpdatePanel runat="server">
@@ -2165,7 +2171,7 @@
                                                             <div class="col-sm-3"><telerik:RadComboBox ID="CboTipoIngresoDatos" AutoPostBack="true"  Width="100%" runat="server"></telerik:RadComboBox></div>
                                                         </div>
                                                         <div><label class="col-sm-3 control-label centradolabel">Tipo de Inventario</label>
-                                                            <div class="col-sm-3"><telerik:RadComboBox ID="CboTipoInventario"  Width="100%" runat="server"></telerik:RadComboBox></div>
+                                                            <div class="col-sm-3"><telerik:RadComboBox ID="CboTipoInventario" AutoPostBack="true"  Width="100%" runat="server"></telerik:RadComboBox></div>
                                                         </div>
                                                     </div>
                                                     <div style="padding-bottom:2em;"></div>
@@ -2178,12 +2184,12 @@
                                                                             <div class="panel panel-default">
                                                                                 <div class="panel-heading">
                                                                                     <h5 class="panel-title">
-                                                                                        <a data-toggle="collapse" data-parent="#accordionCenso" href="#collapseOneCenso">Censo</a>
+                                                                                        <a data-toggle="collapse" data-parent="#accordionCenso" href="#collapseOneCenso"><asp:Label runat="server" ID="LbltitPanCenso" Text="Censo"></asp:Label> </a>
                                                                                     </h5>
                                                                                 </div>
                                                                                 <div id="collapseOneCenso" class="panel-collapse collapse out">
                                                                                     <div class="panel-body">
-                                                                                        <label class="col-sm-2 control-label">Cargue el Censo</label>
+                                                                                        <label class="col-sm-2 control-label"><asp:Label runat="server" ID="LblCargueCenso" Text="Censo"></asp:Label></label>
                                                                                         <div class="col-sm-5">
                                                                                             <telerik:RadAsyncUpload runat="server" ID="RadUploadBoleta" Culture="es-GT" MaxFileInputsCount="1"
                                                                                                  AllowedFileExtensions="xls,xlsx">
@@ -2203,8 +2209,9 @@
                                                                                                 PageSizeLabelText="Regitros"/>
                                                                                             <MasterTableView Caption="" DataKeyNames="Turno,Rodal,No,Dap,Altura,Nombre_Cientifico,Troza,X,Y" NoMasterRecordsText="No Hay Registros" ShowFooter="true">
                                                                                                 <Columns>
-                                                                                                    <telerik:GridBoundColumn DataField="Turno" UniqueName="Turno" HeaderText="Turno" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                                    <telerik:GridBoundColumn DataField="Turno" Visible="false" UniqueName="Turno" HeaderText="Turno" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
                                                                                                     <telerik:GridBoundColumn DataField="Rodal" UniqueName="Rodal" HeaderText="Rodal" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                                    <telerik:GridBoundColumn DataField="Parcela" Visible="false" UniqueName="Parcela" HeaderText="Parcela" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
                                                                                                     <telerik:GridBoundColumn DataField="No" UniqueName="No" HeaderText="No" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
                                                                                                     <telerik:GridBoundColumn DataField="Dap" UniqueName="Dap" HeaderText="Dap" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
                                                                                                     <telerik:GridBoundColumn DataField="Altura" UniqueName="Altura" HeaderText="Altura" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
@@ -2264,7 +2271,7 @@
                                                                     </telerik:GridTemplateColumn>  
 
                                                                     <telerik:GridBoundColumn DataField="Edad" UniqueName="Edad"  HeaderText="Edad" Visible="false" HeaderStyle-Width="1px"></telerik:GridBoundColumn>
-                                                                    <telerik:GridTemplateColumn DataField="Edad" HeaderText="Año"  UniqueName="EdadEdit" HeaderStyle-Width="80px" >
+                                                                    <telerik:GridTemplateColumn DataField="Edad" HeaderText="Edad Promedio"  UniqueName="EdadEdit" HeaderStyle-Width="80px" >
                                                                         <ItemTemplate>
                                                                             <asp:TextBox runat="server" ID="TxtEdad" CssClass="form-control"></asp:TextBox>
                                                                         </ItemTemplate>
@@ -2422,6 +2429,23 @@
                                                     </div>
                                                     
                                                     <div style="padding-bottom:2em;"></div>
+                                                    <div class="ibox-content" runat="server" id="DivMuestroUno" visible="false">
+                                                      <div><label class="col-sm-3 control-label centradolabel">Forma de Parcela</label>
+                                                            <div class="col-sm-3"><telerik:RadComboBox ID="CboFormaParcela" EnableCheckAllItemsCheckBox="true" Localization-AllItemsCheckedString="Todos los items seleccionados" Localization-CheckAllString="Seleccionar Todos" Localization-ItemsCheckedString="Seleccionados" CheckBoxes="true"  Width="100%" runat="server"></telerik:RadComboBox></div>
+                                                        </div>
+                                                        <div><label class="col-sm-2 control-label centradolabel">Área muestreada ha</label>
+                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtAreaMuestreada"  step="any" min="0" type="number" CssClass="form-control"></asp:TextBox></div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="padding-bottom:2em;"></div>
+                                                    <div class="ibox-content" runat="server" id="DivMuestroDos" visible="false">
+                                                      <div><label class="col-sm-3 control-label centradolabel">Tipo de Muestreo</label>
+                                                            <div class="col-sm-3"><telerik:RadComboBox ID="CboTipoMuestreo" EnableCheckAllItemsCheckBox="true" Localization-AllItemsCheckedString="Todos los items seleccionados" Localization-CheckAllString="Seleccionar Todos" Localization-ItemsCheckedString="Seleccionados" CheckBoxes="true"  Width="100%" runat="server"></telerik:RadComboBox></div>
+                                                        </div>
+                                                        <div><label class="col-sm-2 control-label centradolabel">Intensidad de muestreo</label>
+                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtIntensidadMuestreo"  step="any" min="0" type="number" CssClass="form-control"></asp:TextBox></div>
+                                                        </div>
+                                                    </div>
                                                     <div class="ibox-content">
                                                         <div class="col-sm-5">
                                                             <asp:Button runat="server" Text="Grabar"  ID="btnGrabarAprovechamiento" class="btn btn-primary" />
@@ -2439,6 +2463,126 @@
                                                                 <asp:Label runat="server" ID="LblGoodAprovechamiento" Font-Bold="true">Error</asp:Label>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="ibox-content" runat="server" id="DivAnaEstadistico" visible="false">
+                                                        Análisis-Muestreo
+                                                        <div class="ibox-content">
+                                                            <telerik:RadGrid runat="server" ID="GrdMuestreo" Skin="Telerik" CssClass="AddBorders"
+                                                                AutoGenerateColumns="false" Width="100%"   
+                                                                GridLines="Both" >
+                                                                <PagerStyle Mode="NumericPages" NextPageText="Siguiente" 
+                                                                    PrevPageText="Anterior" Position="Bottom" 
+                                                                    PagerTextFormat="Change page: {4} &amp;nbsp;Pagina &lt;strong&gt;{0}&lt;/strong&gt; de &lt;strong&gt;{1}&lt;/strong&gt;, registros &lt;strong&gt;{2}&lt;/strong&gt; a &lt;strong&gt;{3}&lt;/strong&gt; de &lt;strong&gt;{5}&lt;/strong&gt;." 
+                                                                    PageSizeLabelText="Regitros"/>
+                                                                <MasterTableView Caption="" Name="LabelsResumen" DataKeyNames="Rodal,Area,Parcela,Volaha,MediaVolParcela,DesviacionEstandard,CoeficienteVariacion,ErrorEstandardMedia,ErrorMuestreo,PorErrorMuestreo,IntervaloConfianza" NoMasterRecordsText="No Hay Registros" ShowFooter="true">
+                                                                    <Columns>
+                                                                        <telerik:GridBoundColumn DataField="Rodal" UniqueName="Rodal" HeaderText="Rodal" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="Area" UniqueName="Area" HeaderText="Area" Visible="false" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
+                                                                        <telerik:GridTemplateColumn DataField="Area" HeaderText="Área"  UniqueName="AreaEdit" HeaderStyle-Width="75px">
+                                                                            <ItemTemplate>
+                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtArea" Width="60px">
+                                                                                    <NumberFormat DecimalDigits="2" />
+                                                                                </telerik:RadNumericTextBox>
+                                                                            </ItemTemplate>
+                                                                        </telerik:GridTemplateColumn>
+                                                                        <telerik:GridBoundColumn DataField="Parcela" UniqueName="Parcela" HeaderText="Parcela" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
+
+                                                                        <telerik:GridBoundColumn DataField="Volaha" UniqueName="Volaha" HeaderText="Volaha" Visible="false" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
+                                                                        <telerik:GridTemplateColumn DataField="Volaha" HeaderText="Vol./ha (m3)"  UniqueName="VolahaEdit" HeaderStyle-Width="75px">
+                                                                            <ItemTemplate>
+                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtVolaha" Width="60px">
+                                                                                    <NumberFormat DecimalDigits="2" />
+                                                                                </telerik:RadNumericTextBox>
+                                                                            </ItemTemplate>
+                                                                        </telerik:GridTemplateColumn>
+                                                                        <telerik:GridBoundColumn DataField="MediaVolParcela" UniqueName="MediaVolParcela" HeaderText="MediaVolParcela" Visible="false" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
+                                                                        <telerik:GridTemplateColumn DataField="MediaVolParcela" HeaderText="MediaVol./ parcela"  UniqueName="MediaVolParcelaEdit" HeaderStyle-Width="75px">
+                                                                            <ItemTemplate>
+                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtMediaVolParcela" Width="60px">
+                                                                                    <NumberFormat DecimalDigits="2" />
+                                                                                </telerik:RadNumericTextBox>
+                                                                            </ItemTemplate>
+                                                                        </telerik:GridTemplateColumn>
+                                                                        <telerik:GridBoundColumn DataField="DesviacionEstandard" UniqueName="DesviacionEstandard" HeaderText="DesviacionEstandard" Visible="false" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
+                                                                        <telerik:GridTemplateColumn DataField="DesviacionEstandard" HeaderText="Desviación Estándar"  UniqueName="DesviacionEstandardEdit" HeaderStyle-Width="75px">
+                                                                            <ItemTemplate>
+                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtDesviacionEstandard" Width="60px">
+                                                                                    <NumberFormat DecimalDigits="2" />
+                                                                                </telerik:RadNumericTextBox>
+                                                                            </ItemTemplate>
+                                                                        </telerik:GridTemplateColumn>
+                                                                        <telerik:GridBoundColumn DataField="CoeficienteVariacion" UniqueName="CoeficienteVariacion" HeaderText="CoeficienteVariacion" Visible="false" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
+                                                                        <telerik:GridTemplateColumn DataField="CoeficienteVariacion" HeaderText="Coeficiente de variación"  UniqueName="CoeficienteVariacionEdit" HeaderStyle-Width="75px">
+                                                                            <ItemTemplate>
+                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtCoeficienteVariacion" Width="60px">
+                                                                                    <NumberFormat DecimalDigits="2" />
+                                                                                </telerik:RadNumericTextBox>
+                                                                            </ItemTemplate>
+                                                                        </telerik:GridTemplateColumn>
+                                                                        <telerik:GridBoundColumn DataField="ErrorEstandardMedia" UniqueName="ErrorEstandardMedia" HeaderText="ErrorEstandardMedia" Visible="false" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
+                                                                        <telerik:GridTemplateColumn DataField="ErrorEstandardMedia" HeaderText="Error estándar de la media"  UniqueName="ErrorEstandardMediaEdit" HeaderStyle-Width="75px">
+                                                                            <ItemTemplate>
+                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtErrorEstandardMedia" Width="60px">
+                                                                                    <NumberFormat DecimalDigits="2" />
+                                                                                </telerik:RadNumericTextBox>
+                                                                            </ItemTemplate>
+                                                                        </telerik:GridTemplateColumn>
+                                                                        <telerik:GridBoundColumn DataField="ErrorMuestreo" UniqueName="ErrorMuestreo" HeaderText="ErrorMuestreo" Visible="false" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
+                                                                        <telerik:GridTemplateColumn DataField="ErrorMuestreo" HeaderText="Error de muestreo"  UniqueName="ErrorMuestreoEdit" HeaderStyle-Width="75px">
+                                                                            <ItemTemplate>
+                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtErrorMuestreo" Width="60px">
+                                                                                    <NumberFormat DecimalDigits="2" />
+                                                                                </telerik:RadNumericTextBox>
+                                                                            </ItemTemplate>
+                                                                        </telerik:GridTemplateColumn>
+                                                                        <telerik:GridBoundColumn DataField="PorErrorMuestreo" UniqueName="PorErrorMuestreo" HeaderText="PorErrorMuestreo" Visible="false" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
+                                                                        <telerik:GridTemplateColumn DataField="PorErrorMuestreo" HeaderText="Error de muestreo en %"  UniqueName="PorErrorMuestreoEdit" HeaderStyle-Width="75px">
+                                                                            <ItemTemplate>
+                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtPorErrorMuestreo" Width="60px">
+                                                                                    <NumberFormat DecimalDigits="2" />
+                                                                                </telerik:RadNumericTextBox>
+                                                                            </ItemTemplate>
+                                                                        </telerik:GridTemplateColumn>
+                                                                        <telerik:GridBoundColumn DataField="IntervaloConfianza" UniqueName="IntervaloConfianza" HeaderText="IntervaloConfianza" Visible="false" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
+                                                                        <telerik:GridTemplateColumn DataField="IntervaloConfianza" HeaderText="Intervalo de Confianza"  UniqueName="IntervaloConfianzaEdit" HeaderStyle-Width="165px">
+                                                                            <ItemTemplate>
+                                                                                <telerik:RadTextBox runat="server" ID="TxtIntervaloConfianza" Width="150px"></telerik:RadTextBox>
+                                                                            </ItemTemplate>
+                                                                        </telerik:GridTemplateColumn>
+                                                                    </Columns>        
+                                                                </MasterTableView>
+                                                                <FilterMenu EnableTheming="true">
+                                                                    <CollapseAnimation Duration="200" Type="OutQuint" />
+                                                                </FilterMenu>
+                                                                <ClientSettings>
+                                                                    <Scrolling AllowScroll="true" UseStaticHeaders="True"  />
+                                                                </ClientSettings>
+                                                            </telerik:RadGrid>
+                                                        </div>
+                                                        <div class="ibox-content">
+                                                            <label class="col-sm-6 control-label centradolabel">ANALISIS DESCRIPTIVO (Realizar un breve análisis de los resultados obtenidos): </label>
+                                                            <div class="col-sm-5"><asp:TextBox runat="server" ID="TxtAnalisisDescriptivo"  TextMode="MultiLine" Height="100px" CssClass="form-control"></asp:TextBox></div>
+                                                        </div>
+                                                        </div>
+                                                         <div class="ibox-content">
+                                                            <div class="col-sm-5">
+                                                                <a class="btn btn-primary m-b" runat="server" id="BtnGrabarAnalisis">Grabar Ánalisis</a>
+                                                            </div>
+                                                        </div>
+                                                        <div style="padding-bottom:2em;"></div>
+                                                        <div class="ibox-content" runat="server" >
+                                                            <div class="col-sm-10">
+                                                                <div class="alert alert-danger alert-dismissable" runat="server" id="DivErrAnalisis" visible="false">
+                                                                    <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                    <asp:Label runat="server" ID="LblErrAnalisis" Font-Bold="true"></asp:Label>
+                                                                </div>
+                                                                <div class="alert alert-success alert-dismissable" runat="server" id="DivGodAnalisis" visible="false">
+                                                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                    <asp:Label runat="server" ID="LblGodAnalisis" Font-Bold="true">Error</asp:Label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     </div>
                                                     <div class="ibox-content" runat="server" id="DivProdNoForesalUno" visible="false">
                                                         Productos Forestales No Maderables
@@ -2463,7 +2607,7 @@
                                                         <div><label class="col-sm-2 control-label centradolabel">Unidad de medida</label>
                                                             <div class="col-sm-2"><telerik:RadComboBox ID="CboUMedida" Width="100%" runat="server"></telerik:RadComboBox></div>
                                                         </div>
-                                                        <div><label class="col-sm-1 control-label centradolabel">Peso</label>
+                                                        <div><label class="col-sm-1 control-label centradolabel">Unidad</label>
                                                             <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtPesoNoForestal"  step="any" min="0" type="number" CssClass="form-control"></asp:TextBox></div>
                                                         </div>
                                                     </div>
@@ -2505,7 +2649,7 @@
                                                                     <telerik:GridBoundColumn DataField="Producto" UniqueName="Producto" HeaderText="Producto" HeaderStyle-Width="365px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="Unidad_MedidaId" UniqueName="Unidad_MedidaId" HeaderText="Unidad_MedidaId" Visible="false" HeaderStyle-Width="165px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="Unidad_Medida" UniqueName="Unidad_Medida" HeaderText="Unidad de Medida" HeaderStyle-Width="165px"></telerik:GridBoundColumn>
-                                                                    <telerik:GridBoundColumn DataField="Peso" UniqueName="Peso" HeaderText="Peso" HeaderStyle-Width="105px"></telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="Peso" UniqueName="Peso" HeaderText="Unidad" HeaderStyle-Width="105px"></telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn HeaderText="Eliminar" UniqueName="Del">
                                                                         <ItemTemplate>
                                                                             <asp:ImageButton runat="server" ID="ImgDelProdNoMaderable" ImageUrl="~/Imagenes/24x24/delete.png" formnovalidate ToolTip="Eliminar" CommandName="CmdDel"/>
@@ -2731,7 +2875,6 @@
                                                     </div>
                                                 </telerik:RadPageView>
                                                 <telerik:RadPageView ID="RadPagePlanificacionManejo" Visible="false" runat="server"> <%-- Planificación del Manejo--%>
-                                                    CRECIMIENTO ANUAL DEL BOSQUE Y POSIBILIDAD DE CORTA
                                                         <div style="padding-bottom:2em;"></div>    
                                                         
                                                         <div class="ibox-content">
@@ -2796,6 +2939,15 @@
                                                                                 <telerik:RadComboBox runat="server" ID="CboTratamiento" AutoPostBack="true" Width="230px" OnSelectedIndexChanged="CboTratamiento_SelectedIndexChanged"></telerik:RadComboBox>
                                                                             </ItemTemplate>
                                                                         </telerik:GridTemplateColumn>  
+
+                                                                        <telerik:GridBoundColumn DataField="Otro" UniqueName="Otro"  HeaderText="Otro" Visible="false" HeaderStyle-Width="0px"></telerik:GridBoundColumn>
+                                                                        <telerik:GridTemplateColumn DataField="Otro" HeaderText="Otro Tratamiento"  UniqueName="Otro_Edit" HeaderStyle-Width="150px" >
+                                                                            <ItemTemplate>
+                                                                                <asp:TextBox runat="server" ID="TxtOtro" Enabled="false" CssClass="form-control"></asp:TextBox>
+                                                                            </ItemTemplate>
+                                                                        </telerik:GridTemplateColumn>  
+
+
                                                                         <telerik:GridBoundColumn DataField="Existe" UniqueName="Existe"  HeaderText="Existe" Visible="false" HeaderStyle-Width="0px"></telerik:GridBoundColumn>
                                                                         <telerik:GridTemplateColumn DataField="Existe" HeaderText="Extrae"  UniqueName="ExtraeEdit" HeaderStyle-Width="40px" >
                                                                             <ItemTemplate>
@@ -2979,7 +3131,7 @@
                                                         <div style="padding-bottom:2em;"></div>
                                                         <div class="ibox-content">
                                                             <div><label class="col-sm-3 control-label centradolabel">CAP m3:</label>
-                                                                <div class="col-sm-3"><asp:TextBox runat="server" ID="TxtCap"  step="any" min="0" type="number" CssClass="form-control" required=""></asp:TextBox></div>
+                                                                <div class="col-sm-3"><asp:TextBox runat="server" ID="TxtCap" onkeyup="CopiaCap()" step="any" min="0" type="number" CssClass="form-control" required=""></asp:TextBox></div>
                                                             </div>
                                                         </div>
                                                         <div style="padding-bottom:2em;"></div>

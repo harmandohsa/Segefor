@@ -31,6 +31,8 @@ namespace SEGEFOR.Clases
             row["TieneRepresentantes"] = TieneRepresentantes_PlanManejo(Id, Origen);
             row["TieneProdNoMaderables"] = TieneProdNoMaderables_PlanManejo(Id,Origen);
             row["TipoPropiedadId"] = Get_TipoPropiedadId(Id, Origen);
+            row["TipoInv"] = GetTipoInventario(Id, Origen);
+            
             Ds_PlanManejo.Tables["Dt_Encabezado"].Rows.Add(row);
             dsDatos.Clear();
             
@@ -111,7 +113,7 @@ namespace SEGEFOR.Clases
             //LLenar Fincas
             DataSet dsDatos = GetReporte_PlanManejo_VistaPrevia(Id, Origen);
             Ds_PlanManejo.Tables["DtFinca"].Clear();
-            //DataSet
+            //DataSet0
             for (int i = 0; i < dsDatos.Tables["Datos"].Rows.Count; i++)
             {
                 DataRow rowFinca = Ds_PlanManejo.Tables["DtFinca"].NewRow();
@@ -259,7 +261,9 @@ namespace SEGEFOR.Clases
                 Ds_PlanManejo.Tables["Dt_Caracbiofisica"].Rows.Add(rowData);
             }
 
-            ////DataSet6
+            ////DataSet6 --Aprovechamiento Forestal
+            string AreaMuestreada = "0";
+            string IntensidadMuestreo = "0";
             for (int i = 0; i < dsDatos.Tables["Datos6"].Rows.Count; i++)
             {
                 DataRow rowData = Ds_PlanManejo.Tables["Dt_Aprovechamiento"].NewRow();
@@ -268,6 +272,11 @@ namespace SEGEFOR.Clases
                 rowData["TotRodal"] = dsDatos.Tables["Datos6"].Rows[i]["TotRodal"];
                 rowData["Datos_Regresion"] = dsDatos.Tables["Datos6"].Rows[i]["Datos_Regresion"];
                 rowData["Ecuaciones"] = dsDatos.Tables["Datos6"].Rows[i]["Ecuaciones"];
+                if (dsDatos.Tables["Datos6"].Rows[i]["Tipo_InventarioId"].ToString() == "2")
+                {
+                    AreaMuestreada = dsDatos.Tables["Datos6"].Rows[i]["AreaMuestreada"].ToString();
+                    IntensidadMuestreo = dsDatos.Tables["Datos6"].Rows[i]["IntensidadMuestreo"].ToString(); 
+                }
                 Ds_PlanManejo.Tables["Dt_Aprovechamiento"].Rows.Add(rowData);
             }
 
@@ -449,10 +458,46 @@ namespace SEGEFOR.Clases
                 Ds_PlanManejo.Tables["DtCalculoRepoblacion"].Rows.Add(rowData);
             }
 
+            ////DataSet18 Analisis MUestre0
+            for (int i = 0; i < dsDatos.Tables["Datos18"].Rows.Count; i++)
+            {
+                DataRow rowData = Ds_PlanManejo.Tables["DtAnalisisMuestreo"].NewRow();
+                rowData["Rodal"] = dsDatos.Tables["Datos18"].Rows[i]["Rodal"];
+                rowData["Area"] = dsDatos.Tables["Datos18"].Rows[i]["Area"];
+                rowData["Parcela"] = dsDatos.Tables["Datos18"].Rows[i]["Parcela"];
+                rowData["Volha"] = dsDatos.Tables["Datos18"].Rows[i]["Volaha"];
+                rowData["MediaVolParcela"] = dsDatos.Tables["Datos18"].Rows[i]["MediaVolParcela"];
+                rowData["DesvEst"] = dsDatos.Tables["Datos18"].Rows[i]["DesviacionEstandard"];
+                rowData["CoeficienteVar"] = dsDatos.Tables["Datos18"].Rows[i]["CoeficienteVariacion"];
+                rowData["ErrEstandard"] = dsDatos.Tables["Datos18"].Rows[i]["ErrorEstandardMedia"];
+                rowData["ErrMuestreo"] = dsDatos.Tables["Datos18"].Rows[i]["ErrorMuestreo"];
+                rowData["ErrMuestreoPor"] = dsDatos.Tables["Datos18"].Rows[i]["PorErrorMuestreo"];
+                rowData["IntervaloConf"] = dsDatos.Tables["Datos18"].Rows[i]["IntervaloConfianza"];
+                Ds_PlanManejo.Tables["DtAnalisisMuestreo"].Rows.Add(rowData);
+            }
 
+            ////DataSet19 Descripcion MUestreo
+            for (int i = 0; i < dsDatos.Tables["Datos19"].Rows.Count; i++)
+            {
+                DataRow rowData = Ds_PlanManejo.Tables["DtDescripcionAnalisis"].NewRow();
+                rowData["Analisis"] = dsDatos.Tables["Datos19"].Rows[i]["AnaDesc"];
+                Ds_PlanManejo.Tables["DtDescripcionAnalisis"].Rows.Add(rowData);
+            }
+            
+            
             dsDatos.Clear();
 
-            ////DataSet17
+            //DataSet 18a
+           
+            DataRow rowAprovechamientoMuestreo = Ds_PlanManejo.Tables["DtAprovechamientoMuestreo"].NewRow();
+            rowAprovechamientoMuestreo["FormaParcela"] = GetAprovechamiento_FormaParcela(Id, Origen);
+            rowAprovechamientoMuestreo["AreaMuestreada"] = AreaMuestreada;
+            rowAprovechamientoMuestreo["TipoMuestreo"] = GetAprovechamiento_TipoMuestreo(Id, Origen);
+            rowAprovechamientoMuestreo["IntensidadMuestreo"] = IntensidadMuestreo;
+            Ds_PlanManejo.Tables["DtAprovechamientoMuestreo"].Rows.Add(rowAprovechamientoMuestreo);
+                        
+            
+            ////DataSet19a
             DataSet DsFincas = GetFincasPlanManejo(Id, Origen);
             Ds_PlanManejo.Tables["DtBosque"].Clear();
             for (int i = 0; i < DsFincas.Tables["Datos"].Rows.Count; i++)
@@ -903,6 +948,70 @@ namespace SEGEFOR.Clases
 
             return Ds_BoletaPrint;
 
+        }
+
+        public int GetTipoInventario(int Tipo, int Id)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_GetTipoInventario", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@TipoInv", OleDbType.Integer).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToInt32(cmd.Parameters["@TipoInv"].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
+
+
+        public string GetAprovechamiento_FormaParcela(int Id, int Tipo)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_GetAprovechamiento_FormaParcela", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@tipo", OleDbType.Integer).Value = Tipo;
+                cmd.Parameters.Add("@Resul", OleDbType.VarChar, 500).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return cmd.Parameters["@Resul"].Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return "";
+            }
+        }
+
+        public string GetAprovechamiento_TipoMuestreo(int Id, int Tipo)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_GetAprovechamiento_TipoMuestreo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@tipo", OleDbType.Integer).Value = Tipo;
+                cmd.Parameters.Add("@Resul", OleDbType.VarChar, 500).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return cmd.Parameters["@Resul"].Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return "";
+            }
         }
 
     }

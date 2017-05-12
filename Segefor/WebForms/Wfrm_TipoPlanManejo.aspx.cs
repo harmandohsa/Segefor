@@ -136,7 +136,7 @@ namespace SEGEFOR.WebForms
             DataColumn NombreAnexoMapaRonda = DtAnexosMapaRonda.Columns.Add("NombreAnexoMapaRonda", typeof(string));
             DataColumn PathAnexoMapaRonda = DtAnexosMapaRonda.Columns.Add("PathAnexoMapaRonda", typeof(string));
 
-
+            GrdMuestreo.NeedDataSource += GrdMuestreo_NeedDataSource;
             CboTipoDocumento.SelectedIndexChanged += CboTipoDocumento_SelectedIndexChanged;
             ChkIngNomFinca.CheckedChanged += ChkIngNomFinca_CheckedChanged;
             OptAreasPro.SelectedIndexChanged += OptAreasPro_SelectedIndexChanged;
@@ -260,6 +260,9 @@ namespace SEGEFOR.WebForms
             ImgPolRepoblacion.Click += ImgPolRepoblacion_Click;
             ImgPrintCenso.Click += ImgPrintCenso_Click;
             BtnIrAnexos.ServerClick += BtnIrAnexos_ServerClick;
+            CboTipoInventario.SelectedIndexChanged += CboTipoInventario_SelectedIndexChanged;
+            GrdMuestreo.ItemDataBound += GrdMuestreo_ItemDataBound;
+            BtnGrabarAnalisis.ServerClick += BtnGrabarAnalisis_ServerClick;
 
             if (Session["UsuarioId"] == null)
             {
@@ -408,7 +411,7 @@ namespace SEGEFOR.WebForms
                 ClUtilitarios.AgregarSeleccioneCombo(CboRodal, "Rodal");
                 ClUtilitarios.AgregarSeleccioneCombo(CboFormula, "Formula");
                 RetornoPlanificacionManejo_Forestal_PlanManejo();
-                ClUtilitarios.LlenaCombo(ClCatalogos.Listado_Especie(), CboEspecieRepo, "EspecieId", "Especie");
+                ClUtilitarios.LlenaCombo(ClCatalogos.ListadoEspecie_NoProtegidas(), CboEspecieRepo, "EspecieId", "Especie");
                 ClUtilitarios.AgregarSeleccioneCombo(CboEspecieRepo, "Especie");
                 ClUtilitarios.LlenaCombo(ClCatalogos.ListadoSistemaRepoblacion(), CboSistemaRepo, "SistemaRepoblacioId", "SistemaRepoblacion");
                 ClUtilitarios.AgregarSeleccioneCombo(CboSistemaRepo, "Sistema Repoblación");
@@ -430,6 +433,9 @@ namespace SEGEFOR.WebForms
                 ClUtilitarios.LlenaCombo(ClCatalogos.ListadoEtapa(), CboEtapa, "EtapaId", "Etapa");
                 ClUtilitarios.AgregarSeleccioneCombo(CboEtapa, "Etapa");
                 RetornoCalculosCompromisoForestal();
+                ClUtilitarios.LlenaCombo(ClCatalogos.Listado_Parcela(), CboFormaParcela, "Forma_ParcelaId", "Forma_Parcela");
+                ClUtilitarios.LlenaCombo(ClCatalogos.Listado_Tipo_Muestreo(), CboTipoMuestreo, "Tipo_MuestreoId", "Tipo_Muestreo");
+                GrdMuestreo.Rebind();
             }
             else
             {
@@ -438,7 +444,334 @@ namespace SEGEFOR.WebForms
                     Stream fileStream = RadUploadFile.UploadedFiles[0].InputStream;
                 }
             }
+            DataSet dsDatosParcela = ClManejo.Get_AprovechamientoForestalDet_Parcela(Convert.ToInt32(TxtAsignacionId.Text),1);
+            for (int i = 0; i < dsDatosParcela.Tables["Datos"].Rows.Count; i++)
+            {
+                for (int j = 0; j < CboFormaParcela.Items.Count; j++)
+                {
+                    if (Convert.ToInt32(CboFormaParcela.Items[j].Value) == Convert.ToInt32(dsDatosParcela.Tables["Datos"].Rows[i]["Forma_ParcelaId"]))
+                    {
+                        CboFormaParcela.Items[j].Checked = true;
+                    }
+                }
+            }
+            dsDatosParcela.Clear();
 
+            DataSet dsDatosMuestreo = ClManejo.Get_AprovechamientoForestalDet_TipoMuestreo(Convert.ToInt32(TxtAsignacionId.Text),1);
+            for (int i = 0; i < dsDatosMuestreo.Tables["Datos"].Rows.Count; i++)
+            {
+                for (int j = 0; j < CboTipoMuestreo.Items.Count; j++)
+                {
+                    if (Convert.ToInt32(CboTipoMuestreo.Items[j].Value) == Convert.ToInt32(dsDatosMuestreo.Tables["Datos"].Rows[i]["Tipo_MuestreoId"]))
+                    {
+                        CboTipoMuestreo.Items[j].Checked = true;
+                    }
+                }
+            }
+            dsDatosMuestreo.Clear();
+
+            DataSet dsDatosClaseDesarrollo = ClManejo.GetClaseDesarrolloFinca_PlanManejo(Convert.ToInt32(TxtAsignacionId.Text), Convert.ToInt32(TxtInmuebleId.Text));
+            for (int i = 0; i < dsDatosClaseDesarrollo.Tables["Datos"].Rows.Count; i++)
+            {
+                for (int j = 0; j < CboClaseDesarrollo.Items.Count; j++)
+                {
+                    if (Convert.ToInt32(CboClaseDesarrollo.Items[j].Value) == Convert.ToInt32(dsDatosClaseDesarrollo.Tables["Datos"].Rows[i]["Clase_DesarrolloId"]))
+                    {
+                        CboClaseDesarrollo.Items[j].Checked = true;
+                    }
+                }
+            }
+            dsDatosClaseDesarrollo.Clear();
+
+            DataSet dsDatosEcuacion = ClManejo.Get_Ecuacion_Aprovechamiento_Forestal(Convert.ToInt32(TxtAsignacionId.Text));
+            for (int i = 0; i < dsDatosEcuacion.Tables["Datos"].Rows.Count; i++)
+            {
+                for (int j = 1; j < CboEcuacion.Items.Count; j++)
+                {
+                    if (Convert.ToInt32(CboEcuacion.Items[j].Value) == Convert.ToInt32(dsDatosEcuacion.Tables["Datos"].Rows[i]["EcuacionId"]))
+                    {
+                        CboEcuacion.Items[j].Checked = true;
+                    }
+                }
+            }
+            dsDatosEcuacion.Clear();
+            
+        }
+
+        bool ValidaAnalisisFilas()
+        {
+            bool NoHayDato = false;
+            for (int i = 0; i < GrdMuestreo.Items.Count; i++)
+            {
+                object TxtArea = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtArea")).Text;
+                RadNumericTextBox TxtAreaTxt = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtArea"));
+                if (TxtArea.ToString() == "")
+                {
+                    TxtAreaTxt.BackColor = Color.Red;
+                    NoHayDato = true;
+                }
+                else
+                {
+                    TxtAreaTxt.BackColor = Color.White;
+                }
+
+                object TxtVolaha = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtVolaha")).Text;
+                RadNumericTextBox TxtVolahaTxt = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtVolaha"));
+                if (TxtVolaha.ToString() == "")
+                {
+                    TxtVolahaTxt.BackColor = Color.Red;
+                    NoHayDato = true;
+                }
+                else
+                {
+                    TxtVolahaTxt.BackColor = Color.White;
+                }
+
+                object TxtMediaVolParcela = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtMediaVolParcela")).Text;
+                RadNumericTextBox TxtMediaVolParcelaTxt = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtMediaVolParcela"));
+                if (TxtMediaVolParcela.ToString() == "")
+                {
+                    TxtMediaVolParcelaTxt.BackColor = Color.Red;
+                    NoHayDato = true;
+                }
+                else
+                {
+                    TxtMediaVolParcelaTxt.BackColor = Color.White;
+                }
+
+                object TxtDesviacionEstandard = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtDesviacionEstandard")).Text;
+                RadNumericTextBox TxtDesviacionEstandardTxt = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtDesviacionEstandard"));
+                if (TxtDesviacionEstandard.ToString() == "")
+                {
+                    TxtDesviacionEstandardTxt.BackColor = Color.Red;
+                    NoHayDato = true;
+                }
+                else
+                {
+                    TxtDesviacionEstandardTxt.BackColor = Color.White;
+                }
+
+                object TxtCoeficienteVariacion = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtCoeficienteVariacion")).Text;
+                RadNumericTextBox TxtCoeficienteVariacionTxt = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtCoeficienteVariacion"));
+                if (TxtCoeficienteVariacion.ToString() == "")
+                {
+                    TxtCoeficienteVariacionTxt.BackColor = Color.Red;
+                    NoHayDato = true;
+                }
+                else
+                {
+                    TxtCoeficienteVariacionTxt.BackColor = Color.White;
+                }
+
+                object TxtErrorEstandardMedia = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtErrorEstandardMedia")).Text;
+                RadNumericTextBox TxtErrorEstandardMediaTxt = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtErrorEstandardMedia"));
+                if (TxtErrorEstandardMedia.ToString() == "")
+                {
+                    TxtErrorEstandardMediaTxt.BackColor = Color.Red;
+                    NoHayDato = true;
+                }
+                else
+                {
+                    TxtErrorEstandardMediaTxt.BackColor = Color.White;
+                }
+
+                object TxtErrorMuestreo = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtErrorMuestreo")).Text;
+                RadNumericTextBox TxtErrorMuestreoTxt = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtErrorMuestreo"));
+                if (TxtErrorMuestreo.ToString() == "")
+                {
+                    TxtErrorMuestreoTxt.BackColor = Color.Red;
+                    NoHayDato = true;
+                }
+                else
+                {
+                    TxtErrorMuestreoTxt.BackColor = Color.White;
+                }
+
+                object TxtPorErrorMuestreo = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtPorErrorMuestreo")).Text;
+                RadNumericTextBox TxtPorErrorMuestreoTxt = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtPorErrorMuestreo"));
+                if (TxtPorErrorMuestreo.ToString() == "")
+                {
+                    TxtPorErrorMuestreoTxt.BackColor = Color.Red;
+                    NoHayDato = true;
+                }
+                else
+                {
+                    TxtPorErrorMuestreoTxt.BackColor = Color.White;
+                }
+
+                object TxtPorErrorMuestreo15 = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtPorErrorMuestreo")).Text;
+                RadNumericTextBox TxtPorErrorMuestreoTxt15 = ((RadNumericTextBox)this.GrdMuestreo.Items[i].FindControl("TxtPorErrorMuestreo"));
+                 if (TxtPorErrorMuestreo15.ToString() != "")
+                 {
+                     if (Convert.ToDouble(TxtPorErrorMuestreo15.ToString()) > 15)
+                     {
+                         TxtPorErrorMuestreoTxt.BackColor = Color.Red;
+                         NoHayDato = true;
+                         TxtPorErrorMuestreoTxt.ToolTip = "El valor debe ser menor o igual a 15";
+                     }
+                     else
+                     {
+                         TxtPorErrorMuestreoTxt.BackColor = Color.White;
+                     }
+                 }
+                
+                
+                
+
+                object TxtIntervaloConfianza = ((RadTextBox)this.GrdMuestreo.Items[i].FindControl("TxtIntervaloConfianza")).Text;
+                RadTextBox TxtIntervaloConfianzaTxt = ((RadTextBox)this.GrdMuestreo.Items[i].FindControl("TxtIntervaloConfianza"));
+                if (TxtIntervaloConfianza.ToString() == "")
+                {
+                    TxtIntervaloConfianzaTxt.BackColor = Color.Red;
+                    NoHayDato = true;
+                }
+                else
+                {
+                    TxtIntervaloConfianzaTxt.BackColor = Color.White;
+                }
+            }
+            return NoHayDato;
+        }
+
+        void BtnGrabarAnalisis_ServerClick(object sender, EventArgs e)
+        {
+            DivErrAnalisis.Visible = false;
+            DivGodAnalisis.Visible = false;
+
+            if (ValidaAnalisisFilas() != true)
+            {
+                XmlDocument iInformacionMuestreo = ClXml.CrearDocumentoXML("AnalisiMuestreo");
+                XmlNode iElementosMuestreo = iInformacionMuestreo.CreateElement("AnalisiMuestreo");
+                for (int i = 0; i < GrdMuestreo.Items.Count; i++)
+                {
+                    XmlNode iElementoDetalleMuestreo = iInformacionMuestreo.CreateElement("Item");
+                    ClXml.AgregarAtributo("Rodal", GrdMuestreo.Items[i].GetDataKeyValue("Rodal"), iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    RadNumericTextBox TxtArea = ((RadNumericTextBox)GrdMuestreo.Items[i].FindControl("TxtArea"));
+                    ClXml.AgregarAtributo("Area", TxtArea.Text, iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    ClXml.AgregarAtributo("Parcela", GrdMuestreo.Items[i].GetDataKeyValue("Parcela"), iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    RadNumericTextBox TxtVolaha = ((RadNumericTextBox)GrdMuestreo.Items[i].FindControl("TxtVolaha"));
+                    ClXml.AgregarAtributo("Volaha", TxtVolaha.Text, iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    RadNumericTextBox TxtMediaVolParcela = ((RadNumericTextBox)GrdMuestreo.Items[i].FindControl("TxtMediaVolParcela"));
+                    ClXml.AgregarAtributo("MediaVolParcela", TxtMediaVolParcela.Text, iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    RadNumericTextBox TxtDesviacionEstandard = ((RadNumericTextBox)GrdMuestreo.Items[i].FindControl("TxtDesviacionEstandard"));
+                    ClXml.AgregarAtributo("DesviacionEstandard", TxtDesviacionEstandard.Text, iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    RadNumericTextBox TxtCoeficienteVariacion = ((RadNumericTextBox)GrdMuestreo.Items[i].FindControl("TxtCoeficienteVariacion"));
+                    ClXml.AgregarAtributo("CoeficienteVariacion", TxtCoeficienteVariacion.Text, iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    RadNumericTextBox TxtErrorEstandardMedia = ((RadNumericTextBox)GrdMuestreo.Items[i].FindControl("TxtErrorEstandardMedia"));
+                    ClXml.AgregarAtributo("ErrorEstandardMedia", TxtErrorEstandardMedia.Text, iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    RadNumericTextBox TxtErrorMuestreo = ((RadNumericTextBox)GrdMuestreo.Items[i].FindControl("TxtErrorMuestreo"));
+                    ClXml.AgregarAtributo("ErrorMuestreo", TxtErrorMuestreo.Text, iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    RadNumericTextBox TxtPorErrorMuestreo = ((RadNumericTextBox)GrdMuestreo.Items[i].FindControl("TxtPorErrorMuestreo"));
+                    ClXml.AgregarAtributo("PorErrorMuestreo", TxtPorErrorMuestreo.Text, iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    RadTextBox TxtIntervaloConfianza = ((RadTextBox)GrdMuestreo.Items[i].FindControl("TxtIntervaloConfianza"));
+                    ClXml.AgregarAtributo("IntervaloConfianza", TxtIntervaloConfianza.Text, iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+                }
+
+                iInformacionMuestreo.ChildNodes[1].AppendChild(iElementosMuestreo);
+                ClManejo.Insert_AnalisisEstadistico(Convert.ToInt32(TxtAsignacionId.Text), iInformacionMuestreo, TxtAnalisisDescriptivo.Text);
+                DivGodAnalisis.Visible = true;
+                LblGodAnalisis.Text = "Ánalisis grabado";
+            }
+            else
+            {
+                DivErrAnalisis.Visible = true;
+                LblErrAnalisis.Text = "Hay algunos datos incorrectos o vacios en el ánalisis, estan marcardos en rojo favor revisar.";
+            }
+        }
+
+        
+
+        void GrdMuestreo_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if ((e.Item.ItemType == GridItemType.Item) || (e.Item.ItemType == GridItemType.AlternatingItem))
+            {
+                GridDataItem item = e.Item as GridDataItem;
+                if (item.GetDataKeyValue("Area") != null)
+                {
+                    ((RadNumericTextBox)item["AreaEdit"].FindControl("TxtArea")).Text = item.GetDataKeyValue("Area").ToString();
+                }
+                if (item.GetDataKeyValue("Volaha") != null)
+                {
+                    ((RadNumericTextBox)item["VolahaEdit"].FindControl("TxtVolaha")).Text = item.GetDataKeyValue("Volaha").ToString();
+                }
+
+                if (item.GetDataKeyValue("MediaVolParcela") != null)
+                {
+                    ((RadNumericTextBox)item["MediaVolParcelaEdit"].FindControl("TxtMediaVolParcela")).Text = item.GetDataKeyValue("MediaVolParcela").ToString();
+                }
+
+                if (item.GetDataKeyValue("DesviacionEstandard") != null)
+                {
+                    ((RadNumericTextBox)item["DesviacionEstandardEdit"].FindControl("TxtDesviacionEstandard")).Text = item.GetDataKeyValue("DesviacionEstandard").ToString();
+                }
+                if (item.GetDataKeyValue("CoeficienteVariacion") != null)
+                {
+                    ((RadNumericTextBox)item["CoeficienteVariacionEdit"].FindControl("TxtCoeficienteVariacion")).Text = item.GetDataKeyValue("CoeficienteVariacion").ToString();
+                }
+                if (item.GetDataKeyValue("ErrorEstandardMedia") != null)
+                {
+                    ((RadNumericTextBox)item["ErrorEstandardMediaEdit"].FindControl("TxtErrorEstandardMedia")).Text = item.GetDataKeyValue("ErrorEstandardMedia").ToString();
+                }
+                if (item.GetDataKeyValue("ErrorMuestreo") != null)
+                {
+                    ((RadNumericTextBox)item["ErrorMuestreoEdit"].FindControl("TxtErrorMuestreo")).Text = item.GetDataKeyValue("ErrorMuestreo").ToString();
+                }
+                if (item.GetDataKeyValue("PorErrorMuestreo") != null)
+                {
+                    ((RadNumericTextBox)item["PorErrorMuestreoEdit"].FindControl("TxtPorErrorMuestreo")).Text = item.GetDataKeyValue("PorErrorMuestreo").ToString();
+                }
+                if (item.GetDataKeyValue("IntervaloConfianza") != null)
+                {
+                    ((RadTextBox)item["IntervaloConfianzaEdit"].FindControl("TxTIntervaloConfianza")).Text = item.GetDataKeyValue("IntervaloConfianza").ToString();
+                }
+            }
+        }
+
+        void GrdMuestreo_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            ClUtilitarios.LlenaGrid(ClManejo.GetAnalisisEstadistico(Convert.ToInt32(TxtAsignacionId.Text)), GrdMuestreo);
+        }
+
+        void CboTipoInventario_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            if (CboTipoInventario.SelectedValue == "1")
+            {
+                LbltitPanCenso.Text = "Censo";
+                LblCargueCenso.Text = "Cargue el Censo";
+                DivMuestroUno.Visible = false;
+                DivMuestroDos.Visible = false;
+                DivAnaEstadistico.Visible = false;
+            }
+            else
+            {
+                LbltitPanCenso.Text = "Muestreo";
+                LblCargueCenso.Text = "Cargue el Muestreo";
+                DivMuestroUno.Visible = true;
+                DivMuestroDos.Visible = true;
+                DivAnaEstadistico.Visible = true;
+            }
+           
         }
 
         void BtnIrAnexos_ServerClick(object sender, EventArgs e)
@@ -553,7 +886,7 @@ namespace SEGEFOR.WebForms
                 if (dsInmuebles.Tables["Datos"].Rows[i]["TipoDoc_PropiedadId"].ToString() == "3")
                     GrdInmueblePol.Columns[6].HeaderText = "Poseedores";
             }
-            dsInmuebles.Clear();
+            //dsInmuebles.Clear();
         }
 
         void BtnGrabarCompromisoRepo_ServerClick(object sender, EventArgs e)
@@ -2310,6 +2643,16 @@ namespace SEGEFOR.WebForms
                 
                     ImgArboles.Visible = true;
                 }
+                TextBox TxtOtro = (TextBox)item.FindControl("TxtOtro");
+                if  (combo.SelectedValue == "6")
+                {
+                    TxtOtro.Enabled = true;
+                }
+                else
+                {
+                    TxtOtro.Enabled = false;
+                    TxtOtro.Text = "";
+                }
             }
             CalculaCompromisoRepoblacion();
             
@@ -2405,6 +2748,9 @@ namespace SEGEFOR.WebForms
                         ((RadNumericTextBox)item["VolTotalEdit"].FindControl("TxtVolTotal")).Text = DsDatosExtrae.Tables["Datos"].Rows[0]["VolTotal"].ToString();
                         ((RadComboBox)item["Tratamiento_Edit"].FindControl("CboTratamiento")).SelectedValue = DsDatosExtrae.Tables["Datos"].Rows[0]["Tratamiento_Id"].ToString();
                         ((RadComboBox)item["Tratamiento_Edit"].FindControl("CboTratamiento")).Text = DsDatosExtrae.Tables["Datos"].Rows[0]["Tratamiento"].ToString();
+                        ((TextBox)item["Otro_Edit"].FindControl("TxtOtro")).Text = DsDatosExtrae.Tables["Datos"].Rows[0]["Otro_Tratamiento"].ToString();
+                        if (DsDatosExtrae.Tables["Datos"].Rows[0]["Tratamiento_Id"].ToString() == "6")
+                            ((TextBox)item["Otro_Edit"].FindControl("TxtOtro")).Enabled = true;
                         ((CheckBox)item["ExtraeEdit"].FindControl("ChkExtrae")).Checked = true;
                         if (Convert.ToInt32(DsDatosExtrae.Tables["Datos"].Rows[0]["Tratamiento_Id"].ToString()) != 1)
                             ((ImageButton)item["Arboles"].FindControl("ImgArboles")).Visible = true;
@@ -2514,6 +2860,10 @@ namespace SEGEFOR.WebForms
                                     TxTVolLena.Style.Add("color ", "Black");
                                 }
                             }
+                            else if (TratamientoId == "6")
+                            {
+                                ///Nada
+                            }
                             else
                             {
                                 if ((Convert.ToDouble(TxtVolTroza.Text) + Convert.ToDouble(TxTVolLena.Text)) >= VolTotalRodal)
@@ -2587,6 +2937,7 @@ namespace SEGEFOR.WebForms
                             {
                                 Agrego = true;
                                 string TratamientoId = ((RadComboBox)this.GrdSilvicultural.Items[i].FindControl("CboTratamiento")).SelectedValue;
+                                string OtroTratamiento = ((TextBox)this.GrdSilvicultural.Items[i].FindControl("TxtOtro")).Text;
                                 object VolTroza = ((RadNumericTextBox)this.GrdSilvicultural.Items[i].FindControl("TxtVolTroza")).Text;
                                 if (VolTroza == "")
                                     VolTroza = 0;
@@ -2596,7 +2947,7 @@ namespace SEGEFOR.WebForms
                                 object VolTotal = ((RadNumericTextBox)this.GrdSilvicultural.Items[i].FindControl("TxtVolTotal")).Text;
                                 if (VolTotal == "")
                                     VolTotal = 0;
-                                ClManejo.Insert_Silvicultura_MaderableExtrae(AsignacionId, Convert.ToInt32(GrdSilvicultural.Items[i].OwnerTableView.DataKeyValues[i]["Correlativo"]), Convert.ToInt32(TxtTurno), Convert.ToDecimal(VolTroza), Convert.ToDecimal(VolLena), Convert.ToDecimal(VolTotal), Convert.ToInt32(TratamientoId));
+                                ClManejo.Insert_Silvicultura_MaderableExtrae(AsignacionId, Convert.ToInt32(GrdSilvicultural.Items[i].OwnerTableView.DataKeyValues[i]["Correlativo"]), Convert.ToInt32(TxtTurno), Convert.ToDecimal(VolTroza), Convert.ToDecimal(VolLena), Convert.ToDecimal(VolTotal), Convert.ToInt32(TratamientoId),OtroTratamiento);
                             }
                         }
                         
@@ -2613,6 +2964,10 @@ namespace SEGEFOR.WebForms
                     if (TxtSistemaCorta.Text == "")
                     {
                         TxtSistemaCorta.Text = ClManejo.Get_TratamientoSilvicultura(Convert.ToInt32(TxtAsignacionId.Text)).ToString();
+                        if (TxtSistemaCorta.Text == "")
+                            TxtSistemaCorta.Text = ClManejo.Get_TratamientoSilvicultura(Convert.ToInt32(TxtAsignacionId.Text)).ToString();
+                        else
+                            TxtSistemaCorta.Text = TxtSistemaCorta.Text + ", " + ClManejo.Get_TratamientoSilvicultura_Otros(Convert.ToInt32(TxtAsignacionId.Text)).ToString();
                     }
                 }
             }
@@ -3096,7 +3451,58 @@ namespace SEGEFOR.WebForms
             BloquearTodoslosVolumenes();
         }
 
+        void ArmaMuestreoAnalisis()
+        {
+            DataSet ds = ClManejo.ArmaAnalisisMuestreo(Convert.ToInt32(TxtAsignacionId.Text));
+            if (ds.Tables["Datos"].Rows.Count > 0)
+            {
+                XmlDocument iInformacionMuestreo = ClXml.CrearDocumentoXML("AnalisiMuestreo");
+                XmlNode iElementosMuestreo = iInformacionMuestreo.CreateElement("AnalisiMuestreo");
+                for (int i = 0; i < ds.Tables["Datos"].Rows.Count; i++)
+                {
 
+                    XmlNode iElementoDetalleMuestreo = iInformacionMuestreo.CreateElement("Item");
+                    ClXml.AgregarAtributo("Rodal", ds.Tables["Datos"].Rows[i]["Rodal"], iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    ClXml.AgregarAtributo("Area", "", iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+                    
+                    ClXml.AgregarAtributo("Parcela", ds.Tables["Datos"].Rows[i]["Parcela"], iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    ClXml.AgregarAtributo("Volaha", "", iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    ClXml.AgregarAtributo("MediaVolParcela", "", iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    ClXml.AgregarAtributo("DesviacionEstandard", "", iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    ClXml.AgregarAtributo("CoeficienteVariacion", "", iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    ClXml.AgregarAtributo("ErrorEstandardMedia", "", iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    ClXml.AgregarAtributo("ErrorMuestreo", "", iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    ClXml.AgregarAtributo("PorErrorMuestreo", "", iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+
+                    ClXml.AgregarAtributo("IntervaloConfianza", "", iElementoDetalleMuestreo);
+                    iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+                }
+
+                iInformacionMuestreo.ChildNodes[1].AppendChild(iElementosMuestreo);
+                ds.Clear();
+                ClManejo.Insert_AnalisisEstadistico(Convert.ToInt32(TxtAsignacionId.Text), iInformacionMuestreo, ""); 
+            }
+            
+           
+        }
 
         void btnGrabarAprovechamiento_Click(object sender, EventArgs e)
         {
@@ -3112,7 +3518,41 @@ namespace SEGEFOR.WebForms
                     ClManejo.Elimniar_Resumen(AsignacionId);
                     ClManejo.Eliminiar_Aprovechamiento_Forestal(AsignacionId);
                     ClManejo.Eliminiar_Ecuaciones_Manejo(AsignacionId);
-                    ClManejo.Insert_Aprovechamiento_Forestal(AsignacionId, Convert.ToInt32(CboTipoIngresoDatos.SelectedValue), Convert.ToInt32(CboTipoInventario.SelectedValue), TxtDatosRegresion.Text, Convert.ToInt32(TxtDiametroMinimo.Text), Convert.ToInt32(TxtTotRodal.Text), TxtOtraEcuacion.Text);
+                    decimal AreaMuestreada = 0;
+                    decimal IntensidadMuestreo = 0;
+                    if (TxtAreaMuestreada.Text != "")
+                        AreaMuestreada = Convert.ToDecimal(TxtAreaMuestreada.Text);
+                    if (TxtIntensidadMuestreo.Text != "")
+                        IntensidadMuestreo = Convert.ToDecimal(TxtIntensidadMuestreo.Text);
+                    ClManejo.Insert_Aprovechamiento_Forestal(AsignacionId, Convert.ToInt32(CboTipoIngresoDatos.SelectedValue), Convert.ToInt32(CboTipoInventario.SelectedValue), TxtDatosRegresion.Text, Convert.ToInt32(TxtDiametroMinimo.Text), Convert.ToInt32(TxtTotRodal.Text), TxtOtraEcuacion.Text, AreaMuestreada,IntensidadMuestreo);
+                    if (CboTipoInventario.SelectedValue == "2")
+                    {
+                        XmlDocument iInformacion = ClXml.CrearDocumentoXML("FormaParcela");
+                        XmlNode iElementos = iInformacion.CreateElement("FormaParcela");
+                        var collection = CboFormaParcela.CheckedItems;
+                        foreach (var item in collection)
+                        {
+                            XmlNode iElementoDetalle = iInformacion.CreateElement("Item");
+                            ClXml.AgregarAtributo("Forma_ParcelaId", Convert.ToInt32(item.Value), iElementoDetalle);
+                            iElementos.AppendChild(iElementoDetalle);
+                        }
+                        iInformacion.ChildNodes[1].AppendChild(iElementos);
+
+
+                        XmlDocument iInformacionMuestreo = ClXml.CrearDocumentoXML("Tipo_Muestreo");
+                        XmlNode iElementosMuestreo = iInformacionMuestreo.CreateElement("Tipo_Muestreo");
+                        var collection2 = CboTipoMuestreo.CheckedItems;
+                        foreach (var item in collection2)
+                        {
+                            XmlNode iElementoDetalleMuestreo = iInformacionMuestreo.CreateElement("Item");
+                            ClXml.AgregarAtributo("Tipo_MuestreoId", Convert.ToInt32(item.Value), iElementoDetalleMuestreo);
+                            iElementosMuestreo.AppendChild(iElementoDetalleMuestreo);
+                        }
+                        iInformacionMuestreo.ChildNodes[1].AppendChild(iElementosMuestreo);
+
+                        ClManejo.Insert_Aprovechamiento_Forestal_Det(AsignacionId, iInformacion, iInformacionMuestreo);
+
+                    }
                     if (CboTipoIngresoDatos.SelectedValue == "1")
                     {
                         var collection = CboEcuacion.CheckedItems;
@@ -3183,6 +3623,7 @@ namespace SEGEFOR.WebForms
                     DivGoodAprovechamiento.Visible = true;
                     LblGoodAprovechamiento.Text = "Datos de Aprovechamiento Forestal Grabados";
                     GrdSilvicultural.Rebind();
+                    
                 }
                 else
                 {
@@ -3198,55 +3639,6 @@ namespace SEGEFOR.WebForms
             bool NoHayDato = false;
             for (int i = 0; i < GrdResumen.Items.Count; i++)
             {
-
-                //object TxtAreaRodal = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtAreaRodal")).Text;
-                //RadNumericTextBox TxtAreaRodalTxt = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtAreaRodal"));
-                //if (TxtAreaRodal.ToString() == "")
-                //{
-                //    TxtAreaRodalTxt.BackColor = Color.Red;
-                //    NoHayDato = true;
-                //}
-                //else
-                //{
-                //    TxtAreaRodalTxt.BackColor = Color.White;
-                //}
-
-                //object TxtEdad = ((TextBox)this.GrdResumen.Items[i].FindControl("TxtEdad")).Text;
-                //TextBox TxtEdadTxt = ((TextBox)this.GrdResumen.Items[i].FindControl("TxtEdad"));
-                //if (TxtEdad.ToString() == "")
-                //{
-                //    TxtEdadTxt.BackColor = Color.Red;
-                //    NoHayDato = true;
-                //}
-                //else
-                //{
-                //    TxtEdadTxt.BackColor = Color.White;
-                //}
-
-                //object TxtPendiente = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtPendiente")).Text;
-                //RadNumericTextBox TxtPendienteTxt = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtPendiente"));
-                //if (TxtPendiente.ToString() == "")
-                //{
-                //    TxtPendienteTxt.BackColor = Color.Red;
-                //    NoHayDato = true;
-                //}
-                //else
-                //{
-                //    TxtPendienteTxt.BackColor = Color.White;
-                //}
-
-                //object TxtINC = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtINC")).Text;
-                //RadNumericTextBox TxtINCTxt = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtINC"));
-                //if (TxtINC.ToString() == "")
-                //{
-                //    TxtINCTxt.BackColor = Color.Red;
-                //    NoHayDato = true;
-                //}
-                //else
-                //{
-                //    TxtINCTxt.BackColor = Color.White;
-                //}
-
                 object TxtDap = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtDap")).Text;
                 RadNumericTextBox TxtDapTxt = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtDap"));
                 if (TxtDap.ToString() == "")
@@ -3395,6 +3787,40 @@ namespace SEGEFOR.WebForms
                     LblErrAprovechamiento.Text = LblErrAprovechamiento.Text + "Debe ingresar el total de rodales";
                 else
                     LblErrAprovechamiento.Text = LblErrAprovechamiento.Text + ", debe ingresar el total de rodales";
+                HayError = true;
+            }
+            if ((CboTipoInventario.SelectedValue == "2") && (TxtAreaMuestreada.Text == ""))
+            {
+                if (LblErrAprovechamiento.Text == "")
+                    LblErrAprovechamiento.Text = LblErrAprovechamiento.Text + "Debe ingresar el área muestreada";
+                else
+                    LblErrAprovechamiento.Text = LblErrAprovechamiento.Text + ", debe ingresar el área muestreada";
+                HayError = true;
+            }
+            if ((CboTipoInventario.SelectedValue == "2") && (TxtIntensidadMuestreo.Text == ""))
+            {
+                if (LblErrAprovechamiento.Text == "")
+                    LblErrAprovechamiento.Text = LblErrAprovechamiento.Text + "Debe ingresar la intensidad de muestreo";
+                else
+                    LblErrAprovechamiento.Text = LblErrAprovechamiento.Text + ", debe ingresar la intensidad de muestreo";
+                HayError = true;
+            }
+            var itemParcela = CboFormaParcela.CheckedItems;
+            if ((CboTipoInventario.SelectedValue == "2") && (itemParcela.Count == 0))
+            {
+                if (LblErrAprovechamiento.Text == "")
+                    LblErrAprovechamiento.Text = LblErrAprovechamiento.Text + "Debe seleccionar al menos una forma de parcela";
+                else
+                    LblErrAprovechamiento.Text = LblErrAprovechamiento.Text + ", debe seleccionar al menos una forma de parcela";
+                HayError = true;
+            }
+            var itemTipoMuestreo = CboTipoMuestreo.CheckedItems;
+            if ((CboTipoInventario.SelectedValue == "2") && (itemTipoMuestreo.Count == 0))
+            {
+                if (LblErrAprovechamiento.Text == "")
+                    LblErrAprovechamiento.Text = LblErrAprovechamiento.Text + "Debe seleccionar al menos un tipo de muestreo";
+                else
+                    LblErrAprovechamiento.Text = LblErrAprovechamiento.Text + ", debe seleccionar al menos un tipo de muestreo";
                 HayError = true;
             }
             if (HayError == true)
@@ -3591,7 +4017,7 @@ namespace SEGEFOR.WebForms
                     ClManejo.Elimina_Boleta_Dos(AsignacionId);
                     foreach (DataRow iDtRow in resultXls.Tables[0].Rows)
                     {
-                        if (iDtRow["Turno"].ToString() != "")
+                        if (iDtRow["Rodal"].ToString() != "")
                         {
                             if (Convert.ToInt32(ClManejo.Existe_Especie(iDtRow["NOMBRE_CIENTIFICO"].ToString())) > 0)
                             {
@@ -3601,18 +4027,23 @@ namespace SEGEFOR.WebForms
                                     X = Convert.ToInt32(iDtRow["X"]);
                                 if (Convert.ToInt32(iDtRow["Y"].ToString().Length) > 0)
                                     Y = Convert.ToInt32(iDtRow["Y"]);
-
-                                ClManejo.Sp_Insert_Boleta(AsignacionId, Convert.ToInt32(iDtRow["Turno"]), Convert.ToInt32(iDtRow["Rodal"]), Convert.ToDouble(iDtRow["No"]), Convert.ToDouble(iDtRow["Dap"]), Convert.ToDouble(iDtRow["Altura"]), iDtRow["NOMBRE_CIENTIFICO"].ToString(), Convert.ToDouble(iDtRow["%_TROZA"]), X, Y);
+                                if (CboTipoInventario.SelectedValue == "1")
+                                    ClManejo.Sp_Insert_Boleta(AsignacionId, Convert.ToInt32(iDtRow["Turno"]), Convert.ToInt32(iDtRow["Rodal"]), Convert.ToDouble(iDtRow["No"]), Convert.ToDouble(iDtRow["Dap"]), Convert.ToDouble(iDtRow["Altura"]), iDtRow["NOMBRE_CIENTIFICO"].ToString(), Convert.ToDouble(iDtRow["%_TROZA"]), X, Y, 0);
+                                else
+                                    ClManejo.Sp_Insert_Boleta(AsignacionId, 0, Convert.ToInt32(iDtRow["Rodal"]), Convert.ToDouble(iDtRow["No"]), Convert.ToDouble(iDtRow["Dap"]), Convert.ToDouble(iDtRow["Altura"]), iDtRow["NOMBRE_CIENTIFICO"].ToString(), 0, X, Y, Convert.ToInt32(iDtRow["Parcela"]));
                             }
 
                         }
 
                     }
-
+                    if (CboTipoInventario.SelectedValue == "2")
+                        GrdBoleta.Columns[2].Visible = false;
                     GrdBoleta.Rebind();
                     GrdResumen.Rebind();
                     GrdSilvicultural.Rebind();
                     ClManejo.Get_Turno_PlanManejo(AsignacionId);
+                    ArmaMuestreoAnalisis();
+                    GrdMuestreo.Rebind();
                 }
                 catch (Exception ex)
                 {
@@ -3848,6 +4279,7 @@ namespace SEGEFOR.WebForms
                 RadPagePlanificacionManejo.Visible = false;
                 RadPageProteccionForestal.Visible = false;
                 RadPageCronograma.Visible = false;
+                TxtCortaAnual.Text = TxtCap.Text;
             }
             if (e.Tab.Index == 4)
             {
@@ -5149,6 +5581,10 @@ namespace SEGEFOR.WebForms
             if (TxtSistemaCorta.Text == "")
             {
                 TxtSistemaCorta.Text = ClManejo.Get_TratamientoSilvicultura(Convert.ToInt32(TxtAsignacionId.Text)).ToString();
+                if (TxtSistemaCorta.Text == "")
+                    TxtSistemaCorta.Text = ClManejo.Get_TratamientoSilvicultura(Convert.ToInt32(TxtAsignacionId.Text)).ToString();
+                else
+                    TxtSistemaCorta.Text = TxtSistemaCorta.Text + ", " + ClManejo.Get_TratamientoSilvicultura_Otros(Convert.ToInt32(TxtAsignacionId.Text)).ToString();
             }
             dsDatosInfoGeneral.Clear();
             DataSet dsDatosEspecies = ClManejo.EspeciesInfoGeneral_PlanManejo(Convert.ToInt32(TxtAsignacionId.Text));
@@ -5253,18 +5689,7 @@ namespace SEGEFOR.WebForms
                     TxtValEspecifiqueProteccion.Text = dsDatosAreas.Tables["Datos"].Rows[0]["OtroProteccion"].ToString();
                     TxtPorEspecifiqueProteccion.Text = dsDatosAreas.Tables["Datos"].Rows[0]["PorOtroProteccion"].ToString();
                     dsDatosAreas.Clear();
-                    DataSet dsDatosClaseDesarrollo = ClManejo.GetClaseDesarrolloFinca_PlanManejo(Convert.ToInt32(TxtAsignacionId.Text), Convert.ToInt32(TxtInmuebleId.Text));
-                    for (int i = 0; i < dsDatosClaseDesarrollo.Tables["Datos"].Rows.Count; i++)
-                    {
-                        for (int j = 0; j < CboClaseDesarrollo.Items.Count; j++)
-                        {
-                            if (Convert.ToInt32(CboClaseDesarrollo.Items[j].Value) == Convert.ToInt32(dsDatosClaseDesarrollo.Tables["Datos"].Rows[i]["Clase_DesarrolloId"]))
-                            {
-                                CboClaseDesarrollo.Items[j].Checked = true;
-                            }
-                        }
-                    }
-                    dsDatosClaseDesarrollo.Clear();
+                    
                     DataSet dsDatosEspecies = ClManejo.EspeciesFinca_PlanManejo(Convert.ToInt32(TxtAsignacionId.Text), Convert.ToInt32(TxtInmuebleId.Text));
                     for (int i = 0; i < dsDatosEspecies.Tables["Datos"].Rows.Count; i++)
                     {
@@ -5357,29 +5782,26 @@ namespace SEGEFOR.WebForms
                     LblEcuacion.Text = "Ingrese ecuaciones utilizadas";
                 }
                 CboTipoInventario.SelectedValue = dsDatosAprovechamiento.Tables["Datos"].Rows[0]["Tipo_InventarioId"].ToString();
+                if (CboTipoInventario.SelectedValue == "2")
+                {
+                    DivMuestroUno.Visible = true;
+                    DivMuestroDos.Visible = true;
+                    TxtAreaMuestreada.Text = dsDatosAprovechamiento.Tables["Datos"].Rows[0]["AreaMuestreada"].ToString();
+                    TxtIntensidadMuestreo.Text = dsDatosAprovechamiento.Tables["Datos"].Rows[0]["IntensidadMuestreo"].ToString();
+                    DivAnaEstadistico.Visible = true;
+                }
                 CboTipoInventario.Text = dsDatosAprovechamiento.Tables["Datos"].Rows[0]["Tipo_Inventario"].ToString();
                 TxtDatosRegresion.Text = dsDatosAprovechamiento.Tables["Datos"].Rows[0]["Datos_Regresion"].ToString();
                 TxtDiametroMinimo.Text = dsDatosAprovechamiento.Tables["Datos"].Rows[0]["DiametroMin"].ToString();
                 TxtTotRodal.Text = dsDatosAprovechamiento.Tables["Datos"].Rows[0]["TotRodal"].ToString();
                 TxtOtraEcuacion.Text = dsDatosAprovechamiento.Tables["Datos"].Rows[0]["OtraEcuacion"].ToString();
-                
-                
+
+                TxtAnalisisDescriptivo.Text = ClManejo.GetDescripcionAnalisis(Convert.ToInt32(TxtAsignacionId.Text));
 
             }
             dsDatosAprovechamiento.Clear();
 
-            DataSet dsDatosEcuacion = ClManejo.Get_Ecuacion_Aprovechamiento_Forestal(Convert.ToInt32(TxtAsignacionId.Text));
-            for (int i = 0; i < dsDatosEcuacion.Tables["Datos"].Rows.Count; i++)
-            {
-                for (int j = 1; j < CboEcuacion.Items.Count; j++)
-                {
-                    if (Convert.ToInt32(CboEcuacion.Items[j].Value) == Convert.ToInt32(dsDatosEcuacion.Tables["Datos"].Rows[i]["EcuacionId"]))
-                    {
-                        CboEcuacion.Items[j].Checked = true;
-                    }
-                }
-            }
-            dsDatosEcuacion.Clear();
+            
             ClUtilitarios.LlenaCombo(ClManejo.Get_Turno_PlanManejo(Convert.ToInt32(TxtAsignacionId.Text)),CboTurno,"Turno","Turno");
             ClUtilitarios.AgregarSeleccioneCombo(CboTurno, "Turno");    
         }
@@ -5724,7 +6146,7 @@ namespace SEGEFOR.WebForms
                 if (dsInmuebles.Tables["Datos"].Rows[i]["TipoDoc_PropiedadId"].ToString() == "3")
                     GrdInmuebles.Columns[6].HeaderText= "Poseedores";
             }
-            dsInmuebles.Clear();
+            //dsInmuebles.Clear();
         }
 
         void CboDepartamento_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)

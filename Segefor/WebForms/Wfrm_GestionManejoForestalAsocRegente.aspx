@@ -38,7 +38,7 @@
                                 <div style="padding-bottom:2em;"></div>
                                 <div class="ibox-content">
                                     <asp:Button runat="server" Text="Regresar"  ID="BtnRegresar" class="btn btn-primary" />
-                                    <asp:Button runat="server" Text="Asignar Regente"  ID="BtnAsignaRegente" class="btn btn-primary" />
+                                    <asp:Button runat="server" Text="Asignar Elaborador"  ID="BtnAsignaRegente" class="btn btn-primary" />
                                 </div>
                                 <div class="ibox-content" runat="server" id="DivErr" visible="false" >
                                 <div class="col-sm-10">

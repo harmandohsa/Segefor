@@ -787,6 +787,29 @@ namespace SEGEFOR.Clases
             }
         }
 
+        public DataSet ListadoEspecie_NoProtegidas()
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("SP_ListadoEspecie_NoProtegidas", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                DataSet ds = new DataSet();
+                return ds;
+            }
+        }
+
         public DataSet Listado_CategoriaSAF()
         {
             try
@@ -1651,6 +1674,51 @@ namespace SEGEFOR.Clases
                     ds.Tables.Remove("DATOS");
                 cn.Open();
                 OleDbCommand cmd = new OleDbCommand("Sp_ListadoEtapa", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+
+        public DataSet Listado_Parcela()
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("SP_Listado_Parcela", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public DataSet Listado_Tipo_Muestreo()
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("SP_Listado_Tipo_Muestreo", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
                 adp.Fill(ds, "DATOS");

@@ -1726,7 +1726,7 @@ namespace SEGEFOR.Clases
             }
         }
 
-        public void Sp_Insert_Boleta(int AsignacionId, int Turno, int Rodal, double No, double Dap, double Altura, string Nombre_Cientifico, double Troza, int X, int Y)
+        public void Sp_Insert_Boleta(int AsignacionId, int Turno, int Rodal, double No, double Dap, double Altura, string Nombre_Cientifico, double Troza, int X, int Y, int Parcela)
         {
             try
             {
@@ -1743,6 +1743,7 @@ namespace SEGEFOR.Clases
                 cmd.Parameters.Add("@Troza", SqlDbType.Float).Value = Troza;
                 cmd.Parameters.Add("@X", SqlDbType.Int).Value = X;
                 cmd.Parameters.Add("@Y", SqlDbType.Int).Value = Y;
+                cmd.Parameters.Add("@Parcela", SqlDbType.Int).Value = Parcela;
                 cmd.ExecuteNonQuery();
                 cnSql.Close();
             }
@@ -1880,7 +1881,7 @@ namespace SEGEFOR.Clases
             }
         }
 
-        public void Insert_Aprovechamiento_Forestal(int AsignacionId, int Tipo_Ingreso_Datos, int Tipo_InventarioId, string Datos_Regresion, int DiamtroMin, int TotRodal, string OtraEcuacion)
+        public void Insert_Aprovechamiento_Forestal(int AsignacionId, int Tipo_Ingreso_Datos, int Tipo_InventarioId, string Datos_Regresion, int DiamtroMin, int TotRodal, string OtraEcuacion, decimal AreaMuestreada, decimal IntensidadMuestreo)
         {
             try
             {
@@ -1893,7 +1894,30 @@ namespace SEGEFOR.Clases
                 cmd.Parameters.Add("@Datos_Regresion", SqlDbType.Text).Value = Datos_Regresion;
                 cmd.Parameters.Add("@DiametroMin", SqlDbType.Int).Value = DiamtroMin;
                 cmd.Parameters.Add("@TotRodal", SqlDbType.Int).Value = TotRodal;
-                cmd.Parameters.Add("@Ecuacion", SqlDbType.VarChar,1000).Value = OtraEcuacion;
+                cmd.Parameters.Add("@Ecuacion", SqlDbType.VarChar, 1000).Value = OtraEcuacion;
+                cmd.Parameters.Add("@AreaMuestreada", SqlDbType.Decimal).Value = @AreaMuestreada;
+                cmd.Parameters.Add("@IntensidadMuestreo", SqlDbType.Decimal).Value = @IntensidadMuestreo;
+                
+                cmd.ExecuteNonQuery();
+                cnSql.Close();
+            }
+            catch (Exception ex)
+            {
+                cnSql.Close();
+            }
+        }
+
+        public void Insert_Aprovechamiento_Forestal_Det(int AsignacionId, XmlDocument Parcela, XmlDocument Tipo_Muestreo)
+        {
+            try
+            {
+                cnSql.Open();
+                SqlCommand cmd = new SqlCommand("Sp_InsertAprovechamientoDet", cnSql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", SqlDbType.Int).Value = AsignacionId;
+                cmd.Parameters.Add("@Parcela", SqlDbType.Xml).Value = Parcela.OuterXml.ToString();
+                cmd.Parameters.Add("@TipoMuestreo", SqlDbType.Xml).Value = Tipo_Muestreo.OuterXml.ToString();
+
                 cmd.ExecuteNonQuery();
                 cnSql.Close();
             }
@@ -2314,7 +2338,7 @@ namespace SEGEFOR.Clases
             }
         }
 
-        public void Insert_Silvicultura_MaderableExtrae(int AsignacionId, int Correlativo, int Turno, decimal VolTroza, decimal VolLena, decimal VolTotal, int TratamientoId)
+        public void Insert_Silvicultura_MaderableExtrae(int AsignacionId, int Correlativo, int Turno, decimal VolTroza, decimal VolLena, decimal VolTotal, int TratamientoId, string Otro_Tratamiento)
         {
             try
             {
@@ -2328,6 +2352,7 @@ namespace SEGEFOR.Clases
                 cmd.Parameters.Add("@VolTroza", SqlDbType.Decimal).Value = VolTroza;
                 cmd.Parameters.Add("@VolLena", SqlDbType.Decimal).Value = VolLena;
                 cmd.Parameters.Add("@VolTotal", SqlDbType.Decimal).Value = VolTotal;
+                cmd.Parameters.Add("@Otro_Tratamiento", SqlDbType.VarChar,300).Value = Otro_Tratamiento;
                 cmd.ExecuteNonQuery();
                 cnSql.Close();
             }
@@ -3269,6 +3294,9 @@ namespace SEGEFOR.Clases
 
                     ClXml.AgregarAtributo("Tratamiento_Id", DsSilvicultura.Tables["Datos"].Rows[k]["Tratamiento_Id"].ToString().Trim(), iElementosSilviculturaDetalle);
                     iElementosSilvicultura.AppendChild(iElementosSilviculturaDetalle);
+
+                    ClXml.AgregarAtributo("Otro_Tratamiento", DsSilvicultura.Tables["Datos"].Rows[k]["Otro_Tratamiento"].ToString().Trim(), iElementosSilviculturaDetalle);
+                    iElementosSilvicultura.AppendChild(iElementosSilviculturaDetalle);
                 }
                 iInformacionSilvicultura.ChildNodes[1].AppendChild(iElementosSilvicultura);
                 Insert_Silvicultura_PlanManejo_Real(GestionId, iInformacionSilvicultura);
@@ -3680,6 +3708,180 @@ namespace SEGEFOR.Clases
             {
                 cn.Close();
                 return "";
+            }
+        }
+
+        public string Get_TratamientoSilvicultura_Otros(int AsignacionId)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Get_TratamientoSilvicultura_Otros", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = @AsignacionId;
+                cmd.Parameters.Add("@Resul", OleDbType.VarChar, 200).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return cmd.Parameters["@Resul"].Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return "";
+            }
+        }
+
+        public DataSet Get_AprovechamientoForestalDet_Parcela(int AsignacionId, int Tipo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Get_AprovechamientoForestalDet_Parcela", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = AsignacionId;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public DataSet Get_AprovechamientoForestalDet_TipoMuestreo(int AsignacionId, int Tipo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Get_AprovechamientoForestalDet_TipoMuestreo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = AsignacionId;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public DataSet ArmaAnalisisMuestreo(int AsignacionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_ArmaAnalisisMuestreo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = AsignacionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public void Insert_AnalisisEstadistico(int AsignacionId, XmlDocument Analisis, string Descripcion)
+        {
+            try
+            {
+                cnSql.Open();
+                SqlCommand cmd = new SqlCommand("Sp_Insert_AnalisisEstadistico", cnSql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", SqlDbType.Int).Value = AsignacionId;
+                cmd.Parameters.Add("@Analisis", SqlDbType.Xml).Value = Analisis.OuterXml.ToString();
+                cmd.Parameters.Add("@Descripcion", SqlDbType.VarChar, 1000).Value = Descripcion;
+                cmd.ExecuteNonQuery();
+                cnSql.Close();
+            }
+            catch (Exception ex)
+            {
+                cnSql.Close();
+            }
+        }
+
+        public DataSet GetAnalisisEstadistico(int AsignacionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_GetAnalisisEstadistico", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = AsignacionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public string GetDescripcionAnalisis(int AsignacionId)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_GetDescripcionAnalisis", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = @AsignacionId;
+                cmd.Parameters.Add("@Descripcion", OleDbType.VarChar, 1000).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return cmd.Parameters["@Descripcion"].Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return "";
+            }
+        }
+
+        public int GetTipoInventario(int Tipo, int Id)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_GetTipoInventario", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@TipoInv", OleDbType.Integer).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToInt32(cmd.Parameters["@TipoInv"].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
             }
         }
 

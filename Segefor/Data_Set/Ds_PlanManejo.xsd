@@ -22,6 +22,7 @@
               <xs:element name="TieneRepresentantes" msprop:Generator_ColumnVarNameInTable="columnTieneRepresentantes" msprop:Generator_ColumnPropNameInRow="TieneRepresentantes" msprop:Generator_ColumnPropNameInTable="TieneRepresentantesColumn" msprop:Generator_UserColumnName="TieneRepresentantes" type="xs:string" minOccurs="0" />
               <xs:element name="TieneProdNoMaderables" msprop:Generator_ColumnVarNameInTable="columnTieneProdNoMaderables" msprop:Generator_ColumnPropNameInRow="TieneProdNoMaderables" msprop:Generator_ColumnPropNameInTable="TieneProdNoMaderablesColumn" msprop:Generator_UserColumnName="TieneProdNoMaderables" type="xs:string" minOccurs="0" />
               <xs:element name="TipoPropiedadId" msprop:Generator_ColumnVarNameInTable="columnTipoPropiedadId" msprop:Generator_ColumnPropNameInRow="TipoPropiedadId" msprop:Generator_ColumnPropNameInTable="TipoPropiedadIdColumn" msprop:Generator_UserColumnName="TipoPropiedadId" type="xs:string" minOccurs="0" />
+              <xs:element name="TipoInv" msprop:Generator_ColumnVarNameInTable="columnTipoInv" msprop:Generator_ColumnPropNameInRow="TipoInv" msprop:Generator_ColumnPropNameInTable="TipoInvColumn" msprop:Generator_UserColumnName="TipoInv" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -336,6 +337,40 @@
               <xs:element name="Troza" msprop:Generator_ColumnVarNameInTable="columnTroza" msprop:Generator_ColumnPropNameInRow="Troza" msprop:Generator_ColumnPropNameInTable="TrozaColumn" msprop:Generator_UserColumnName="Troza" type="xs:string" minOccurs="0" />
               <xs:element name="X" msprop:Generator_ColumnVarNameInTable="columnX" msprop:Generator_ColumnPropNameInRow="X" msprop:Generator_ColumnPropNameInTable="XColumn" msprop:Generator_UserColumnName="X" type="xs:string" minOccurs="0" />
               <xs:element name="Y" msprop:Generator_ColumnVarNameInTable="columnY" msprop:Generator_ColumnPropNameInRow="Y" msprop:Generator_ColumnPropNameInTable="YColumn" msprop:Generator_UserColumnName="Y" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DtAprovechamientoMuestreo" msprop:Generator_TableClassName="DtAprovechamientoMuestreoDataTable" msprop:Generator_TableVarName="tableDtAprovechamientoMuestreo" msprop:Generator_TablePropName="DtAprovechamientoMuestreo" msprop:Generator_RowDeletingName="DtAprovechamientoMuestreoRowDeleting" msprop:Generator_RowChangingName="DtAprovechamientoMuestreoRowChanging" msprop:Generator_RowEvHandlerName="DtAprovechamientoMuestreoRowChangeEventHandler" msprop:Generator_RowDeletedName="DtAprovechamientoMuestreoRowDeleted" msprop:Generator_UserTableName="DtAprovechamientoMuestreo" msprop:Generator_RowChangedName="DtAprovechamientoMuestreoRowChanged" msprop:Generator_RowEvArgName="DtAprovechamientoMuestreoRowChangeEvent" msprop:Generator_RowClassName="DtAprovechamientoMuestreoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="FormaParcela" msprop:Generator_ColumnVarNameInTable="columnFormaParcela" msprop:Generator_ColumnPropNameInRow="FormaParcela" msprop:Generator_ColumnPropNameInTable="FormaParcelaColumn" msprop:Generator_UserColumnName="FormaParcela" type="xs:string" minOccurs="0" />
+              <xs:element name="AreaMuestreada" msprop:Generator_ColumnVarNameInTable="columnAreaMuestreada" msprop:Generator_ColumnPropNameInRow="AreaMuestreada" msprop:Generator_ColumnPropNameInTable="AreaMuestreadaColumn" msprop:Generator_UserColumnName="AreaMuestreada" type="xs:string" minOccurs="0" />
+              <xs:element name="TipoMuestreo" msprop:Generator_ColumnVarNameInTable="columnTipoMuestreo" msprop:Generator_ColumnPropNameInRow="TipoMuestreo" msprop:Generator_ColumnPropNameInTable="TipoMuestreoColumn" msprop:Generator_UserColumnName="TipoMuestreo" type="xs:string" minOccurs="0" />
+              <xs:element name="IntensidadMuestreo" msprop:Generator_ColumnVarNameInTable="columnIntensidadMuestreo" msprop:Generator_ColumnPropNameInRow="IntensidadMuestreo" msprop:Generator_ColumnPropNameInTable="IntensidadMuestreoColumn" msprop:Generator_UserColumnName="IntensidadMuestreo" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DtAnalisisMuestreo" msprop:Generator_TableClassName="DtAnalisisMuestreoDataTable" msprop:Generator_TableVarName="tableDtAnalisisMuestreo" msprop:Generator_RowChangedName="DtAnalisisMuestreoRowChanged" msprop:Generator_TablePropName="DtAnalisisMuestreo" msprop:Generator_RowDeletingName="DtAnalisisMuestreoRowDeleting" msprop:Generator_RowChangingName="DtAnalisisMuestreoRowChanging" msprop:Generator_RowEvHandlerName="DtAnalisisMuestreoRowChangeEventHandler" msprop:Generator_RowDeletedName="DtAnalisisMuestreoRowDeleted" msprop:Generator_RowClassName="DtAnalisisMuestreoRow" msprop:Generator_UserTableName="DtAnalisisMuestreo" msprop:Generator_RowEvArgName="DtAnalisisMuestreoRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Rodal" msprop:Generator_ColumnVarNameInTable="columnRodal" msprop:Generator_ColumnPropNameInRow="Rodal" msprop:Generator_ColumnPropNameInTable="RodalColumn" msprop:Generator_UserColumnName="Rodal" type="xs:string" minOccurs="0" />
+              <xs:element name="Area" msprop:Generator_ColumnVarNameInTable="columnArea" msprop:Generator_ColumnPropNameInRow="Area" msprop:Generator_ColumnPropNameInTable="AreaColumn" msprop:Generator_UserColumnName="Area" type="xs:string" minOccurs="0" />
+              <xs:element name="Parcela" msprop:Generator_ColumnVarNameInTable="columnParcela" msprop:Generator_ColumnPropNameInRow="Parcela" msprop:Generator_ColumnPropNameInTable="ParcelaColumn" msprop:Generator_UserColumnName="Parcela" type="xs:string" minOccurs="0" />
+              <xs:element name="Volha" msprop:Generator_ColumnVarNameInTable="columnVolha" msprop:Generator_ColumnPropNameInRow="Volha" msprop:Generator_ColumnPropNameInTable="VolhaColumn" msprop:Generator_UserColumnName="Volha" type="xs:string" minOccurs="0" />
+              <xs:element name="MediaVolParcela" msprop:Generator_ColumnVarNameInTable="columnMediaVolParcela" msprop:Generator_ColumnPropNameInRow="MediaVolParcela" msprop:Generator_ColumnPropNameInTable="MediaVolParcelaColumn" msprop:Generator_UserColumnName="MediaVolParcela" type="xs:string" minOccurs="0" />
+              <xs:element name="DesvEst" msprop:Generator_ColumnVarNameInTable="columnDesvEst" msprop:Generator_ColumnPropNameInRow="DesvEst" msprop:Generator_ColumnPropNameInTable="DesvEstColumn" msprop:Generator_UserColumnName="DesvEst" type="xs:string" minOccurs="0" />
+              <xs:element name="CoeficienteVar" msprop:Generator_ColumnVarNameInTable="columnCoeficienteVar" msprop:Generator_ColumnPropNameInRow="CoeficienteVar" msprop:Generator_ColumnPropNameInTable="CoeficienteVarColumn" msprop:Generator_UserColumnName="CoeficienteVar" type="xs:string" minOccurs="0" />
+              <xs:element name="ErrEstandard" msprop:Generator_ColumnVarNameInTable="columnErrEstandard" msprop:Generator_ColumnPropNameInRow="ErrEstandard" msprop:Generator_ColumnPropNameInTable="ErrEstandardColumn" msprop:Generator_UserColumnName="ErrEstandard" type="xs:string" minOccurs="0" />
+              <xs:element name="ErrMuestreo" msprop:Generator_ColumnVarNameInTable="columnErrMuestreo" msprop:Generator_ColumnPropNameInRow="ErrMuestreo" msprop:Generator_ColumnPropNameInTable="ErrMuestreoColumn" msprop:Generator_UserColumnName="ErrMuestreo" type="xs:string" minOccurs="0" />
+              <xs:element name="ErrMuestreoPor" msprop:Generator_ColumnVarNameInTable="columnErrMuestreoPor" msprop:Generator_ColumnPropNameInRow="ErrMuestreoPor" msprop:Generator_ColumnPropNameInTable="ErrMuestreoPorColumn" msprop:Generator_UserColumnName="ErrMuestreoPor" type="xs:string" minOccurs="0" />
+              <xs:element name="IntervaloConf" msprop:Generator_ColumnVarNameInTable="columnIntervaloConf" msprop:Generator_ColumnPropNameInRow="IntervaloConf" msprop:Generator_ColumnPropNameInTable="IntervaloConfColumn" msprop:Generator_UserColumnName="IntervaloConf" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DtDescripcionAnalisis" msprop:Generator_TableClassName="DtDescripcionAnalisisDataTable" msprop:Generator_TableVarName="tableDtDescripcionAnalisis" msprop:Generator_TablePropName="DtDescripcionAnalisis" msprop:Generator_RowDeletingName="DtDescripcionAnalisisRowDeleting" msprop:Generator_RowChangingName="DtDescripcionAnalisisRowChanging" msprop:Generator_RowEvHandlerName="DtDescripcionAnalisisRowChangeEventHandler" msprop:Generator_RowDeletedName="DtDescripcionAnalisisRowDeleted" msprop:Generator_UserTableName="DtDescripcionAnalisis" msprop:Generator_RowChangedName="DtDescripcionAnalisisRowChanged" msprop:Generator_RowEvArgName="DtDescripcionAnalisisRowChangeEvent" msprop:Generator_RowClassName="DtDescripcionAnalisisRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Analisis" msprop:Generator_ColumnVarNameInTable="columnAnalisis" msprop:Generator_ColumnPropNameInRow="Analisis" msprop:Generator_ColumnPropNameInTable="AnalisisColumn" msprop:Generator_UserColumnName="Analisis" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
