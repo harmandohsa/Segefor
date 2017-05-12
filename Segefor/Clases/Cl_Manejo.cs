@@ -1561,7 +1561,7 @@ namespace SEGEFOR.Clases
             }
         }
 
-        public void Insert_ActividadCronograma(int AsignacionId,string Actividad, DateTime Fec_Ini, DateTime Fec_Fin )
+        public void Insert_ActividadCronograma(int AsignacionId,int ActividadId, string Otro, DateTime Fec_Ini, DateTime Fec_Fin )
         {
             try
             {
@@ -1569,7 +1569,8 @@ namespace SEGEFOR.Clases
                 SqlCommand cmd = new SqlCommand("Sp_Insert_Actividad_PlanManejo", cnSql);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@AsignacionId", SqlDbType.Int).Value = AsignacionId;
-                cmd.Parameters.Add("@Actividad", SqlDbType.VarChar,400).Value = Actividad;
+                cmd.Parameters.Add("@ActividadId", SqlDbType.Int).Value = ActividadId;
+                cmd.Parameters.Add("@Otro", SqlDbType.VarChar, 400).Value = Otro;
                 cmd.Parameters.Add("@Fec_Ini", SqlDbType.DateTime).Value = Fec_Ini;
                 cmd.Parameters.Add("@Fec_Fin", SqlDbType.DateTime).Value = Fec_Fin;
                 cmd.ExecuteNonQuery();
@@ -1604,7 +1605,7 @@ namespace SEGEFOR.Clases
             }
         }
 
-        public void Eliminar_Actividad_Cronograma(int AsignacionId, int ActividadId)
+        public void Eliminar_Actividad_Cronograma(int AsignacionId, int Id)
         {
             try
             {
@@ -1612,7 +1613,7 @@ namespace SEGEFOR.Clases
                 SqlCommand cmd = new SqlCommand("Sp_Eliminar_Actividad_Cronograma", cnSql);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@AsignacionId", SqlDbType.Int).Value = AsignacionId;
-                cmd.Parameters.Add("@ActividadId", SqlDbType.Int).Value = ActividadId;
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Id;
                 cmd.ExecuteNonQuery();
                 cnSql.Close();
             }
@@ -3309,10 +3310,13 @@ namespace SEGEFOR.Clases
                 for (int k = 0; k < DsResumenPlanManejo.Tables["Datos"].Rows.Count; k++)
                 {
                     XmlNode iElementosCronogramaDetalle = iInformacionCronograma.CreateElement("Item");
+                    ClXml.AgregarAtributo("Id", DsCronograma.Tables["Datos"].Rows[k]["Id"].ToString().Trim(), iElementosCronogramaDetalle);
+                    iElementosCronograma.AppendChild(iElementosCronogramaDetalle);
+
                     ClXml.AgregarAtributo("ActividadId", DsCronograma.Tables["Datos"].Rows[k]["ActividadId"].ToString().Trim(), iElementosCronogramaDetalle);
                     iElementosCronograma.AppendChild(iElementosCronogramaDetalle);
 
-                    ClXml.AgregarAtributo("Actividad", DsCronograma.Tables["Datos"].Rows[k]["Actividad"].ToString().Trim(), iElementosCronogramaDetalle);
+                    ClXml.AgregarAtributo("Otro", DsCronograma.Tables["Datos"].Rows[k]["Otro"].ToString().Trim(), iElementosCronogramaDetalle);
                     iElementosCronograma.AppendChild(iElementosCronogramaDetalle);
 
                     ClXml.AgregarAtributo("Fec_Ini", DsCronograma.Tables["Datos"].Rows[k]["Fec_Ini"].ToString().Trim(), iElementosCronogramaDetalle);
@@ -3882,6 +3886,49 @@ namespace SEGEFOR.Clases
             {
                 cn.Close();
                 return 0;
+            }
+        }
+
+        public int Get_Actividad_Unica(int ActividadId)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Get_Actividad_Unica", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@ActividadId", OleDbType.Integer).Value = ActividadId;
+                cmd.Parameters.Add("@Resul", OleDbType.Decimal).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToInt32(cmd.Parameters["@Resul"].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
+
+
+        public DataSet GetActividades_Obligatorias()
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_GetActividades_Obligatorias", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
             }
         }
 

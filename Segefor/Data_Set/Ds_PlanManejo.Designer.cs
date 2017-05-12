@@ -7322,6 +7322,8 @@ namespace SEGEFOR.Data_Set {
             
             private global::System.Data.DataColumn columnFec_Fin;
             
+            private global::System.Data.DataColumn columnTipo_Actividad;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Dt_CronogramaDataTable() {
@@ -7381,6 +7383,14 @@ namespace SEGEFOR.Data_Set {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Tipo_ActividadColumn {
+                get {
+                    return this.columnTipo_Actividad;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -7416,12 +7426,13 @@ namespace SEGEFOR.Data_Set {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Dt_CronogramaRow AddDt_CronogramaRow(string Actividad, System.DateTime Fec_Ini, System.DateTime Fec_Fin) {
+            public Dt_CronogramaRow AddDt_CronogramaRow(string Actividad, System.DateTime Fec_Ini, System.DateTime Fec_Fin, string Tipo_Actividad) {
                 Dt_CronogramaRow rowDt_CronogramaRow = ((Dt_CronogramaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Actividad,
                         Fec_Ini,
-                        Fec_Fin};
+                        Fec_Fin,
+                        Tipo_Actividad};
                 rowDt_CronogramaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDt_CronogramaRow);
                 return rowDt_CronogramaRow;
@@ -7447,6 +7458,7 @@ namespace SEGEFOR.Data_Set {
                 this.columnActividad = base.Columns["Actividad"];
                 this.columnFec_Ini = base.Columns["Fec_Ini"];
                 this.columnFec_Fin = base.Columns["Fec_Fin"];
+                this.columnTipo_Actividad = base.Columns["Tipo_Actividad"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7458,6 +7470,8 @@ namespace SEGEFOR.Data_Set {
                 base.Columns.Add(this.columnFec_Ini);
                 this.columnFec_Fin = new global::System.Data.DataColumn("Fec_Fin", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFec_Fin);
+                this.columnTipo_Actividad = new global::System.Data.DataColumn("Tipo_Actividad", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTipo_Actividad);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -15099,6 +15113,22 @@ namespace SEGEFOR.Data_Set {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Tipo_Actividad {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_Cronograma.Tipo_ActividadColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Tipo_Actividad\' in table \'Dt_Cronograma\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_Cronograma.Tipo_ActividadColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsActividadNull() {
                 return this.IsNull(this.tableDt_Cronograma.ActividadColumn);
             }
@@ -15131,6 +15161,18 @@ namespace SEGEFOR.Data_Set {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetFec_FinNull() {
                 this[this.tableDt_Cronograma.Fec_FinColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTipo_ActividadNull() {
+                return this.IsNull(this.tableDt_Cronograma.Tipo_ActividadColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTipo_ActividadNull() {
+                this[this.tableDt_Cronograma.Tipo_ActividadColumn] = global::System.Convert.DBNull;
             }
         }
         

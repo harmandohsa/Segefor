@@ -3501,8 +3501,19 @@
 
                                                 <telerik:RadPageView ID="RadPageCronograma" Visible="false" runat="server"> <%-- Cronograma--%>
                                                     <div class="ibox-content">
-                                                        <div><label class="col-sm-2 control-label centradolabel">Actividad</label>
-                                                            <div class="col-sm-7"><asp:TextBox runat="server" ID="TxtActividad" CssClass="form-control" required=""></asp:TextBox></div>
+                                                        <div><label class="col-sm-2 control-label">Tipo Actividad</label>
+                                                            <div class="col-sm-3"><telerik:RadComboBox ID="CboTipoActividad" AutoPostBack="true" Width="100%" runat="server"></telerik:RadComboBox></div>
+                                                        </div>
+                                                        <div><label class="col-sm-1 control-label centradolabel">Actividad:</label>
+                                                            <div class="col-sm-6">
+                                                                <telerik:RadComboBox ID="CboActividad" Width="100%" AutoPostBack="true" runat="server"></telerik:RadComboBox>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="padding-bottom:2em;"></div>
+                                                    <div class="ibox-content" runat="server" id="DivOtros" visible="false">
+                                                        <div><label class="col-sm-2 control-label centradolabel">Otros</label>
+                                                            <div class="col-sm-7"><asp:TextBox runat="server" ID="TxtOtros" CssClass="form-control"></asp:TextBox></div>
                                                         </div>
                                                     </div>
                                                     <div style="padding-bottom:2em;"></div>
@@ -3540,10 +3551,12 @@
                                                                 PrevPageText="Anterior" Position="Bottom" 
                                                                 PagerTextFormat="Change page: {4} &amp;nbsp;Pagina &lt;strong&gt;{0}&lt;/strong&gt; de &lt;strong&gt;{1}&lt;/strong&gt;, registros &lt;strong&gt;{2}&lt;/strong&gt; a &lt;strong&gt;{3}&lt;/strong&gt; de &lt;strong&gt;{5}&lt;/strong&gt;." 
                                                                 PageSizeLabelText="Regitros"/>
-                                                            <MasterTableView Caption="" DataKeyNames="ActividadId,Actividad,Fec_Ini,Fec_Fin" NoMasterRecordsText="No Hay Registros" ShowFooter="true">
+                                                            <MasterTableView Caption="" DataKeyNames="Id,Tipo_Actividad,ActividadId,Actividad,Fec_Ini,Fec_Fin" NoMasterRecordsText="No Hay Registros" ShowFooter="true">
                                                                 <Columns>
-                                                                    <telerik:GridBoundColumn DataField="ActividadId" UniqueName="ActividadId" Visible="false" HeaderStyle-Width="425px"></telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="Id" UniqueName="Id" Visible="false" HeaderStyle-Width="425px"></telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="Tipo_Actividad" UniqueName="Tipo_Actividad" HeaderText="Actividad" HeaderStyle-Width="425px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="Actividad" UniqueName="Actividad" HeaderText="Actividad" HeaderStyle-Width="425px"></telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="ActividadId" Visible="false" UniqueName="ActividadId" HeaderText="Actividad" HeaderStyle-Width="425px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="Fec_Ini" UniqueName="Fec_Ini" HeaderText="Fecha de Inicio" HeaderStyle-Width="175px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="Fec_Fin" UniqueName="Fec_Ini" HeaderText="Fecha de Finalización" HeaderStyle-Width="175px"></telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn HeaderText="Eliminar" UniqueName="Del">

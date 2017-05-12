@@ -3289,7 +3289,7 @@ namespace SEGEFOR.WebForms {
         protected global::Telerik.Web.UI.RadGrid GrdMuestreo;
         
         /// <summary>
-        /// TxtAnalisis Descriptivo control.
+        /// TxtAnalisisDescriptivo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -4693,13 +4693,40 @@ namespace SEGEFOR.WebForms {
         protected global::Telerik.Web.UI.RadPageView RadPageCronograma;
         
         /// <summary>
-        /// TxtActividad control.
+        /// CboTipoActividad control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtActividad;
+        protected global::Telerik.Web.UI.RadComboBox CboTipoActividad;
+        
+        /// <summary>
+        /// CboActividad control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox CboActividad;
+        
+        /// <summary>
+        /// DivOtros control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivOtros;
+        
+        /// <summary>
+        /// TxtOtros control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtOtros;
         
         /// <summary>
         /// TxtFecIni control.

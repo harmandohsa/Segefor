@@ -925,6 +925,28 @@ namespace SEGEFOR.Clases
             }
         }
 
+
+
+        public string GetCorreoSolicitante(int AsignacionId)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_GetCorreoSolicitante", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = AsignacionId;
+                cmd.Parameters.Add("@Resul", OleDbType.VarChar, 200).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return cmd.Parameters["@Resul"].Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return "";
+            }
+        }
+
         
     }
 }

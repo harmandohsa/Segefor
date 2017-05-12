@@ -263,6 +263,8 @@ namespace SEGEFOR.WebForms
             CboTipoInventario.SelectedIndexChanged += CboTipoInventario_SelectedIndexChanged;
             GrdMuestreo.ItemDataBound += GrdMuestreo_ItemDataBound;
             BtnGrabarAnalisis.ServerClick += BtnGrabarAnalisis_ServerClick;
+            CboTipoActividad.SelectedIndexChanged += CboTipoActividad_SelectedIndexChanged;
+            CboActividad.SelectedIndexChanged += CboActividad_SelectedIndexChanged;
 
             if (Session["UsuarioId"] == null)
             {
@@ -436,6 +438,11 @@ namespace SEGEFOR.WebForms
                 ClUtilitarios.LlenaCombo(ClCatalogos.Listado_Parcela(), CboFormaParcela, "Forma_ParcelaId", "Forma_Parcela");
                 ClUtilitarios.LlenaCombo(ClCatalogos.Listado_Tipo_Muestreo(), CboTipoMuestreo, "Tipo_MuestreoId", "Tipo_Muestreo");
                 GrdMuestreo.Rebind();
+                TxtCorreoNotifica.Text = ClUsuario.GetCorreoSolicitante(Convert.ToInt32(TxtAsignacionId.Text));
+                TxtCorreoNotifica.Enabled = false;
+                ClUtilitarios.LlenaCombo(ClCatalogos.Listado_Tipo_Actividad(), CboTipoActividad, "Tipo_ActividadId", "Tipo_Actividad");
+                ClUtilitarios.AgregarSeleccioneCombo(CboTipoActividad, "Actividad");
+
             }
             else
             {
@@ -496,6 +503,23 @@ namespace SEGEFOR.WebForms
             }
             dsDatosEcuacion.Clear();
             
+        }
+
+        void CboActividad_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            if ((CboActividad.SelectedValue == "11") || (CboActividad.SelectedValue == "17") || (CboActividad.SelectedValue == "24") || (CboActividad.SelectedValue == "27") || (CboActividad.SelectedValue == "30") || (CboActividad.SelectedValue == "36"))
+                DivOtros.Visible = true;
+            else
+                DivOtros.Visible = false;
+        }
+
+        void CboTipoActividad_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            if (CboTipoActividad.SelectedValue != "")
+            {
+                ClUtilitarios.LlenaCombo(ClCatalogos.ListadoActividades(Convert.ToInt32(CboTipoActividad.SelectedValue)), CboActividad, "ActividadId", "Actividad");
+                ClUtilitarios.AgregarSeleccioneCombo(CboActividad, "Actividad");
+            }
         }
 
         bool ValidaAnalisisFilas()
@@ -1790,6 +1814,34 @@ namespace SEGEFOR.WebForms
             return HayDiferente;
         }
 
+        string ValidaTodasActividades()
+        {
+            string Mensaje = "";
+            string MensajeTemp;
+            DataSet ds = ClManejo.GetActividades_Obligatorias();
+            for (int i = 0; i < ds.Tables["Datos"].Rows.Count; i++)
+            {
+                MensajeTemp = ds.Tables["Datos"].Rows[i]["Actividad"].ToString();
+                for (int j = 0; j < GrdActividades.Items.Count; j++)
+                {
+                    if (Convert.ToInt32(ds.Tables["Datos"].Rows[i]["ActividadId"]) == Convert.ToInt32(GrdActividades.Items[j].GetDataKeyValue("ActividadId")))
+                    {
+                        MensajeTemp = "";
+                        break;
+                    }
+                }
+                if (MensajeTemp != "")
+                {
+                    if (Mensaje == "")
+                        Mensaje = MensajeTemp;
+                    else
+                        Mensaje = Mensaje + ", " + MensajeTemp;
+                }
+            }
+
+            return Mensaje;
+        }
+
         bool ValidaPlanManejo()
         {
             DivErrorGeneral.Visible = false;
@@ -2010,6 +2062,15 @@ namespace SEGEFOR.WebForms
                     lblMensajeErrorGen.Text = lblMensajeErrorGen.Text + "El área de compromiso debe ser igual a la sumatoria de las áreas del descripción del metodo";
                 else
                     lblMensajeErrorGen.Text = lblMensajeErrorGen.Text + ", El área de compromiso debe ser igual a la sumatoria de las áreas del descripción del metodo";
+                HayError = true;
+            }
+            string ActividadesFaltaltesCrono = ValidaTodasActividades();
+            if (ActividadesFaltaltesCrono != "")
+            {
+                if (lblMensajeErrorGen.Text == "")
+                    lblMensajeErrorGen.Text = lblMensajeErrorGen.Text + " " + "No ha agregado todas las Actividades obligatorios pendientes: " + ActividadesFaltaltesCrono;
+                else
+                    lblMensajeErrorGen.Text = lblMensajeErrorGen.Text + ", " + ", no ha agregado todas las Actividades obligatorios pendientes: " + ActividadesFaltaltesCrono;
                 HayError = true;
             }
             if (HayError == true)
@@ -4090,7 +4151,7 @@ namespace SEGEFOR.WebForms
         {
             if (e.CommandName == "CmdDel")
             {
-                ClManejo.Eliminar_Actividad_Cronograma(Convert.ToInt32(TxtAsignacionId.Text), Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ActividadId"].ToString()));
+                ClManejo.Eliminar_Actividad_Cronograma(Convert.ToInt32(TxtAsignacionId.Text), Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["Id"].ToString()));
                 GrdActividades.Rebind();
             }
         }
@@ -4100,31 +4161,75 @@ namespace SEGEFOR.WebForms
             ClUtilitarios.LlenaGrid(ClManejo.Get_Actividades_Cronograma(Convert.ToInt32(TxtAsignacionId.Text)),GrdActividades);
         }
 
+
         void BtnGrabarActicidad_Click(object sender, EventArgs e)
         {
-                if (ValidaActividad() == true)
-                {
-                    int AsignacionId = Convert.ToInt32(TxtAsignacionId.Text);
-                    ClManejo.Insert_ActividadCronograma(AsignacionId, TxtActividad.Text, Convert.ToDateTime(string.Format("{0:dd/MM/yyyy}", TxtFecIni.SelectedDate)), Convert.ToDateTime(string.Format("{0:dd/MM/yyyy}", TXtFecFin.SelectedDate)));
-                    DivGoodActividad.Visible = true;
-                    LblGoodActividad.Text = "Actividad ingresada correctamente";
-                    GrdActividades.Rebind();
-                    LimpiarActividad();
-                }
+            if (ValidaActividad() == true)
+            {
+                int AsignacionId = Convert.ToInt32(TxtAsignacionId.Text);
+                ClManejo.Insert_ActividadCronograma(AsignacionId, Convert.ToInt32(CboActividad.SelectedValue), TxtOtros.Text, Convert.ToDateTime(string.Format("{0:dd/MM/yyyy}", TxtFecIni.SelectedDate)), Convert.ToDateTime(string.Format("{0:dd/MM/yyyy}", TXtFecFin.SelectedDate)));
+                DivGoodActividad.Visible = true;
+                LblGoodActividad.Text = "Actividad ingresada correctamente";
+                GrdActividades.Rebind();
+                LimpiarActividad();
+            }
         }
 
         void LimpiarActividad()
         {
-            TxtActividad.Text = "";
             TxtFecIni.SelectedDate = DateTime.Now;
             TXtFecFin.SelectedDate = DateTime.Now;
+        }
+
+        bool ValidaActividadUnica(int ActividadId)
+        {
+            bool YaExiste = false;
+            if (ClManejo.Get_Actividad_Unica(ActividadId) == 1)
+            {
+                for (int i = 0; i < GrdActividades.Items.Count; i++)
+                {
+                    if (ActividadId == Convert.ToInt32(GrdActividades.Items[i].GetDataKeyValue("ActividadId")))
+                    {
+                        YaExiste = true;
+                        break;
+                    }
+                }
+            }
+
+            return YaExiste;
         }
 
         bool ValidaActividad()
         {
             LblErrActividad.Text = "";
             DivErrActividad.Visible = false;
+            DivGoodActividad.Visible = false;
             bool HayError = false;
+            if ((CboTipoActividad.SelectedValue == "") || (CboTipoActividad.SelectedValue == "0"))
+            {
+                if (LblErrActividad.Text == "")
+                    LblErrActividad.Text = LblErrActividad.Text + "Debe seleccionar el tipo de actividad";
+                else
+                    LblErrActividad.Text = LblErrActividad.Text + ", debe seleccionar el tipo de actividad";
+                HayError = true;
+            }
+            if ((CboActividad.SelectedValue == "") || (CboActividad.SelectedValue == "0"))
+            {
+                if (LblErrActividad.Text == "")
+                    LblErrActividad.Text = LblErrActividad.Text + "Debe seleccionar la actividad";
+                else
+                    LblErrActividad.Text = LblErrActividad.Text + ", debe seleccionar la actividad";
+                HayError = true;
+            }
+            if ((CboActividad.SelectedValue != "") && (ValidaActividadUnica(Convert.ToInt32(CboActividad.SelectedValue)) == true))
+            {
+                if (LblErrActividad.Text == "")
+                    LblErrActividad.Text = LblErrActividad.Text + "Esta actividad es única y ya fue agregada";
+                else
+                    LblErrActividad.Text = LblErrActividad.Text + ", esta actividad es única y ya fue agregada";
+                HayError = true;
+            }
+            
             if (TxtFecIni.DateInput.Text == "")
             {
                 if (LblErrActividad.Text == "")

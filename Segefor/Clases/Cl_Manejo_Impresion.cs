@@ -404,14 +404,14 @@ namespace SEGEFOR.Clases
                 Ds_PlanManejo.Tables["Dt_ProteccionForestal"].Rows.Add(rowData);
             }
 
-            ////DataSet14
+            ////DataSet14 Cronograma
             for (int i = 0; i < dsDatos.Tables["Datos14"].Rows.Count; i++)
             {
                 DataRow rowData = Ds_PlanManejo.Tables["Dt_Cronograma"].NewRow();
                 rowData["Actividad"] = dsDatos.Tables["Datos14"].Rows[i]["Actividad"];
                 rowData["Fec_Ini"] = dsDatos.Tables["Datos14"].Rows[i]["Fec_Ini"];
                 rowData["Fec_Fin"] = dsDatos.Tables["Datos14"].Rows[i]["Fec_Fin"];
-                
+                rowData["Tipo_Actividad"] = dsDatos.Tables["Datos14"].Rows[i]["Tipo_Actividad"];
                 Ds_PlanManejo.Tables["Dt_Cronograma"].Rows.Add(rowData);
             }
 

@@ -1732,6 +1732,53 @@ namespace SEGEFOR.Clases
                 return ds;
             }
         }
+
+
+        public DataSet Listado_Tipo_Actividad()
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("SP_Listado_Tipo_Actividad", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public DataSet ListadoActividades(int Tipo_ActividadId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("SP_ListadoActividades", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Tipo_Actividad", OleDbType.Integer).Value = Tipo_ActividadId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
         
     }
 }
