@@ -1779,6 +1779,28 @@ namespace SEGEFOR.Clases
                 return ds;
             }
         }
+
+        public DataSet Listado_ProductoNoMaderable()
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Listado_ProductoNoMaderable", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
         
     }
 }

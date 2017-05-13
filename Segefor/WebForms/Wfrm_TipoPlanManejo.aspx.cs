@@ -397,7 +397,7 @@ namespace SEGEFOR.WebForms
                 RetornoAreaProteccion();
                 GrdPropietarios.Rebind();
                 GrdRepresentantes.Rebind();
-                ClUtilitarios.LlenaCombo(ClCatalogos.Listado_Productos(), CboProducto, "Codigo_Producto", "Nombre_Producto");
+                ClUtilitarios.LlenaCombo(ClCatalogos.Listado_ProductoNoMaderable(), CboProducto, "ProductoNoMaderableId", "ProductoNoMaderable");
                 ClUtilitarios.AgregarSeleccioneCombo(CboProducto, "Producto");
                 ClUtilitarios.LlenaCombo(ClCatalogos.Listado_Unidad_Medida(), CboUMedida, "Unidad_MedidaId", "Unidad_Medida");
                 ClUtilitarios.AgregarSeleccioneCombo(CboUMedida, "Unidad de medida");

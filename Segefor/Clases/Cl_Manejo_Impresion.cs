@@ -308,7 +308,7 @@ namespace SEGEFOR.Clases
                 rowData["Rodal"] = dsDatos.Tables["Datos8"].Rows[i]["Rodal"];
                 rowData["Anis"] = dsDatos.Tables["Datos8"].Rows[i]["Anis"];
                 rowData["Area"] = dsDatos.Tables["Datos8"].Rows[i]["Area"];
-                rowData["Producto"] = dsDatos.Tables["Datos8"].Rows[i]["Nombre_Producto"];
+                rowData["Producto"] = dsDatos.Tables["Datos8"].Rows[i]["ProductoNoMaderable"];
                 rowData["Peso"] = dsDatos.Tables["Datos8"].Rows[i]["Peso"];
                 Ds_PlanManejo.Tables["DtProductosNoMaderables"].Rows.Add(rowData);
             }
@@ -353,7 +353,7 @@ namespace SEGEFOR.Clases
                 rowData["Rodal"] = dsDatos.Tables["Datos11"].Rows[i]["Rodal"];
                 rowData["Anis"] = dsDatos.Tables["Datos11"].Rows[i]["Anis"];
                 rowData["Area"] = dsDatos.Tables["Datos11"].Rows[i]["Area"];
-                rowData["Nombre_Producto"] = dsDatos.Tables["Datos11"].Rows[i]["Nombre_Producto"];
+                rowData["Nombre_Producto"] = dsDatos.Tables["Datos11"].Rows[i]["ProductoNoMaderable"];
                 rowData["Peso"] = dsDatos.Tables["Datos11"].Rows[i]["Peso"];
                 Ds_PlanManejo.Tables["Dt_ProdNoMaderableExtrae"].Rows.Add(rowData);
             }
