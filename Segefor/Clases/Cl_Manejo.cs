@@ -105,6 +105,24 @@ namespace SEGEFOR.Clases
             }
         }
 
+        public void ActualizaEstatusAsignacionElaborador(int AsignacionId, int EstatusId)
+        {
+            try
+            {
+                cnSql.Open();
+                SqlCommand cmd = new SqlCommand("SP_ActualizaEstatusAsignacionElaborador", cnSql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", SqlDbType.Int).Value = AsignacionId;
+                cmd.Parameters.Add("@EstatusId", SqlDbType.Int).Value = EstatusId;
+                cmd.ExecuteNonQuery();
+                cnSql.Close();
+            }
+            catch (Exception ex)
+            {
+                cnSql.Close();
+            }
+        }
+
         public void ActualizaSubCategoriaPlan(int AsignacionId, int SubCategoriaId)
         {
             try
@@ -1590,6 +1608,29 @@ namespace SEGEFOR.Clases
                     ds.Tables.Remove("DATOS");
                 cn.Open();
                 OleDbCommand cmd = new OleDbCommand("Sp_Get_Actividades_Cronograma", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = AsignacionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public DataSet Get_Actividades_Cronograma_Traslado(int AsignacionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Get_Actividades_Cronograma_Traslado", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = AsignacionId;
                 OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
@@ -3306,7 +3347,7 @@ namespace SEGEFOR.Clases
                 //Cronograma
                 XmlDocument iInformacionCronograma = ClXml.CrearDocumentoXML("Cronograma");
                 XmlNode iElementosCronograma = iInformacionCronograma.CreateElement("Cronograma");
-                DataSet DsCronograma = Get_Actividades_Cronograma(AsignacionId);
+                DataSet DsCronograma = Get_Actividades_Cronograma_Traslado(AsignacionId);
                 for (int k = 0; k < DsResumenPlanManejo.Tables["Datos"].Rows.Count; k++)
                 {
                     XmlNode iElementosCronogramaDetalle = iInformacionCronograma.CreateElement("Item");
@@ -3929,6 +3970,26 @@ namespace SEGEFOR.Clases
             {
                 cn.Close();
                 return ds;
+            }
+        }
+
+        public int GetEstatusPlanManejo(int AsignacionId)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("SP_GetEstatusPlanManejo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value =AsignacionId;
+                cmd.Parameters.Add("@EstatusId", OleDbType.Integer).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToInt32(cmd.Parameters["@EstatusId"].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
             }
         }
 

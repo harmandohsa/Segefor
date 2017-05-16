@@ -5089,33 +5089,6 @@ namespace SEGEFOR.WebForms {
         protected global::System.Web.UI.WebControls.Label LblTitConfirmacion;
         
         /// <summary>
-        /// DocPropietario control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DocPropietario;
-        
-        /// <summary>
-        /// DocRepresentante control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DocRepresentante;
-        
-        /// <summary>
-        /// DocRepresentanteDos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DocRepresentanteDos;
-        
-        /// <summary>
         /// Image1 control.
         /// </summary>
         /// <remarks>

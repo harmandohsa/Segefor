@@ -442,6 +442,7 @@ namespace SEGEFOR.WebForms
                 TxtCorreoNotifica.Enabled = false;
                 ClUtilitarios.LlenaCombo(ClCatalogos.Listado_Tipo_Actividad(), CboTipoActividad, "Tipo_ActividadId", "Tipo_Actividad");
                 ClUtilitarios.AgregarSeleccioneCombo(CboTipoActividad, "Actividad");
+                BloqueaPLanManejo();
 
             }
             else
@@ -477,18 +478,23 @@ namespace SEGEFOR.WebForms
             }
             dsDatosMuestreo.Clear();
 
-            DataSet dsDatosClaseDesarrollo = ClManejo.GetClaseDesarrolloFinca_PlanManejo(Convert.ToInt32(TxtAsignacionId.Text), Convert.ToInt32(TxtInmuebleId.Text));
-            for (int i = 0; i < dsDatosClaseDesarrollo.Tables["Datos"].Rows.Count; i++)
+
+            if (TxtInmuebleId.Text != "")
             {
-                for (int j = 0; j < CboClaseDesarrollo.Items.Count; j++)
+                DataSet dsDatosClaseDesarrollo = ClManejo.GetClaseDesarrolloFinca_PlanManejo(Convert.ToInt32(TxtAsignacionId.Text), Convert.ToInt32(TxtInmuebleId.Text));
+                for (int i = 0; i < dsDatosClaseDesarrollo.Tables["Datos"].Rows.Count; i++)
                 {
-                    if (Convert.ToInt32(CboClaseDesarrollo.Items[j].Value) == Convert.ToInt32(dsDatosClaseDesarrollo.Tables["Datos"].Rows[i]["Clase_DesarrolloId"]))
+                    for (int j = 0; j < CboClaseDesarrollo.Items.Count; j++)
                     {
-                        CboClaseDesarrollo.Items[j].Checked = true;
+                        if (Convert.ToInt32(CboClaseDesarrollo.Items[j].Value) == Convert.ToInt32(dsDatosClaseDesarrollo.Tables["Datos"].Rows[i]["Clase_DesarrolloId"]))
+                        {
+                            CboClaseDesarrollo.Items[j].Checked = true;
+                        }
                     }
                 }
+                dsDatosClaseDesarrollo.Clear();
             }
-            dsDatosClaseDesarrollo.Clear();
+            
 
             DataSet dsDatosEcuacion = ClManejo.Get_Ecuacion_Aprovechamiento_Forestal(Convert.ToInt32(TxtAsignacionId.Text));
             for (int i = 0; i < dsDatosEcuacion.Tables["Datos"].Rows.Count; i++)
@@ -904,13 +910,6 @@ namespace SEGEFOR.WebForms
         void GrdInmueblePol_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
             ClUtilitarios.LlenaGrid(ClManejo.Get_TempFincaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text)), GrdInmueblePol);
-            DataSet dsInmuebles = ClManejo.Get_TempFincaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text));
-            for (int i = 0; i < dsInmuebles.Tables["Datos"].Rows.Count; i++)
-            {
-                if (dsInmuebles.Tables["Datos"].Rows[i]["TipoDoc_PropiedadId"].ToString() == "3")
-                    GrdInmueblePol.Columns[6].HeaderText = "Poseedores";
-            }
-            //dsInmuebles.Clear();
         }
 
         void BtnGrabarCompromisoRepo_ServerClick(object sender, EventArgs e)
@@ -1679,23 +1678,68 @@ namespace SEGEFOR.WebForms
 
         void BtnYes_ServerClick(object sender, EventArgs e)
         {
-            int AsignacionId = Convert.ToInt32(TxtAsignacionId.Text);
-            int GestionId = Cl_Gestion.MaxGestionId(1);
-            int Correlativo_Anual = Cl_Gestion.MaxGestionId(2);
-            string NUG = "NUG-" + Correlativo_Anual + "-" + Convert.ToDateTime(ClUtilitarios.FechaDB()).Year;
-            int PersonaId = ClManejo.Get_PersonaId_AsignacionId(AsignacionId);
-
-            Cl_Gestion.Insertar_Gestion(GestionId, NUG, Convert.ToInt32(PersonaId), Convert.ToInt32(TxtSubRegionId.Text), 13, 2, Correlativo_Anual);
-            ClManejo.Traslada_TempManejo(GestionId, AsignacionId);
-            ClManejo.Traslada_PlanManejo_ConvierteXml(GestionId, AsignacionId);
-            CopiarAnexos(AsignacionId, GestionId);
-            ClManejo.Elimina_TempPlanManejo(AsignacionId);
-            string Mensaje = "Su solicitud fue enviada exitosamente, con Numero Único de Gestión (NUG): " + NUG + ". Por lo que solicitamos presentarse a la oficina Subregional " + TxtSubRegion.Text + ", con la documentación que deberá presentar para dar trámite a su solicitud.";
-            ClUtilitarios.EnvioCorreo(Session["Correo_Usuario"].ToString(), ClPersona.Nombre_Usuario(Convert.ToInt32(Session["PersonaId"])).ToString(), "Solicitud SEGEFOR", Mensaje, 0, "", "");
-            Response.Redirect("~/WebForms/Wfrm_Inicio.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("2", true)) + "&traite=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(NUG, true)) + "");
+            ClManejo.ActualizaEstatusAsignacionElaborador(Convert.ToInt32(TxtAsignacionId.Text), 4);
+            BloqueaPLanManejo();
+            LblTitConfirmacion.Text = "Gestíon Enviada con exito al solicitante";
+            BtnYes.Visible = false;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindowConfirm.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
         }
 
-
+        void BloqueaPLanManejo()
+        {
+            int Estatusid = ClManejo.GetEstatusPlanManejo(Convert.ToInt32(TxtAsignacionId.Text));
+            if (Estatusid == 4)
+            {
+                BtnAddFincaPlan.Visible = false;
+                BtnNuevaFinca.Visible = false;
+                CboFinca.Enabled = false;
+                BtnCargar.Visible = false;
+                GrdInmuebles.Columns[6].Visible = false;
+                GrdInmuebles.Columns[7].Visible = false;
+                GrdInmuebles.Columns[8].Visible = false;
+                GrdInmuebles.Columns[9].Visible = false;
+                CboTipoIdentificacionRep.Enabled = false;
+                BtnGrabarDatosNotifica.Visible = false;
+                BtnAddEspeciePlanManejo.Visible = false;
+                GrdEspeciePLanManejo.Columns[2].Visible = false;
+                btnCargarPolAreaRepo.Visible = false;
+                BtnGrabarInfoGenPlan.Visible = false;
+                BtnGrabarCarcBiofisicas.Visible = false;
+                CboTipoIngresoDatos.Enabled = false;
+                CboTipoInventario.Enabled = false;
+                BtnCargarBoleta.Visible = false;
+                BtnGeneraCalculos.Visible = false;
+                btnGrabarAprovechamiento.Visible = false;
+                BtnGrabarAnalisis.Visible = false;
+                BtnAddProductoNoForestal.Visible = false;
+                BtnGrabarProdNoMaderables.Visible = false;
+                GrdProdNoForestal.Columns[9].Visible = false;
+                GrdSilvicultural.Enabled = false;
+                GrdResumen.Enabled = false;
+                BtnGrabarSilvicultura.Visible = false;
+                BtnGrabarProdNoMaderablesExtraeSave.Visible = false;
+                BtnGrabarOtrosAprovecha.Visible = false;
+                BtnGeneraRepo.Visible = false;
+                GrdMuestreo.Enabled = false;
+                BtnAddEspecieRepoPlanifica.Visible = false;
+                BtnSaveEspeciesRepo.Visible = false;
+                GrdEspeciesRepoblacion.Columns[15].Visible = false;
+                BtnGrabarProteccionForestal.Visible = false;
+                BtnGrabarActicidad.Visible = false;
+                GrdActividades.Columns[6].Visible = false;
+                BtnCargarCroquis.Visible = false;
+                GrdAnexoCroquia.Columns[2].Visible = false;
+                BtnCargarMapaUsoActual.Visible = false;
+                GrdAnexoMapaUsoActual.Columns[2].Visible = false;
+                BtnCargarMapaPendiente.Visible = false;
+                GrdAnexoMapaPendiente.Columns[2].Visible = false;
+                BtnCargarMapaUbicacion.Visible = false;
+                GrdAnexoMapaUbicacion.Columns[2].Visible = false;
+                BtnCargarMapaRonda.Visible = false;
+                GrdAnexoMapaRonda.Columns[2].Visible = false;
+                BtnGrabarCompromisoRepo.Visible = false;
+            }
+        }
         
 
 
@@ -2124,16 +2168,8 @@ namespace SEGEFOR.WebForms
         {
             if (ValidaPlanManejo() == true)
             {
-                LblTitConfirmacion.Text = "La Gestíon sera enviada al INAB, ¿esta seguro (a)?";
-                if (ClManejo.Existe_Representatnes_PlanManejo(Convert.ToInt32(TxtAsignacionId.Text)) == 0)
-                {
-                    DocPropietario.Visible = true;
-                }
-                else
-                {
-                    DocRepresentante.Visible = true;
-                    DocRepresentanteDos.Visible = true;
-                }
+                
+                LblTitConfirmacion.Text = "La Gestíon sera enviada al solicitante, ¿esta seguro (a)?";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindowConfirm.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
             }
         }
@@ -2715,6 +2751,21 @@ namespace SEGEFOR.WebForms
                     TxtOtro.Text = "";
                 }
             }
+            else
+            {
+                RadComboBox combo = (RadComboBox)o;
+                GridDataItem item = (GridDataItem)combo.NamingContainer;
+                TextBox TxtOtro = (TextBox)item.FindControl("TxtOtro");
+                if (combo.SelectedValue == "6")
+                {
+                    TxtOtro.Enabled = true;
+                }
+                else
+                {
+                    TxtOtro.Enabled = false;
+                    TxtOtro.Text = "";
+                }
+            }
             CalculaCompromisoRepoblacion();
             
         }
@@ -3110,10 +3161,16 @@ namespace SEGEFOR.WebForms
         {
             if (e.CommandName == "CmdDel")
             {
+                string Rodal = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["Rodal"].ToString().Trim();
                 string Producto = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["Codigo_Producto"].ToString().Trim();
+                string UMedida = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["Unidad_MedidaId"].ToString().Trim();
                 for (int i = 0; i < GrdProdNoForestal.Items.Count; i++)
                 {
-                    if (Producto != e.Item.OwnerTableView.DataKeyValues[i]["Codigo_Producto"].ToString().Trim())
+                    if ((Producto == e.Item.OwnerTableView.DataKeyValues[i]["Codigo_Producto"].ToString().Trim()) && (Rodal == e.Item.OwnerTableView.DataKeyValues[i]["Rodal"].ToString().Trim()) && (UMedida == e.Item.OwnerTableView.DataKeyValues[i]["Unidad_MedidaId"].ToString().Trim()))
+                    {
+
+                    }
+                    else
                     {
                         DataRow itemGrid = DsProductoNoForestales.Tables["ProductoNoForestal"].NewRow();
                         itemGrid["Turno"] = GrdProdNoForestal.Items[i].OwnerTableView.DataKeyValues[i]["Turno"];
@@ -3183,6 +3240,20 @@ namespace SEGEFOR.WebForms
                 ClUtilitarios.LlenaGridDataSet(DsProductoNoForestales, GrdProdNoForestal, "ProductoNoForestal");
         }
 
+        bool ExisteProductoNoForestal(int Rodal, int Producto, int UMedida)
+        {
+            bool Existe = false;
+            for (int i = 0; i < GrdProdNoForestal.Items.Count; i++)
+            {
+                if ((Convert.ToInt32(GrdProdNoForestal.Items[i].GetDataKeyValue("Rodal")) == Rodal) && (Convert.ToInt32(GrdProdNoForestal.Items[i].GetDataKeyValue("Codigo_Producto")) == Producto) && (Convert.ToInt32(GrdProdNoForestal.Items[i].GetDataKeyValue("Unidad_MedidaId")) == UMedida))
+                {
+                    Existe = true;
+                    break;
+                }
+            }
+            return Existe;
+        }
+
         void BtnAddProductoNoForestal_ServerClick(object sender, EventArgs e)
         {
             LblErrProdNoMaderable.Text = "";
@@ -3238,20 +3309,28 @@ namespace SEGEFOR.WebForms
             }
             if (HayError != true)
             {
-                LeeGridProdNoForestal();
-                DataRow item = DsProductoNoForestales.Tables["ProductoNoForestal"].NewRow();
-                item["Turno"] = 1;
-                item["Rodal"] = CboRodal.Text;
-                item["Anis"] = TxtYearNoForestal.Text;
-                item["Area"] = TxtAreaNoForesal.Text;
-                item["Codigo_Producto"] = CboProducto.SelectedValue;
-                item["Producto"] = CboProducto.Text;
-                item["Unidad_MedidaId"] = CboUMedida.SelectedValue;
-                item["Unidad_Medida"] = CboUMedida.Text;
-                item["Peso"] = TxtPesoNoForestal.Text;
-                DsProductoNoForestales.Tables["ProductoNoForestal"].Rows.Add(item);
-                GrdProdNoForestal.Rebind();
-                GrdProdNoMaderablesExtrae.Rebind();
+                if (ExisteProductoNoForestal(Convert.ToInt32(CboRodal.Text),Convert.ToInt32(CboProducto.SelectedValue),Convert.ToInt32(CboUMedida.SelectedValue)) == true)
+                {
+                    LblErrProdNoMaderable.Text = "Ya agrego este producto no forestal";
+                    DivErrProdNoMaderable.Visible = true;
+                }
+                else
+                {
+                    LeeGridProdNoForestal();
+                    DataRow item = DsProductoNoForestales.Tables["ProductoNoForestal"].NewRow();
+                    item["Turno"] = 1;
+                    item["Rodal"] = CboRodal.Text;
+                    item["Anis"] = TxtYearNoForestal.Text;
+                    item["Area"] = TxtAreaNoForesal.Text;
+                    item["Codigo_Producto"] = CboProducto.SelectedValue;
+                    item["Producto"] = CboProducto.Text;
+                    item["Unidad_MedidaId"] = CboUMedida.SelectedValue;
+                    item["Unidad_Medida"] = CboUMedida.Text;
+                    item["Peso"] = TxtPesoNoForestal.Text;
+                    DsProductoNoForestales.Tables["ProductoNoForestal"].Rows.Add(item);
+                    GrdProdNoForestal.Rebind();
+                    GrdProdNoMaderablesExtrae.Rebind();
+                }
             }
             else
                 DivErrProdNoMaderable.Visible = true;
@@ -4316,6 +4395,7 @@ namespace SEGEFOR.WebForms
 
         void RadTabStrip1_TabClick(object sender, Telerik.Web.UI.RadTabStripEventArgs e)
         {
+            DivErrorGeneral.Visible = false;
             if (e.Tab.Index == 0)
             {
                 RadPageFincas.Visible = true;
@@ -4943,7 +5023,7 @@ namespace SEGEFOR.WebForms
                     String iPoligonoGML = "";
 
 
-                    if (!ClPoligono.Actualizar_Poligono_AreaRepoblacion(iInformacionPolBosque, ref AsignacionId, ref iPoligonoGML, ref ErrorMapa))
+                    if (!ClPoligono.Actualizar_Poligono_AreaRepoblacion(iInformacionPolBosque, AsignacionId, ref ErrorMapa))
                     {
                         DivErrorInfoGenPlan.Visible = true;
                         LblErrorInfoGenPlan.Text = ErrorMapa;
@@ -6115,6 +6195,7 @@ namespace SEGEFOR.WebForms
         {
             if (e.CommandName == "CmdDel")
             {
+                TxtInmuebleId.Text = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["InmuebleId"].ToString();
                 ClManejo.EliminarTempPropietariosPlanManejo(Convert.ToInt32(TxtAsignacionId.Text), Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["InmuebleId"]));
                 ClManejo.EliminarTempFincaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text), Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["InmuebleId"]));
                 LblGoodFinca.Text = "Finca eliminada del plan de manejo";
@@ -6143,6 +6224,7 @@ namespace SEGEFOR.WebForms
             }
             if (e.CommandName == "CmdPropietarios")
             {
+                DivUsosAreas.Visible = false;
                 TxtInmuebleId.Text = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["InmuebleId"].ToString();
                 DivPropietariosFinca.Visible = true;
                 PropietariosYaExistentes(Convert.ToInt32(TxtAsignacionId.Text), Convert.ToInt32(TxtInmuebleId.Text));
@@ -6182,6 +6264,7 @@ namespace SEGEFOR.WebForms
             }
             if (e.CommandName == "CmdAreas")
             {
+                DivPropietariosFinca.Visible = false;
                 TxtInmuebleId.Text = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["InmuebleId"].ToString();
                 DivUsosAreas.Visible = true;
                 TxtAreaInmueble.Text = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["Area"].ToString();
@@ -6362,7 +6445,8 @@ namespace SEGEFOR.WebForms
             Ds_Temporal.Tables["Dt_Poligono"].Clear();
             GrdPoligono.Rebind();
             DivPropietariosFinca.Visible = false;
-            
+            TxtFinca.Text = "SIN NOMBRE";
+            ChkIngNomFinca.Checked = false;
         }
 
         void BloquearFinca()
@@ -7327,7 +7411,7 @@ namespace SEGEFOR.WebForms
                 itemGrid["Anis"] = dsProdNoMaderables.Tables["Datos"].Rows[i]["Anis"];
                 itemGrid["Area"] = dsProdNoMaderables.Tables["Datos"].Rows[i]["Area"];
                 itemGrid["Codigo_Producto"] = dsProdNoMaderables.Tables["Datos"].Rows[i]["Codigo_Producto"];
-                itemGrid["Producto"] = dsProdNoMaderables.Tables["Datos"].Rows[i]["NOmbre_Producto"];
+                itemGrid["Producto"] = dsProdNoMaderables.Tables["Datos"].Rows[i]["ProductoNoMaderable"];
                 itemGrid["Unidad_MedidaId"] = dsProdNoMaderables.Tables["Datos"].Rows[i]["Unidad_MedidaId"];
                 itemGrid["Unidad_Medida"] = dsProdNoMaderables.Tables["Datos"].Rows[i]["Unidad_Medida"];
                 itemGrid["Peso"] = dsProdNoMaderables.Tables["Datos"].Rows[i]["Peso"];

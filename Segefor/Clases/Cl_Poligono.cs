@@ -349,52 +349,38 @@ namespace SEGEFOR.Clases
 
         }
 
-        public bool Actualizar_Poligono_AreaRepoblacion(XmlDocument pPoligono, ref int AsignacionId, ref String pPoligonoGML, ref string ErrorMapa)
+        public bool Actualizar_Poligono_AreaRepoblacion(XmlDocument pPoligono, int AsignacionId, ref string ErrorMapa)
         {
 
 
             SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.AppSettings["ConexionSql"]);
             cn.Open();
-            SqlCommand Comando = new SqlCommand("sp_actualizar_poligonos_AreaRepoblacion", cn);
+            SqlCommand Comando = new SqlCommand("sp_poligonos_Area_Proteccion", cn);
             Comando.CommandType = CommandType.StoredProcedure;
 
             Comando.Parameters.Add("@AsignacionId", SqlDbType.Int);
             Comando.Parameters["@AsignacionId"].Value = AsignacionId;
 
-            
-            Comando.Parameters.Add("@ProyectoIntersectaId", SqlDbType.Int, 0);
-            Comando.Parameters["@ProyectoIntersectaId"].Direction = ParameterDirection.Output;
-
-            Comando.Parameters.Add("@GMLPoligono", SqlDbType.VarChar, -1);
-            Comando.Parameters["@GMLPoligono"].Direction = ParameterDirection.Output;
 
             Comando.Parameters.Add("@Puntos", SqlDbType.Xml, -1);
             Comando.Parameters["@Puntos"].Value = pPoligono.OuterXml;
 
-            Comando.Parameters.Add("@MensajeError", SqlDbType.VarChar, -1);
-            Comando.Parameters["@MensajeError"].Direction = ParameterDirection.Output;
+            Comando.Parameters.Add("@Mensaje", SqlDbType.VarChar, -1);
+            Comando.Parameters["@Mensaje"].Direction = ParameterDirection.Output;
 
-            Comando.Parameters.Add("@Error", SqlDbType.Int, 0);
-            Comando.Parameters["@Error"].Direction = ParameterDirection.Output;
+           
 
 
             Comando.ExecuteNonQuery();
 
             //-	Aquí es donde ejecuta el proceso almacena donde se ingresan nuevos polígonos o se actualizan este proceso hace las dos funciones y es en ese proceso donde convierte las coordenadas GTM a coordenadas geográficas las x las convierte en latitud y las Y en longitud
 
-            if (!Convert.IsDBNull(Comando.Parameters["@Error"].Value))
+            if (!Convert.IsDBNull(Comando.Parameters["@Mensaje"].Value))
             {
-                if (Convert.ToInt32(Comando.Parameters["@Error"].Value) != 0)
-                {
-                    Int32 Error = Convert.ToInt32(Comando.Parameters["@Error"].Value);
-                    string ErrorDescripcion = Comando.Parameters["@MensajeError"].Value.ToString();
-                    //pId = Convert.ToInt32(Comando.Parameters["@ProyectoIntersectaId"].Value);
-                    pPoligonoGML = Comando.Parameters["@GMLPoligono"].Value.ToString();
-                    ErrorMapa = ErrorDescripcion;
-                    return false;
-                }
-                else
-                    return true;
+
+                string ErrorDescripcion = Comando.Parameters["@Mensaje"].Value.ToString();
+                ErrorMapa = ErrorDescripcion;
+                return false;
             }
             else
                 return true;

@@ -615,11 +615,11 @@
                                     <h1><strong>Elaboración del Plan de Manejo Forestal</strong></h1>
                                     <h2><strong><asp:Label runat="server" ID="LblTipoPlan"></asp:Label></strong></h2>
                                     <asp:Button runat="server" Text="Vista Previa"   ID="BtnVistaPrevia" class="btn btn-primary" />
-                                    <a class="btn btn-primary m-b" runat="server" id="BtnPrintSolicitud">Imprimir Solicitud</a>
+                                    <a class="btn btn-primary m-b" runat="server" id="BtnPrintSolicitud" visible="false">Imprimir Solicitud</a>
                                     <a class="btn btn-primary m-b" runat="server" id="BtnIrAnexos">Imprimir Anexos</a>
                                 </div >
                                 <div class="ibox-title">
-                                    <a class="btn btn-primary m-b" runat="server" id="BtnEnviarSol">Enviar Solicitud</a>
+                                    <a class="btn btn-primary m-b" runat="server" id="BtnEnviarSol">Enviar plan de manejo a solicitante</a>
                                 </div>
                                 <div class="ibox-title">
                                     <div class="alert alert-danger alert-dismissable" runat="server" id="DivErrorGeneral" visible="false">
@@ -2641,7 +2641,7 @@
                                                                 PageSizeLabelText="Regitros"/>
                                                             <MasterTableView Caption="" Name="LabelsResumen" DataKeyNames="Turno,Rodal,Anis,Area,Codigo_Producto,Producto,Unidad_MedidaId,Unidad_Medida,Peso" NoMasterRecordsText="No Hay Registros" ShowFooter="true">
                                                                 <Columns>
-                                                                    <telerik:GridBoundColumn DataField="Turno" UniqueName="Turno" HeaderText="Turno" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="Turno" UniqueName="Turno" HeaderText="Turno" Visible="false" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="Rodal" UniqueName="Rodal" HeaderText="Rodal" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="Anis" UniqueName="Anis" HeaderText="Año" HeaderStyle-Width="65px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="Area" UniqueName="Area" HeaderText="Área" HeaderStyle-Width="65px"></telerik:GridBoundColumn>
@@ -3903,32 +3903,12 @@
                         <telerik:RadWindow RenderMode="Lightweight" ID="RadVerAnexo" runat="server" Modal="true" Width="800px"
                             Height="600px" Title="Anexos" Behaviors="Default">
                         </telerik:RadWindow>
-                        <telerik:RadWindow runat="server" ID="RadWindowConfirm" Modal="true" Height="420px" Width="450px" Title="Confirmación" Behaviors="Close">
+                        <telerik:RadWindow runat="server" ID="RadWindowConfirm" Modal="true" Height="220px" Width="250px" Title="Confirmación" Behaviors="Close">
                         <ContentTemplate>
                             <asp:Label ID="LblTitConfirmacion" ForeColor="Red" Font-Bold="true" Text="" runat="server" />
                             <br />
                             <br />
-                            <div class="ibox-content">
-                                <asp:Label runat="server" Text="Debera adjuntar la siguiente papeleria"></asp:Label>
-                                    <li>
-                                        <asp:Label runat="server" Text="Solicitud Autenticada"></asp:Label>
-                                    </li>
-                                    <li>
-                                        <asp:Label runat="server" Text="Documento original que acredite la propiedad del bien"></asp:Label>
-                                    </li>
-                                    <li runat="server" visible="false" id="DocPropietario">
-                                        <asp:Label runat="server" Text="Copia del documento personal de identificación del propietario "></asp:Label>
-                                    </li>
-                                    <li runat="server" visible="false" id="DocRepresentante">
-                                        <asp:Label runat="server" Text="Copia del documento personal de identificación del Representante Legal"></asp:Label>
-                                    </li>
-                                    <li runat="server" visible="false" id="DocRepresentanteDos">
-                                        <asp:Label runat="server" Text="Copia legalizada del nombramiento  de representante legal, inscrito en el Registro correspondiente; "></asp:Label>
-                                    </li>
-                                    <li>
-                                        <asp:Label runat="server" Text="Plan de Manejo Forestal"></asp:Label>
-                                    </li>
-                            </div>
+                            
                             <div class="ibox-content">
                                 <div class="col-sm-3">
                                     <asp:Image ID="Image1" runat="server" ImageUrl="~/Imagenes/ask.png" />
@@ -3938,7 +3918,7 @@
 
                                 </div>
                                 <div class="col-sm-2">
-                                    <a class="btn btn-primary m-b" runat="server" id="BtnYes" data-loading-text="Enviando...">Enviando</a>
+                                    <a class="btn btn-primary m-b" runat="server" id="BtnYes" data-loading-text="Enviando...">Enviar</a>
                                 </div>
                                 <%--<div class="col-sm-2">
                                     <a class="btn btn-primary m-b" runat="server" id="BtnNo">No</a>
