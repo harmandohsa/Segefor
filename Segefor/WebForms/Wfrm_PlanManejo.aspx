@@ -202,4 +202,17 @@
             </telerik:RadWindowManager>
         </ContentTemplate>
     </asp:UpdatePanel>
+
+    <script>
+        function pageLoad() {
+            $('#<%=BtnYes.ClientID%>').click(function () {
+                $(this).button('loading').delay(100000).queue(function () {
+                    $(this).button('reset');
+                    $(this).dequeue();
+                    $(this).data('loading-text', 'Cargando...');
+                });
+            });
+
+        }
+        </script>
 </asp:Content>

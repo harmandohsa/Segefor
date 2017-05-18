@@ -112,6 +112,24 @@ namespace SEGEFOR.WebForms {
         protected global::Telerik.Web.UI.RadComboBox CboJuridico;
         
         /// <summary>
+        /// DivTecnico control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivTecnico;
+        
+        /// <summary>
+        /// CboTecnico control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox CboTecnico;
+        
+        /// <summary>
         /// BtnVistaPrevia control.
         /// </summary>
         /// <remarks>

@@ -928,7 +928,7 @@ namespace SEGEFOR.Clases
             ClManejo = new Cl_Manejo();
 
             Ds_PlanManejo Ds_BoletaPrint = new Ds_PlanManejo();
-            DataSet dsDatos = ClManejo.Get_Datos_Boleta(Id, 2);
+            DataSet dsDatos = ClManejo.Get_Datos_Boleta(Id, Origen);
             Ds_BoletaPrint.Tables["Dt_Censo"].Clear();
             for (int i = 0; i < dsDatos.Tables["Datos"].Rows.Count; i++)
             {

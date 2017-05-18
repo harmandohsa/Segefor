@@ -101,9 +101,18 @@ namespace SEGEFOR.WebForms
                 { 
                     DivProvidencia.Visible = true;
                     ClUtilitarios.LlenaCombo(ClGestion.Get_Juridicos_SubRegion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["sousregion"].ToString()), true))), CboJuridico, "UsuarioId", "Nombres");
+                    ClUtilitarios.LlenaCombo(ClGestion.Get_Tecnicos_SubRegion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["sousregion"].ToString()), true))), CboTecnico, "UsuarioId", "Nombres");
+                    if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 2)
+                    {
+                        DivTecnico.Visible = true;
+                    }
                 }
                 else
+                {
                     DivResolucion.Visible = true;
+                    
+                }
+                    
             }
         }
 
@@ -156,8 +165,8 @@ namespace SEGEFOR.WebForms
 
         void BtnVistaPreviaResolucion_Click(object sender, EventArgs e)
         {
-            int SubCategoriaId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["subcategoria"].ToString()), true));
-            int CategoriaId = ClGestion.Get_CategoriaRNFId(SubCategoriaId);
+            int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 2);
+            int CategoriaId = ClGestion.Get_CategoriaManejoId(SubCategoriaId);
             Session["Datos_Resolucion_Admision"] = ClGestion.ImpresionResolucion_Admision(1, Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), Convert.ToInt32(Session["UsuarioId"]), CategoriaId);
             RadWindow1.Title = "Vista Previa Resolución";
             RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepResolucionAdmision.aspx";
@@ -323,7 +332,7 @@ namespace SEGEFOR.WebForms
                     int SubCategoriaId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["subcategoria"].ToString()), true));
                     int CategoriaId = ClGestion.Get_CategoriaRNFId(SubCategoriaId);
                     string Solicitante = ClGestion.Get_Propietarios_Gestion_Registro(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), CategoriaId);
-                    string AgraegadoSol = ClGestion.Get_CompletaPropietarios(CategoriaId, Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                    string AgraegadoSol = ClGestion.Get_CompletaPropietarios(CategoriaId, Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)),ModuloId);
                     if (AgraegadoSol != "")
                         Solicitante = Solicitante + " " + AgraegadoSol + ".";
                     else
@@ -452,10 +461,10 @@ namespace SEGEFOR.WebForms
                 }
                 else if (ModuloId == 2)
                 {
-                    int SubCategoriaId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["subcategoria"].ToString()), true));
+                    int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 2);
                     int CategoriaId = ClGestion.Get_CategoriaRNFId(SubCategoriaId);
-                    string Solicitante = ClGestion.Get_Propietarios_Gestion_Registro(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), CategoriaId);
-                    string AgraegadoSol = ClGestion.Get_CompletaPropietarios(CategoriaId, Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                    string Solicitante = ClGestion.Get_Propietarios_Manejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                    string AgraegadoSol = ClGestion.Get_CompletaPropietarios(CategoriaId, Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)),ModuloId);
                     if (AgraegadoSol != "")
                         Solicitante = Solicitante + " " + AgraegadoSol + ".";
                     else
@@ -477,7 +486,7 @@ namespace SEGEFOR.WebForms
                     Asunto = Solicitante;
                     if (Convert.ToInt32(dsDatos.Tables["Datos"].Rows[0]["Representantes"]) > 0)
                         Asunto = Asunto + " representado por: " + Representantes;
-                    Asunto = Asunto + " Solicita (n): aprobación de registro de plantación voluntaria en ";
+                    Asunto = Asunto + " Solicita (n): aprobación de licencia de  " + ClGestion.Get_SubCategoriaManejo(SubCategoriaId) + " en";
                     Asunto = Asunto + Fincas;
 
                     Cuerpo_Resolucion = "Se tiene a la vista para resolver el expediente arriba identificado, promovido a instancia de " + Solicitante;
@@ -488,11 +497,16 @@ namespace SEGEFOR.WebForms
                     ConsiderandoUno = "Que " + Solicitante;
                     if (Convert.ToInt32(dsDatos.Tables["Datos"].Rows[0]["Representantes"]) > 0)
                         ConsiderandoUno = ConsiderandoUno + " representado por: " + Representantes;
-                    ConsiderandoUno = ConsiderandoUno + " con fecha " + dsDatos.Tables["Datos"].Rows[0]["Fecha_Gestion"].ToString() + " gestionó ante el Instituto Nacional de Bosques, solicitud para el Registro de " + dsDatos.Tables["Datos"].Rows[0]["Nombre_SubCategoria"] + " en " + Fincas + ", quien ha cumplido con los requisitos de ley establecidos.";
+                    ConsiderandoUno = ConsiderandoUno + " con fecha " + dsDatos.Tables["Datos"].Rows[0]["Fecha_Gestion"].ToString() + " gestionó ante el Instituto Nacional de Bosques, solicitud para el Registro de " + dsDatos.Tables["Datos"].Rows[0]["SubCategoria"] + " en " + Fincas + ", quien ha cumplido con los requisitos de ley establecidos.";
                     ConsiderandoDos = "Con base en lo considerado y lo preceptuado en los Artículos 88: de la Ley Forestal; 3, 5, 6 y 14 de la Resolución No. JD.03.26.2015, Reglamento del Registro Nacional Forestal. Esta Dirección Subregional Resuelve: a) Admitir para su trámite la solicitud presentada por " + Solicitante;
                     if (Convert.ToInt32(dsDatos.Tables["Datos"].Rows[0]["Representantes"]) > 0)
                         ConsiderandoDos = ConsiderandoDos = " representado por: " + Representantes;
                     ConsiderandoDos = ConsiderandoDos + ", contenida en el expediente No. " + dsDatos.Tables["Datos"].Rows[0]["No_Expediente"] + " el cual consta de _________ folios inclusive, b) Notifíquese al interesado.";
+                    dsDatos.Clear();
+                    int Resolucion_AdmisionId = ClGestion.Max_ResolucionAdmision();
+                    ClGestion.Insert_Resolucion_Aceptacion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), Asunto, Cuerpo_Resolucion, ConsiderandoUno, ConsiderandoDos, Convert.ToInt32(Session["UsuarioId"]), SubRegionId);
+                    Session["Datos_Resolucion_Admision"] = ClGestion.ImpresionResolucion_Admision(2, Resolucion_AdmisionId, Convert.ToInt32(Session["UsuarioId"]), CategoriaId);
+                    Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("7", true)) + "");
                 }
                 
                 //RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepResolucionAdmision.aspx";

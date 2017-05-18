@@ -104,40 +104,57 @@ namespace SEGEFOR.WebForms
 
         void CopiarAnexos(int AsignacionId, int GestionId)
         {
+            
+            
             string sourceDirectory = Server.MapPath(".") + @"\Archivos\Anexos\MapaPendiente\" + AsignacionId;
             string targetDirectory = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaPendiente\" + GestionId;
             DirectoryInfo diSource = new DirectoryInfo(sourceDirectory);
             DirectoryInfo diTarget = new DirectoryInfo(targetDirectory);
-            CopyAll(diSource, diTarget);
-            DeleteAll(diSource);
+            if (diSource.Exists)
+            {
+                CopyAll(diSource, diTarget);
+                DeleteAll(diSource);
+            }
 
             string sourceDirectoryCro = Server.MapPath(".") + @"\Archivos\Anexos\Croquis\" + AsignacionId;
             string targetDirectoryCro = Server.MapPath(".") + @"\Archivos\AnexosPM\Croquis\" + GestionId;
             DirectoryInfo diSourceCro = new DirectoryInfo(sourceDirectoryCro);
             DirectoryInfo diTargetCro = new DirectoryInfo(targetDirectoryCro);
-            CopyAll(diSourceCro, diTargetCro);
-            DeleteAll(diSourceCro);
+            if (diSourceCro.Exists)
+            {
+                CopyAll(diSourceCro, diTargetCro);
+                DeleteAll(diSourceCro);
+            }
 
             string sourceDirectoryRonda = Server.MapPath(".") + @"\Archivos\Anexos\MapaRonda\" + AsignacionId;
             string targetDirectoryRonda = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaRonda\" + GestionId;
             DirectoryInfo diSourceRonda = new DirectoryInfo(sourceDirectoryRonda);
             DirectoryInfo diTargetRonda = new DirectoryInfo(targetDirectoryRonda);
-            CopyAll(diSourceRonda, diTargetRonda);
-            DeleteAll(diSourceRonda);
+            if (diSourceRonda.Exists)
+            {
+                CopyAll(diSourceRonda, diTargetRonda);
+                DeleteAll(diSourceRonda);
+            }
 
             string sourceDirectoryUbi = Server.MapPath(".") + @"\Archivos\Anexos\MapaUbicacion\" + AsignacionId;
             string targetDirectoryUbi = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaUbicacion\" + GestionId;
             DirectoryInfo diSourceUbi = new DirectoryInfo(sourceDirectoryUbi);
             DirectoryInfo diTargetUbi = new DirectoryInfo(targetDirectoryUbi);
-            CopyAll(diSourceUbi, diTargetUbi);
-            DeleteAll(diSourceUbi);
+            if (diSourceUbi.Exists)
+            {
+                CopyAll(diSourceUbi, diTargetUbi);
+                DeleteAll(diSourceUbi);
+            }
 
             string sourceDirectoryUsoActual = Server.MapPath(".") + @"\Archivos\Anexos\MapaUsoActual\" + AsignacionId;
             string targetDirectoryUsoActual = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaUsoActual\" + GestionId;
             DirectoryInfo diSourceUsoActual = new DirectoryInfo(sourceDirectoryUsoActual);
             DirectoryInfo diTargetUsoActual = new DirectoryInfo(targetDirectoryUsoActual);
-            CopyAll(diSourceUsoActual, diTargetUsoActual);
-            DeleteAll(diSourceUsoActual);
+            if (diSourceUsoActual.Exists)
+            {
+                CopyAll(diSourceUsoActual, diTargetUsoActual);
+                DeleteAll(diSourceUsoActual);
+            }
 
         }
 
@@ -211,10 +228,10 @@ namespace SEGEFOR.WebForms
             
             else if (e.CommandName == "CmdAnexos")
             {
-                //int Id = Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["GestionId"]);
-                //string GestionNo = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["NUG"].ToString();
-                //String js = "window.open('Wfrm_AnexosPlanManejo.aspx?idgestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(Id.ToString(), true)) + "&NUG=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionNo.ToString(), true)) + "', '_blank');";
-                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Open Signature.aspx", js, true);
+                int Id = Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["AsignacionId"]);
+                string GestionNo = "";
+                String js = "window.open('Wfrm_AnexosPlanManejo.aspx?idgestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(Id.ToString(), true)) + "&NUG=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionNo.ToString(), true)) + "&typpe=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("1", true)) + "', '_blank');";
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Open Signature.aspx", js, true);
             }
             else if (e.CommandName == "CmdDevElb")
             {

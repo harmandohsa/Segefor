@@ -2166,7 +2166,7 @@
                                                     </div>
                                                 </telerik:RadPageView>
                                                 <telerik:RadPageView ID="RadPageAprovechamiento" runat="server" Visible="false"> <%-- Aprovechamiento Foresal--%>
-                                                    <div class="ibox-content">
+                                                  <div class="ibox-content">
                                                         <div><label class="col-sm-3 control-label centradolabel">Tipo de Ingreso de Datos</label>
                                                             <div class="col-sm-3"><telerik:RadComboBox ID="CboTipoIngresoDatos" AutoPostBack="true"  Width="100%" runat="server"></telerik:RadComboBox></div>
                                                         </div>
@@ -2670,6 +2670,7 @@
                                                             <a class="btn btn-primary m-b" runat="server" id="BtnGrabarProdNoMaderables">Grabar Productos No Maderables</a>
                                                         </div>
                                                     </div>
+                                                  
                                                 </telerik:RadPageView>
                                                 <telerik:RadPageView ID="RadPageActividadesApro" Visible="false" runat="server"> <%-- Actividades de Aprovechamiento--%>
                                                     Descripción general de las actividades de aprovechamiento productos maderables/no maderables

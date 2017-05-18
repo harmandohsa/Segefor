@@ -245,7 +245,7 @@ namespace SEGEFOR.Clases
 
 
 
-        public DataSet GetFincaPlanManejoPol(int GestionId)
+        public DataSet GetFincaPlanManejoPol(int GestionId, int Tipo)
         {
             try
             {
@@ -255,6 +255,7 @@ namespace SEGEFOR.Clases
                 OleDbCommand cmd = new OleDbCommand("sp_GetFincaPlanManejoPol", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", OleDbType.Integer).Value = GestionId;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
                 OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
                 adp.Fill(ds, "DATOS");
                 cn.Close();
@@ -3140,18 +3141,23 @@ namespace SEGEFOR.Clases
                 DsInmuebles.Clear();
 
                 //Representantes
-                XmlDocument iInformacionRepresentantes = ClXml.CrearDocumentoXML("Representantes");
-                XmlNode iElementosRepresentantes = iInformacionRepresentantes.CreateElement("Representantes");
                 DataSet DsRepresentantes = GetRepresentantes_Manejo(AsignacionId);
-                for (int k = 0; k < DsRepresentantes.Tables["Datos"].Rows.Count; k++)
+                if (DsRepresentantes.Tables["Datos"].Rows.Count > 0 )
                 {
-                    XmlNode iElementosRepresentantesDetalle = iInformacionRepresentantes.CreateElement("Item");
-                    ClXml.AgregarAtributo("PersonaId", DsRepresentantes.Tables["Datos"].Rows[k]["PersonaId"].ToString().Trim(), iElementosRepresentantesDetalle);
-                    iElementosRepresentantes.AppendChild(iElementosRepresentantesDetalle);
+                    XmlDocument iInformacionRepresentantes = ClXml.CrearDocumentoXML("Representantes");
+                    XmlNode iElementosRepresentantes = iInformacionRepresentantes.CreateElement("Representantes");
+
+                    for (int k = 0; k < DsRepresentantes.Tables["Datos"].Rows.Count; k++)
+                    {
+                        XmlNode iElementosRepresentantesDetalle = iInformacionRepresentantes.CreateElement("Item");
+                        ClXml.AgregarAtributo("PersonaId", DsRepresentantes.Tables["Datos"].Rows[k]["PersonaId"].ToString().Trim(), iElementosRepresentantesDetalle);
+                        iElementosRepresentantes.AppendChild(iElementosRepresentantesDetalle);
+                    }
+                    iInformacionRepresentantes.ChildNodes[1].AppendChild(iElementosRepresentantes);
+                    Insert_Representantes_PlanManejo_Real(GestionId, iInformacionRepresentantes);
+                    DsRepresentantes.Clear();
                 }
-                iInformacionRepresentantes.ChildNodes[1].AppendChild(iElementosRepresentantes);
-                Insert_Representantes_PlanManejo_Real(GestionId, iInformacionRepresentantes);
-                DsRepresentantes.Clear();
+                
 
 
                 //Ecuaciones
@@ -3985,6 +3991,26 @@ namespace SEGEFOR.Clases
                 cmd.ExecuteNonQuery();
                 cn.Close();
                 return Convert.ToInt32(cmd.Parameters["@EstatusId"].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
+
+        public int Get_GestionId_Resolucion_Admision_Expediente(int ResolucionId)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("SP_Get_GestionId_Resolucion_Admision_Expediente", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@ResolucionId", OleDbType.Integer).Value = ResolucionId;
+                cmd.Parameters.Add("@Resul", OleDbType.Integer).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToInt32(cmd.Parameters["@Resul"].Value.ToString());
             }
             catch (Exception ex)
             {

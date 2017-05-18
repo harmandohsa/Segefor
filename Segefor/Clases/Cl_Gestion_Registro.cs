@@ -716,15 +716,57 @@ namespace SEGEFOR.Clases
             }
         }
 
-        public string Get_CompletaPropietarios(int Categoria, int GestionId)
+        public string Get_CompletaPropietarios(int Categoria, int GestionId, int ModuloId)
         {
             string AgraegadoSol = "";
-            if ((Categoria == 2) || (Categoria == 3) || (Categoria == 4) || (Categoria == 6) || (Categoria == 1))
+            if (ModuloId == 3)
             {
-                if (CuantosPropietarios_GestionRegistro(1, GestionId) > 3)
+                if ((Categoria == 2) || (Categoria == 3) || (Categoria == 4) || (Categoria == 6) || (Categoria == 1))
+                {
+                    if (CuantosPropietarios_GestionRegistro(1, GestionId) > 3)
+                    {
+                        bool YaloPuso = false;
+                        DataSet TiposDocPropiedad = Get_TiposInmuebles(GestionId, ModuloId);
+                        for (int i = 0; i < TiposDocPropiedad.Tables["Datos"].Rows.Count; i++)
+                        {
+                            if (Convert.ToInt32(TiposDocPropiedad.Tables["Datos"].Rows[i]["TipoDoc_PropiedadId"]) == 1)
+                                AgraegadoSol = " y Copropietarios";
+                            else if (Convert.ToInt32(TiposDocPropiedad.Tables["Datos"].Rows[i]["TipoDoc_PropiedadId"]) == 2)
+                            {
+                                if (AgraegadoSol == "")
+                                    AgraegadoSol = " y Poseedores";
+                                else
+                                    AgraegadoSol = "Copropietarios y Poseedores";
+                                YaloPuso = true;
+                            }
+                            else if (Convert.ToInt32(TiposDocPropiedad.Tables["Datos"].Rows[i]["TipoDoc_PropiedadId"]) == 3)
+                            {
+                                if (YaloPuso != true)
+                                {
+                                    if (AgraegadoSol == "")
+                                        AgraegadoSol = "y Poseedores";
+                                    else
+                                        AgraegadoSol = "Copropietarios y Poseedores";
+                                    YaloPuso = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (CuantosPropietarios_GestionRegistro(2, GestionId) > 3)
+                    {
+                        AgraegadoSol = "y Propietarios";
+                    }
+                }
+            }
+            else if (ModuloId == 2)
+            {
+                if (CuantosPropietarios_GestionManejo(GestionId) > 3)
                 {
                     bool YaloPuso = false;
-                    DataSet TiposDocPropiedad = Get_TiposInmuebles(GestionId);
+                    DataSet TiposDocPropiedad = Get_TiposInmuebles(GestionId, ModuloId);
                     for (int i = 0; i < TiposDocPropiedad.Tables["Datos"].Rows.Count; i++)
                     {
                         if (Convert.ToInt32(TiposDocPropiedad.Tables["Datos"].Rows[i]["TipoDoc_PropiedadId"]) == 1)
@@ -751,18 +793,12 @@ namespace SEGEFOR.Clases
                     }
                 }
             }
-            else
-            {
-                if (CuantosPropietarios_GestionRegistro(2, GestionId) > 3)
-                {
-                    AgraegadoSol = "y Propietarios";
-                }
-            }
             return AgraegadoSol;
         }
 
         public DataSet ImpresionGestionInCompleta(int GestionInCompletaId, int SubCategoriaId)
         {
+            
             int Categoria = Get_CategoriaRNFId(SubCategoriaId);
             DataSet dsDatos = Solicitud_Completacion_Gestion(GestionInCompletaId);
             Ds_Gestiones Ds_GestionIncompleta = new Ds_Gestiones();
@@ -773,16 +809,21 @@ namespace SEGEFOR.Clases
             row["NUG"] = dsDatos.Tables["DATOS"].Rows[0]["NUG"];
             row["Fecha_Solicitud"] = dsDatos.Tables["DATOS"].Rows[0]["Fecha_Solicitud"];
             //row["Solicitante"] = dsDatos.Tables["DATOS"].Rows[0]["Solicitante"];
-            row["Solicitante"] = Get_Propietarios_Gestion_Registro(Convert.ToInt32(dsDatos.Tables["DATOS"].Rows[0]["GestionId"]), Categoria);
+            int GestionId = Convert.ToInt32(dsDatos.Tables["DATOS"].Rows[0]["GestionId"]);
+            int ModuloId = SP_Get_Modulo_Gestion(GestionId);
+            if (ModuloId == 3)
+                row["Solicitante"] = Get_Propietarios_Gestion_Registro(Convert.ToInt32(dsDatos.Tables["DATOS"].Rows[0]["GestionId"]), Categoria);
+            else if (ModuloId == 2)
+                row["Solicitante"] = Get_Propietarios_Manejo(Convert.ToInt32(dsDatos.Tables["DATOS"].Rows[0]["GestionId"]));
             row["Pendientes"] = dsDatos.Tables["DATOS"].Rows[0]["Pendientes"];
             row["Secretaria"] = dsDatos.Tables["DATOS"].Rows[0]["Secretaria"];
             row["NoSubRegion"] = dsDatos.Tables["DATOS"].Rows[0]["NoSubRegion"];
             row["Puesto"] = dsDatos.Tables["DATOS"].Rows[0]["Puesto"];
             Ds_GestionIncompleta.Tables["Dt_Solicitud_Completacion"].Rows.Add(row);
-            int GestionId = Convert.ToInt32(dsDatos.Tables["DATOS"].Rows[0]["GestionId"]);
+            
             dsDatos.Clear();
-
-            string AgraegadoSol = Get_CompletaPropietarios(Categoria, GestionId);
+            
+            string AgraegadoSol = Get_CompletaPropietarios(Categoria, GestionId, ModuloId);
             if (AgraegadoSol != "")
                 Ds_GestionIncompleta.Tables["Dt_Solicitud_Completacion"].Rows[0]["Solicitante"] = Ds_GestionIncompleta.Tables["Dt_Solicitud_Completacion"].Rows[0]["Solicitante"] + " " + AgraegadoSol + ".";
             else
@@ -999,6 +1040,26 @@ namespace SEGEFOR.Clases
             }
         }
 
+        public int Get_CategoriaManejoId(int SubCategoriaId)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("SP_Get_CategoriaManejoId", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@SubCategoriaId", OleDbType.Integer).Value = SubCategoriaId;
+                cmd.Parameters.Add("@Resul", OleDbType.Integer).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToInt32(cmd.Parameters["@Resul"].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
+
         public int Get_Det_RegistroRnfId(int GestionId)
         {
             try
@@ -1162,7 +1223,8 @@ namespace SEGEFOR.Clases
             Ds_GestionIncompleta.Tables["Dt_Caratula"].Rows.Add(rowCaratula);
             dsDatos.Clear();
 
-            string AgraegadoSol = Get_CompletaPropietarios(Categoria, GestionId);
+            int ModuloId = SP_Get_Modulo_Gestion(GestionId);
+            string AgraegadoSol = Get_CompletaPropietarios(Categoria, GestionId, ModuloId);
             if (AgraegadoSol != "")
             {
                 Ds_GestionIncompleta.Tables["Dt_Admision_Gestion"].Rows[0]["Solicitante"] = Ds_GestionIncompleta.Tables["Dt_Admision_Gestion"].Rows[0]["Solicitante"] + " " + AgraegadoSol + ".";
@@ -1266,6 +1328,29 @@ namespace SEGEFOR.Clases
                     ds.Tables.Remove("DATOS");
                 cn.Open();
                 OleDbCommand cmd = new OleDbCommand("SP_Get_Juridicos_SubRegion", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@SubRegionId", OleDbType.Integer).Value = SubRegionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public DataSet Get_Tecnicos_SubRegion(int SubRegionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("SP_Get_Tecnicos_SubRegion", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@SubRegionId", OleDbType.Integer).Value = SubRegionId;
                 OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
@@ -2218,20 +2303,40 @@ namespace SEGEFOR.Clases
 
         public DataSet ImpresionResolucion_Admision(int Tipo, int Id, int UsuarioId, int CategoriaId)
         {
+            Cl_Manejo ClManejo;
+            ClManejo = new Cl_Manejo();
+
             string AgraegadoSol = "";
-            string Solicitante = Get_Propietarios_Gestion_Registro(Id, CategoriaId);
-            int ModuloId = SP_Get_Modulo_Gestion(Id);
+            string Solicitante = "";
+            int ModuloId = 0;
+            int IdGestion = 0;
+            if (Tipo  == 1)
+                ModuloId = SP_Get_Modulo_Gestion(Id);
+            else
+            {
+                IdGestion = ClManejo.Get_GestionId_Resolucion_Admision_Expediente(Id);
+                ModuloId = SP_Get_Modulo_Gestion(IdGestion);
+            }
+                
             if (ModuloId == 3)
             {
-                AgraegadoSol = Get_CompletaPropietarios(CategoriaId, Id);
-                if (AgraegadoSol != "")
-                    Solicitante = Solicitante + " " + AgraegadoSol + ".";
-                else
-                    Solicitante = Solicitante + ".";
+                Solicitante = Get_Propietarios_Gestion_Registro(Id, CategoriaId);
+                
             }
             else if (ModuloId == 2)
                 Solicitante = Get_Propietarios_Manejo(Id);
+            if (Tipo == 1)
+                AgraegadoSol = Get_CompletaPropietarios(CategoriaId, Id, ModuloId);
+            else
+            {
+                IdGestion = ClManejo.Get_GestionId_Resolucion_Admision_Expediente(Id);
+                AgraegadoSol = Get_CompletaPropietarios(CategoriaId, IdGestion, ModuloId);
+            }
 
+            if (AgraegadoSol != "")
+                Solicitante = Solicitante + " " + AgraegadoSol + ".";
+            else
+                Solicitante = Solicitante + ".";
 
 
             if (ModuloId == 3)
@@ -2510,14 +2615,9 @@ namespace SEGEFOR.Clases
                     string Asunto = Solicitante;
                     if (Convert.ToInt32(dsDatos.Tables["Datos"].Rows[0]["Representantes"]) > 0)
                         Asunto = Asunto + " representado por: " + Representantes;
-                    if (CategoriaId == 2)
-                        Asunto = Asunto + " Solicita (n): aprobación de registro de plantación Voluntaria en ";
-                    else if (CategoriaId == 3)
-                        Asunto = Asunto + " Solicita (n): aprobación de registro de plantación de Árboles frutales en ";
-                    else if (CategoriaId == 4)
-                        Asunto = Asunto + " Solicita (n): aprobación de registro de plantación de Sistemas Agroforestales en ";
-                    else if (CategoriaId == 6)
-                        Asunto = Asunto + " Solicita (n): aprobación de registro de plantación de Fuentes Semilleras y de Material Vegetativo en ";
+                    int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Id, 2);
+
+                    Asunto = Asunto + " Solicita (n): aprobación de licencia de  " + Get_SubCategoriaManejo(SubCategoriaId) + " en";
                     Asunto = Asunto + Fincas;
                     row["Asunto"] = Asunto;
                     row["No_Resolucion"] = "-----";
@@ -2546,7 +2646,28 @@ namespace SEGEFOR.Clases
                     return Ds_Resolucion_Admision;
                 }
                 else
-                    return ds;
+                {
+                    DataSet dsDatos = Datos_Impresion_Resolucion_Admision(Tipo, Id, CategoriaId);
+                    Ds_Gestiones Ds_Resolucion_Admision = new Ds_Gestiones();
+                    Ds_Resolucion_Admision.Tables["Dt_Resolucion_Admision"].Clear();
+                    DataRow row = Ds_Resolucion_Admision.Tables["Dt_Resolucion_Admision"].NewRow();
+                    row["SubRegion"] = dsDatos.Tables["Datos"].Rows[0]["Sub_Region"];
+                    row["NoExpediente"] = dsDatos.Tables["Datos"].Rows[0]["No_Expediente"];
+                    row["Fecha_Doc"] = dsDatos.Tables["Datos"].Rows[0]["Fecha"];
+                    row["Asunto"] = dsDatos.Tables["Datos"].Rows[0]["Asunto"];
+                    row["No_Resolucion"] = "-----";
+                    row["Cuerpo_Resolucion"] = dsDatos.Tables["Datos"].Rows[0]["No_Resolucion"] + ".  " + dsDatos.Tables["Datos"].Rows[0]["Cuerpo_Resolucion"];
+                    row["ConsiderandoUno"] = dsDatos.Tables["Datos"].Rows[0]["ConsiderandoUno"];
+                    row["ConsiderandoDos"] = dsDatos.Tables["Datos"].Rows[0]["ConsiderandoDos"];
+                    row["SubRegional"] = dsDatos.Tables["Datos"].Rows[0]["SubRegional"]; ;
+                    row["PuestoSubRegional"] = dsDatos.Tables["Datos"].Rows[0]["nombre"]; ;
+                    row["Solicitante"] = Solicitante;
+                    row["Nombre_SubRegion"] = dsDatos.Tables["Datos"].Rows[0]["SubRegion"].ToString();
+                    row["Ubicacion_SubRegion"] = dsDatos.Tables["Datos"].Rows[0]["Ubicacion"].ToString();
+                    Ds_Resolucion_Admision.Tables["Dt_Resolucion_Admision"].Rows.Add(row);
+                    dsDatos.Clear();
+                    return Ds_Resolucion_Admision;
+                }
             }
             else
                 return ds;
@@ -3147,6 +3268,26 @@ namespace SEGEFOR.Clases
             {
                 cn.Close();
                 return 0;
+            }
+        }
+
+        public string Get_SubCategoriaManejo(int SubCategoriaId)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("SP_Get_SubCategoriaManejo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@SubCategoriaId", OleDbType.Integer).Value = SubCategoriaId;
+                cmd.Parameters.Add("@Resul", OleDbType.VarChar,200).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return cmd.Parameters["@Resul"].Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return "";
             }
         }
 
@@ -5500,7 +5641,7 @@ namespace SEGEFOR.Clases
                 OleDbCommand cmd = new OleDbCommand("Sp_Get_Propietarios_Gestion_Registro", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
-                cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = CategoriaId;
+                cmd.Parameters.Add("@CategoriaId", OleDbType.Integer).Value = CategoriaId;
                 cmd.Parameters.Add("@Nombres", OleDbType.VarChar, 7000).Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
                 cn.Close();
@@ -5534,7 +5675,7 @@ namespace SEGEFOR.Clases
         }
 
 
-        public DataSet Get_TiposInmuebles(int GestionId)
+        public DataSet Get_TiposInmuebles(int GestionId, int ModuloId)
         {
             try
             {
@@ -5544,6 +5685,7 @@ namespace SEGEFOR.Clases
                 OleDbCommand cmd = new OleDbCommand("sp_Get_TiposInmuebles", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
+                cmd.Parameters.Add("@ModuloId", OleDbType.Integer).Value = ModuloId;
                 OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
                 adp.Fill(ds, "DATOS");
                 cn.Close();
@@ -5565,6 +5707,26 @@ namespace SEGEFOR.Clases
                 OleDbCommand cmd = new OleDbCommand("Sp_CuantosPropietarios_GestionRegistro", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
+                cmd.Parameters.Add("@Resul", OleDbType.Integer).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToInt32(cmd.Parameters["@Resul"].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
+
+        public int CuantosPropietarios_GestionManejo(int GestionId)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_CuantosPropietarios_GestionManejo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
                 cmd.Parameters.Add("@Resul", OleDbType.Integer).Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();

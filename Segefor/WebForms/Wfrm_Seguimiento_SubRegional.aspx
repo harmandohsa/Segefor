@@ -53,6 +53,12 @@
                                         </div>
                                         </div>
                                         <div style="padding-bottom:1em;"></div>
+                                        <div class="ibox-title" runat="server" visible="false" id="DivTecnico">
+                                        <div><label class="col-sm-2 control-label centradolabel">Seleccione Técnico Forestal:</label>
+                                            <div class="col-sm-5"><telerik:RadComboBox ID="CboTecnico" Width="100%" runat="server"></telerik:RadComboBox></div>
+                                        </div>
+                                        </div>
+                                        <div style="padding-bottom:1em;"></div>
                                         <div class="ibox-title">
                                             <div class="col-sm-3"><asp:Button runat="server" Text="Vista Previa Providencia"  ID="BtnVistaPrevia" class="btn btn-primary" /></div>
                                             <div class="col-sm-1"><asp:Button runat="server" Text="Grabar Providencia"   ID="BtnEnviar" class="btn btn-primary" /></div>

@@ -9,7 +9,7 @@
 
     
 </head>
-<bo>
+<body>
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
@@ -261,6 +261,7 @@
                 </telerik:RadWindow>
             </Windows>
         </telerik:RadWindowManager>
+        <asp:TextBox runat="server" ID="TxtTipo" Visible="false"></asp:TextBox>
     </form>
-</bo    dy>
+</body>
 </html>

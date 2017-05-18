@@ -2117,6 +2117,38 @@ namespace SEGEFOR.WebForms
                     lblMensajeErrorGen.Text = lblMensajeErrorGen.Text + ", " + ", no ha agregado todas las Actividades obligatorios pendientes: " + ActividadesFaltaltesCrono;
                 HayError = true;
             }
+            if (GrdAnexoCroquia.Items.Count == 0)
+            {
+                if (lblMensajeErrorGen.Text == "")
+                    lblMensajeErrorGen.Text = lblMensajeErrorGen.Text + " " + " Debe agregar al menos un Croquis de acceso a la finca desde el casco municipal";
+                else
+                    lblMensajeErrorGen.Text = lblMensajeErrorGen.Text + ", " + ", debe agregar al menos un Croquis de acceso a la finca desde el casco municipal";
+                HayError = true;
+            }
+            if (GrdAnexoMapaPendiente.Items.Count == 0)
+            {
+                if (lblMensajeErrorGen.Text == "")
+                    lblMensajeErrorGen.Text = lblMensajeErrorGen.Text + " " + " Debe agregar al menos un Mapa de pendientes";
+                else
+                    lblMensajeErrorGen.Text = lblMensajeErrorGen.Text + ", " + ", debe agregar al menos un Mapa de pendientes";
+                HayError = true;
+            }
+            if (GrdAnexoMapaUbicacion.Items.Count == 0)
+            {
+                if (lblMensajeErrorGen.Text == "")
+                    lblMensajeErrorGen.Text = lblMensajeErrorGen.Text + " " + " Debe agregar al menos un Mapa  Integral (rodalización del área de manejo y ubicación de parcelas de muestreo y protección)";
+                else
+                    lblMensajeErrorGen.Text = lblMensajeErrorGen.Text + ", " + ", debe agregar al menos un Mapa  Integral (rodalización del área de manejo y ubicación de parcelas de muestreo y protección)";
+                HayError = true;
+            }
+            if (GrdAnexoMapaRonda.Items.Count == 0)
+            {
+                if (lblMensajeErrorGen.Text == "")
+                    lblMensajeErrorGen.Text = lblMensajeErrorGen.Text + " " + " Debe agregar al menos un Mapa de rondas corta fuegos perimetrales e intermedias dentro del area de compromiso de repoblacion forestal";
+                else
+                    lblMensajeErrorGen.Text = lblMensajeErrorGen.Text + ", " + ", debe agregar al menos un Mapa de rondas corta fuegos perimetrales e intermedias dentro del area de compromiso de repoblacion forestal";
+                HayError = true;
+            }
             if (HayError == true)
             {
                 DivErrorGeneral.Visible = true;

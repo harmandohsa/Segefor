@@ -61,13 +61,18 @@ namespace SEGEFOR.WebForms
             GrdInmueblePol.ItemCommand += GrdInmueblePol_ItemCommand;
             TxtId.Text = ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["idgestion"].ToString()), true);
             LblNug.Text = ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["NUG"].ToString()), true);
+            if (Request.QueryString["typpe"] == null)
+                TxtTipo.Text = "2";
+            else
+                TxtTipo.Text = ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["typpe"].ToString()), true);
+                
             ImgPolRepoblacion.Click += ImgPolRepoblacion_Click;
             ImgPrintCenso.Click += ImgPrintCenso_Click;
         }
 
         void ImgPrintCenso_Click(object sender, ImageClickEventArgs e)
         {
-            DataSet DsBoleta = ClManejoImpresion.Boleta(Convert.ToInt32(TxtId.Text), 2);
+            DataSet DsBoleta = ClManejoImpresion.Boleta(Convert.ToInt32(TxtId.Text), Convert.ToInt32(TxtTipo.Text));
             Session["Boleta"] = DsBoleta;
             RadWinCenso.Title = "Censo / Muestro";
             RadWinCenso.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepCenso.aspx";
@@ -76,14 +81,14 @@ namespace SEGEFOR.WebForms
 
         void ImgPolRepoblacion_Click(object sender, ImageClickEventArgs e)
         {
-            if (ClPoligono.Existe_Poligono_Repoblacion(Convert.ToInt32(TxtId.Text), 2) == 0)
+            if (ClPoligono.Existe_Poligono_Repoblacion(Convert.ToInt32(TxtId.Text), Convert.ToInt32(TxtTipo.Text)) == 0)
             {
                 DivErrPoligonoPrint.Visible = true;
                 LblErrPoligono.Text = "Aún no se ha cargado el poligono repoblación";
             }
             else
             {
-                String js = "window.open('Wfrm_PoligonoMapa.aspx?ImmobilienId=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("0", true)) + "&identificateur=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(TxtId.Text, true)) + "&typbericht=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("2", true)) + "&processus=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("5", true)) + "', '_blank');";
+                String js = "window.open('Wfrm_PoligonoMapa.aspx?ImmobilienId=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("0", true)) + "&identificateur=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(TxtId.Text, true)) + "&typbericht=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(Convert.ToInt32(TxtTipo.Text).ToString(), true)) + "&processus=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("5", true)) + "', '_blank');";
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Open Signature.aspx", js, true);
             }
         }
@@ -202,7 +207,7 @@ namespace SEGEFOR.WebForms
             if (e.CommandName == "CmdVer")
             {
                 RadVerAnexo.Title = "Croquis de acceso a la finca desde el casco municipal";
-                int AsignacionId = Convert.ToInt32(TxtId    .Text);
+                int AsignacionId = Convert.ToInt32(TxtId.Text);
                 //string PathArchivo = Server.MapPath(".") + @"\Archivos\Anexos\Croquis\" + AsignacionId + @"\" + f.FileName;
                 string PathArchivo = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["PathAnexoCroquis"].ToString();
                 RadVerAnexo.NavigateUrl = "~/WebContenedor/Wfrm_VerAnexo.aspx?route=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(PathArchivo, true)) + "";
@@ -212,13 +217,18 @@ namespace SEGEFOR.WebForms
 
         void GrdInmueblePol_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            ClUtilitarios.LlenaGrid(ClManejo.GetFincaPlanManejoPol(Convert.ToInt32(TxtId.Text)), GrdInmueblePol);
+            ClUtilitarios.LlenaGrid(ClManejo.GetFincaPlanManejoPol(Convert.ToInt32(TxtId.Text),Convert.ToInt32(TxtTipo.Text)), GrdInmueblePol);
         }
 
         void GrdAnexoMapaRonda_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+
+            string PathArchivo = "";
             int AsignacionId = Convert.ToInt32(TxtId.Text);
-            string PathArchivo = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaRonda\" + AsignacionId;
+            if (TxtTipo.Text == "1")
+                PathArchivo = Server.MapPath(".") + @"\Archivos\Anexos\MapaRonda\" + AsignacionId;
+            else
+                PathArchivo = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaRonda\" + AsignacionId;
             if (Directory.Exists(PathArchivo))
             {
                 DirectoryInfo directory = new DirectoryInfo(PathArchivo);
@@ -238,8 +248,13 @@ namespace SEGEFOR.WebForms
 
         void GrdAnexoMapaUbicacion_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+            string PathArchivo = "";
             int AsignacionId = Convert.ToInt32(TxtId.Text);
-            string PathArchivo = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaUbicacion\" + AsignacionId;
+            if (TxtTipo.Text == "1")
+                PathArchivo = Server.MapPath(".") + @"\Archivos\Anexos\MapaUbicacion\" + AsignacionId;
+            else
+                PathArchivo = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaUbicacion\" + AsignacionId;
+            
             if (Directory.Exists(PathArchivo))
             {
                 DirectoryInfo directory = new DirectoryInfo(PathArchivo);
@@ -259,8 +274,13 @@ namespace SEGEFOR.WebForms
 
         void GrdAnexoMapaPendiente_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+            string PathArchivo = "";
             int AsignacionId = Convert.ToInt32(TxtId.Text);
-            string PathArchivo = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaPendiente\" + AsignacionId;
+            if (TxtTipo.Text == "1")
+                PathArchivo = Server.MapPath(".") + @"\Archivos\Anexos\MapaPendiente\" + AsignacionId;
+            else
+                PathArchivo = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaPendiente\" + AsignacionId;
+
             if (Directory.Exists(PathArchivo))
             {
                 DirectoryInfo directory = new DirectoryInfo(PathArchivo);
@@ -280,8 +300,13 @@ namespace SEGEFOR.WebForms
 
         void GrdAnexoMapaUsoActual_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+
+            string PathArchivo = "";
             int AsignacionId = Convert.ToInt32(TxtId.Text);
-            string PathArchivo = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaUsoActual\" + AsignacionId;
+            if (TxtTipo.Text == "1")
+                PathArchivo = Server.MapPath(".") + @"\Archivos\Anexos\MapaUsoActual\" + AsignacionId;
+            else
+                PathArchivo = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaUsoActual\" + AsignacionId;
             if (Directory.Exists(PathArchivo))
             {
                 DirectoryInfo directory = new DirectoryInfo(PathArchivo);
@@ -301,8 +326,14 @@ namespace SEGEFOR.WebForms
 
         void GrdAnexoCroquia_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+            string PathArchivo = "";
             int AsignacionId = Convert.ToInt32(TxtId.Text);
-            string PathArchivo = Server.MapPath(".") + @"\Archivos\AnexosPM\Croquis\" + AsignacionId;
+            if (TxtTipo.Text == "1")
+                PathArchivo = Server.MapPath(".") + @"\Archivos\Anexos\Croquis\" + AsignacionId;
+            else
+                PathArchivo = Server.MapPath(".") + @"\Archivos\AnexosPM\Croquis\" + AsignacionId;
+            
+            
             if (Directory.Exists(PathArchivo))
             {
                 DirectoryInfo directory = new DirectoryInfo(PathArchivo);
