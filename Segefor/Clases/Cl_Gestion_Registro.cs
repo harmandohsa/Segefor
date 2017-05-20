@@ -17,6 +17,7 @@ namespace SEGEFOR.Clases
         DataSet ds = new DataSet();
         Cl_Utilitarios ClUtilitarios;
         Cl_Persona_Juridica ClEmpresa;
+        Cl_Manejo ClManejo;
 
         public int MaxGestionId(int Tipo)
         {
@@ -1725,38 +1726,56 @@ namespace SEGEFOR.Clases
                 Ds_Dictamen_Juridico_Gestion.Tables["Dt_Dictamen_Juridico"].Rows[0]["Puesto"] = Puesto;
                 Ds_Dictamen_Juridico_Gestion.Tables["Dt_Dictamen_Juridico"].Rows[0]["Sub_Region_SubRegional"] = SubRegion_SubRegional;
 
+                ClUtilitarios = new Cl_Utilitarios();
+                ClManejo = new Cl_Manejo();
+                
                 if (ModuloId == 3)
                 {
-                    ClUtilitarios = new Cl_Utilitarios();
                     string ActividadRNF = Get_Actividad_Profesional(GestionId);
                     Ds_Dictamen_Juridico_Gestion.Tables["Dt_Dictamen_Juridico"].Rows[0]["Solicitud"] = "solicita inscripción en el Registro Nacional Forestal de " + ActividadRNF;
                     Ds_Dictamen_Juridico_Gestion.Tables["Dt_Dictamen_Juridico"].Rows[0]["Registro"] = ActividadRNF;
-                    string[] ParteExpediente = Ds_Dictamen_Juridico_Gestion.Tables["Dt_Dictamen_Juridico"].Rows[0]["NoExpediente"].ToString().Split('-');
-                    string No_ExpedienteLetras = "Número ";
-                    string Cod_SubCategoriaLetras = "";
-                    for (int i = 0; i < ParteExpediente.Length; i++)
-                    {
-                        if (i == 0)
-                            No_Expediente = ClUtilitarios.enletras(ParteExpediente[i]).ToLower();
-                        else if (i == 1)
-                            No_Expediente = No_Expediente + " guion " + ClUtilitarios.enletras(ParteExpediente[i]).ToLower();
-                        else if (i == 2)
-                        {
-                            string[] Codigo_Subcategoria = ParteExpediente[i].Split('.');
-                            for (int j = 0; j < Codigo_Subcategoria.Length; j++)
-                            {
-                                if (j == 0)
-                                    Cod_SubCategoriaLetras = ClUtilitarios.enletras(Codigo_Subcategoria[j]).ToLower();
-                                else
-                                    Cod_SubCategoriaLetras = Cod_SubCategoriaLetras + " punto " + ClUtilitarios.enletras(Codigo_Subcategoria[j]).ToLower();
-                            }
-                            No_Expediente = No_Expediente + " guion " + Cod_SubCategoriaLetras;
-                        }
-                        else if (i == 3)
-                            No_Expediente = No_Expediente + " guion " + ClUtilitarios.enletras(ParteExpediente[i]).ToLower();
-                    }
-                    Ds_Dictamen_Juridico_Gestion.Tables["Dt_Dictamen_Juridico"].Rows[0]["NoExpediente"] = No_Expediente;
+                    
                 }
+                else if (ModuloId == 2)
+                {
+                    int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(GestionId,2);
+                    int CategoriaId = Get_CategoriaManejoId(SubCategoriaId);
+                    Ds_Dictamen_Juridico_Gestion.Tables["Dt_Dictamen_Juridico"].Rows[0]["Solicitud"] = "solicita inscripción del Plan de Manejo Forestal " + Get_SubCategoriaManejo(SubCategoriaId);
+                    Ds_Dictamen_Juridico_Gestion.Tables["Dt_Dictamen_Juridico"].Rows[0]["Registro"] = "";
+                    Solicitante = "";
+                    Solicitante = Get_Propietarios_Manejo(Convert.ToInt32(GestionId));
+                    string AgraegadoSol = Get_CompletaPropietarios(CategoriaId, GestionId, ModuloId);
+                    if (AgraegadoSol != "")
+                        Solicitante = Solicitante + " " + AgraegadoSol + ".";
+                    else
+                        Solicitante = Solicitante + ".";
+                    Ds_Dictamen_Juridico_Gestion.Tables["Dt_Dictamen_Juridico"].Rows[0]["Solicitante"] = Solicitante;
+                }
+                string[] ParteExpediente = Ds_Dictamen_Juridico_Gestion.Tables["Dt_Dictamen_Juridico"].Rows[0]["NoExpediente"].ToString().Split('-');
+                string No_ExpedienteLetras = "Número ";
+                string Cod_SubCategoriaLetras = "";
+                for (int i = 0; i < ParteExpediente.Length; i++)
+                {
+                    if (i == 0)
+                        No_Expediente = ClUtilitarios.enletras(ParteExpediente[i]).ToLower();
+                    else if (i == 1)
+                        No_Expediente = No_Expediente + " guion " + ClUtilitarios.enletras(ParteExpediente[i]).ToLower();
+                    else if (i == 2)
+                    {
+                        string[] Codigo_Subcategoria = ParteExpediente[i].Split('.');
+                        for (int j = 0; j < Codigo_Subcategoria.Length; j++)
+                        {
+                            if (j == 0)
+                                Cod_SubCategoriaLetras = ClUtilitarios.enletras(Codigo_Subcategoria[j]).ToLower();
+                            else
+                                Cod_SubCategoriaLetras = Cod_SubCategoriaLetras + " punto " + ClUtilitarios.enletras(Codigo_Subcategoria[j]).ToLower();
+                        }
+                        No_Expediente = No_Expediente + " guion " + Cod_SubCategoriaLetras;
+                    }
+                    else if (i == 3)
+                        No_Expediente = No_Expediente + " guion " + ClUtilitarios.enletras(ParteExpediente[i]).ToLower();
+                }
+                Ds_Dictamen_Juridico_Gestion.Tables["Dt_Dictamen_Juridico"].Rows[0]["NoExpediente"] = No_Expediente;
 
                 DataSet dsArticulo_Dictamen_Jur = Get_ArticulosXml_Dictamen_juridico(Id);
                 for (int i = 0; i < dsArticulo_Dictamen_Jur.Tables["Datos"].Rows.Count; i++)

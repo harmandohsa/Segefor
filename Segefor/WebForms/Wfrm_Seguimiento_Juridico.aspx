@@ -34,6 +34,10 @@
                                             <asp:Label runat="server" Text="Ver Solicitud"></asp:Label>
                                         </div>
                                         <div class="col-sm-2">
+                                            <asp:ImageButton runat="server" ID="IngVerAnexos" ImageUrl="~/Imagenes/24x24/blank.png" formnovalidate ToolTip="Ver Anexos"/>
+                                            <asp:Label runat="server" Text="Ver Anexos" ID="LblAnexos"></asp:Label>
+                                        </div>
+                                        <div class="col-sm-2">
                                             <asp:ImageButton runat="server" ID="ImgVerProvidencia" ImageUrl="~/Imagenes/24x24/pdf.png" formnovalidate ToolTip="Ver Providencia"/>
                                             <asp:Label runat="server" Text="Ver Providencia"></asp:Label>
                                         </div>

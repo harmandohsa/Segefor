@@ -514,68 +514,113 @@ namespace SEGEFOR.WebForms
             }
             else
             {
-                string SubRegion = ClGestion.Get_Region_SubRegion_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
-                int SubRegionId = ClGestion.Get_SubRegion_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
-
-                string Asunto;
-                Asunto = LblSolicitante.Text;
-                int Orden = 1;
-                XmlDocument iInformacion = ClXml.CrearDocumentoXML("Providencia");
-                XmlNode iElementos = iInformacion.CreateElement("Cuerpo");
-                if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 3)
+                if (Valida() == true)
                 {
-                    Asunto = Asunto + ", solicita Inscripción en el Registro Nacional Forestal (RNF) en la categoría de";
-                    int SubCategoriaId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["subcategoria"].ToString()), true));
-                    if ((SubCategoriaId == 1) || (SubCategoriaId == 2) || (SubCategoriaId == 3) || (SubCategoriaId == 16))
-                        Asunto = Asunto + " “" + ClGestion.Get_Nombre_CategoriaRNF(SubCategoriaId) + "” como " + ClGestion.Get_Nombre_SubCategoriaRNF(SubCategoriaId) + ".";
-                    XmlNode iElementoDetalle = iInformacion.CreateElement("Item");
-                    ClXml.AgregarAtributo("Punto", "La presente providencia forme parte del expediente físico.", iElementoDetalle);
-                    ClXml.AgregarAtributo("Orden", Orden, iElementoDetalle);
-                    iElementos.AppendChild(iElementoDetalle);
+                    string SubRegion = ClGestion.Get_Region_SubRegion_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                    int SubRegionId = ClGestion.Get_SubRegion_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
 
-                    Orden = Orden + 1;
-                    XmlNode iElementoDetalle1 = iInformacion.CreateElement("Item");
-                    ClXml.AgregarAtributo("Punto", "Traslade el expediente original al Asesor Jurídico Licenciado(a): " + CboJuridico.Text + "para que se sirva emitir Dictamen a la mayor brevedad.", iElementoDetalle1);
-                    ClXml.AgregarAtributo("Orden", Orden, iElementoDetalle1);
-                    iElementos.AppendChild(iElementoDetalle1);
-                    Orden = Orden + 1;
-                    XmlNode iElementoDetalle2 = iInformacion.CreateElement("Item");
-                    ClXml.AgregarAtributo("Punto", "Diligenciado vuelva a esta Dirección Subregional.", iElementoDetalle2);
-                    ClXml.AgregarAtributo("Orden", Orden, iElementoDetalle2);
-                    iElementos.AppendChild(iElementoDetalle2);
-                    Orden = Orden + 1;
-                    XmlNode iElementoDetalle3 = iInformacion.CreateElement("Item");
-                    ClXml.AgregarAtributo("Punto", "El expediente consta de ___ folios inclusive.", iElementoDetalle3);
-                    ClXml.AgregarAtributo("Orden", Orden, iElementoDetalle3);
-                    iElementos.AppendChild(iElementoDetalle3);
-                    Orden = Orden + 1;
-                    iInformacion.ChildNodes[1].AppendChild(iElementos);
+                    string Asunto;
+                    Asunto = LblSolicitante.Text;
+                    int Orden = 1;
+                    XmlDocument iInformacion = ClXml.CrearDocumentoXML("Providencia");
+                    XmlNode iElementos = iInformacion.CreateElement("Cuerpo");
+                    int ModuloId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true));
+                    if (ModuloId == 3)
+                    {
+                        Asunto = Asunto + ", solicita Inscripción en el Registro Nacional Forestal (RNF) en la categoría de";
+                        int SubCategoriaId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["subcategoria"].ToString()), true));
+                        if ((SubCategoriaId == 1) || (SubCategoriaId == 2) || (SubCategoriaId == 3) || (SubCategoriaId == 16))
+                            Asunto = Asunto + " “" + ClGestion.Get_Nombre_CategoriaRNF(SubCategoriaId) + "” como " + ClGestion.Get_Nombre_SubCategoriaRNF(SubCategoriaId) + ".";
+                        XmlNode iElementoDetalle = iInformacion.CreateElement("Item");
+                        ClXml.AgregarAtributo("Punto", "La presente providencia forme parte del expediente físico.", iElementoDetalle);
+                        ClXml.AgregarAtributo("Orden", Orden, iElementoDetalle);
+                        iElementos.AppendChild(iElementoDetalle);
+
+                        Orden = Orden + 1;
+                        XmlNode iElementoDetalle1 = iInformacion.CreateElement("Item");
+                        ClXml.AgregarAtributo("Punto", "Traslade el expediente original al Asesor Jurídico Licenciado(a): " + CboJuridico.Text + "para que se sirva emitir Dictamen a la mayor brevedad.", iElementoDetalle1);
+                        ClXml.AgregarAtributo("Orden", Orden, iElementoDetalle1);
+                        iElementos.AppendChild(iElementoDetalle1);
+                        Orden = Orden + 1;
+                        XmlNode iElementoDetalle2 = iInformacion.CreateElement("Item");
+                        ClXml.AgregarAtributo("Punto", "Diligenciado vuelva a esta Dirección Subregional.", iElementoDetalle2);
+                        ClXml.AgregarAtributo("Orden", Orden, iElementoDetalle2);
+                        iElementos.AppendChild(iElementoDetalle2);
+                        Orden = Orden + 1;
+                        XmlNode iElementoDetalle3 = iInformacion.CreateElement("Item");
+                        ClXml.AgregarAtributo("Punto", "El expediente consta de ___ folios inclusive.", iElementoDetalle3);
+                        ClXml.AgregarAtributo("Orden", Orden, iElementoDetalle3);
+                        iElementos.AppendChild(iElementoDetalle3);
+                        Orden = Orden + 1;
+                        iInformacion.ChildNodes[1].AppendChild(iElementos);
+                    }
+                    else if (ModuloId == 2)
+                    {
+                        int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 2);
+                        int CategoriaId = ClGestion.Get_CategoriaRNFId(SubCategoriaId);
+                        string Solicitante = ClGestion.Get_Propietarios_Manejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                        string AgraegadoSol = ClGestion.Get_CompletaPropietarios(CategoriaId, Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), ModuloId);
+                        if (AgraegadoSol != "")
+                            Solicitante = Solicitante + " " + AgraegadoSol + ".";
+                        else
+                            Solicitante = Solicitante + ".";
+                        Asunto = Solicitante + ", quien (es) presenta (n) solicitud para aprobación del Plan de Manejo de " + ClGestion.Get_SubCategoriaManejo(SubCategoriaId) + " en finca (s):  " + ClGestion.GetDatosFinca_Gestion_Juntos(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+
+                        XmlNode iElementoDetalle = iInformacion.CreateElement("Item");
+                        ClXml.AgregarAtributo("Punto", "Fórmese el expediente respectivo.", iElementoDetalle);
+                        ClXml.AgregarAtributo("Orden", Orden, iElementoDetalle);
+                        iElementos.AppendChild(iElementoDetalle);
+
+                        Orden = Orden + 1;
+                        XmlNode iElementoDetalle1 = iInformacion.CreateElement("Item");
+                        ClXml.AgregarAtributo("Punto", "Pase en forma simultanea el expediente original al Asesor Jurídico, Licenciado:  " + CboJuridico.Text + " y copia completa del expediente al Técnico Forestal: " + CboTecnico.Text + " para que se sirvan emitir opinión e informe a la mayor brevedad.", iElementoDetalle1);
+                        ClXml.AgregarAtributo("Orden", Orden, iElementoDetalle1);
+                        iElementos.AppendChild(iElementoDetalle1);
+                        Orden = Orden + 1;
+                        XmlNode iElementoDetalle2 = iInformacion.CreateElement("Item");
+                        ClXml.AgregarAtributo("Punto", "Diligenciado vuelva a esta Dirección Subregional.", iElementoDetalle2);
+                        ClXml.AgregarAtributo("Orden", Orden, iElementoDetalle2);
+                        iElementos.AppendChild(iElementoDetalle2);
+                        iInformacion.ChildNodes[1].AppendChild(iElementos);
+                        
+                    }
+                    int ProvidenciaId = ClGestion.Max_Providencia();
+                    ClGestion.Insert_Providencia_Exp(SubRegion, Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), Asunto, iInformacion, Convert.ToInt32(Session["UsuarioId"]), Convert.ToInt32(CboJuridico.SelectedValue), SubRegionId);
+                    ClGestion.Manda_Gestion_Usuario(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 14);
+                    DataSet dsDatosUsuario = ClGestion.Get_Datos_Persona(1, Convert.ToInt32(CboJuridico.SelectedValue));
+                    string MensajeCorreo = "Se ha enviado a su despacho la gestión del señor (a): " + ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["nom"].ToString()), true);
+                    ClUtilitarios.EnvioCorreo(dsDatosUsuario.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatosUsuario.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Envío de gestión", MensajeCorreo, 0, "", "");
+                    dsDatosUsuario.Clear();
+                    Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("3", true)) + "&providence=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(ProvidenciaId.ToString(), true)) + "");
                 }
-                int ProvidenciaId = ClGestion.Max_Providencia();
-                ClGestion.Insert_Providencia_Exp(SubRegion, Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), Asunto, iInformacion, Convert.ToInt32(Session["UsuarioId"]), Convert.ToInt32(CboJuridico.SelectedValue), SubRegionId);
-                ClGestion.Manda_Gestion_Usuario(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 14);
-                DataSet dsDatosUsuario = ClGestion.Get_Datos_Persona(1, Convert.ToInt32(CboJuridico.SelectedValue));
-                string MensajeCorreo = "Se ha enviado a su despacho la gestión del señor (a): " + ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["nom"].ToString()), true);
-                ClUtilitarios.EnvioCorreo(dsDatosUsuario.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatosUsuario.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Envío de gestión", MensajeCorreo, 0, "", "");
-                dsDatosUsuario.Clear();
-                Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("3", true)) + "&providence=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(ProvidenciaId.ToString(), true)) + "");
             }
             
         }
 
         void BtnEnviar_Click(object sender, EventArgs e)
         {
-            LblTitConfirmacion.Text = "La Gestíon sera providenciada al Licenciado(a): " + CboJuridico.Text + ", ¿esta seguro (a)?";
+            int ModuloId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true));
+            if (ModuloId == 3)
+                LblTitConfirmacion.Text = "La Gestíon sera providenciada al Licenciado(a): " + CboJuridico.Text + ", ¿esta seguro (a)?";
+            else if (ModuloId == 2)
+                LblTitConfirmacion.Text = "La Gestíon sera providenciada al Licenciado(a): " + CboJuridico.Text + " y al técnifo forestal: " + CboTecnico.Text + ", ¿esta seguro (a)?";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindowConfirm.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
         }
 
         bool Valida()
         {
+
             bool HayError = false;
             DivError.Visible = false;
+            int ModuloId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true));
             if (CboJuridico.Text == "")
             {
                 LblMensaje.Text = "Debe seleccionar el asedor jurídico";
+                HayError = true;
+            }
+            if ((ModuloId == 2) && (CboTecnico.Text == ""))
+            {
+                LblMensaje.Text = "Debe seleccionar el Técnico forestal";
                 HayError = true;
             }
 
@@ -597,9 +642,10 @@ namespace SEGEFOR.WebForms
             {
                 string Asunto = "";
                 string Cuerpo = "";
-                Asunto = LblSolicitante.Text;
-                if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 3)
+                int ModuloId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true));
+                if (ModuloId == 3)
                 {
+                    Asunto = LblSolicitante.Text;
                     Asunto = Asunto + ", solicita Inscripción en el Registro Nacional Forestal (RNF) en la categoría de";
                     int SubCategoriaId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["subcategoria"].ToString()), true));
                     if ((SubCategoriaId == 1) || (SubCategoriaId == 2) || (SubCategoriaId == 3) || (SubCategoriaId == 16))
@@ -608,6 +654,22 @@ namespace SEGEFOR.WebForms
                     Cuerpo = Cuerpo + "Traslade el expediente original al Asesor Jurídico Licenciado(a): " + CboJuridico.Text + "para que se sirva emitir Dictamen a la mayor brevedad.|";
                     Cuerpo = Cuerpo + "Diligenciado vuelva a esta Dirección Subregional.|";
                     Cuerpo = Cuerpo + "El expediente consta de ___ folios inclusive.";
+                }
+                else if (ModuloId == 2)
+                {
+                    int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 2);
+                    int CategoriaId = ClGestion.Get_CategoriaRNFId(SubCategoriaId);
+                    string Solicitante = ClGestion.Get_Propietarios_Manejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                    string AgraegadoSol = ClGestion.Get_CompletaPropietarios(CategoriaId, Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), ModuloId);
+                    if (AgraegadoSol != "")
+                        Solicitante = Solicitante + " " + AgraegadoSol + ".";
+                    else
+                        Solicitante = Solicitante + ".";
+                    Asunto = Solicitante + ", quien (es) presenta (n) solicitud para aprobación del Plan de Manejo de " + ClGestion.Get_SubCategoriaManejo(SubCategoriaId) + " en finca (s):  " + ClGestion.GetDatosFinca_Gestion_Juntos(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+
+                    Cuerpo = "Fórmese el expediente respectivo.|";
+                    Cuerpo = Cuerpo + "Pase en forma simultanea el expediente original al Asesor Jurídico, Licenciado:  " + CboJuridico.Text + " y copia completa del expediente al Técnico Forestal: " + CboTecnico.Text + " para que se sirvan emitir opinión e informe a la mayor brevedad.|";
+                    Cuerpo = Cuerpo + "Diligenciado vuelva a esta Dirección Subregional.";
                 }
                 RadWindow1.Title = "Vista Previa Providencia de Traslado de Expediente";
                 DataSet DatosProvidencia = ClGestion.ImpresionProvidenciaGestion(1, Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), Asunto, Cuerpo, Convert.ToInt32(Session["UsuarioId"]), Convert.ToInt32(CboJuridico.SelectedValue));

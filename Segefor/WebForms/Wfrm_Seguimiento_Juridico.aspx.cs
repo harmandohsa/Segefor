@@ -21,6 +21,8 @@ namespace SEGEFOR.WebForms
         Cl_Gestion_Registro ClGestion;
         Cl_Catalogos ClCatalogos;
         Cl_Xml ClXml;
+        Cl_Manejo ClManejo;
+
         Ds_Temporales Ds_Temporal = new Ds_Temporales();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -31,6 +33,7 @@ namespace SEGEFOR.WebForms
             ClGestion = new Cl_Gestion_Registro();
             ClCatalogos = new Cl_Catalogos();
             ClXml = new Cl_Xml();
+            ClManejo = new Cl_Manejo();
 
             GrdArticulo.NeedDataSource += GrdArticulo_NeedDataSource;
             btnAddArticulo.ServerClick += btnAddArticulo_ServerClick;
@@ -47,6 +50,7 @@ namespace SEGEFOR.WebForms
             BtnEnviar.Click += BtnEnviar_Click;
             BtnYes.Click += BtnYes_Click;
             ImgVerinfo.Click += ImgVerinfo_Click;
+            IngVerAnexos.Click += IngVerAnexos_Click;
             
 
             if (Session["UsuarioId"] == null)
@@ -105,11 +109,54 @@ namespace SEGEFOR.WebForms
                 LblSolicitante.Text = "Solicitante: " + ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["nom"].ToString()), true);
                 if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 3)
                     LblIdentificacion.Text = ClGestion.Get_Identificacion_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                else if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 2)
+                    LblIdentificacion.Text = ClManejo.Get_Identificacion_Gestion_Manejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
                 ClUtilitarios.LlenaCombo(ClCatalogos.Considera_Dictamen_Juridico_GET(), CboConsidera, "ConsideraId", "Considera");
                 ClUtilitarios.LlenaCombo(ClCatalogos.Opinion_Dictamen_Juridico_GET(1), CboOpinion, "OpinionId", "Opinion");
 
             }
 
+        }
+
+        void IngVerAnexos_Click(object sender, ImageClickEventArgs e)
+        {
+            if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 3)
+            {
+                if (ClGestion.Tiene_Anexos_Inventerio(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true))) == 1)
+                {
+                    //Llamada 0 = PV, AF 1 = SAF
+                    int Actividad = ClGestion.Get_Actividad_RegistroId(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                    int Categoria = ClGestion.Get_CategoriaRNFId(Actividad);
+                    int Tipo = 0;
+                    if ((Categoria == 2) || (Categoria == 3))
+                        Tipo = 0;
+                    else if (Categoria == 4)
+                        Tipo = 1;
+                    else if (Categoria == 6)
+                        Tipo = 2;
+
+                    Session["Datos_InventarioForestal"] = ClGestion.Impresion_Inventario_Forestal(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), Tipo);
+                    RadWindow1.Title = "Inventario Forestal";
+                    RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepInventarioForestal.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(Tipo.ToString(), true)) + "";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+                }
+                if (ClGestion.Tiene_Anexos_Poligono(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true))) == 1)
+                {
+                    int Id = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                    string url = "";
+                    //url = "/Mapas/MenuMapas.aspx?Id=" + Id;
+                    url = "/Segefor_new/Mapas/MenuMapas.aspx?Id=" + Id;
+                    string popupScript = "window.open('" + url + "', 'popup_window', 'left=100,top=100,resizable=yes');";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "script", popupScript, true);
+                }
+            }
+            else if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 2)
+            {
+                int Id = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                string GestionNo = ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gun"].ToString()), true);
+                String js = "window.open('Wfrm_AnexosPlanManejo.aspx?idgestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(Id.ToString(), true)) + "&NUG=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionNo.ToString(), true)) + "', '_blank');";
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Open Signature.aspx", js, true);
+            }
         }
 
         void ImgVerinfo_Click(object sender, ImageClickEventArgs e)
@@ -188,6 +235,15 @@ namespace SEGEFOR.WebForms
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
                 }
             }
+
+            else if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 2)
+            {
+                RadWindow1.Title = "Plan de Manejo Forestal";
+                int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 2);
+                int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_PlanManejoForestal.aspx?identificateur=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionId.ToString(), true)) + "&source=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("2", true)) + "&souscategorie=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(SubCategoriaId.ToString(), true)) + "";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+            }
         }
 
         void BtnYes_Click(object sender, EventArgs e)
@@ -258,8 +314,23 @@ namespace SEGEFOR.WebForms
                 string Solicitante = dsDatos_Solicitante.Tables["Datos"].Rows[0]["nombres"].ToString();
                 string Solicitud  = "";
                 string SubCategoria = dsDatos_Solicitante.Tables["Datos"].Rows[0]["Nombre_Subcategoria"].ToString();
-                if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 3)
+
+                int ModuloId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true));
+                if (ModuloId == 3)
                     Solicitud = "solicita inscripción en el Registro Nacional Forestal de " + dsDatos_Solicitante.Tables["Datos"].Rows[0]["Nombre_Subcategoria"].ToString();
+                else if (ModuloId == 2)
+                {
+                    int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 2);
+                    int CategoriaId = ClGestion.Get_CategoriaManejoId(SubCategoriaId);
+                    Solicitante = "";
+                    Solicitante = ClGestion.Get_Propietarios_Manejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                    string AgraegadoSol = ClGestion.Get_CompletaPropietarios(CategoriaId, Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), ModuloId);
+                    if (AgraegadoSol != "")
+                        Solicitante = Solicitante + " " + AgraegadoSol + ".";
+                    else
+                        Solicitante = Solicitante + ".";
+                    Solicitud = " solicita inscripción del Plan de Manejo Forestal " + ClGestion.Get_SubCategoriaManejo(SubCategoriaId);
+                }
                 dsDatos_Solicitante.Clear();
                 
                 string[] ParteExpediente = No_Expediente.Split('-');
