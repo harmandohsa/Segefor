@@ -1732,13 +1732,13 @@
                                                     <div style="padding-bottom:2em;"></div>
                                                     <div class="ibox-content">
                                                         <div><label class="col-sm-5 control-label centradolabel">Incremento Anual (M3 /Ha/Año)</label>
-                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtIncrementoAnual"  step="any" min="0" type="number" CssClass="form-control"></asp:TextBox></div>
+                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtIncrementoAnual" Enabled="false"  step="any" min="0" type="number" CssClass="form-control"></asp:TextBox></div>
                                                         </div>
                                                     </div>
                                                     <div style="padding-bottom:2em;"></div>
                                                     <div class="ibox-content">
                                                         <div><label class="col-sm-5 control-label centradolabel">Corta Anual Permisible (Metros Cúbicos )</label>
-                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtCortaAnual"  step="any" min="0" type="number"  CssClass="form-control"></asp:TextBox></div>
+                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtCortaAnual" Enabled="false" step="any" min="0" type="number"  CssClass="form-control"></asp:TextBox></div>
                                                         </div>
                                                     </div>
 
@@ -1832,7 +1832,7 @@
                                                                             <div class="panel panel-default">
                                                                                 <div class="panel-heading">
                                                                                     <h5 class="panel-title">
-                                                                                        <a data-toggle="collapse" data-parent="#accordion7" href="#collapseOne7">Poligóno Área Repoblación Foresatal</a>
+                                                                                        <a data-toggle="collapse" data-parent="#accordion7" href="#collapseOne7">Poligóno Área Repoblación Forestal</a>
                                                                                     </h5>
                                                                                 </div>
                                                                                 <div id="collapseOne7" class="panel-collapse collapse in">
@@ -2260,7 +2260,9 @@
                                                                     <telerik:GridBoundColumn DataField="AreaRodal" UniqueName="AreaRodal"  HeaderText="Area del Rodal (ha)" Visible="false" HeaderStyle-Width="1px"></telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn DataField="AreaRodal" HeaderText="Area del Rodal (ha)"  UniqueName="AreaRodalEdit" HeaderStyle-Width="75px">
                                                                         <ItemTemplate>
-                                                                            <telerik:RadNumericTextBox runat="server" ID="TxtAreaRodal" Width="60px"></telerik:RadNumericTextBox>
+                                                                            <telerik:RadNumericTextBox runat="server" MinValue="1" ID="TxtAreaRodal" Width="60px" >
+                                                                                
+                                                                            </telerik:RadNumericTextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridBoundColumn DataField="Clase_Desarrollo" UniqueName="Clase_Desarrollo"  HeaderText="Clase_Desarrollo" Visible="false" HeaderStyle-Width="0px"></telerik:GridBoundColumn>
@@ -2281,14 +2283,14 @@
                                                                     <telerik:GridBoundColumn DataField="Pendiente" UniqueName="Pendiente"  HeaderText="Pendiente" Visible="false" HeaderStyle-Width="1px"></telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn DataField="Pendiente" HeaderText="Pendiente %"  UniqueName="PendienteEdit" HeaderStyle-Width="80px" Visible="false" >
                                                                         <ItemTemplate>
-                                                                            <telerik:RadNumericTextBox runat="server" ID="TxtPendiente" Width="60px"></telerik:RadNumericTextBox>
+                                                                            <telerik:RadNumericTextBox runat="server"  MinValue="0" ID="TxtPendiente" Width="60px"></telerik:RadNumericTextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
 
                                                                     <telerik:GridBoundColumn DataField="INC" UniqueName="INC"  HeaderText="INC" Visible="false" HeaderStyle-Width="1px"></telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn DataField="INC" HeaderText="INC"  UniqueName="INCEdit" HeaderStyle-Width="80px" Visible="false" >
                                                                         <ItemTemplate>
-                                                                            <telerik:RadNumericTextBox runat="server" ID="TxtINC" Width="60px"></telerik:RadNumericTextBox>
+                                                                            <telerik:RadNumericTextBox runat="server"  MinValue="0" ID="TxtINC" Width="60px"></telerik:RadNumericTextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
 
@@ -2304,56 +2306,56 @@
                                                                     <telerik:GridBoundColumn DataField="Dap" UniqueName="Dap"  HeaderText="Dap Medio (cm)" Visible="false"></telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn DataField="Dap" HeaderText="Dap Medio (cm)"  UniqueName="DapEdit" HeaderStyle-Width="75px" >
                                                                         <ItemTemplate>
-                                                                            <telerik:RadNumericTextBox runat="server" ID="TxtDap" Width="60px"></telerik:RadNumericTextBox>
+                                                                            <telerik:RadNumericTextBox  MinValue="0" runat="server" ID="TxtDap" Width="60px"></telerik:RadNumericTextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridBoundColumn DataField="Altura" UniqueName="Altura"  HeaderText="Dap Media (cm)" Visible="false"></telerik:GridBoundColumn>
-                                                                    <telerik:GridTemplateColumn DataField="Altura" HeaderText="Altura Media (cm)"  UniqueName="AlturaEdit" HeaderStyle-Width="75px" >
+                                                                    <telerik:GridTemplateColumn DataField="Altura" HeaderText="Altura Media (m)"  UniqueName="AlturaEdit" HeaderStyle-Width="75px" >
                                                                         <ItemTemplate>
-                                                                            <telerik:RadNumericTextBox runat="server" ID="TxtAltura" Width="60px"></telerik:RadNumericTextBox>
+                                                                            <telerik:RadNumericTextBox runat="server"  MinValue="0" ID="TxtAltura" Width="60px"></telerik:RadNumericTextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridBoundColumn DataField="Densidad" UniqueName="Densidad"  HeaderText="Densidad arboles/ha" Visible="false"></telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn DataField="Densidad" HeaderText="Densidad arboles/ha"  UniqueName="DensidadEdit" HeaderStyle-Width="75px" >
                                                                         <ItemTemplate>
-                                                                            <telerik:RadNumericTextBox runat="server" ID="TxtDensidad" Width="60px"></telerik:RadNumericTextBox>
+                                                                            <telerik:RadNumericTextBox  MinValue="0" runat="server" ID="TxtDensidad" Width="60px"></telerik:RadNumericTextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridBoundColumn DataField="SumBa" UniqueName="AreaBasal"  HeaderText="Area Basal m2/ha" Visible="false"></telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn DataField="SumBa" HeaderText="Area Basal m2/ha"  UniqueName="AreaBasalEdit" HeaderStyle-Width="75px" >
                                                                         <ItemTemplate>
-                                                                            <telerik:RadNumericTextBox runat="server" ID="TxtAreaBasal" Width="60px"></telerik:RadNumericTextBox>
+                                                                            <telerik:RadNumericTextBox  MinValue="0" runat="server" ID="TxtAreaBasal" Width="60px"></telerik:RadNumericTextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridBoundColumn DataField="VolTroza" UniqueName="VolTroza"  HeaderText="VolTroza" Visible="false"></telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn DataField="VolTroza" HeaderText="Vol. Troza"  UniqueName="VolTrozaEdit" HeaderStyle-Width="75px" >
                                                                         <ItemTemplate>
-                                                                            <telerik:RadNumericTextBox runat="server" ID="TxtVolTroza" Width="60px"></telerik:RadNumericTextBox>
+                                                                            <telerik:RadNumericTextBox  MinValue="0" runat="server" ID="TxtVolTroza" Width="60px"></telerik:RadNumericTextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridBoundColumn DataField="VolLena" UniqueName="VolLena"  HeaderText="VolLena" Visible="false"></telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn DataField="VolLena" HeaderText="Vol. Leña"  UniqueName="VolLenaEdit" HeaderStyle-Width="75px" >
                                                                         <ItemTemplate>
-                                                                            <telerik:RadNumericTextBox runat="server" ID="TxTVolLena" Width="60px"></telerik:RadNumericTextBox>
+                                                                            <telerik:RadNumericTextBox   MinValue="0" runat="server" ID="TxTVolLena" Width="60px"></telerik:RadNumericTextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridBoundColumn DataField="VolOtro" UniqueName="VolOtro"  HeaderText="VolOtro" Visible="false"></telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn DataField="VolOtro" HeaderText="Vol. Otro"  UniqueName="VolOtroEdit" HeaderStyle-Width="75px" >
                                                                         <ItemTemplate>
-                                                                            <telerik:RadNumericTextBox runat="server" ID="TxtVolOtro" Width="60px"></telerik:RadNumericTextBox>
+                                                                            <telerik:RadNumericTextBox  MinValue="0" runat="server" ID="TxtVolOtro" Width="60px"></telerik:RadNumericTextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridBoundColumn DataField="VolTotal" UniqueName="VolTotal"  HeaderText="VolTotal" Visible="false"></telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn DataField="VolTotal" HeaderText="Vol. Total"  UniqueName="VolTotalEdit" HeaderStyle-Width="75px" >
                                                                         <ItemTemplate>
-                                                                            <telerik:RadNumericTextBox runat="server" ID="TxtVolTotal" Width="60px"></telerik:RadNumericTextBox>
+                                                                            <telerik:RadNumericTextBox  MinValue="0" runat="server" ID="TxtVolTotal" Width="60px"></telerik:RadNumericTextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
 
                                                                     <telerik:GridBoundColumn DataField="AreaBasalRodal" UniqueName="AreaBasalRodal"  HeaderText="AreaBasalRodal" Visible="false"></telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn DataField="AreaBasalRodal" HeaderText="Area basal  m2/rodal"  UniqueName="AreaBasalRodalEdit" HeaderStyle-Width="75px" >
                                                                         <ItemTemplate>
-                                                                            <telerik:RadNumericTextBox runat="server" ID="TxtAreaBasalRodal" Width="60px"></telerik:RadNumericTextBox>
+                                                                            <telerik:RadNumericTextBox  MinValue="0" runat="server" ID="TxtAreaBasalRodal" Width="60px"></telerik:RadNumericTextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     
@@ -2361,14 +2363,14 @@
                                                                     <telerik:GridBoundColumn DataField="VolHa" UniqueName="VolHa"  HeaderText="VolHa" Visible="false"></telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn DataField="VolHa" HeaderText="Vol/Ha.(M3)"  UniqueName="VolHaEdit" HeaderStyle-Width="75px" Visible="false" >
                                                                         <ItemTemplate>
-                                                                            <telerik:RadNumericTextBox runat="server" ID="TxtVolHa" Width="60px"></telerik:RadNumericTextBox>
+                                                                            <telerik:RadNumericTextBox  MinValue="0" runat="server" ID="TxtVolHa" Width="60px"></telerik:RadNumericTextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
 
                                                                     <telerik:GridBoundColumn DataField="volumen" UniqueName="VolRodal"  HeaderText="VolRodal" Visible="false"></telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn DataField="volumen" HeaderText="Vol/Rodal(M3)"  UniqueName="VolRodalEdit" HeaderStyle-Width="75px" Visible="false" >
                                                                         <ItemTemplate>
-                                                                            <telerik:RadNumericTextBox runat="server" ID="TxtVolRodal" Width="60px"></telerik:RadNumericTextBox>
+                                                                            <telerik:RadNumericTextBox  MinValue="0" runat="server" ID="TxtVolRodal" Width="60px"></telerik:RadNumericTextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
 
@@ -2892,7 +2894,7 @@
                                                                         <telerik:GridBoundColumn DataField="Turno" UniqueName="Turno" HeaderText="Turno" Visible="false" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
                                                                         <telerik:GridTemplateColumn DataField="Turno" HeaderText="Turno"  UniqueName="TurnoEdit" HeaderStyle-Width="75px">
                                                                             <ItemTemplate>
-                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtTurno" Width="60px">
+                                                                                <telerik:RadNumericTextBox runat="server" MinValue="1"  ID="TxtTurno" Width="60px">
                                                                                     <NumberFormat DecimalDigits="0" />
                                                                                 </telerik:RadNumericTextBox>
                                                                             </ItemTemplate>
@@ -2902,7 +2904,7 @@
                                                                         <telerik:GridBoundColumn DataField="AreaRodal" UniqueName="AreaRodal"  HeaderText="Area del Rodal (ha)" HeaderStyle-Width="1px"></telerik:GridBoundColumn>
                                                                         <telerik:GridTemplateColumn DataField="AreaRodal" HeaderText="Area del Rodal (ha)"  UniqueName="AreaRodalEdit" HeaderStyle-Width="75px">
                                                                             <ItemTemplate>
-                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtAreaRodal" Width="60px" Enabled="false"></telerik:RadNumericTextBox>
+                                                                                <telerik:RadNumericTextBox MinValue="1"  runat="server" ID="TxtAreaRodal" Width="60px" Enabled="false"></telerik:RadNumericTextBox>
                                                                             </ItemTemplate>
                                                                         </telerik:GridTemplateColumn>
                                                                         <telerik:GridBoundColumn DataField="Clase_Desarrollo" UniqueName="Clase_Desarrollo"  HeaderText="Clase_Desarrollo" Visible="false" HeaderStyle-Width="0px"></telerik:GridBoundColumn>
@@ -2923,7 +2925,7 @@
                                                                         <telerik:GridBoundColumn DataField="Pendiente" UniqueName="Pendiente"  HeaderText="Pendiente" Visible="false" HeaderStyle-Width="1px"></telerik:GridBoundColumn>
                                                                         <telerik:GridTemplateColumn DataField="Pendiente" HeaderText="Pendiente %"  UniqueName="PendienteEdit" HeaderStyle-Width="80px" Visible="false" >
                                                                             <ItemTemplate>
-                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtPendiente" Width="60px"></telerik:RadNumericTextBox>
+                                                                                <telerik:RadNumericTextBox  MinValue="0"  runat="server" ID="TxtPendiente" Width="60px"></telerik:RadNumericTextBox>
                                                                             </ItemTemplate>
                                                                         </telerik:GridTemplateColumn>
 
@@ -2965,63 +2967,63 @@
                                                                         <telerik:GridBoundColumn DataField="Dap" UniqueName="Dap"  HeaderText="Dap Medio (cm)" Visible="false"></telerik:GridBoundColumn>
                                                                         <telerik:GridTemplateColumn DataField="Dap" HeaderText="Dap Medio (cm)"  UniqueName="DapEdit" HeaderStyle-Width="75px" >
                                                                             <ItemTemplate>
-                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtDap" Width="60px"></telerik:RadNumericTextBox>
+                                                                                <telerik:RadNumericTextBox MinValue="0"  runat="server" ID="TxtDap" Width="60px"></telerik:RadNumericTextBox>
                                                                             </ItemTemplate>
                                                                         </telerik:GridTemplateColumn>
                                                                         <telerik:GridBoundColumn DataField="Altura" UniqueName="Altura"  HeaderText="Dap Media (cm)" Visible="false"></telerik:GridBoundColumn>
-                                                                        <telerik:GridTemplateColumn DataField="Altura" HeaderText="Altura Media (cm)"  UniqueName="AlturaEdit" HeaderStyle-Width="75px" >
+                                                                        <telerik:GridTemplateColumn DataField="Altura" HeaderText="Altura Media (m)"  UniqueName="AlturaEdit" HeaderStyle-Width="75px" >
                                                                             <ItemTemplate>
-                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtAltura" Width="60px"></telerik:RadNumericTextBox>
+                                                                                <telerik:RadNumericTextBox runat="server" MinValue="0"  ID="TxtAltura" Width="60px"></telerik:RadNumericTextBox>
                                                                             </ItemTemplate>
                                                                         </telerik:GridTemplateColumn>
                                                                         <telerik:GridBoundColumn DataField="Densidad" UniqueName="Densidad"  HeaderText="Densidad arboles/ha" Visible="false"></telerik:GridBoundColumn>
                                                                         <telerik:GridTemplateColumn DataField="Densidad" HeaderText="Densidad arboles/ha"  UniqueName="DensidadEdit" HeaderStyle-Width="75px" >
                                                                             <ItemTemplate>
-                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtDensidad" Enabled="false" Width="60px"></telerik:RadNumericTextBox>
+                                                                                <telerik:RadNumericTextBox runat="server" MinValue="0"  ID="TxtDensidad" Enabled="false" Width="60px"></telerik:RadNumericTextBox>
                                                                             </ItemTemplate>
                                                                         </telerik:GridTemplateColumn>
                                                                         <telerik:GridBoundColumn DataField="AreaBasal" UniqueName="AreaBasal"  HeaderText="Area Basal m2/ha" Visible="false"></telerik:GridBoundColumn>
                                                                         <telerik:GridTemplateColumn DataField="AreaBasal" HeaderText="Area Basal m2/ha"  UniqueName="AreaBasalEdit" HeaderStyle-Width="75px" >
                                                                             <ItemTemplate>
-                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtAreaBasal" Enabled="false" Width="60px"></telerik:RadNumericTextBox>
+                                                                                <telerik:RadNumericTextBox runat="server" MinValue="0"  ID="TxtAreaBasal" Enabled="false" Width="60px"></telerik:RadNumericTextBox>
                                                                             </ItemTemplate>
                                                                         </telerik:GridTemplateColumn>
                                                                         <telerik:GridBoundColumn DataField="AreaBasalRodal" UniqueName="AreaBasalRodal"  HeaderText="AreaBasalRodal" Visible="false"></telerik:GridBoundColumn>
                                                                         <telerik:GridTemplateColumn DataField="AreaBasalRodal" HeaderText="Area basal  m2/rodal"  UniqueName="AreaBasalRodalEdit" HeaderStyle-Width="75px" >
                                                                             <ItemTemplate>
-                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtAreaBasalRodal" Width="60px" Enabled="false"></telerik:RadNumericTextBox>
+                                                                                <telerik:RadNumericTextBox runat="server" MinValue="0"  ID="TxtAreaBasalRodal" Width="60px" Enabled="false"></telerik:RadNumericTextBox>
                                                                             </ItemTemplate>
                                                                         </telerik:GridTemplateColumn>
                                                                         <telerik:GridBoundColumn DataField="VolTroza" UniqueName="VolTroza"  HeaderText="VolTroza" Visible="false" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
                                                                         <telerik:GridTemplateColumn DataField="VolTroza" HeaderText="Vol. Troza"  UniqueName="VolTrozaEdit" HeaderStyle-Width="75px" >
                                                                             <ItemTemplate>
-                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtVolTroza" Width="60px"></telerik:RadNumericTextBox>
+                                                                                <telerik:RadNumericTextBox runat="server" MinValue="0"  ID="TxtVolTroza" Width="60px"></telerik:RadNumericTextBox>
                                                                             </ItemTemplate>
                                                                         </telerik:GridTemplateColumn>
                                                                         <telerik:GridBoundColumn DataField="VolLena" UniqueName="VolLena" Visible="false" HeaderText="VolLena"  HeaderStyle-Width="125px" ></telerik:GridBoundColumn>
                                                                         <telerik:GridTemplateColumn DataField="VolLena" HeaderText="Vol. Leña"  UniqueName="VolLenaEdit" HeaderStyle-Width="75px" >
                                                                             <ItemTemplate>
-                                                                                <telerik:RadNumericTextBox runat="server" ID="TxTVolLena" Width="60px"></telerik:RadNumericTextBox>
+                                                                                <telerik:RadNumericTextBox runat="server" MinValue="0"  ID="TxTVolLena" Width="60px"></telerik:RadNumericTextBox>
                                                                             </ItemTemplate>
                                                                         </telerik:GridTemplateColumn>
                                                                         <telerik:GridBoundColumn DataField="VolTotal" UniqueName="VolTotal" Visible="false" HeaderText="VolTotal"  HeaderStyle-Width="125px"></telerik:GridBoundColumn>
                                                                         <telerik:GridTemplateColumn DataField="VolTotal" HeaderText="Vol. Total"  UniqueName="VolTotalEdit" HeaderStyle-Width="75px" >
                                                                             <ItemTemplate>
-                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtVolTotal" Width="60px"></telerik:RadNumericTextBox>
+                                                                                <telerik:RadNumericTextBox runat="server" MinValue="0"  ID="TxtVolTotal" Width="60px"></telerik:RadNumericTextBox>
                                                                             </ItemTemplate>
                                                                         </telerik:GridTemplateColumn>
 
                                                                         <telerik:GridBoundColumn DataField="VolHa" UniqueName="VolHa"  HeaderText="VolHa" Visible="false"></telerik:GridBoundColumn>
                                                                         <telerik:GridTemplateColumn DataField="VolHa" HeaderText="Vol/Ha.(M3)"  UniqueName="VolHaEdit" HeaderStyle-Width="75px" Visible="false" >
                                                                             <ItemTemplate>
-                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtVolHa" Width="60px"></telerik:RadNumericTextBox>
+                                                                                <telerik:RadNumericTextBox runat="server" MinValue="0"  ID="TxtVolHa" Width="60px"></telerik:RadNumericTextBox>
                                                                             </ItemTemplate>
                                                                         </telerik:GridTemplateColumn>
 
                                                                         <telerik:GridBoundColumn DataField="VolRodal" UniqueName="VolRodal"  HeaderText="VolRodal" Visible="false"  HeaderStyle-Width="75px" ></telerik:GridBoundColumn>
                                                                         <telerik:GridTemplateColumn DataField="VolRodal" HeaderText="Vol/Rodal(M3)"  UniqueName="VolRodalEdit" HeaderStyle-Width="75px" Visible="false" >
                                                                             <ItemTemplate>
-                                                                                <telerik:RadNumericTextBox runat="server" ID="TxtVolRodal" Width="60px"></telerik:RadNumericTextBox>
+                                                                                <telerik:RadNumericTextBox runat="server" MinValue="0"  ID="TxtVolRodal" Width="60px"></telerik:RadNumericTextBox>
                                                                             </ItemTemplate>
                                                                         </telerik:GridTemplateColumn>
 

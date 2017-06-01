@@ -1680,6 +1680,9 @@ namespace SEGEFOR.WebForms
         {
             ClManejo.ActualizaEstatusAsignacionElaborador(Convert.ToInt32(TxtAsignacionId.Text), 4);
             BloqueaPLanManejo();
+            DataSet DatosCorreo = ClManejo.Get_Correo_Solicitante(Convert.ToInt32(TxtAsignacionId.Text));
+            ClUtilitarios.EnvioCorreo(DatosCorreo.Tables["DATOS"].Rows[0]["Correo"].ToString(), DatosCorreo.Tables["DATOS"].Rows[0]["Nombre"].ToString(), "Notificación Completación plan de Manejo Forestal", "Le informamos que el Elaborador del plan de manejo ha terminado de llenar el mismo y se lo ha enviado para que pueda seguir con su gestión y enviarlo al INAB", 0, "", "");
+            DatosCorreo.Clear();
             LblTitConfirmacion.Text = "Gestíon Enviada con exito al solicitante";
             BtnYes.Visible = false;
             ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindowConfirm.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
@@ -1690,6 +1693,7 @@ namespace SEGEFOR.WebForms
             int Estatusid = ClManejo.GetEstatusPlanManejo(Convert.ToInt32(TxtAsignacionId.Text));
             if (Estatusid == 4)
             {
+                BtnEnviarSol.Visible = false;
                 BtnAddFincaPlan.Visible = false;
                 BtnNuevaFinca.Visible = false;
                 CboFinca.Enabled = false;
@@ -3733,8 +3737,10 @@ namespace SEGEFOR.WebForms
                             ClManejo.Insert_Ecuacion_PlanManejo(AsignacionId, Convert.ToInt32(item.Value));
                         }
                     }
+                    double totInc = 0;
                     for (int i = 0; i < GrdResumen.Items.Count; i++)
                     {
+                        
                         object AreaRodal = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtAreaRodal")).Text;
                         if (AreaRodal == "")
                             AreaRodal = 0;
@@ -3771,6 +3777,7 @@ namespace SEGEFOR.WebForms
                         object INC = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtINC")).Text;
                         if (INC == "")
                             INC = 0;
+                        totInc = Convert.ToDouble(INC) + totInc;
                         object VolHa = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtVolHa")).Text;
                         if (VolHa == "")
                             VolHa = 0;
@@ -3792,6 +3799,7 @@ namespace SEGEFOR.WebForms
                             VolOtroExtreae = VolOtro;
                         ClManejo.Insertar_Resumen_PlanManejo(AsignacionId, Convert.ToInt32(GrdResumen.Items[i].OwnerTableView.DataKeyValues[i]["EspecieId"]), Convert.ToDecimal(AreaRodal), Convert.ToInt32(CodClaseDesarrollo), Edad, Convert.ToInt32(TratamientoId), Convert.ToDecimal(Dap), Convert.ToDecimal(Altura), Convert.ToDecimal(Densidad), Convert.ToDecimal(AreaBasal), Convert.ToDecimal(VolTroza), Convert.ToDecimal(VolLena), Convert.ToDecimal(VolOtro), Convert.ToDecimal(Convert.ToDecimal(VolTroza) + Convert.ToDecimal(VolLena) + Convert.ToDecimal(VolOtro)), Convert.ToInt32(GrdResumen.Items[i].OwnerTableView.DataKeyValues[i]["Rodal"]), Convert.ToInt32(Pendiente), Convert.ToDecimal(INC), Convert.ToDecimal(VolHa), Convert.ToDecimal(VolRodal), Convert.ToInt32(GrdResumen.Items[i].OwnerTableView.DataKeyValues[i]["Extrae"]), Convert.ToDecimal(VolTrozaExtrae), Convert.ToDecimal(VolLenaExtrae), Convert.ToDecimal(VolOtroExtreae), Convert.ToDecimal(Convert.ToDecimal(VolTrozaExtrae) + Convert.ToDecimal(VolLenaExtrae) + Convert.ToDecimal(VolOtroExtreae)), Convert.ToDecimal(AreaBasalRodal));
                     }
+                    TxtIncrementoAnual.Text = totInc.ToString();
                     DivGoodAprovechamiento.Visible = true;
                     LblGoodAprovechamiento.Text = "Datos de Aprovechamiento Forestal Grabados";
                     GrdSilvicultural.Rebind();

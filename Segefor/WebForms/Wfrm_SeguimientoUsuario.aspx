@@ -13,7 +13,7 @@
                         </div>
                         <div runat="server" id="DivOpcionesINAB">
                             <div class="ibox-content">
-                                <telerik:RadGrid runat="server" ID="GrdSolicitudes" Skin="MetroTouch"
+                                <telerik:RadGrid runat="server" ID="GrdSolicitudes" Skin="MetroTouch" AllowPaging="true" PageSize="10"
                                         AutoGenerateColumns="false" Width="100%" AllowSorting="true" AllowFilteringByColumn="true"
                                         GridLines="Both" >
                                         <PagerStyle Mode="NumericPages" NextPageText="Siguiente" 

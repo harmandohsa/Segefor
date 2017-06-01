@@ -4092,6 +4092,30 @@ namespace SEGEFOR.Clases
             }
         }
 
+        public DataSet Get_Correo_Solicitante(int AsignacionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("SP_Get_Correo_Solicitante", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = AsignacionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
         
     }
 }
