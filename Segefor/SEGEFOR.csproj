@@ -1444,6 +1444,7 @@
     <Content Include="WebForms\Wfrm_Seguimiento_Regional.aspx" />
     <Content Include="WebForms\Wfrm_Seguimiento_Secretaria.aspx" />
     <Content Include="WebForms\Wfrm_Seguimiento_SubRegional.aspx" />
+    <Content Include="WebForms\Wfrm_Seguimiento_Tecnico.aspx" />
     <Content Include="WebForms\Wfrm_SeleccionaPersona.aspx" />
     <Content Include="WebForms\Wfrm_SeleccionPlanMenejo.aspx" />
     <Content Include="WebForms\Wfrm_TipoPlanManejo.aspx" />
@@ -1454,6 +1455,7 @@
     <Content Include="WeForms_Reportes\Wfrm_RepCenso.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepConstanciaAdmisionExp.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepDictamenJuridico.aspx" />
+    <Content Include="WeForms_Reportes\Wfrm_RepEnmiendasTec.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepFormularioBosqueNatural.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepFormularioEmpresas.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepFormularioEntidad.aspx" />
@@ -1791,6 +1793,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Rpt_Oficio_Enmiendas_Juridico.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Rpt_Oficio_Enmienda_Tecnico.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_Oficio_Enmienda_Tecnico.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reportes\Rpt_ProvidenciaExp.cs">
@@ -2366,6 +2374,13 @@
     <Compile Include="WebForms\Wfrm_Seguimiento_SubRegional.aspx.designer.cs">
       <DependentUpon>Wfrm_Seguimiento_SubRegional.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebForms\Wfrm_Seguimiento_Tecnico.aspx.cs">
+      <DependentUpon>Wfrm_Seguimiento_Tecnico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_Seguimiento_Tecnico.aspx.designer.cs">
+      <DependentUpon>Wfrm_Seguimiento_Tecnico.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebForms\Wfrm_SeleccionaPersona.aspx.cs">
       <DependentUpon>Wfrm_SeleccionaPersona.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2435,6 +2450,13 @@
     </Compile>
     <Compile Include="WeForms_Reportes\Wfrm_RepDictamenJuridico.aspx.designer.cs">
       <DependentUpon>Wfrm_RepDictamenJuridico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WeForms_Reportes\Wfrm_RepEnmiendasTec.aspx.cs">
+      <DependentUpon>Wfrm_RepEnmiendasTec.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeForms_Reportes\Wfrm_RepEnmiendasTec.aspx.designer.cs">
+      <DependentUpon>Wfrm_RepEnmiendasTec.aspx</DependentUpon>
     </Compile>
     <Compile Include="WeForms_Reportes\Wfrm_RepFormularioBosqueNatural.aspx.cs">
       <DependentUpon>Wfrm_RepFormularioBosqueNatural.aspx</DependentUpon>
@@ -2641,6 +2663,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_Oficio_Enmiendas_Juridico.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Rpt_Oficio_Enmienda_Tecnico.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_Oficio_Enmienda_Tecnico.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reportes\Rpt_ProvidenciaExp.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_ProvidenciaExp.cs</LastGenOutput>
@@ -2844,7 +2870,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

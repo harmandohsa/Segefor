@@ -585,7 +585,10 @@ namespace SEGEFOR.WebForms
                         
                     }
                     int ProvidenciaId = ClGestion.Max_Providencia();
-                    ClGestion.Insert_Providencia_Exp(SubRegion, Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), Asunto, iInformacion, Convert.ToInt32(Session["UsuarioId"]), Convert.ToInt32(CboJuridico.SelectedValue), SubRegionId);
+                    if (ModuloId == 3)
+                        ClGestion.Insert_Providencia_Exp(SubRegion, Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), Asunto, iInformacion, Convert.ToInt32(Session["UsuarioId"]), Convert.ToInt32(CboJuridico.SelectedValue), SubRegionId,0);
+                    else if (ModuloId == 2)
+                        ClGestion.Insert_Providencia_Exp(SubRegion, Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), Asunto, iInformacion, Convert.ToInt32(Session["UsuarioId"]), Convert.ToInt32(CboJuridico.SelectedValue), SubRegionId, Convert.ToInt32(CboTecnico.SelectedValue));
                     ClGestion.Manda_Gestion_Usuario(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 14);
                     DataSet dsDatosUsuario = ClGestion.Get_Datos_Persona(1, Convert.ToInt32(CboJuridico.SelectedValue));
                     string MensajeCorreo = "Se ha enviado a su despacho la gestión del señor (a): " + ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["nom"].ToString()), true);

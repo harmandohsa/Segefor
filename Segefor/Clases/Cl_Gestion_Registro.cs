@@ -1511,7 +1511,7 @@ namespace SEGEFOR.Clases
             }
         }
 
-        public void Insert_Providencia_Exp(string SubRegion, int GestionId, string Asunto, XmlDocument Cuerpo, int UsuarioId, int UsuarioRecibeId, int SubRegionId)
+        public void Insert_Providencia_Exp(string SubRegion, int GestionId, string Asunto, XmlDocument Cuerpo, int UsuarioId, int UsuarioRecibeId, int SubRegionId, int Usuario_recibeTecnicoId)
         {
             try
             {
@@ -1525,6 +1525,10 @@ namespace SEGEFOR.Clases
                 cmd.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 cmd.Parameters.Add("@Usuario_RecebieId", SqlDbType.Int).Value = UsuarioRecibeId;
                 cmd.Parameters.Add("@SubRegionId", SqlDbType.Int).Value = SubRegionId;
+                if (Usuario_recibeTecnicoId == 0)
+                    cmd.Parameters.Add("@Usuario_recibeTecnicoId", SqlDbType.Int).Value =  DBNull.Value;
+                else
+                    cmd.Parameters.Add("@Usuario_recibeTecnicoId", SqlDbType.Int).Value = Usuario_recibeTecnicoId;
                 cmd.ExecuteNonQuery();
                 cnSql.Close();
             }

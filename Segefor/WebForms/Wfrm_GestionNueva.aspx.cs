@@ -412,6 +412,8 @@ namespace SEGEFOR.WebForms
                         Response.Redirect("~/WebForms/Wfrm_Seguimiento_SubRegional.aspx?gestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["GestionId"].ToString(), true)) + "&modulo=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ModuloId"].ToString(), true)) + "&subcategoria=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(SubCategoriaId.ToString(), true)) + "&gun=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(NUG.ToString(), true)) + "&nom=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(Nombre.ToString(), true)) + "&souscategorie=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(SubCategoriaId.ToString(), true)) + "&sousregion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(SubRegionId.ToString(), true)) + "");
                     else if (Convert.ToInt32(Session["TipoUsuarioId"]) == 14)
                         Response.Redirect("~/WebForms/Wfrm_Seguimiento_Juridico.aspx?gestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["GestionId"].ToString(), true)) + "&modulo=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ModuloId"].ToString(), true)) + "&subcategoria=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(SubCategoriaId.ToString(), true)) + "&gun=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(NUG.ToString(), true)) + "&nom=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(Nombre.ToString(), true)) + "&souscategorie=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(SubCategoriaId.ToString(), true)) + "&sousregion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(SubRegionId.ToString(), true)) + "");
+                    else if (Convert.ToInt32(Session["TipoUsuarioId"]) == 12)
+                        Response.Redirect("~/WebForms/Wfrm_Seguimiento_Tecnico.aspx?gestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["GestionId"].ToString(), true)) + "&modulo=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ModuloId"].ToString(), true)) + "&subcategoria=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(SubCategoriaId.ToString(), true)) + "&gun=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(NUG.ToString(), true)) + "&nom=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(Nombre.ToString(), true)) + "&souscategorie=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(SubCategoriaId.ToString(), true)) + "&sousregion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(SubRegionId.ToString(), true)) + "");
                 }
             }
             else if (e.CommandName == "CmdSolComple")
@@ -435,17 +437,26 @@ namespace SEGEFOR.WebForms
                 {
                     item["actividad"].Text = ClManejo.Get_Actividad_Manejo(Convert.ToInt32(item.GetDataKeyValue("GestionId")));
                 }
-                if ((Convert.ToInt32(Session["TipoUsuarioId"]) == 11) || (Convert.ToInt32(Session["TipoUsuarioId"]) == 14))
+                if ((Convert.ToInt32(Session["TipoUsuarioId"]) == 11) || (Convert.ToInt32(Session["TipoUsuarioId"]) == 14) || (Convert.ToInt32(Session["TipoUsuarioId"]) == 12))
                 {
                     DataSet ds = ClGestion.Get_Datos_Adicionales_Gestion(Convert.ToInt32(item.GetDataKeyValue("GestionId")));
                     item["No_Exp"].Text = ds.Tables["DATOS"].Rows[0]["No_Expediente"].ToString();
                     item["Fecha_Exp"].Text = ds.Tables["DATOS"].Rows[0]["Fecha"].ToString();
                     ds.Clear();
                 }
-                if (Convert.ToInt32(Session["TipoUsuarioId"]) == 14)
+                if ((Convert.ToInt32(Session["TipoUsuarioId"]) == 14) || (Convert.ToInt32(Session["TipoUsuarioId"]) == 12))
                 {
                     DataSet ds = ClGestion.Get_Datos_Adicionales_Gestion(Convert.ToInt32(item.GetDataKeyValue("GestionId")));
                     item["No_Providencia"].Text = ds.Tables["DATOS"].Rows[0]["No_Providencia"].ToString();
+                    ds.Clear();
+                }
+                if (Convert.ToInt32(Session["TipoUsuarioId"]) == 12)
+                {
+                    DataSet ds = ClGestion.Get_Datos_Adicionales_Gestion(Convert.ToInt32(item.GetDataKeyValue("GestionId")));
+                    if (ds.Tables["Datos"].Rows.Count > 0)
+                        item["No_Dictamen_Juridico"].Text = ds.Tables["DATOS"].Rows[0]["No_Dictamen"].ToString();
+                    else
+                        item["No_Dictamen_Juridico"].Text = "";
                     ds.Clear();
                 }
                 if ((Convert.ToInt32(Session["TipoUsuarioId"]) == 10) || (Convert.ToInt32(Session["TipoUsuarioId"]) == 4))
@@ -469,6 +480,8 @@ namespace SEGEFOR.WebForms
                     ClUtilitarios.LlenaGrid(ClGestion.Get_Gestiones(3,Convert.ToInt32(Session["TipoUsuarioId"]), Convert.ToInt32(Session["UsuarioId"])), GrdSolicitudes);
                 else if (Session["TipoUsuarioId"].ToString() == "4")
                     ClUtilitarios.LlenaGrid(ClGestion.Get_Gestiones(5, 10, Convert.ToInt32(Session["UsuarioId"])), GrdSolicitudes);
+                else if (Session["TipoUsuarioId"].ToString() == "12")
+                    ClUtilitarios.LlenaGrid(ClGestion.Get_Gestiones(6, 12, Convert.ToInt32(Session["UsuarioId"])), GrdSolicitudes);
                 else
                     ClUtilitarios.LlenaGrid(ClGestion.Get_Gestiones(1, Convert.ToInt32(Session["TipoUsuarioId"]), Convert.ToInt32(Session["UsuarioId"])), GrdSolicitudes);
         }

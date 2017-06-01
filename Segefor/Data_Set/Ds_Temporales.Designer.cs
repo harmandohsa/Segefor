@@ -62,6 +62,8 @@ namespace SEGEFOR.Data_Set {
         
         private Dt_Poligono_RegionDataTable tableDt_Poligono_Region;
         
+        private Dt_Enmienda_Dictamen_TecDataTable tableDt_Enmienda_Dictamen_Tec;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -146,6 +148,9 @@ namespace SEGEFOR.Data_Set {
                 }
                 if ((ds.Tables["Dt_Poligono_Region"] != null)) {
                     base.Tables.Add(new Dt_Poligono_RegionDataTable(ds.Tables["Dt_Poligono_Region"]));
+                }
+                if ((ds.Tables["Dt_Enmienda_Dictamen_Tec"] != null)) {
+                    base.Tables.Add(new Dt_Enmienda_Dictamen_TecDataTable(ds.Tables["Dt_Enmienda_Dictamen_Tec"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -357,6 +362,16 @@ namespace SEGEFOR.Data_Set {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public Dt_Enmienda_Dictamen_TecDataTable Dt_Enmienda_Dictamen_Tec {
+            get {
+                return this.tableDt_Enmienda_Dictamen_Tec;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -478,6 +493,9 @@ namespace SEGEFOR.Data_Set {
                 }
                 if ((ds.Tables["Dt_Poligono_Region"] != null)) {
                     base.Tables.Add(new Dt_Poligono_RegionDataTable(ds.Tables["Dt_Poligono_Region"]));
+                }
+                if ((ds.Tables["Dt_Enmienda_Dictamen_Tec"] != null)) {
+                    base.Tables.Add(new Dt_Enmienda_Dictamen_TecDataTable(ds.Tables["Dt_Enmienda_Dictamen_Tec"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -626,6 +644,12 @@ namespace SEGEFOR.Data_Set {
                     this.tableDt_Poligono_Region.InitVars();
                 }
             }
+            this.tableDt_Enmienda_Dictamen_Tec = ((Dt_Enmienda_Dictamen_TecDataTable)(base.Tables["Dt_Enmienda_Dictamen_Tec"]));
+            if ((initTable == true)) {
+                if ((this.tableDt_Enmienda_Dictamen_Tec != null)) {
+                    this.tableDt_Enmienda_Dictamen_Tec.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -674,6 +698,8 @@ namespace SEGEFOR.Data_Set {
             base.Tables.Add(this.tabledt_Poligono_Repoblacion);
             this.tableDt_Poligono_Region = new Dt_Poligono_RegionDataTable();
             base.Tables.Add(this.tableDt_Poligono_Region);
+            this.tableDt_Enmienda_Dictamen_Tec = new Dt_Enmienda_Dictamen_TecDataTable();
+            base.Tables.Add(this.tableDt_Enmienda_Dictamen_Tec);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -792,6 +818,12 @@ namespace SEGEFOR.Data_Set {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeDt_Enmienda_Dictamen_Tec() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void SchemaChanged(object sender, global::System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == global::System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -901,6 +933,9 @@ namespace SEGEFOR.Data_Set {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void Dt_Poligono_RegionRowChangeEventHandler(object sender, Dt_Poligono_RegionRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void Dt_Enmienda_Dictamen_TecRowChangeEventHandler(object sender, Dt_Enmienda_Dictamen_TecRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -6342,6 +6377,295 @@ namespace SEGEFOR.Data_Set {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class Dt_Enmienda_Dictamen_TecDataTable : global::System.Data.TypedTableBase<Dt_Enmienda_Dictamen_TecRow> {
+            
+            private global::System.Data.DataColumn columnId_Enmienda;
+            
+            private global::System.Data.DataColumn columnEnmiendaTecId;
+            
+            private global::System.Data.DataColumn columnEnmienda;
+            
+            private global::System.Data.DataColumn columnOtra;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmienda_Dictamen_TecDataTable() {
+                this.TableName = "Dt_Enmienda_Dictamen_Tec";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal Dt_Enmienda_Dictamen_TecDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected Dt_Enmienda_Dictamen_TecDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Id_EnmiendaColumn {
+                get {
+                    return this.columnId_Enmienda;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EnmiendaTecIdColumn {
+                get {
+                    return this.columnEnmiendaTecId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EnmiendaColumn {
+                get {
+                    return this.columnEnmienda;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn OtraColumn {
+                get {
+                    return this.columnOtra;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmienda_Dictamen_TecRow this[int index] {
+                get {
+                    return ((Dt_Enmienda_Dictamen_TecRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_Enmienda_Dictamen_TecRowChangeEventHandler Dt_Enmienda_Dictamen_TecRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_Enmienda_Dictamen_TecRowChangeEventHandler Dt_Enmienda_Dictamen_TecRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_Enmienda_Dictamen_TecRowChangeEventHandler Dt_Enmienda_Dictamen_TecRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_Enmienda_Dictamen_TecRowChangeEventHandler Dt_Enmienda_Dictamen_TecRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddDt_Enmienda_Dictamen_TecRow(Dt_Enmienda_Dictamen_TecRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmienda_Dictamen_TecRow AddDt_Enmienda_Dictamen_TecRow(string Id_Enmienda, string EnmiendaTecId, string Enmienda, string Otra) {
+                Dt_Enmienda_Dictamen_TecRow rowDt_Enmienda_Dictamen_TecRow = ((Dt_Enmienda_Dictamen_TecRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        Id_Enmienda,
+                        EnmiendaTecId,
+                        Enmienda,
+                        Otra};
+                rowDt_Enmienda_Dictamen_TecRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowDt_Enmienda_Dictamen_TecRow);
+                return rowDt_Enmienda_Dictamen_TecRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                Dt_Enmienda_Dictamen_TecDataTable cln = ((Dt_Enmienda_Dictamen_TecDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new Dt_Enmienda_Dictamen_TecDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnId_Enmienda = base.Columns["Id_Enmienda"];
+                this.columnEnmiendaTecId = base.Columns["EnmiendaTecId"];
+                this.columnEnmienda = base.Columns["Enmienda"];
+                this.columnOtra = base.Columns["Otra"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnId_Enmienda = new global::System.Data.DataColumn("Id_Enmienda", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnId_Enmienda);
+                this.columnEnmiendaTecId = new global::System.Data.DataColumn("EnmiendaTecId", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEnmiendaTecId);
+                this.columnEnmienda = new global::System.Data.DataColumn("Enmienda", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEnmienda);
+                this.columnOtra = new global::System.Data.DataColumn("Otra", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOtra);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmienda_Dictamen_TecRow NewDt_Enmienda_Dictamen_TecRow() {
+                return ((Dt_Enmienda_Dictamen_TecRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new Dt_Enmienda_Dictamen_TecRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(Dt_Enmienda_Dictamen_TecRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.Dt_Enmienda_Dictamen_TecRowChanged != null)) {
+                    this.Dt_Enmienda_Dictamen_TecRowChanged(this, new Dt_Enmienda_Dictamen_TecRowChangeEvent(((Dt_Enmienda_Dictamen_TecRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.Dt_Enmienda_Dictamen_TecRowChanging != null)) {
+                    this.Dt_Enmienda_Dictamen_TecRowChanging(this, new Dt_Enmienda_Dictamen_TecRowChangeEvent(((Dt_Enmienda_Dictamen_TecRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.Dt_Enmienda_Dictamen_TecRowDeleted != null)) {
+                    this.Dt_Enmienda_Dictamen_TecRowDeleted(this, new Dt_Enmienda_Dictamen_TecRowChangeEvent(((Dt_Enmienda_Dictamen_TecRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.Dt_Enmienda_Dictamen_TecRowDeleting != null)) {
+                    this.Dt_Enmienda_Dictamen_TecRowDeleting(this, new Dt_Enmienda_Dictamen_TecRowChangeEvent(((Dt_Enmienda_Dictamen_TecRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveDt_Enmienda_Dictamen_TecRow(Dt_Enmienda_Dictamen_TecRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                Ds_Temporales ds = new Ds_Temporales();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "Dt_Enmienda_Dictamen_TecDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class DtSubregionRow : global::System.Data.DataRow {
@@ -8653,6 +8977,135 @@ namespace SEGEFOR.Data_Set {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class Dt_Enmienda_Dictamen_TecRow : global::System.Data.DataRow {
+            
+            private Dt_Enmienda_Dictamen_TecDataTable tableDt_Enmienda_Dictamen_Tec;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal Dt_Enmienda_Dictamen_TecRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableDt_Enmienda_Dictamen_Tec = ((Dt_Enmienda_Dictamen_TecDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Id_Enmienda {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_Enmienda_Dictamen_Tec.Id_EnmiendaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Id_Enmienda\' in table \'Dt_Enmienda_Dictamen_Tec\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_Enmienda_Dictamen_Tec.Id_EnmiendaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string EnmiendaTecId {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_Enmienda_Dictamen_Tec.EnmiendaTecIdColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EnmiendaTecId\' in table \'Dt_Enmienda_Dictamen_Tec\' is DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_Enmienda_Dictamen_Tec.EnmiendaTecIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Enmienda {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_Enmienda_Dictamen_Tec.EnmiendaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Enmienda\' in table \'Dt_Enmienda_Dictamen_Tec\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_Enmienda_Dictamen_Tec.EnmiendaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Otra {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_Enmienda_Dictamen_Tec.OtraColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Otra\' in table \'Dt_Enmienda_Dictamen_Tec\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_Enmienda_Dictamen_Tec.OtraColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsId_EnmiendaNull() {
+                return this.IsNull(this.tableDt_Enmienda_Dictamen_Tec.Id_EnmiendaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetId_EnmiendaNull() {
+                this[this.tableDt_Enmienda_Dictamen_Tec.Id_EnmiendaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEnmiendaTecIdNull() {
+                return this.IsNull(this.tableDt_Enmienda_Dictamen_Tec.EnmiendaTecIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEnmiendaTecIdNull() {
+                this[this.tableDt_Enmienda_Dictamen_Tec.EnmiendaTecIdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEnmiendaNull() {
+                return this.IsNull(this.tableDt_Enmienda_Dictamen_Tec.EnmiendaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEnmiendaNull() {
+                this[this.tableDt_Enmienda_Dictamen_Tec.EnmiendaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsOtraNull() {
+                return this.IsNull(this.tableDt_Enmienda_Dictamen_Tec.OtraColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetOtraNull() {
+                this[this.tableDt_Enmienda_Dictamen_Tec.OtraColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -9284,6 +9737,40 @@ namespace SEGEFOR.Data_Set {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Dt_Poligono_RegionRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class Dt_Enmienda_Dictamen_TecRowChangeEvent : global::System.EventArgs {
+            
+            private Dt_Enmienda_Dictamen_TecRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmienda_Dictamen_TecRowChangeEvent(Dt_Enmienda_Dictamen_TecRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmienda_Dictamen_TecRow Row {
                 get {
                     return this.eventRow;
                 }

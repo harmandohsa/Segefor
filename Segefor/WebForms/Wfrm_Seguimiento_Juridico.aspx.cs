@@ -52,6 +52,7 @@ namespace SEGEFOR.WebForms
             ImgVerinfo.Click += ImgVerinfo_Click;
             IngVerAnexos.Click += IngVerAnexos_Click;
             
+            
 
             if (Session["UsuarioId"] == null)
             {

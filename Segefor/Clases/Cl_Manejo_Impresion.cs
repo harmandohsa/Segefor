@@ -950,7 +950,7 @@ namespace SEGEFOR.Clases
 
         }
 
-        public int GetTipoInventario(int Tipo, int Id)
+        public int GetTipoInventario(int Id, int Tipo)
         {
             try
             {

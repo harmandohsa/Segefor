@@ -244,6 +244,21 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="Dt_EnmiendasTec" msprop:Generator_TableClassName="Dt_EnmiendasTecDataTable" msprop:Generator_TableVarName="tableDt_EnmiendasTec" msprop:Generator_TablePropName="Dt_EnmiendasTec" msprop:Generator_RowDeletingName="Dt_EnmiendasTecRowDeleting" msprop:Generator_RowChangingName="Dt_EnmiendasTecRowChanging" msprop:Generator_RowEvHandlerName="Dt_EnmiendasTecRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_EnmiendasTecRowDeleted" msprop:Generator_UserTableName="Dt_EnmiendasTec" msprop:Generator_RowChangedName="Dt_EnmiendasTecRowChanged" msprop:Generator_RowEvArgName="Dt_EnmiendasTecRowChangeEvent" msprop:Generator_RowClassName="Dt_EnmiendasTecRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SubRegion" msprop:Generator_ColumnVarNameInTable="columnSubRegion" msprop:Generator_ColumnPropNameInRow="SubRegion" msprop:Generator_ColumnPropNameInTable="SubRegionColumn" msprop:Generator_UserColumnName="SubRegion" type="xs:string" minOccurs="0" />
+              <xs:element name="InformeNo" msprop:Generator_ColumnVarNameInTable="columnInformeNo" msprop:Generator_ColumnPropNameInRow="InformeNo" msprop:Generator_ColumnPropNameInTable="InformeNoColumn" msprop:Generator_UserColumnName="InformeNo" type="xs:string" minOccurs="0" />
+              <xs:element name="LugarSubRegion" msprop:Generator_ColumnVarNameInTable="columnLugarSubRegion" msprop:Generator_ColumnPropNameInRow="LugarSubRegion" msprop:Generator_ColumnPropNameInTable="LugarSubRegionColumn" msprop:Generator_UserColumnName="LugarSubRegion" type="xs:string" minOccurs="0" />
+              <xs:element name="Fecha" msprop:Generator_ColumnVarNameInTable="columnFecha" msprop:Generator_ColumnPropNameInRow="Fecha" msprop:Generator_ColumnPropNameInTable="FechaColumn" msprop:Generator_UserColumnName="Fecha" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Subregional" msprop:Generator_ColumnVarNameInTable="columnSubregional" msprop:Generator_ColumnPropNameInRow="Subregional" msprop:Generator_ColumnPropNameInTable="SubregionalColumn" msprop:Generator_UserColumnName="Subregional" type="xs:string" minOccurs="0" />
+              <xs:element name="Cuerpo" msprop:Generator_ColumnVarNameInTable="columnCuerpo" msprop:Generator_ColumnPropNameInRow="Cuerpo" msprop:Generator_ColumnPropNameInTable="CuerpoColumn" msprop:Generator_UserColumnName="Cuerpo" type="xs:string" minOccurs="0" />
+              <xs:element name="No" msprop:Generator_ColumnVarNameInTable="columnNo" msprop:Generator_ColumnPropNameInRow="No" msprop:Generator_ColumnPropNameInTable="NoColumn" msprop:Generator_UserColumnName="No" type="xs:string" minOccurs="0" />
+              <xs:element name="Enmienda" msprop:Generator_ColumnVarNameInTable="columnEnmienda" msprop:Generator_ColumnPropNameInRow="Enmienda" msprop:Generator_ColumnPropNameInTable="EnmiendaColumn" msprop:Generator_UserColumnName="Enmienda" type="xs:string" minOccurs="0" />
+              <xs:element name="Tecnico" msprop:Generator_ColumnVarNameInTable="columnTecnico" msprop:Generator_ColumnPropNameInRow="Tecnico" msprop:Generator_ColumnPropNameInTable="TecnicoColumn" msprop:Generator_UserColumnName="Tecnico" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
   </xs:element>

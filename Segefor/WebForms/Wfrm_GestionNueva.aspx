@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;
 <asp:UpdatePanel runat="server">
     <ContentTemplate>
         <div class="wrapper wrapper-content animated fadeInRight">
@@ -60,7 +60,7 @@
                         </div>
                         <div runat="server" id="DivOpcionesINAB" visible="false">
                             <div class="ibox-content">
-                                <telerik:RadGrid runat="server" ID="GrdSolicitudes" Skin="MetroTouch"
+                                <telerik:RadGrid runat="server" ID="GrdSolicitudes" Skin="Telerik"
                                         AutoGenerateColumns="false" Width="100%" AllowSorting="true"  AllowFilteringByColumn="true"
                                         GridLines="Both" >
                                         <PagerStyle Mode="NumericPages" NextPageText="Siguiente" 
