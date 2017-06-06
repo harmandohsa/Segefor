@@ -165,8 +165,15 @@ namespace SEGEFOR.WebForms
 
         void BtnVistaPreviaResolucion_Click(object sender, EventArgs e)
         {
+            
             int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 2);
-            int CategoriaId = ClGestion.Get_CategoriaManejoId(SubCategoriaId);
+            int ModuloId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true));
+            int CategoriaId = 0;
+            if (ModuloId == 2)
+                CategoriaId = ClGestion.Get_CategoriaManejoId(SubCategoriaId);
+            else if (ModuloId == 3)
+                CategoriaId = ClGestion.Get_CategoriaRNFId(SubCategoriaId);
+
             Session["Datos_Resolucion_Admision"] = ClGestion.ImpresionResolucion_Admision(1, Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), Convert.ToInt32(Session["UsuarioId"]), CategoriaId);
             RadWindow1.Title = "Vista Previa Resolución";
             RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepResolucionAdmision.aspx";

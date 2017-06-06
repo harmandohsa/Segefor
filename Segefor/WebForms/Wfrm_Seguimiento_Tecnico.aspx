@@ -225,6 +225,27 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div runat="server" id="DivDictamenTec">
+                                        <div class="panel-body">
+                                            <div><label class="col-sm-5 control-label centradolabel"><h3>Evaluación de Campo</h3></label></div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div><label class="col-sm-5 control-label centradolabel">Describir la metodología utilizada para la corroboración del inventario y plan de manejo, (recorrido de linderos, mojones, rodales, etc.):</label>
+                                                <div class="col-sm-5">
+                                                    <asp:TextBox runat="server" Text="" ID="TxtMetodologia" TextMode="MultiLine" Width="500px" Height="150px" class="form-control"></asp:TextBox>   
+                                                </div>
+                                            </div>
+                                        </div>
+                                         <div class="panel-body">
+                                            <div><label class="col-sm-5 control-label centradolabel">Describir la metodología utilizada para la corroboración del inventario y plan de manejo, (recorrido de linderos, mojones, rodales, etc.):</label>
+                                                <div class="col-sm-5">
+                                                    <asp:TextBox runat="server" Text="" ID="TextBox1" TextMode="MultiLine" Width="500px" Height="150px" class="form-control"></asp:TextBox>   
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="padding-bottom:2em;"></div>
+                                    </div>
+                                    
 
 
                                     <div style="padding-bottom:2em;"></div>

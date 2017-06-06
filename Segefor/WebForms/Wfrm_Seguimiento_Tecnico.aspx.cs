@@ -293,12 +293,14 @@ namespace SEGEFOR.WebForms
                 DivEnmiendas.Visible = true;
                 DivEnmiendaGrid.Visible = true;
                 DivEnmiendasBotonos.Visible = true;
+                DivDictamenTec.Visible = false;
             }
             else
             {
                 DivEnmiendas.Visible = false;
                 DivEnmiendaGrid.Visible = false;
                 DivEnmiendasBotonos.Visible = false;
+                DivDictamenTec.Visible = true;
             }
         }
 
