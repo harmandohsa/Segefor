@@ -1455,6 +1455,7 @@
     <Content Include="WeForms_Reportes\Wfrm_RepCenso.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepConstanciaAdmisionExp.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepDictamenJuridico.aspx" />
+    <Content Include="WeForms_Reportes\Wfrm_RepDictamenTecnico.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepEnmiendasTec.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepFormularioBosqueNatural.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepFormularioEmpresas.aspx" />
@@ -1483,7 +1484,7 @@
     <None Include="Data_Set\Ds_Gestiones.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>Ds_Gestiones.Designer.cs</LastGenOutput>
+      <LastGenOutput>Ds_Gestiones1.Designer.cs</LastGenOutput>
     </None>
     <Content Include="Data_Set\Ds_Gestiones.xss">
       <DependentUpon>Ds_Gestiones.xsd</DependentUpon>
@@ -1596,7 +1597,7 @@
     <Compile Include="Clases\Cl_Usuario.cs" />
     <Compile Include="Clases\Cl_Utilitarios.cs" />
     <Compile Include="Clases\Cl_Xml.cs" />
-    <Compile Include="Data_Set\Ds_Gestiones.Designer.cs">
+    <Compile Include="Data_Set\Ds_Gestiones1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Ds_Gestiones.xsd</DependentUpon>
@@ -1715,6 +1716,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Rpt_DictamenJuridico.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Rpt_DictamenTecnico.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_DictamenTecnico.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reportes\Rpt_FormularioBosqueNatural.cs">
@@ -1975,6 +1982,18 @@
       <DependentUpon>Rpt_SubRep_Enmiendas_Oficio_Enmiendas_Jur.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SubReportes\Rpt_SubRep_Etapa_DicTec.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_SubRep_Etapa_DicTec.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SubReportes\Rpt_SubRep_FincasDicTec.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_SubRep_FincasDicTec.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SubReportes\Rpt_SubRep_InfoGeneralPlanManejo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1991,6 +2010,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Rpt_SubRep_InventarioBNOtros.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SubReportes\Rpt_SubRep_MaderPie_DicTec.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_SubRep_MaderPie_DicTec.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SubReportes\Rpt_SubRep_Motivo_OficioDevolucion.cs">
@@ -2045,6 +2070,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Rpt_SubRep_ResumenInvPlanManejo.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SubReportes\Rpt_SubRep_ResumenInv_DicTec.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_SubRep_ResumenInv_DicTec.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SubReportes\Rpt_SubRep_Silvicultura_DicTec.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_SubRep_Silvicultura_DicTec.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SubReportes\Rpt_SubRep_SistemaRepoPlanManejo.cs">
@@ -2451,6 +2488,13 @@
     <Compile Include="WeForms_Reportes\Wfrm_RepDictamenJuridico.aspx.designer.cs">
       <DependentUpon>Wfrm_RepDictamenJuridico.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WeForms_Reportes\Wfrm_RepDictamenTecnico.aspx.cs">
+      <DependentUpon>Wfrm_RepDictamenTecnico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeForms_Reportes\Wfrm_RepDictamenTecnico.aspx.designer.cs">
+      <DependentUpon>Wfrm_RepDictamenTecnico.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WeForms_Reportes\Wfrm_RepEnmiendasTec.aspx.cs">
       <DependentUpon>Wfrm_RepEnmiendasTec.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2610,6 +2654,10 @@
     <EmbeddedResource Include="Reportes\Rpt_DictamenJuridico.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_DictamenJuridico.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Rpt_DictamenTecnico.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_DictamenTecnico.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\Rpt_FormularioBosqueNatural.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2783,6 +2831,14 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_SubRep_Enmiendas_Oficio_Enmiendas_Jur.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubReportes\Rpt_SubRep_Etapa_DicTec.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_SubRep_Etapa_DicTec.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubReportes\Rpt_SubRep_FincasDicTec.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_SubRep_FincasDicTec.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubReportes\Rpt_SubRep_InfoGeneralPlanManejo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_SubRep_InfoGeneralPlanManejo.cs</LastGenOutput>
@@ -2794,6 +2850,10 @@
     <EmbeddedResource Include="SubReportes\Rpt_SubRep_InventarioBNOtros.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_SubRep_InventarioBNOtros.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubReportes\Rpt_SubRep_MaderPie_DicTec.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_SubRep_MaderPie_DicTec.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="SubReportes\Rpt_SubRep_Motivo_OficioDevolucion.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2830,6 +2890,14 @@
     <EmbeddedResource Include="SubReportes\Rpt_SubRep_ResumenInvPlanManejo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_SubRep_ResumenInvPlanManejo.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubReportes\Rpt_SubRep_ResumenInv_DicTec.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_SubRep_ResumenInv_DicTec.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubReportes\Rpt_SubRep_Silvicultura_DicTec.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_SubRep_Silvicultura_DicTec.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="SubReportes\Rpt_SubRep_SistemaRepoPlanManejo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2870,7 +2938,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

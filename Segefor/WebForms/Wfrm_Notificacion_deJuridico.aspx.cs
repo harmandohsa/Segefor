@@ -214,9 +214,12 @@ namespace SEGEFOR.WebForms
                 if (Convert.ToInt32(Session["TipoUsuarioId"]) == 11)
                 {
                     DataSet ds = ClGestion.Get_Datos_Adicionales_Gestion(Convert.ToInt32(item.GetDataKeyValue("GestionId")));
-                    item["No_Exp"].Text = ds.Tables["DATOS"].Rows[0]["No_Expediente"].ToString();
-                    item["Fecha_Exp"].Text = ds.Tables["DATOS"].Rows[0]["Fecha"].ToString();
-                    item["No_Dictamen_Juridico"].Text = ds.Tables["DATOS"].Rows[0]["No_Dictamen"].ToString();
+                    if (ds.Tables["Datos"].Rows.Count > 0)
+                    {
+                        item["No_Exp"].Text = ds.Tables["DATOS"].Rows[0]["No_Expediente"].ToString();
+                        item["Fecha_Exp"].Text = ds.Tables["DATOS"].Rows[0]["Fecha"].ToString();
+                        item["No_Dictamen_Juridico"].Text = ds.Tables["DATOS"].Rows[0]["No_Dictamen"].ToString();
+                    }
                     ds.Clear();
                 }
             }

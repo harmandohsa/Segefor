@@ -3269,14 +3269,15 @@
                                                             <div><label class="col-sm-1 control-label centradolabel">Rodal</label>
                                                                 <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtRodalRepo"  step="any" min="0" type="number" CssClass="form-control"></asp:TextBox></div>
                                                             </div>
-                                                            <div><label class="col-sm-1 control-label centradolabel">Etapa</label>
-                                                                <div class="col-sm-4"><telerik:RadComboBox ID="CboEtapa" AutoPostBack="true" Width="100%" runat="server"></telerik:RadComboBox></div>
+                                                            <div><label class="col-sm-1 control-label centradolabel">Área</label>
+                                                                <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtAreaRepo"  step="any" min="0" type="number" CssClass="form-control"></asp:TextBox></div>
                                                             </div>
                                                         </div>
                                                         <div style="padding-bottom:2em;"></div>
                                                         <div class="ibox-content" runat="server">
-                                                            <div><label class="col-sm-1 control-label centradolabel">Área</label>
-                                                                <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtAreaRepo"  step="any" min="0" type="number" CssClass="form-control"></asp:TextBox></div>
+                                                            <div><label class="col-sm-1 control-label centradolabel">Etapa</label>
+                                                                <div class="col-sm-3"><telerik:RadComboBox ID="CboEtapa" AutoPostBack="true" Width="100%" runat="server"></telerik:RadComboBox></div>
+                                                                
                                                             </div>
                                                             <div><label class="col-sm-1 control-label centradolabel">Tratamiento</label>
                                                                 <div class="col-sm-3"><asp:TextBox runat="server" ID="TxtTrataminetoRepo" CssClass="form-control"></asp:TextBox></div>
@@ -3349,8 +3350,8 @@
                                                                     <telerik:GridBoundColumn DataField="TurnoRepo" UniqueName="Turno" HeaderText="Turno" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="RodalRepo" UniqueName="Rodal" HeaderText="Rodal" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="EtapaIdRepo" UniqueName="EtapaIdRepo" HeaderText="EtapaIdRepo" Visible="false" HeaderStyle-Width="65px"></telerik:GridBoundColumn>
-                                                                    <telerik:GridBoundColumn DataField="EtapaRepo" UniqueName="EtapaRepo" HeaderText="Etapa" HeaderStyle-Width="165px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="AreaRepo" UniqueName="Area" HeaderText="Área" HeaderStyle-Width="65px"></telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="EtapaRepo" UniqueName="EtapaRepo" HeaderText="Etapa" HeaderStyle-Width="165px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="Tratamiento" UniqueName="Tratamiento" HeaderText="Tratamiento" HeaderStyle-Width="65px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="AnisRepo" UniqueName="Anis" HeaderText="Año" HeaderStyle-Width="65px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="EspecieRepoId" UniqueName="EspecieRepoId" HeaderText="Especie" Visible="false" HeaderStyle-Width="65px"></telerik:GridBoundColumn>

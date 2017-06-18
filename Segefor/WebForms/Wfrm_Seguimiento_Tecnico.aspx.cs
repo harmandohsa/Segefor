@@ -1,12 +1,15 @@
-﻿using SEGEFOR.Clases;
+﻿using Excel;
+using SEGEFOR.Clases;
 using SEGEFOR.Data_Set;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml;
 using Telerik.Web.UI;
 
 namespace SEGEFOR.WebForms
@@ -21,9 +24,14 @@ namespace SEGEFOR.WebForms
         Cl_Xml ClXml;
         Cl_Manejo ClManejo;
         Cl_Manejo_Impresion ClManejoImpresion;
+        Cl_Especie ClEspecie;
 
 
         Ds_Temporales Ds_Temporal = new Ds_Temporales();
+        DataSet resultXls = new DataSet();
+        DataSet DsDatosDictamen = new DataSet("DsDatosDictamen");
+        DataSet DsEtapa = new DataSet("DsDatosEtapa");
+        double Total = 0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -37,6 +45,22 @@ namespace SEGEFOR.WebForms
             GrdEnmiendas.NeedDataSource += GrdEnmiendas_NeedDataSource;
             GrdEnmiendas.ItemCommand += GrdEnmiendas_ItemCommand;
             BtVistaPreviaEnminada.Click += BtVistaPreviaEnminada_Click;
+            CboTipoInventario.SelectedIndexChanged += CboTipoInventario_SelectedIndexChanged;
+            GrdResumen.NeedDataSource += GrdResumen_NeedDataSource;
+            GrdResumen.PreRender += GrdResumen_PreRender;
+            CboDictamina.SelectedIndexChanged += CboDictamina_SelectedIndexChanged;
+            BtnCargarBoleta.ServerClick += BtnCargarBoleta_ServerClick;
+            GrdBoleta.NeedDataSource += GrdBoleta_NeedDataSource;
+            GrdSilvicultural.NeedDataSource += GrdSilvicultural_NeedDataSource;
+            GrdSilvicultural.ItemDataBound += GrdSilvicultural_ItemDataBound;
+            GrdSilvicultural.PreRender += GrdSilvicultural_PreRender;
+            GrdEtapa.NeedDataSource += GrdEtapa_NeedDataSource;
+            CboGarantia.SelectedIndexChanged += CboGarantia_SelectedIndexChanged;
+            GrdMaderaPie.NeedDataSource += GrdMaderaPie_NeedDataSource;
+            GrdMaderaPie.ItemDataBound += GrdMaderaPie_ItemDataBound;
+            GrdMaderaPie.PreRender += GrdMaderaPie_PreRender;
+            CboTipoUsuario.SelectedIndexChanged += CboTipoUsuario_SelectedIndexChanged;
+            BtnVistaPrevia.Click += BtnVistaPrevia_Click;
 
             ClUsuario = new Cl_Usuario();
             ClUtilitarios = new Cl_Utilitarios();
@@ -46,6 +70,32 @@ namespace SEGEFOR.WebForms
             ClXml = new Cl_Xml();
             ClManejo = new Cl_Manejo();
             ClManejoImpresion = new Cl_Manejo_Impresion();
+            ClEspecie = new Cl_Especie();
+
+            DataTable DtDatosDictamen = DsDatosDictamen.Tables.Add("DatosDictamen");
+            DataColumn MetodologiaCorro = DtDatosDictamen.Columns.Add("MetodologiaCorro", typeof(string));
+            DataColumn MetodologiaInvForestal = DtDatosDictamen.Columns.Add("MetodologiaInvForestal", typeof(string));
+            DataColumn FormaEvaluacion = DtDatosDictamen.Columns.Add("FormaEvaluacion", typeof(string));
+            DataColumn ConCaracBio = DtDatosDictamen.Columns.Add("ConCaracBio", typeof(string));
+            DataColumn ConVeracidad = DtDatosDictamen.Columns.Add("ConVeracidad", typeof(string));
+            DataColumn ConPropuestaManejo = DtDatosDictamen.Columns.Add("ConPropuestaManejo", typeof(string));
+            DataColumn ConPropuestaTratamiento = DtDatosDictamen.Columns.Add("ConPropuestaTratamiento", typeof(string));
+            DataColumn Dictamen = DtDatosDictamen.Columns.Add("Dictamen", typeof(string));
+            DataColumn TipoGarantia = DtDatosDictamen.Columns.Add("TipoGarantia", typeof(string));
+            DataColumn DictamenId = DtDatosDictamen.Columns.Add("DictamenId", typeof(int));
+            DataColumn MontoGarantia = DtDatosDictamen.Columns.Add("MontoGarantia", typeof(double));
+            DataColumn PorGarantia = DtDatosDictamen.Columns.Add("PorGarantia", typeof(int));
+            DataColumn TotValMaderaPie = DtDatosDictamen.Columns.Add("TotValMaderaPie", typeof(double));
+            DataColumn RecomendacionUno = DtDatosDictamen.Columns.Add("RecomendacionUno", typeof(string));
+            DataColumn RecomendacionDos = DtDatosDictamen.Columns.Add("RecomendacionDos", typeof(string));
+            DataColumn OtrasRecomendaciones = DtDatosDictamen.Columns.Add("OtrasRecomendaciones", typeof(string));
+
+
+            DataTable DtEtapa = DsEtapa.Tables.Add("Etapa");
+            DataColumn EtapaId = DtEtapa.Columns.Add("EtapaId", typeof(int));
+            DataColumn Etapa = DtEtapa.Columns.Add("Etapa", typeof(string));
+            DataColumn FecIni = DtEtapa.Columns.Add("FecIni", typeof(string));
+            DataColumn FecFin = DtEtapa.Columns.Add("FecFin", typeof(string));
 
             if (Session["UsuarioId"] == null)
             {
@@ -107,8 +157,669 @@ namespace SEGEFOR.WebForms
                     LblIdentificacion.Text = ClManejo.Get_Identificacion_Gestion_Manejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
                 ClUtilitarios.LlenaCombo(ClCatalogos.Listado_EnmiendasTec(), CboEnmienda, "EnmiendaTecId", "EnmiendaTec");
                 ClUtilitarios.AgregarSeleccioneCombo(CboEnmienda, "Enmienda");
-                //ClUtilitarios.LlenaCombo(ClCatalogos.Opinion_Dictamen_Juridico_GET(1), CboOpinion, "OpinionId", "Opinion");
+                ClUtilitarios.LlenaCombo(ClCatalogos.Get_Listado_Tipo_Dictamen(), CboDictamina, "Tipo_DictamenId", "Tipo_Dictamen");
+                ClUtilitarios.AgregarSeleccioneCombo(CboDictamina, "Dictamen");
+                
                 CargaInforGeneral();
+                ClUtilitarios.LlenaCombo(ClCatalogos.GetListado_TipoInventario(), CboTipoInventario, "Tipo_InventarioId", "Tipo_Inventario");
+                ClUtilitarios.AgregarSeleccioneCombo(CboTipoInventario, "Tipo de Inventario");
+                ClUtilitarios.LlenaCombo(ClCatalogos.Listado_Parcela(), CboFormaParcela, "Forma_ParcelaId", "Forma_Parcela");
+                ClUtilitarios.LlenaCombo(ClCatalogos.Get_Listado_TipoCalculoCopromiso(), CboAreaCompromiso, "Tipo_CalculoCompromisoId", "Tipo_CalculoCompromiso");
+                ClUtilitarios.AgregarSeleccioneCombo(CboAreaCompromiso, "Tipo Calculo");
+                ClUtilitarios.LlenaCombo(ClCatalogos.ListadoTipo_Garantia(1), CboGarantia, "Tipo_GarantiaId", "Tipo_Garantia");
+                ClUtilitarios.AgregarSeleccioneCombo(CboGarantia, "Tipo de Garantía");
+                ClUtilitarios.LlenaCombo(ClCatalogos.Get_Listado_TipoUsuario_DicTecnico(), CboTipoUsuario, "Tipo_UsuarioIdDictemenTec", "Tipo_UsuarioDictamenTecnico");
+                ClUtilitarios.AgregarSeleccioneCombo(CboTipoUsuario, "Tipo de Usuario");
+            }
+            else
+            {
+                if (TxtCantidadAutorizadas.Text != "" )
+                {
+                    if (Convert.ToInt32(TxtCantidadAutorizadas.Text) > 10)
+                    {
+                        DivAprueba12.Style.Add("display", "block");
+                        DivAprueba11.Style.Add("display", "block");
+                    }
+                }
+            }
+        }
+
+        void BtnVistaPrevia_Click(object sender, EventArgs e)
+        {
+            if (Valida() == true)
+            {
+                int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 2, 2);
+                int CategoriaId = ClGestion.Get_CategoriaRNFId(SubCategoriaId);
+
+                DataRow item = DsDatosDictamen.Tables["DatosDictamen"].NewRow();
+                item["MetodologiaCorro"] = TxtMetodologia.Text;
+                item["MetodologiaInvForestal"] = TxtMetodologiaResultados.Text;
+                if (CboTipoInventario.SelectedValue == "1")
+                    item["FormaEvaluacion"] = "Forma de Evaluación: " + CboTipoInventario.Text + ", Total de Rodales: " + TxtTotRodales.Text + " Rodales Muestreados: " + TxtRodalesMuestreados.Text;
+                else
+                    item["FormaEvaluacion"] = "Forma de Evaluación: " + CboTipoInventario.Text + ", Tamaño y Forma de parcela: " + TxtSize.Text + " " + CboFormaParcela.Text + ",  Total de Rodales: " + TxtTotRodales.Text + " Rodales Muestreados: " + TxtRodalesMuestreados.Text;
+                item["ConCaracBio"] = TxtConclusionCaracBio.Text;
+                item["ConVeracidad"] = TxtConclusionInventario.Text;
+                item["ConPropuestaManejo"] = TxtConcluManejo.Text;
+                item["ConPropuestaTratamiento"] = TxtCncluPropuesta.Text;
+                item["Dictamen"] = CboDictamina.Text;
+                item["TipoGarantia"] = CboGarantia.Text;
+                item["DictamenId"] = CboDictamina.SelectedValue;
+                item["MontoGarantia"] = TxtMonto.Text;
+                item["PorGarantia"] = TxtPorcentajeGarantia.Text;
+                item["TotValMaderaPie"] = TxtTotMaderaPie.Text;
+                item["RecomendacionUno"] = "7.1     Se recomienda que la vigencia del aprovechamiento sea de: " + TxtVigenciaApro.Text + ".";
+                if (Convert.ToInt32(TxtCantidadAutorizadas.Text) > 10)
+                    item["RecomendacionDos"] = "7.1     Que se le autorice la venta total de " + TxtCantidadAutorizadas.Text + ". De estas, se le entregarán únicamente " + TxtNotasEntregar.Text + ", las otras " + TXtCantidadRestante.Text + " se adjuntarán al expediente, sin foliar, mismas que se entregarán luego al titular o su representante legal cuando presente Informe de uso de notas de envío.";
+                else
+                    item["RecomendacionDos"] = "7.7     Que se le autorice la venta total de " + TxtCantidadAutorizadas.Text + ".";
+                if (Convert.ToDouble(LblAreaIntervenir.InnerText) > 100)
+                    item["OtrasRecomendaciones"] = "7.9     " + TxtOtrasReco.Text;
+                else
+                    item["OtrasRecomendaciones"] = "7.8     " + TxtOtrasReco.Text;
+                DsDatosDictamen.Tables["DatosDictamen"].Rows.Add(item);
+
+                
+                for (int i = 0; i < GrdEtapa.Items.Count; i++)
+                {
+                    DataRow itemEtapa = DsEtapa.Tables["Etapa"].NewRow();
+                    itemEtapa["EtapaId"] = GrdEtapa.Items[i].GetDataKeyValue("EtapaId");
+                    itemEtapa["Etapa"] = GrdEtapa.Items[i].GetDataKeyValue("Etapa");
+                    RadDatePicker TxtFecIni = ((RadDatePicker)GrdEtapa.Items[i].FindControl("TxtFecIni"));
+                    RadDatePicker TxtFecFin = ((RadDatePicker)GrdEtapa.Items[i].FindControl("TxtFecFin"));
+                    itemEtapa["FecIni"] = TxtFecIni.SelectedDate;
+                    itemEtapa["Fecfin"] = TxtFecFin.SelectedDate;
+                    DsEtapa.Tables["Etapa"].Rows.Add(itemEtapa);    
+                }
+                
+
+                Session["DatosDictamenTec"] = ClGestion.ImpresionDictamenTecnio(GestionId, 1, CategoriaId, DsDatosDictamen, DsEtapa, Convert.ToInt32(Session["UsuarioId"]));
+                RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepDictamenTecnico.aspx";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+            }
+        }
+
+        bool Valida()
+        {
+            DivErrDictamenGen.Visible = false;
+            bool HayError = false;
+            string LblErr = "";
+            if (TxtMetodologia.Text == "")
+            {
+                if (LblErr == "")
+                    LblErr = "Debe Ingresar la metodología utilizada para la corroboración del Inventario y Plan de Manejo Forestal";
+                else
+                    LblErr = LblErr  + ", debe Ingresar la metodología utilizada para la corroboración del Inventario y Plan de Manejo Forestal";
+                HayError = true;
+            }
+            if (TxtMetodologiaResultados.Text == "")
+            {
+                if (LblErr == "")
+                    LblErr = "Debe Ingresar la metodología y los resultados de la comprobación del Inventario Forestal. ";
+                else
+                    LblErr = LblErr  + ", debe Ingresar la metodología y los resultados de la comprobación del Inventario Forestal. ";
+                HayError = true;
+            }
+            if ((CboTipoInventario.SelectedValue == "") || (CboTipoInventario.SelectedValue == "0"))
+            {
+                if (LblErr == "")
+                    LblErr = "Debe seleccionar la forma de evaluación";
+                else
+                    LblErr = LblErr + ", debe seleccionar la forma de evaluación";
+                HayError = true;
+            }
+            
+            if  (TxtTotRodales.Text == "")
+            {
+                if (LblErr == "")
+                    LblErr = "Debe ingresar el total de rodales";
+                else
+                    LblErr = LblErr + ", debe ingresar el total de rodales";
+                HayError = true;
+            }
+            if (TxtRodalesMuestreados.Text == "")
+            {
+                if (LblErr == "")
+                    LblErr = "Debe ingresar los rodales muestreados";
+                else
+                    LblErr = LblErr + ", debe ingresar los rodales muestreados";
+                HayError = true;
+            }
+            if ((CboTipoInventario.SelectedValue == "2") && (TxtSize.Text == ""))
+            {
+                if (LblErr == "")
+                    LblErr = "Debe ingresar el tamaño de la evaluación";
+                else
+                    LblErr = LblErr + ", debe ingresar el tamaño de la evaluación";
+                HayError = true;
+            }
+            if ((CboTipoInventario.SelectedValue == "2")  && ((CboFormaParcela.SelectedValue == "") || (CboFormaParcela.SelectedValue == "0")))
+            {
+                if (LblErr == "")
+                    LblErr = "Debe seleccionar la forma de parcela";
+                else
+                    LblErr = LblErr + ", debe seleccionar la forma de parcela";
+                HayError = true;
+            }
+            if (TxtConclusionCaracBio.Text == "")
+            {
+                if (LblErr == "")
+                    LblErr = "Debe ingresar la conclusión sobre las características biofísicas. ";
+                else
+                    LblErr = LblErr + ", debe ingresar la conclusión sobre las características biofísicas";
+                HayError = true;
+            }
+            if (TxtConclusionInventario.Text == "")
+            {
+                if (LblErr == "")
+                    LblErr = "Debe ingresar la conclusión sobre los resultados y veracidad de la información presentada en el inventario forestal, estratificación y/o rodalización del bosque. ";
+                else
+                    LblErr = LblErr + ", debe ingresar la conclusión sobre los resultados y veracidad de la información presentada en el inventario forestal, estratificación y/o rodalización del bosque";
+                HayError = true;
+            }
+            if (TxtConcluManejo.Text == "")
+            {
+                if (LblErr == "")
+                    LblErr = "Debe ingresar la conclusión sobre la propuesta de manejo forestal, haciendo especial énfasis sobre la Corta Anual Permisible ";
+                else
+                    LblErr = LblErr + ", debe ingresar la conclusión sobre la propuesta de manejo forestal, haciendo especial énfasis sobre la Corta Anual Permisible";
+                HayError = true;
+            }
+            if (TxtCncluPropuesta.Text == "")
+            {
+                if (LblErr == "")
+                    LblErr = "Debe ingresar la conclusión sobre la propuesta de tratamiento integrando características biofísicas, inventario forestal.";
+                else
+                    LblErr = LblErr + ", debe ingresar la conclusión sobre la propuesta de tratamiento integrando características biofísicas, inventario forestal.";
+                HayError = true;
+            }
+            if ((CboAreaCompromiso.SelectedValue == "") || (CboAreaCompromiso.SelectedValue == "0"))
+            {
+                if (LblErr == "")
+                    LblErr = "Debe seleccionar el tipo de calculo de compromiso";
+                else
+                    LblErr = LblErr + ", debe seleccionar el tipo de calculo de compromiso";
+                HayError = true;
+            }
+            if ((CboGarantia.SelectedValue == "") || (CboGarantia.SelectedValue == "0"))
+            {
+                if (LblErr == "")
+                    LblErr = "Debe seleccionar el tipo de garantía";
+                else
+                    LblErr = LblErr + ", debe seleccionar el tipo de garantía";
+                HayError = true;
+            }
+            if (TxtCantidadAutorizadas.Text == "")
+            {
+                if (LblErr == "")
+                    LblErr = "Debe ingresar la cantidad de notas autorizadas";
+                else
+                    LblErr = LblErr + ", debe ingresar la cantidad de notas autorizadas";
+                HayError = true;
+            }
+            if ((Convert.ToInt32(TxtCantidadAutorizadas.Text) > 10) && ((CboTipoUsuario.SelectedValue == "") || (CboTipoUsuario.SelectedValue == "0")))
+            {
+                if (LblErr == "")
+                    LblErr = "Debe seleccionar el tipo de usuario";
+                else
+                    LblErr = LblErr + ", debe seleccionar el tipo de usuario";
+                HayError = true;
+            }
+            if (TxtOtrasReco.Text == "")
+            {
+                if (LblErr == "")
+                    LblErr = "Debe ingresar otras recomendaciones";
+                else
+                    LblErr = LblErr + ", debe ingresar otras recomendaciones";
+                HayError = true;
+            }
+            string MensajeEtapa = "";
+            if (ValidaEtapas(ref MensajeEtapa) == false)
+            {
+                if (LblErr == "")
+                    LblErr = MensajeEtapa;
+                else
+                    LblErr = LblErr + ", " + MensajeEtapa;
+                HayError = true;
+            }
+            if (HayError == true)
+            {
+                LblErrDictamenGen.Text = LblErr;
+                DivErrDictamenGen.Visible = true;
+                return false;
+            }
+            else
+            {
+                
+                return true;
+            }
+                
+            
+        }
+
+        bool ValidaEtapas(ref string Mensaje)
+        {
+            bool Valido = true;
+            for (int i = 0; i < GrdEtapa.Items.Count; i++)
+            {
+                RadDatePicker TxtFecIni = ((RadDatePicker)GrdEtapa.Items[i].FindControl("TxtFecIni"));
+                if (TxtFecIni.DateInput.Text == "")
+                {
+                    if (Mensaje == "")
+                        Mensaje = "No ha ingresado todas las fechas de inicio de las etapas";
+                    else
+                        Mensaje = Mensaje + "No ha ingresado todas las fechas de inicio de las etapas";
+                    Valido = false;
+                    break;
+                }
+                RadDatePicker TxtFecFin = ((RadDatePicker)GrdEtapa.Items[i].FindControl("TxtFecFin"));
+                if (TxtFecFin.DateInput.Text == "")
+                {
+                    if (Mensaje == "")
+                        Mensaje = "No ha ingresado todas las fechas de finalización de las etapas";
+                    else
+                        Mensaje = Mensaje + "No ha ingresado todas las fechas de finalización de las etapas";
+                    Valido = false;
+                    break;
+
+                }
+                if ((TxtFecFin.DateInput.Text != "") && (TxtFecFin.SelectedDate.Value.Day != 31) || (TxtFecFin.SelectedDate.Value.Month != 10))
+                {
+                    if (Mensaje == "")
+                        Mensaje = "La fecha de finalización debe ser el 31 de Octubre";
+                    else
+                        Mensaje = Mensaje + " la fecha de finalización debe ser el 31 de Octubre";
+                    Valido = false;
+                    break;
+                }
+            }
+            return Valido;
+        }
+
+        public void CboTipoUsuario_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            if (CboTipoUsuario.SelectedValue == "1")
+            {
+                TxtNotasEntregar.Text = Math.Round(((Convert.ToDouble(TxtCantidadAutorizadas.Text) / 100)) * 75, 0).ToString();
+                TXtCantidadRestante.Text = (Convert.ToInt32(TxtCantidadAutorizadas.Text) - Convert.ToInt32(TxtNotasEntregar.Text)).ToString();
+            }
+            else if (CboTipoUsuario.SelectedValue == "2")
+            {
+                TxtNotasEntregar.Text = Math.Round(((Convert.ToDouble(TxtCantidadAutorizadas.Text) / 100)) * 50, 0).ToString();
+                TXtCantidadRestante.Text = (Convert.ToInt32(TxtCantidadAutorizadas.Text) - Convert.ToInt32(TxtNotasEntregar.Text)).ToString();
+            }
+            else if (CboTipoUsuario.SelectedValue == "3")
+            {
+                TxtNotasEntregar.Text = Math.Round(((Convert.ToDouble(TxtCantidadAutorizadas.Text) / 100)) * 25, 0).ToString();
+                TXtCantidadRestante.Text = (Convert.ToInt32(TxtCantidadAutorizadas.Text) - Convert.ToInt32(TxtNotasEntregar.Text)).ToString();
+            }
+            else
+            {
+                TxtNotasEntregar.Text = ((Convert.ToInt32(TxtCantidadAutorizadas.Text) / 100) * 100).ToString();
+                TXtCantidadRestante.Text = (Convert.ToInt32(TxtCantidadAutorizadas.Text) - Convert.ToInt32(TxtNotasEntregar.Text)).ToString();
+            }
+            
+        }
+
+        void GrdMaderaPie_PreRender(object sender, EventArgs e)
+        {
+            foreach (GridDataItem item in this.GrdMaderaPie.Items)
+            {
+                if (item.OwnerTableView.Name == "LabelsResumen")
+                {
+                    GridTableView ownerTableView = item.OwnerTableView;
+                    for (int i = ownerTableView.Items.Count - 2; i >= 0; i--)
+                    {
+                        GridDataItem item2 = ownerTableView.Items[i];
+                        GridDataItem item3 = ownerTableView.Items[i + 1];
+                        if (item2["Rodal"].Text == item3["Rodal"].Text)
+                        {
+                            item2["Rodal"].RowSpan = (item3["Rodal"].RowSpan < 2) ? 2 : (item3["Rodal"].RowSpan + 1);
+                            item3["Rodal"].Visible = false;
+                        }
+                    }
+                }
+            }
+        }
+
+        void GrdMaderaPie_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            TxtTotMaderaPie.Text = "";
+            
+            if ((e.Item.ItemType == GridItemType.Item) || (e.Item.ItemType == GridItemType.AlternatingItem))
+            {
+                int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                GridDataItem item = e.Item as GridDataItem;
+                DataSet DsDatosExtrae = ClManejo.Get_Dato_Silvicultura_Extrae_PlanManejo(GestionId, Convert.ToInt32(item.GetDataKeyValue("Correlativo")));
+                if (DsDatosExtrae.Tables["Datos"].Rows.Count > 0)
+                {
+                    item["Turno"].Text = DsDatosExtrae.Tables["Datos"].Rows[0]["Turno"].ToString();
+                    item["VolTroza"].Text = DsDatosExtrae.Tables["Datos"].Rows[0]["VolTroza"].ToString();
+                    item["VolLena"].Text = DsDatosExtrae.Tables["Datos"].Rows[0]["VolLena"].ToString();
+                    item["VolTotal"].Text = DsDatosExtrae.Tables["Datos"].Rows[0]["VolTotal"].ToString();
+                    DataSet ValorMadera = ClEspecie.Valor_MaderaPie_Especie(Convert.ToInt32(item.GetDataKeyValue("EspecieId")), GestionId);
+                    if (ValorMadera.Tables["Datos"].Rows.Count > 0)
+                    {
+                        item["ValTroza"].Text = (Convert.ToDouble(item["VolTroza"].Text) * Convert.ToDouble(ValorMadera.Tables["Datos"].Rows[0]["VolTroza"])).ToString();
+                        item["ValLena"].Text = (Convert.ToDouble(item["VolLena"].Text) * Convert.ToDouble(ValorMadera.Tables["Datos"].Rows[0]["VolLena"])).ToString();
+                        item["ValPagar"].Text = (Convert.ToDouble(item["ValLena"].Text) + Convert.ToDouble(item["ValTroza"].Text)).ToString();
+                        item["PorPagar"].Text = (((Convert.ToDouble(item["ValPagar"].Text) / 100) * 10)).ToString();
+                        Total = Total + ((Convert.ToDouble(item["ValPagar"].Text) / 100) * 10);
+                    }
+                    else
+                    {
+                        item["ValTroza"].Text = "0";
+                        item["ValLena"].Text = "0";
+                        item["ValPagar"].Text = "0";
+                        item["PorPagar"].Text = "0";
+                    }
+                    ValorMadera.Clear();
+                }
+            }
+            TxtTotMaderaPie.Text = Total.ToString();
+        }
+
+        void GrdMaderaPie_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+            ClUtilitarios.LlenaGrid(ClManejo.Get_Resumen_Censo(2, Convert.ToInt32(GestionId)), GrdMaderaPie);
+        }
+
+        void CboGarantia_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            DataSet DsGarantia = ClCatalogos.Sp_Get_Monto_Garantia(Convert.ToInt32(CboGarantia.SelectedValue));
+            TxtMonto.Text = (Convert.ToInt32(TxtAreaCompromiso.Text) * Convert.ToDouble(DsGarantia.Tables["Datos"].Rows[0]["Valor_Hectaria"])).ToString();
+            TxtPorcentajeGarantia.Text = DsGarantia.Tables["Datos"].Rows[0]["Porcentaje"].ToString();
+            DsGarantia.Clear();
+        }
+
+        void GrdEtapa_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+            ClUtilitarios.LlenaGrid(ClManejo.Get_Etapas_Compromiso(GestionId), GrdEtapa);
+        }
+
+        void GrdSilvicultural_PreRender(object sender, EventArgs e)
+        {
+            foreach (GridDataItem item in this.GrdSilvicultural.Items)
+            {
+                if (item.OwnerTableView.Name == "LabelsResumen")
+                {
+                    GridTableView ownerTableView = item.OwnerTableView;
+                    for (int i = ownerTableView.Items.Count - 2; i >= 0; i--)
+                    {
+                        GridDataItem item2 = ownerTableView.Items[i];
+                        GridDataItem item3 = ownerTableView.Items[i + 1];
+                        if (item2["Rodal"].Text == item3["Rodal"].Text)
+                        {
+                            item2["Rodal"].RowSpan = (item3["Rodal"].RowSpan < 2) ? 2 : (item3["Rodal"].RowSpan + 1);
+                            item3["Rodal"].Visible = false;
+
+                            item2["AreaRodal"].RowSpan = (item3["AreaRodal"].RowSpan < 2) ? 2 : (item3["AreaRodal"].RowSpan + 1);
+                            item3["AreaRodal"].Visible = false;
+                            item2["Edad"].RowSpan = (item3["Edad"].RowSpan < 2) ? 2 : (item3["Edad"].RowSpan + 1);
+                            item3["Edad"].Visible = false;
+                        }
+                    }
+                }
+            }
+        }
+
+        void GrdSilvicultural_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+
+            if ((e.Item.ItemType == GridItemType.Item) || (e.Item.ItemType == GridItemType.AlternatingItem))
+            {
+                int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                GridDataItem item = e.Item as GridDataItem;
+                DataSet DsDatosExtrae = ClManejo.Get_Dato_Silvicultura_Extrae_PlanManejo(GestionId,Convert.ToInt32(item.GetDataKeyValue("Correlativo")));
+                if (DsDatosExtrae.Tables["Datos"].Rows.Count > 0)
+                {
+                    item["Turno"].Text = DsDatosExtrae.Tables["Datos"].Rows[0]["Turno"].ToString();
+                    item["Tratamiento"].Text = DsDatosExtrae.Tables["Datos"].Rows[0]["Tratamiento"].ToString();
+                    item["Otro"].Text = DsDatosExtrae.Tables["Datos"].Rows[0]["Otro"].ToString();
+                    item["VolTroza"].Text = DsDatosExtrae.Tables["Datos"].Rows[0]["VolTroza"].ToString();
+                    item["VolLena"].Text = DsDatosExtrae.Tables["Datos"].Rows[0]["VolLena"].ToString();
+                    item["VolTotal"].Text = DsDatosExtrae.Tables["Datos"].Rows[0]["VolTotal"].ToString();
+                }
+            }
+        }
+
+        void GrdSilvicultural_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+            ClUtilitarios.LlenaGrid(ClManejo.Get_Resumen_Censo(2, Convert.ToInt32(GestionId)), GrdSilvicultural);
+        }
+
+        void GrdBoleta_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+            ClUtilitarios.LlenaGrid(ClManejo.Get_Boleta_Dictamen_Tecnico(GestionId), GrdBoleta);
+
+        }
+
+        bool ValidaCargaboleta()
+        {
+            LblErrCargaCenso.Text = "";
+            DivErrCargaCenso.Visible = false;
+            DivGoodCargaCenso.Visible = false;
+            bool HayError = false;
+            if (CboTipoInventario.SelectedValue == "")
+            {
+                if (LblErrCargaCenso.Text == "")
+                    LblErrCargaCenso.Text = LblErrCargaCenso.Text + "Debe Seleccionar el tipo de Inventario";
+                else
+                    LblErrCargaCenso.Text = LblErrCargaCenso.Text + ", debe Seleccionar el tipo de Inventario";
+                HayError = true;
+            }
+            if (HayError == true)
+            {
+                DivErrCargaCenso.Visible = true;
+                return false;
+            }
+
+            else
+                return true;
+        }
+
+        void BtnCargarBoleta_ServerClick(object sender, EventArgs e)
+        {
+            if (ValidaCargaboleta() == true)
+            {
+                try
+                {
+                    Stream stream = RadUploadBoleta.UploadedFiles[0].InputStream;
+                    IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+                    excelReader.IsFirstRowAsColumnNames = true;
+                    resultXls = excelReader.AsDataSet();
+                    int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                    ClManejo.Elimina_Boleta_Dictamen_Tecnico(GestionId);
+                    XmlDocument iInformacionBoleta = ClXml.CrearDocumentoXML("Boleta");
+                    XmlNode iElementosBoleta = iInformacionBoleta.CreateElement("Boleta");
+                    foreach (DataRow iDtRow in resultXls.Tables[0].Rows)
+                    {
+                        if (iDtRow["Rodal"].ToString() != "")
+                        {
+                            if (Convert.ToInt32(ClManejo.Existe_Especie(iDtRow["NOMBRE_CIENTIFICO"].ToString())) > 0)
+                            {
+                                int X = 0;
+                                int Y = 0;
+                                if (Convert.ToInt32(iDtRow["X"].ToString().Length) > 0)
+                                    X = Convert.ToInt32(iDtRow["X"]);
+                                if (Convert.ToInt32(iDtRow["Y"].ToString().Length) > 0)
+                                    Y = Convert.ToInt32(iDtRow["Y"]);
+
+                                XmlNode iElementoDetalleBoleta = iInformacionBoleta.CreateElement("Item");
+
+                                if (CboTipoInventario.SelectedValue == "1")
+                                {
+                                    ClXml.AgregarAtributo("Turno", Convert.ToInt32(iDtRow["Turno"]), iElementoDetalleBoleta);
+                                    iElementosBoleta.AppendChild(iElementoDetalleBoleta);
+                                }
+                                else
+                                {
+                                    ClXml.AgregarAtributo("Turno", 0, iElementoDetalleBoleta);
+                                    iElementosBoleta.AppendChild(iElementoDetalleBoleta);
+                                }
+                                ClXml.AgregarAtributo("Rodal", Convert.ToInt32(iDtRow["Rodal"]), iElementoDetalleBoleta);
+                                iElementosBoleta.AppendChild(iElementoDetalleBoleta);
+                                ClXml.AgregarAtributo("No", Convert.ToInt32(iDtRow["No"]), iElementoDetalleBoleta);
+                                iElementosBoleta.AppendChild(iElementoDetalleBoleta);
+                                ClXml.AgregarAtributo("Dap", Convert.ToInt32(iDtRow["Dap"]), iElementoDetalleBoleta);
+                                iElementosBoleta.AppendChild(iElementoDetalleBoleta);
+                                ClXml.AgregarAtributo("Altura", Convert.ToInt32(iDtRow["Altura"]), iElementoDetalleBoleta);
+                                iElementosBoleta.AppendChild(iElementoDetalleBoleta);
+                                int EspecieId = ClEspecie.Get_EspecieId(iDtRow["NOMBRE_CIENTIFICO"].ToString());
+                                ClXml.AgregarAtributo("EspecieId", EspecieId, iElementoDetalleBoleta);
+                                iElementosBoleta.AppendChild(iElementoDetalleBoleta);
+                                ClXml.AgregarAtributo("Troza", Convert.ToDouble(iDtRow["%_TROZA"]), iElementoDetalleBoleta);
+                                iElementosBoleta.AppendChild(iElementoDetalleBoleta);
+                                ClXml.AgregarAtributo("X", X, iElementoDetalleBoleta);
+                                iElementosBoleta.AppendChild(iElementoDetalleBoleta);
+                                ClXml.AgregarAtributo("Y", Y, iElementoDetalleBoleta);
+                                iElementosBoleta.AppendChild(iElementoDetalleBoleta);
+                                ClXml.AgregarAtributo("Volumen", Y, iElementoDetalleBoleta);
+                                iElementosBoleta.AppendChild(iElementoDetalleBoleta);
+                                double VolumenTroza = ClEspecie.Get_Volumen_Especie_Boleta(EspecieId, Convert.ToDouble(iDtRow["Dap"]), Convert.ToDouble(iDtRow["Altura"]));
+                                ClXml.AgregarAtributo("Volumen", VolumenTroza, iElementoDetalleBoleta);
+                                iElementosBoleta.AppendChild(iElementoDetalleBoleta);
+                                
+                                
+                                if (CboTipoInventario.SelectedValue == "1")
+                                {
+                                    ClXml.AgregarAtributo("Parcela", 0, iElementoDetalleBoleta);
+                                    iElementosBoleta.AppendChild(iElementoDetalleBoleta);
+                                }
+                                else
+                                {
+                                    ClXml.AgregarAtributo("Parcela", Convert.ToInt32(iDtRow["Parcela"]), iElementoDetalleBoleta);
+                                    iElementosBoleta.AppendChild(iElementoDetalleBoleta);
+                                }
+                                iInformacionBoleta.ChildNodes[1].AppendChild(iElementosBoleta);
+                            }
+
+                        }
+
+                    }
+                    ClManejo.InsertBoleta_Dictamen_Tecnico(GestionId, iInformacionBoleta);
+                    DivGoodCargaCenso.Visible = true;
+                    LblGoodCargaCenso.Text = "Archivo Cargado exitosamente";
+                }
+                catch (Exception ex)
+                {
+                    String iM = ex.Message;
+
+                    //pMensaje();
+
+                }
+            }
+        }
+
+        void 
+            CboDictamina_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            if (CboDictamina.SelectedValue == "1")
+            {
+                DivAprueba.Visible = true;
+                DivAprueba2.Visible = true;
+                DivAprueba3.Visible = true;
+                DivAprueba4.Visible = true;
+                DivAprueba5.Visible = true;
+                DivAprueba6.Visible = true;
+                DivAprueba7.Visible = true;
+                DivAprueba8.Visible = true;
+                DivAprueba9.Visible = true;
+                DivAprueba10.Visible = true;
+                
+                DivAprueba13.Visible = true;
+                GrdSilvicultural.Rebind();
+                CargaDatosAprueba();
+                GrdEtapa.Rebind();
+                GrdMaderaPie.Rebind();
+            }
+            else
+            {
+                DivAprueba.Visible = false;
+                DivAprueba2.Visible = false;
+                DivAprueba3.Visible = false;
+                DivAprueba4.Visible = false;
+                DivAprueba5.Visible = false;
+                DivAprueba6.Visible = false;
+                DivAprueba7.Visible = false;
+                DivAprueba8.Visible = false;
+                DivAprueba9.Visible = false;
+                DivAprueba10.Visible = false;
+                DivAprueba11.Visible = false;
+                DivAprueba12.Visible = false;
+                DivAprueba13.Visible = false;
+            }
+            DivDictamen.Visible = true;
+        }
+
+
+        void GrdResumen_PreRender(object sender, EventArgs e)
+        {
+            foreach (GridDataItem item in this.GrdResumen.Items)
+            {
+                if (item.OwnerTableView.Name == "LabelsResumen")
+                {
+                    GridTableView ownerTableView = item.OwnerTableView;
+                    for (int i = ownerTableView.Items.Count - 2; i >= 0; i--)
+                    {
+                        GridDataItem item2 = ownerTableView.Items[i];
+                        GridDataItem item3 = ownerTableView.Items[i + 1];
+                        if (item2["Rodal"].Text == item3["Rodal"].Text)
+                        {
+                            item2["Rodal"].RowSpan = (item3["Rodal"].RowSpan < 2) ? 2 : (item3["Rodal"].RowSpan + 1);
+                            item3["Rodal"].Visible = false;
+
+                            item2["AreaRodal"].RowSpan = (item3["AreaRodal"].RowSpan < 2) ? 2 : (item3["AreaRodal"].RowSpan + 1);
+                            item3["AreaRodal"].Visible = false;
+                            item2["Clase_Desarrollo"].RowSpan = (item3["Clase_Desarrollo"].RowSpan < 2) ? 2 : (item3["Clase_Desarrollo"].RowSpan + 1);
+                            item3["Clase_Desarrollo"].Visible = false;
+                            item2["Edad"].RowSpan = (item3["Edad"].RowSpan < 2) ? 2 : (item3["Edad"].RowSpan + 1);
+                            item3["Edad"].Visible = false;
+                            
+                            
+                            item2["Pendiente"].RowSpan = (item3["Pendiente"].RowSpan < 2) ? 2 : (item3["Pendiente"].RowSpan + 1);
+                            item3["Pendiente"].Visible = false;
+                            item2["INC"].RowSpan = (item3["INC"].RowSpan < 2) ? 2 : (item3["INC"].RowSpan + 1);
+                            item3["INC"].Visible = false;
+                            
+
+                        }
+                    }
+                }
+            }
+        }
+
+        void GrdResumen_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+            ClUtilitarios.LlenaGrid(ClManejo.Get_Resumen_Censo(2, Convert.ToInt32(GestionId)), GrdResumen);
+        }
+
+        void CboTipoInventario_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            if (CboTipoInventario.SelectedValue == "1")
+            {
+                DivEvalCenso.Visible = true;
+                DivEvalMuestreo.Visible = false;
+                LbltitPanCenso.Text = "Censo";
+                LblCargueCenso.Text = "Cargue el Censo";
+            }
+            else if (CboTipoInventario.SelectedValue == "2")
+            {
+                DivEvalCenso.Visible = true;
+                DivEvalMuestreo.Visible  = true;
+                LbltitPanCenso.Text = "Muestreo";
+                LblCargueCenso.Text = "Cargue el Muestreo";
+            }
+            else
+            {
+                DivEvalCenso.Visible = false;
+                DivEvalMuestreo.Visible = false;
             }
         }
 
@@ -139,7 +850,7 @@ namespace SEGEFOR.WebForms
                     Ds_Gestiones Ds_Enmiendas_Tec = new Ds_Gestiones();
                     Ds_Enmiendas_Tec.Tables["Dt_EnmiendasTec"].Clear();
                     int ModuloId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true));
-                    int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(GestionId, 2);
+                    int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(GestionId, 2, ModuloId);
                     int CategoriaId = ClGestion.Get_CategoriaManejoId(SubCategoriaId);
                     string Solicitante = "";
                     Solicitante = ClGestion.Get_Propietarios_Manejo(GestionId);
@@ -310,11 +1021,50 @@ namespace SEGEFOR.WebForms
             ClUtilitarios.LlenaGrid(ClManejo.GetFincaPlanManejoPol(GestionId, 2), GrdInmuebles);
         }
 
+        void CargaDatosAprueba()
+        {
+            int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+            TxtAreaCompromiso.Text = ClManejo.Get_Compromiso_Area(GestionId).ToString();
+            string Especies = "";
+            DataSet EspeciesCompromiso = ClManejo.Get_Especies_Compromiso(GestionId);
+            for (int i = 0; i < EspeciesCompromiso.Tables["Datos"].Rows.Count; i++)
+            {
+                if (Especies == "")
+                    Especies = EspeciesCompromiso.Tables["Datos"].Rows[i]["Codigo_Especie"].ToString();
+                else
+                    Especies = Especies + ", " + EspeciesCompromiso.Tables["Datos"].Rows[i]["Codigo_Especie"].ToString();
+            }
+            EspeciesCompromiso.Clear();
+            TxtEspeciesCompromiso.Text = Especies;
+            TxtDensidadInicial.Text = ClManejo.Get_DensidadIni_Compromiso(GestionId).ToString();
+            string SistemaRepoblacionText = "";
+            DataSet SistemaRepoblacion = ClManejo.Get_SistemaRepoblacion_Compromiso(GestionId);
+            for (int i = 0; i < SistemaRepoblacion.Tables["Datos"].Rows.Count; i++)
+            {
+                if (SistemaRepoblacionText == "")
+                    SistemaRepoblacionText = SistemaRepoblacion.Tables["Datos"].Rows[i]["SistemaRepoblacion"].ToString();
+                else
+                    SistemaRepoblacionText = SistemaRepoblacionText + ", " + SistemaRepoblacion.Tables["Datos"].Rows[i]["SistemaRepoblacion"].ToString();
+            }
+            SistemaRepoblacion.Clear();
+            TxtSistemaRepoblacion.Text = SistemaRepoblacionText;
+            TxtLugarFinca.Text = ClGestion.GetDatosFinca_Gestion_Juntos(GestionId);
+            DataSet Garantia = ClManejo.Get_TipoGarantiaPlanManejo(GestionId);
+            CboGarantia.SelectedValue = Garantia.Tables["Datos"].Rows[0]["Tipo_GarantiaId"].ToString();
+            CboGarantia.Text = Garantia.Tables["Datos"].Rows[0]["Tipo_Garantia"].ToString();
+            Garantia.Clear();
+            DataSet DsGarantia = ClCatalogos.Sp_Get_Monto_Garantia(Convert.ToInt32(CboGarantia.SelectedValue));
+            TxtMonto.Text = (Convert.ToInt32(TxtAreaCompromiso.Text) * Convert.ToDouble(DsGarantia.Tables["Datos"].Rows[0]["Valor_Hectaria"])).ToString();
+            TxtPorcentajeGarantia.Text = DsGarantia.Tables["Datos"].Rows[0]["Porcentaje"].ToString();
+            DsGarantia.Clear();
+
+        }
+
         void CargaInforGeneral()
         {
             int ModuloId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true));
             int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
-            int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(GestionId, 2);
+            int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(GestionId, 2, ModuloId);
             int CategoriaId = ClGestion.Get_CategoriaManejoId(SubCategoriaId);
             lblTipoPlan.InnerText = ClGestion.Get_SubCategoriaManejo(SubCategoriaId);
             string Solicitante = ClGestion.Get_Propietarios_Manejo(GestionId);
@@ -430,7 +1180,7 @@ namespace SEGEFOR.WebForms
             else if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 2)
             {
                 RadWindow1.Title = "Plan de Manejo Forestal";
-                int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 2);
+                int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 2, 2);
                 int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
                 RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_PlanManejoForestal.aspx?identificateur=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionId.ToString(), true)) + "&source=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("2", true)) + "&souscategorie=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(SubCategoriaId.ToString(), true)) + "";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
@@ -477,5 +1227,7 @@ namespace SEGEFOR.WebForms
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Open Signature.aspx", js, true);
             }
         }
+
+
     }
 }

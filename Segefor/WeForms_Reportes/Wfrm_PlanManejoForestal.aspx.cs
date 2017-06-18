@@ -64,6 +64,7 @@ namespace SEGEFOR.WeForms_Reportes
                 Reporte.Subreports[19].SetDataSource(SubReportes);
                 Reporte.Subreports[20].SetDataSource(SubReportes);
                 Reporte.Subreports[21].SetDataSource(SubReportes);
+                Reporte.Subreports[22].SetDataSource(SubReportes);
             }
             else
             {

@@ -265,6 +265,7 @@ namespace SEGEFOR.WebForms
             BtnGrabarAnalisis.ServerClick += BtnGrabarAnalisis_ServerClick;
             CboTipoActividad.SelectedIndexChanged += CboTipoActividad_SelectedIndexChanged;
             CboActividad.SelectedIndexChanged += CboActividad_SelectedIndexChanged;
+            
 
             if (Session["UsuarioId"] == null)
             {
@@ -321,7 +322,7 @@ namespace SEGEFOR.WebForms
                 }
                 TxtAsignacionId.Text = ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["affectation"].ToString()), true);
                 GrdActividades.Rebind();
-                int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text),1);
+                int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text),1,2);
                 ConfiguraPlanManejo(SubCategoriaId);
                 ClUtilitarios.LlenaCombo(ClCatalogos.TipoDoc_Propiedad_GetAll(), CboTipoDocumento, "TipoDoc_PropiedadId", "TipoDocPropiedad");
                 ClUtilitarios.AgregarSeleccioneCombo(CboTipoDocumento, "Tipo de Documento");
@@ -1022,7 +1023,6 @@ namespace SEGEFOR.WebForms
 
         void CboEtapa_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            TxtAreaRepo.Text = "";
             TxtTrataminetoRepo.Text = "";
             TxtAnisRepo.Text = "";
         }
@@ -1038,17 +1038,21 @@ namespace SEGEFOR.WebForms
                     {
                         GridDataItem item2 = ownerTableView.Items[i];
                         GridDataItem item3 = ownerTableView.Items[i + 1];
-                        if ((item2["Turno"].Text == item3["Turno"].Text) && (item2["Rodal"].Text == item3["Rodal"].Text) && (item2["EtapaRepo"].Text == item3["EtapaRepo"].Text))
+                        if ((item2["Turno"].Text == item3["Turno"].Text) && (item2["Rodal"].Text == item3["Rodal"].Text) && (item2["Area"].Text == item3["Area"].Text))
                         {
 
+                            item2["Turno"].RowSpan = (item3["Turno"].RowSpan < 2) ? 2 : (item3["Turno"].RowSpan + 1);
+                            item3["Turno"].Visible = false;
+                            item2["Rodal"].RowSpan = (item3["Rodal"].RowSpan < 2) ? 2 : (item3["Rodal"].RowSpan + 1);
+                            item3["Rodal"].Visible = false;
                             item2["Area"].RowSpan = (item3["Area"].RowSpan < 2) ? 2 : (item3["Area"].RowSpan + 1);
                             item3["Area"].Visible = false;
 
-                            item2["Tratamiento"].RowSpan = (item3["Tratamiento"].RowSpan < 2) ? 2 : (item3["Tratamiento"].RowSpan + 1);
-                            item3["Tratamiento"].Visible = false;
+                            //item2["Tratamiento"].RowSpan = (item3["Tratamiento"].RowSpan < 2) ? 2 : (item3["Tratamiento"].RowSpan + 1);
+                            //item3["Tratamiento"].Visible = false;
                             
-                            item2["Anis"].RowSpan = (item3["Anis"].RowSpan < 2) ? 2 : (item3["Anis"].RowSpan + 1);
-                            item3["Anis"].Visible = false;
+                            //item2["Anis"].RowSpan = (item3["Anis"].RowSpan < 2) ? 2 : (item3["Anis"].RowSpan + 1);
+                            //item3["Anis"].Visible = false;
 
                             
 
@@ -2092,10 +2096,13 @@ namespace SEGEFOR.WebForms
             }
             dsDatosCalculosCompromiso.Clear();
             double TotalAreaRepoMEtodo = 0;
-            for (int i = 0; i < GrdEspeciesRepoblacion.Items.Count; i++)
+            DataSet dsAreaSistema_Repoblacion_Especie = ClManejo.Suma_Sistema_Repoblacion_Especie(Convert.ToInt32(TxtAsignacionId.Text));
+
+            for (int i = 0; i < dsAreaSistema_Repoblacion_Especie.Tables["Datos"].Rows.Count; i++)
             {
-                TotalAreaRepoMEtodo = Math.Round(TotalAreaRepoMEtodo + Convert.ToDouble(GrdEspeciesRepoblacion.Items[i].GetDataKeyValue("AreaRepo")),2);
+                TotalAreaRepoMEtodo = Math.Round(TotalAreaRepoMEtodo + Convert.ToDouble(dsAreaSistema_Repoblacion_Especie.Tables["Datos"].Rows[i]["Area"]), 2);
             }
+            dsAreaSistema_Repoblacion_Especie.Clear();
             if (TxtAreaCompromiso.Text == "")
             {
                 if (lblMensajeErrorGen.Text == "")
@@ -2220,49 +2227,56 @@ namespace SEGEFOR.WebForms
 
         bool LasDosEtapadaSistemaRepo()
         {
-            bool NoHayEtapa = true;
+            DivErrEspeciesRepo.Visible = false;
+            bool NoHayEtapaGen = true;
+            bool ErrGeneral = false;
             int TurnoActual = 0;
             int RodalActual = 0;
-            int EtapaActual = 0;
-            int EtapaBuscar = 1;
-            string EtapaBuscarDesc = "";
+            string EtapaFaltante = "";
             for (int i = 0; i < GrdEspeciesRepoblacion.Items.Count; i++)
             {
                 TurnoActual = Convert.ToInt32(GrdEspeciesRepoblacion.Items[i].GetDataKeyValue("TurnoRepo"));
                 RodalActual = Convert.ToInt32(GrdEspeciesRepoblacion.Items[i].GetDataKeyValue("RodalRepo"));
-                EtapaActual = Convert.ToInt32(GrdEspeciesRepoblacion.Items[i].GetDataKeyValue("EtapaIdRepo"));
-                if (EtapaActual == 1)
+                for (int j = 1; j < 5; j++)
                 {
-                    EtapaBuscar = 2;
-                    EtapaBuscarDesc = "Mantenimiento";
-                }
-                else
-                {
-                    EtapaBuscar = 1;
-                    EtapaBuscarDesc = "Establecimiento";
-                }
-
-                for (int j = 0; j < GrdEspeciesRepoblacion.Items.Count; j++)
-                {
-                    if ((TurnoActual == Convert.ToInt32(GrdEspeciesRepoblacion.Items[j].GetDataKeyValue("TurnoRepo"))) && (RodalActual == Convert.ToInt32(GrdEspeciesRepoblacion.Items[j].GetDataKeyValue("RodalRepo"))) && (EtapaBuscar == Convert.ToInt32(GrdEspeciesRepoblacion.Items[j].GetDataKeyValue("EtapaIdRepo"))))
+                    for (int k = 0; k < GrdEspeciesRepoblacion.Items.Count; k++)
                     {
-                        NoHayEtapa = false;
+                        if ((TurnoActual == Convert.ToInt32(GrdEspeciesRepoblacion.Items[k].GetDataKeyValue("TurnoRepo"))) && (RodalActual == Convert.ToInt32(GrdEspeciesRepoblacion.Items[k].GetDataKeyValue("RodalRepo"))) && (j == Convert.ToInt32(GrdEspeciesRepoblacion.Items[k].GetDataKeyValue("EtapaIdRepo"))))
+                        {
+                            NoHayEtapaGen = false;
+                            ErrGeneral = false;
+                            DivErrEspeciesRepo.Visible = false;
+                            break;
+                        }
+                        else
+                        {
+                            NoHayEtapaGen = true;
+                            if (j == 1)
+                                EtapaFaltante = "Establecimiento";
+                            else if (j == 2)
+                                EtapaFaltante = "Mantenimiento 1";
+                            else if (j == 3)
+                                EtapaFaltante = "Mantenimiento 2";
+                            else if (j == 4)
+                                EtapaFaltante = "Mantenimiento 3";
+                            ErrGeneral = true;
+                        }
+                        if (ErrGeneral == true)
+                        {
+                            DivErrEspeciesRepo.Visible = true;
+                            LblErrEspeciesRepo.Text = "Al Turno: " + GrdEspeciesRepoblacion.Items[i].GetDataKeyValue("TurnoRepo") + " y rodal: " + GrdEspeciesRepoblacion.Items[i].GetDataKeyValue("RodalRepo") + " falta ingrese la etapa de: " + EtapaFaltante;
+                            ErrGeneral = true;
+                        }
+                            
+                    }
+                    if (ErrGeneral == true)
                         break;
-                    }
-                    else
-                    {
-                        NoHayEtapa = true;
-                    }
                 }
-                if (NoHayEtapa == true)
-                {
-                    DivErrEspeciesRepo.Visible = true;
-                    LblErrEspeciesRepo.Text = "Al Turno: " + GrdEspeciesRepoblacion.Items[i].GetDataKeyValue("TurnoRepo") + " y rodal: " + GrdEspeciesRepoblacion.Items[i].GetDataKeyValue("RodalRepo") + " falta ingrese la etapa de: " + EtapaBuscarDesc;
+                if (ErrGeneral == true)
                     break;
-                }
             }
-            
-            return NoHayEtapa;
+
+            return NoHayEtapaGen;
         }
 
         void BtnSaveEspeciesRepo_ServerClick(object sender, EventArgs e)
@@ -2997,9 +3011,9 @@ namespace SEGEFOR.WebForms
                                     TxtVolTroza.Style.Add("color ", "Red");
                                     TxTVolLena.Style.Add("color ", "Red");
                                     if (Error == "")
-                                        Error = "La sumatoria de volumenes de la especie " + GrdSilvicultural.Items[i].GetDataKeyValue("Nombre_Cientifico") + " supera el volumen total";
+                                        Error = "La sumatoria de volúmenes de la especie " + GrdSilvicultural.Items[i].GetDataKeyValue("Nombre_Cientifico") + " es diferente volumen total";
                                     else
-                                        Error = Error + ", La sumatoria de volumenes de la especie " + GrdSilvicultural.Items[i].GetDataKeyValue("Nombre_Cientifico") + " supera el volumen total";
+                                        Error = Error + ", La sumatoria de volúmenes de la especie " + GrdSilvicultural.Items[i].GetDataKeyValue("Nombre_Cientifico") + " es diferente al volumen total";
                                     Valido = false;
                                 }
                                 else
@@ -3019,9 +3033,9 @@ namespace SEGEFOR.WebForms
                                     TxtVolTroza.Style.Add("color ", "Red");
                                     TxTVolLena.Style.Add("color ", "Red");
                                     if (Error == "")
-                                        Error = "La sumatoria de volumenes de la especie " + GrdSilvicultural.Items[i].GetDataKeyValue("Nombre Cientifico") + " no puede ser mayor o igual que el volumen total";
+                                        Error = "La sumatoria de volúmenes de la especie " + GrdSilvicultural.Items[i].GetDataKeyValue("Nombre Cientifico") + " no puede ser mayor o igual que el volumen total";
                                     else
-                                        Error = Error + ", La sumatoria de volumenes de la especie " + GrdSilvicultural.Items[i].GetDataKeyValue("Nombre Cientifico") + " no puede ser mayor o igual que el volumen total";
+                                        Error = Error + ", La sumatoria de volúmenes de la especie " + GrdSilvicultural.Items[i].GetDataKeyValue("Nombre Cientifico") + " no puede ser mayor o igual que el volumen total";
                                     Valido = false;
                                 }
                                 else
@@ -4397,7 +4411,7 @@ namespace SEGEFOR.WebForms
         void BtnVistaPrevia_Click(object sender, EventArgs e)
         {
             RadWindow1.Title = "Vista Previa Plan de Manejo Forestal";
-            int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text),1);
+            int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text),1,2);
             RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_PlanManejoForestal.aspx?identificateur=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(TxtAsignacionId.Text, true)) + "&source=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("1", true)) + "&souscategorie=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(SubCategoriaId.ToString(), true)) + "";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
         }
@@ -4659,7 +4673,7 @@ namespace SEGEFOR.WebForms
                 RadPagePlanificacionManejo.Visible = false;
                 RadPageProteccionForestal.Visible = true;
                 RadPageCronograma.Visible = false;
-                int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text),1);
+                int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text),1,2);
                 if (SubCategoriaId == 6)
                 {
                     decimal Area = ClManejo.Get_SumAreaIntervenir_AreaProteccion(Convert.ToInt32(TxtAsignacionId.Text));
@@ -5469,7 +5483,7 @@ namespace SEGEFOR.WebForms
             TxtPorEspecifiqueProteccion.Text = "";
             Ds_Temporal.Tables["Dt_PoligonoProteccion"].Clear();
             GrdPolProteccion.Rebind();
-            int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text),1);
+            int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text),1,2);
             if ((SubCategoriaId == 13) || (SubCategoriaId == 10))
                 ClUtilitarios.LlenaCombo(ClCatalogos.Listado_Tipo_Bosque(1), CboTipoBosque, "Tipo_BosqueId", "Tipo_Bosque");
             else if ((SubCategoriaId == 7) || (SubCategoriaId == 8))
@@ -5483,7 +5497,7 @@ namespace SEGEFOR.WebForms
 
         void GrabarAreas()
         {
-            int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text),1);
+            int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text),1,2);
             if (SubCategoriaId == 10)
             {
                 if (ValidaAreasPlanSanitario() == true)
@@ -5864,7 +5878,7 @@ namespace SEGEFOR.WebForms
             DataSet dsDatosAreas = ClManejo.GetAreasFinca_PlanManejo(Convert.ToInt32(TxtAsignacionId.Text), Convert.ToInt32(TxtInmuebleId.Text));
             if (dsDatosAreas.Tables["Datos"].Rows.Count > 0)
             {
-                int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text),1);
+                int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text),1,2);
                 if (SubCategoriaId == 10)
                 {
                     CboTipoBosque.SelectedValue = dsDatosAreas.Tables["Datos"].Rows[0]["Tipo_BosqueId"].ToString();
@@ -6310,7 +6324,7 @@ namespace SEGEFOR.WebForms
                 TxtAreaInmueble.Text = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["Area"].ToString();
                 LimpiarAreas();
                 RetornoAreas();
-                int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text),1);
+                int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text),1,2);
                 if (SubCategoriaId == 10)
                 {
                     DivAreaForestal.Visible = false;

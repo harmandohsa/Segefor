@@ -120,5 +120,71 @@ namespace SEGEFOR.Clases
             }
         }
 
+        public int Get_EspecieId(string Codigo_Especie)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Get_EspecieId", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Codigo_Especie", OleDbType.VarChar, 500).Value = Codigo_Especie;
+                cmd.Parameters.Add("@Resul", OleDbType.BigInt).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToInt32(cmd.Parameters["@Resul"].Value);
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
+
+        public double Get_Volumen_Especie_Boleta(int EspecieId, double Dap, double Altura)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Get_Volumen_Especie_Boleta", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@EspecieId", OleDbType.Integer).Value = EspecieId;
+                cmd.Parameters.Add("@Dap", OleDbType.Double).Value = Dap;
+                cmd.Parameters.Add("@Altura", OleDbType.Double).Value = Altura;
+                cmd.Parameters.Add("@Volumen", OleDbType.BigInt).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToDouble(cmd.Parameters["@Volumen"].Value);
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
+
+        public DataSet Valor_MaderaPie_Especie(int EspecieId, int GestionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Get_Valor_MaderaPie_Especie", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@EspecieId", OleDbType.Integer).Value = EspecieId;
+                cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
     }
 }

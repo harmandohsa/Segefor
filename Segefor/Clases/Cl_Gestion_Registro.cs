@@ -1184,6 +1184,8 @@ namespace SEGEFOR.Clases
             }
         }
 
+        
+
         public DataSet ImpresionAdmisionExpediente(int AdmisionGestionId, int SubCategoria)
         {
             int Categoria = Get_CategoriaRNFId(SubCategoria);
@@ -1742,7 +1744,7 @@ namespace SEGEFOR.Clases
                 }
                 else if (ModuloId == 2)
                 {
-                    int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(GestionId,2);
+                    int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(GestionId, 2, ModuloId);
                     int CategoriaId = Get_CategoriaManejoId(SubCategoriaId);
                     Ds_Dictamen_Juridico_Gestion.Tables["Dt_Dictamen_Juridico"].Rows[0]["Solicitud"] = "solicita inscripción del Plan de Manejo Forestal " + Get_SubCategoriaManejo(SubCategoriaId);
                     Ds_Dictamen_Juridico_Gestion.Tables["Dt_Dictamen_Juridico"].Rows[0]["Registro"] = "";
@@ -2638,7 +2640,7 @@ namespace SEGEFOR.Clases
                     string Asunto = Solicitante;
                     if (Convert.ToInt32(dsDatos.Tables["Datos"].Rows[0]["Representantes"]) > 0)
                         Asunto = Asunto + " representado por: " + Representantes;
-                    int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Id, 2);
+                    int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Id, 2, ModuloId);
 
                     Asunto = Asunto + " Solicita (n): aprobación de licencia de  " + Get_SubCategoriaManejo(SubCategoriaId) + " en";
                     Asunto = Asunto + Fincas;
@@ -5411,6 +5413,26 @@ namespace SEGEFOR.Clases
             }
         }
 
+        public string GetDatosFinca_Gestion_Juntos_SoloNombre(int GestionId)
+        {
+            try
+            {
+                cnSql.Open();
+                SqlCommand cmd = new SqlCommand("Sp_GetDatosFinca_Gestion_Juntos_SoloNombre", cnSql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", SqlDbType.Int).Value = GestionId;
+                cmd.Parameters.Add("@Resul", SqlDbType.VarChar, 8000).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cnSql.Close();
+                return cmd.Parameters["@Resul"].Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                cnSql.Close();
+                return "";
+            }
+        }
+
         public string GetNombresPropietarios_Gestion_Juntos(int GestionId, int Tipo)
         {
             try
@@ -5910,6 +5932,269 @@ namespace SEGEFOR.Clases
             {
                 cn.Close();
                 return false;
+            }
+        }
+
+        public DataSet ImpresionDictamenTecnio(int GestionId, int Tipo, int CategoriaId, DataSet DatosDictamen, DataSet DatosEtapa, int UsuarioId) //1VP 2Gestion
+        {
+            Cl_Manejo ClManejo;
+            ClManejo = new Cl_Manejo();
+            Cl_Especie ClEspecie;
+            ClEspecie = new Cl_Especie();
+
+            DataSet dsDataDicTec = Sp_Get_Datos_Dictamen_Tecnico(GestionId, Tipo, UsuarioId);
+            Ds_Gestiones Ds_DictamenTecnico = new Ds_Gestiones();
+            Ds_DictamenTecnico.Tables["Dt_Dictamen_Tecnico"].Clear();
+            DataRow row = Ds_DictamenTecnico.Tables["Dt_Dictamen_Tecnico"].NewRow();
+            if (dsDataDicTec.Tables[0].Rows.Count > 0)
+            {
+                row["Autoriza"] = DatosDictamen.Tables["DatosDictamen"].Rows[0]["DictamenId"].ToString(); 
+                row["NoSubRegion"] = dsDataDicTec.Tables[0].Rows[0]["Sub_Region"];
+                row["NoInforme"] = "";
+                row["LugarSubRegion"] = dsDataDicTec.Tables[0].Rows[0]["Municipio"] + ", " + dsDataDicTec.Tables[0].Rows[0]["Departamento"];
+                row["Fecha"] = DateTime.Now;
+                row["DirectorSubRegional"] = dsDataDicTec.Tables[0].Rows[0]["NombresSubRegional"];
+                int ModuloId = SP_Get_Modulo_Gestion(GestionId);
+                string Fincas = GetDatosFinca_Gestion_Juntos(GestionId);
+                string AgraegadoSol = "";
+                string Solicitante = "";
+                if (ModuloId == 2)
+                {
+                    Solicitante = Get_Propietarios_Manejo(GestionId);
+                    if (Tipo == 1)
+                        AgraegadoSol = Get_CompletaPropietarios(CategoriaId, GestionId, ModuloId);
+                    else
+                    {
+                        AgraegadoSol = Get_CompletaPropietarios(CategoriaId, GestionId, ModuloId);
+                    }
+
+                    if (AgraegadoSol != "")
+                        Solicitante = Solicitante + " " + AgraegadoSol + ".";
+                    else
+                        Solicitante = Solicitante + ".";
+                }
+
+                row["Solicitud"] = "Por este medio le informo de la inspección realizada en la finca (s)" + Fincas + " propiedad del (los) señor (a) (es) (as): " + Solicitante + " quien solicita Licencia de Manejo Forestal (" + dsDataDicTec.Tables[1].Rows[0]["SubCategoria"] + ") " + ", para lo cual ha presentado a la oficina Sub-regional " + dsDataDicTec.Tables[0].Rows[0]["Sub_Region"] + ", el expediente identificado con el No." + dsDataDicTec.Tables[1].Rows[0]["No_Expediente"] + ", que el plan de manejo elaborado por " + dsDataDicTec.Tables[1].Rows[0]["NombreRegente"] + ", con Registro de Elaborador de Plan de Manejo No " + dsDataDicTec.Tables[1].Rows[0]["Correlativo"] + ", presentándole a continuación los resultados de la inspección de campo.";
+                row["TipoPlan"] = dsDataDicTec.Tables[1].Rows[0]["SubCategoria"];
+                row["Propietarios"] = Solicitante;
+                DataSet dsAreas = ClManejo.Get_Areas_PlanManejo(GestionId);
+                row["AreaBosque"] = dsAreas.Tables["Datos"].Rows[0]["AreaBosque"].ToString();
+                row["AreaIntervenir"] = dsAreas.Tables["Datos"].Rows[0]["AreaIntervenir"].ToString();
+                row["AreaProteccion"] = dsAreas.Tables["Datos"].Rows[0]["AreaProteccion"].ToString();
+                row["OtrosUsos"] = dsAreas.Tables["Datos"].Rows[0]["AreaProteccion"].ToString();
+                dsAreas.Clear();
+                DataSet dsCaracBio = ClManejo.Get_CaracBiofisicas(GestionId);
+                row["ZonaVida"] = dsCaracBio.Tables["Datos"].Rows[0]["Zona_Vida"].ToString();
+                int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(GestionId, 2, ModuloId);
+                if (SubCategoriaId == 4)
+                    row["FuentesAgua"] = "N/A";
+                dsCaracBio.Clear();
+                row["MetodologiaCorro"] = DatosDictamen.Tables["DatosDictamen"].Rows[0]["MetodologiaCorro"].ToString();
+                row["FormaEvaluacion"] = DatosDictamen.Tables["DatosDictamen"].Rows[0]["FormaEvaluacion"].ToString();
+                row["MetodologiaInvForestal"] = DatosDictamen.Tables["DatosDictamen"].Rows[0]["MetodologiaInvForestal"].ToString();
+                row["ConCaracBio"] = DatosDictamen.Tables["DatosDictamen"].Rows[0]["ConCaracBio"].ToString();
+                row["ConVeracidad"] = DatosDictamen.Tables["DatosDictamen"].Rows[0]["ConVeracidad"].ToString();
+                row["ConPropuestaManejo"] = DatosDictamen.Tables["DatosDictamen"].Rows[0]["ConPropuestaManejo"].ToString();
+                row["ConPropuestaTratamiento"] = DatosDictamen.Tables["DatosDictamen"].Rows[0]["ConPropuestaTratamiento"].ToString();
+                row["Dictamen"] = "Con base a la  revisión y análisis del expediente en estudio y a la comprobación de campo realizada por el suscrito, se dictamina " + DatosDictamen.Tables["DatosDictamen"].Rows[0]["Dictamen"].ToString() + " la ejecución del plan de manejo forestal, de la (s) Finca(s): " + GetDatosFinca_Gestion_Juntos_SoloNombre(GestionId) + ", con un aprovechamiento de acuerdo al cuadro siguiente:";
+                row["AreaCompromiso"] = ClManejo.Get_Compromiso_Area(GestionId).ToString();
+                string Especies = "";
+                DataSet EspeciesCompromiso = ClManejo.Get_Especies_Compromiso(GestionId);
+                for (int i = 0; i < EspeciesCompromiso.Tables["Datos"].Rows.Count; i++)
+                {
+                    if (Especies == "")
+                        Especies = EspeciesCompromiso.Tables["Datos"].Rows[i]["Codigo_Especie"].ToString();
+                    else
+                        Especies = Especies + ", " + EspeciesCompromiso.Tables["Datos"].Rows[i]["Codigo_Especie"].ToString();
+                }
+                EspeciesCompromiso.Clear();
+                row["EspeciesCompromiso"] = Especies;
+                row["DensidadInicial"] = ClManejo.Get_DensidadIni_Compromiso(GestionId).ToString();
+                row["Lugar"] = GetDatosFinca_Gestion_Juntos(GestionId);
+                row["DocumentoGarantia"] = DatosDictamen.Tables["DatosDictamen"].Rows[0]["TipoGarantia"].ToString();
+                string SistemaRepoblacionText = "";
+                DataSet SistemaRepoblacion = ClManejo.Get_SistemaRepoblacion_Compromiso(GestionId);
+                for (int i = 0; i < SistemaRepoblacion.Tables["Datos"].Rows.Count; i++)
+                {
+                    if (SistemaRepoblacionText == "")
+                        SistemaRepoblacionText = SistemaRepoblacion.Tables["Datos"].Rows[i]["SistemaRepoblacion"].ToString();
+                    else
+                        SistemaRepoblacionText = SistemaRepoblacionText + ", " + SistemaRepoblacion.Tables["Datos"].Rows[i]["SistemaRepoblacion"].ToString();
+                }
+                SistemaRepoblacion.Clear();
+                row["Metodo"] = SistemaRepoblacionText;
+                row["MontoCompromiso"] = DatosDictamen.Tables["DatosDictamen"].Rows[0]["MontoGarantia"].ToString();
+                row["PorGarantia"] = DatosDictamen.Tables["DatosDictamen"].Rows[0]["PorGarantia"].ToString();
+                row["TotalMaderaPie"] = "El titular de la licencia se obliga a pagar al fondo forestal privativo del INAB por concepto de derecho de corta un valor de Q. " + DatosDictamen.Tables["DatosDictamen"].Rows[0]["TotValMaderaPie"] + " de acuerdo al cuadro siguiente:";
+                row["RecomendacionUno"] = DatosDictamen.Tables["DatosDictamen"].Rows[0]["RecomendacionUno"].ToString();
+                row["RecomendacionDos"] = DatosDictamen.Tables["DatosDictamen"].Rows[0]["RecomendacionDos"].ToString();
+                row["OtrasRecomendaciones"] = DatosDictamen.Tables["DatosDictamen"].Rows[0]["OtrasRecomendaciones"].ToString();
+                row["NombreTecnico"] = dsDataDicTec.Tables[2].Rows[0]["SubRegional"];
+                row["PuestoTecnico"] = dsDataDicTec.Tables[2].Rows[0]["nombre"];
+                dsDataDicTec.Clear();
+            }
+            
+            Ds_DictamenTecnico.Tables["Dt_Dictamen_Tecnico"].Rows.Add(row);
+
+            //Fincas
+            Ds_DictamenTecnico.Tables["DtFincasDictTecnico"].Clear();
+            DataSet FincasDicTec = ClManejo.GetFincaPlanManejoPol(GestionId, 2);
+            for (int i = 0; i < FincasDicTec.Tables["Datos"].Rows.Count; i++)
+            {
+                DataRow rowFincas = Ds_DictamenTecnico.Tables["DtFincasDictTecnico"].NewRow();
+                rowFincas["Finca"] = FincasDicTec.Tables["Datos"].Rows[i]["Finca"];
+                rowFincas["Area"] = FincasDicTec.Tables["Datos"].Rows[i]["Area"];
+                rowFincas["UbGeografica"] = FincasDicTec.Tables["Datos"].Rows[i]["UbicacionGeo"];
+                rowFincas["UbPolitica"] = FincasDicTec.Tables["Datos"].Rows[i]["UbPol"];
+                rowFincas["Colindancias"] = FincasDicTec.Tables["Datos"].Rows[i]["Colindancias"];
+                Ds_DictamenTecnico.Tables["DtFincasDictTecnico"].Rows.Add(rowFincas);
+            }
+            FincasDicTec.Clear();
+
+            //ResumenInventario
+            DataSet dsResumenInv =  ClManejo.Get_Resumen_Censo(2, GestionId);
+            Ds_DictamenTecnico.Tables["Dt_ResumenInvDicTec"].Clear();
+            for (int i = 0; i < dsResumenInv.Tables["Datos"].Rows.Count; i++)
+            {
+                DataRow rowData = Ds_DictamenTecnico.Tables["Dt_ResumenInvDicTec"].NewRow();
+                rowData["Rodal"] = dsResumenInv.Tables["Datos"].Rows[i]["Rodal"];
+                rowData["AreaRodal"] = dsResumenInv.Tables["Datos"].Rows[i]["AreaRodal"];
+                rowData["ClaseDesarrollo"] = dsResumenInv.Tables["Datos"].Rows[i]["Clase_Desarrollo"];
+                rowData["Pendiente"] = dsResumenInv.Tables["Datos"].Rows[i]["Pendiente"];
+                rowData["Especie"] = dsResumenInv.Tables["Datos"].Rows[i]["Nombre_Cientifico"];
+                rowData["DapMedio"] = dsResumenInv.Tables["Datos"].Rows[i]["Dap"];
+                rowData["AlturaMedia"] = dsResumenInv.Tables["Datos"].Rows[i]["Altura"];
+                rowData["Densidad"] = dsResumenInv.Tables["Datos"].Rows[i]["Densidad"];
+                rowData["AreaBasalha"] = dsResumenInv.Tables["Datos"].Rows[i]["AreaBasal"];
+                rowData["AreaBasalRodal"] = dsResumenInv.Tables["Datos"].Rows[i]["AreaBasalRodal"];
+                rowData["VolHa"] = dsResumenInv.Tables["Datos"].Rows[i]["VolHa"];
+                rowData["VolRodal"] = dsResumenInv.Tables["Datos"].Rows[i]["VolRodal"];
+                Ds_DictamenTecnico.Tables["Dt_ResumenInvDicTec"].Rows.Add(rowData);
+            }
+            FincasDicTec.Clear();
+
+
+            //Silvicultura
+            DataSet dsSilvilculturaInv = ClManejo.Get_Resumen_Censo(2, GestionId);
+            Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Clear();
+            for (int i = 0; i < dsSilvilculturaInv.Tables["Datos"].Rows.Count; i++)
+            {
+                DataRow rowData = Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].NewRow();
+                rowData["Correlativo"] = dsSilvilculturaInv.Tables["Datos"].Rows[i]["Correlativo"];
+                rowData["Turno"] = 0;
+                rowData["Rodal"] = dsSilvilculturaInv.Tables["Datos"].Rows[i]["Rodal"];
+                rowData["Area"] = dsSilvilculturaInv.Tables["Datos"].Rows[i]["AreaRodal"];
+                rowData["Especie"] = dsSilvilculturaInv.Tables["Datos"].Rows[i]["Nombre_Cientifico"];
+                rowData["Tratamiento"] = "";
+                rowData["VolTroza"] = 0;
+                rowData["VolLena"] = 0;
+                rowData["VolTotal"] = 0;
+                Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows.Add(rowData);
+            }
+            dsSilvilculturaInv.Clear();
+
+            for (int i = 0; i < Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows.Count; i++)
+            {
+                DataSet DsDatosExtrae = ClManejo.Get_Dato_Silvicultura_Extrae_PlanManejo(GestionId,Convert.ToInt32(Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["Correlativo"]));
+                Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["Turno"] = DsDatosExtrae.Tables["Datos"].Rows[0]["Turno"].ToString();
+                if (DsDatosExtrae.Tables["Datos"].Rows[0]["Tratamiento"].ToString() == "Otro")
+                    Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["Tratamiento"] = DsDatosExtrae.Tables["Datos"].Rows[0]["Otro"].ToString();
+                else
+                    Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["Tratamiento"] = DsDatosExtrae.Tables["Datos"].Rows[0]["Tratamiento"].ToString();
+                Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["VolTroza"] = DsDatosExtrae.Tables["Datos"].Rows[0]["VolTroza"].ToString();
+                Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["VolLena"]  = DsDatosExtrae.Tables["Datos"].Rows[0]["VolLena"].ToString();
+                Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["VolTotal"] = DsDatosExtrae.Tables["Datos"].Rows[0]["VolTotal"].ToString();
+                DsDatosExtrae.Clear();
+            }
+
+
+            //Etapas
+            Ds_DictamenTecnico.Tables["Dt_Etapa_DictTec"].Clear();
+            for (int i = 0; i < DatosEtapa.Tables["Etapa"].Rows.Count; i++)
+            {
+                DataRow rowData = Ds_DictamenTecnico.Tables["Dt_Etapa_DictTec"].NewRow();
+                rowData["Etapa"] = DatosEtapa.Tables["Etapa"].Rows[i]["Etapa"];
+                rowData["FecIni"] = DatosEtapa.Tables["Etapa"].Rows[i]["FecIni"];
+                rowData["FecFin"] = DatosEtapa.Tables["Etapa"].Rows[i]["FecFin"];
+                Ds_DictamenTecnico.Tables["Dt_Etapa_DictTec"].Rows.Add(rowData);
+            }
+
+
+
+
+            //MaderaPie
+            DataSet dsMaderaPie = ClManejo.Get_Resumen_Censo(2, GestionId);
+            Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Clear();
+            for (int i = 0; i < dsMaderaPie.Tables["Datos"].Rows.Count; i++)
+            {
+                DataRow rowData = Ds_DictamenTecnico.Tables["Dt_MaderaPie"].NewRow();
+                rowData["Correlativo"] = dsMaderaPie.Tables["Datos"].Rows[i]["Correlativo"];
+                rowData["Turno"] = 0;
+                rowData["Rodal"] = dsMaderaPie.Tables["Datos"].Rows[i]["Rodal"];
+                rowData["Especie"] = dsMaderaPie.Tables["Datos"].Rows[i]["Nombre_Cientifico"];
+                rowData["EspecieId"] = dsMaderaPie.Tables["Datos"].Rows[i]["EspecieId"];
+                rowData["VolTroza"] = 0;
+                rowData["VolLena"] = 0;
+                rowData["VolTotal"] = 0;
+                rowData["VolMaderaTroza"] = 0;
+                rowData["ValorLenaTroza"] = 0;
+                rowData["ValorTotal"] = 0;
+                rowData["ValorPagar"] = 0;
+                Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows.Add(rowData);
+            }
+            dsMaderaPie.Clear();
+
+            for (int i = 0; i < Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows.Count; i++)
+            {
+                DataSet DsDatosExtrae = ClManejo.Get_Dato_Silvicultura_Extrae_PlanManejo(GestionId, Convert.ToInt32(Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["Correlativo"]));
+                Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["Turno"] = DsDatosExtrae.Tables["Datos"].Rows[0]["Turno"].ToString();
+                Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["VolTroza"] = DsDatosExtrae.Tables["Datos"].Rows[0]["VolTroza"].ToString();
+                Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["VolLena"] = DsDatosExtrae.Tables["Datos"].Rows[0]["VolLena"].ToString();
+                Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["VolTotal"] = DsDatosExtrae.Tables["Datos"].Rows[0]["VolTotal"].ToString();
+                DataSet ValorMadera = ClEspecie.Valor_MaderaPie_Especie(Convert.ToInt32(Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["EspecieId"]), GestionId);
+                if (ValorMadera.Tables["Datos"].Rows.Count > 0)
+                {
+                    Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["VolMaderaTroza"] = (Convert.ToDouble(Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["VolTroza"]) * Convert.ToDouble(ValorMadera.Tables["Datos"].Rows[0]["VolTroza"])).ToString();
+                    Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["ValorLenaTroza"] = (Convert.ToDouble(Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["VolLena"]) * Convert.ToDouble(ValorMadera.Tables["Datos"].Rows[0]["VolLena"])).ToString();
+                    Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["ValorTotal"] = (Convert.ToDouble(Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["ValorLenaTroza"]) + Convert.ToDouble(Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["VolMaderaTroza"])).ToString();
+                    Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["ValorPagar"] = (((Convert.ToDouble(Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["ValorTotal"]) / 100) * 10)).ToString();
+                }
+                else
+                {
+                    Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["VolMaderaTroza"] = "0";
+                    Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["ValorLenaTroza"] = "0";
+                    Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["ValorTotal"] = "0";
+                    Ds_DictamenTecnico.Tables["Dt_MaderaPie"].Rows[i]["ValorPagar"] = "0";
+                }
+                ValorMadera.Clear();
+                DsDatosExtrae.Clear();
+            }
+
+            return Ds_DictamenTecnico;
+        }
+
+        public DataSet Sp_Get_Datos_Dictamen_Tecnico(int GestionId, int Tipo, int UsuarioId) //1 VP,  2. gestion
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Get_Datos_Dictamen_Tecnico", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
+                cmd.Parameters.Add("@UsuarioId", OleDbType.Integer).Value = UsuarioId;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
             }
         }
     }

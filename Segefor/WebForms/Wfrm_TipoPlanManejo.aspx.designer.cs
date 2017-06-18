@@ -4144,15 +4144,6 @@ namespace SEGEFOR.WebForms {
         protected global::System.Web.UI.WebControls.TextBox TxtRodalRepo;
         
         /// <summary>
-        /// CboEtapa control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox CboEtapa;
-        
-        /// <summary>
         /// TxtAreaRepo control.
         /// </summary>
         /// <remarks>
@@ -4160,6 +4151,15 @@ namespace SEGEFOR.WebForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtAreaRepo;
+        
+        /// <summary>
+        /// CboEtapa control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox CboEtapa;
         
         /// <summary>
         /// TxtTrataminetoRepo control.

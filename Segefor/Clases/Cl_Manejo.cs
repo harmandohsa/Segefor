@@ -181,7 +181,7 @@ namespace SEGEFOR.Clases
             }
         }
 
-        public int Get_SubCategoriaPlanManejo(int AsignacionId, int Tipo)
+        public int Get_SubCategoriaPlanManejo(int AsignacionId, int Tipo, int ModuloId)
         {
             try
             {
@@ -190,6 +190,7 @@ namespace SEGEFOR.Clases
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = @AsignacionId;
                 cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                cmd.Parameters.Add("@ModuloId", OleDbType.Integer).Value = ModuloId;
                 cmd.Parameters.Add("@Resul", OleDbType.VarChar, 400).Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
                 cn.Close();
@@ -1804,6 +1805,23 @@ namespace SEGEFOR.Clases
                 SqlCommand cmd = new SqlCommand("Sp_Elimina_Boleta", cnSql);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@AsignacionId", SqlDbType.Int).Value = AsignacionId;
+                cmd.ExecuteNonQuery();
+                cnSql.Close();
+            }
+            catch (Exception ex)
+            {
+                cnSql.Close();
+            }
+        }
+
+        public void Elimina_Boleta_Dictamen_Tecnico(int GestionId)
+        {
+            try
+            {
+                cnSql.Open();
+                SqlCommand cmd = new SqlCommand("Sp_Elimina_Boleta_Dictamen_Tecnico", cnSql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", SqlDbType.Int).Value = GestionId;
                 cmd.ExecuteNonQuery();
                 cnSql.Close();
             }
@@ -4116,6 +4134,229 @@ namespace SEGEFOR.Clases
             }
         }
 
+        public DataSet Suma_Sistema_Repoblacion_Especie(int AsignacionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Get_Suma_Sistema_Repoblacion_Especie", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = AsignacionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public void InsertBoleta_Dictamen_Tecnico(int GestionId, XmlDocument Boleta)
+        {
+            try
+            {
+                cnSql.Open();
+                SqlCommand cmd = new SqlCommand("Sp_InsertBoleta_Dictamen_Tecnico", cnSql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", SqlDbType.Int).Value = GestionId;
+                cmd.Parameters.Add("@Boleta", SqlDbType.Xml).Value = Boleta.OuterXml.ToString();
+                cmd.ExecuteNonQuery();
+                cnSql.Close();
+            }
+            catch (Exception ex)
+            {
+                cnSql.Close();
+            }
+        }
+
+        public DataSet Get_Boleta_Dictamen_Tecnico(int GestionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Get_Boleta_Dictamen_Tecnico", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public DataSet Get_Dato_Silvicultura_Extrae_PlanManejo(int GestionId, int Correlativo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Get_Dato_Silvicultura_Extrae_PlanManejo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
+                cmd.Parameters.Add("@Correlativo", OleDbType.Integer).Value = Correlativo;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public double Get_Compromiso_Area(int GestionId)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Get_Compromiso_Area", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
+                cmd.Parameters.Add("@Area", OleDbType.Integer).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToDouble(cmd.Parameters["@Area"].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
+
+        public DataSet Get_Especies_Compromiso(int GestionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Get_Especies_Compromiso", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public double Get_DensidadIni_Compromiso(int GestionId)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Get_DensidadIni_Compromiso", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
+                cmd.Parameters.Add("@Densidad", OleDbType.Integer).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToDouble(cmd.Parameters["@Densidad"].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
+
+        public DataSet Get_SistemaRepoblacion_Compromiso(int GestionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Get_SistemaRepoblacion_Compromiso", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public DataSet Get_TipoGarantiaPlanManejo(int GestionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Get_TipoGarantiaPlanManejo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public DataSet Get_Etapas_Compromiso(int GestionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Get_Etapas_Compromiso", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        
         
     }
 }
