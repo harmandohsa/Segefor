@@ -77,7 +77,7 @@
                     <li id="MnuNot" runat="server" visible="false">
                         <a><img src="../Imagenes/24x24/stop_watch.png" /><span class="nav-label">Notificaciones</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li runat="server" id="MnuNotJuridico" visible="false"><a href="../WebForms/Wfrm_Notificacion_deJuridico.aspx?appel=ctiVKPaat!o%3d">Notificaciones de Jurídico</a></li>
+                            <li runat="server" id="MnuNotJuridico" visible="false"><a href="../WebForms/Wfrm_Notificacion_deJuridico.aspx?appel=ctiVKPaat!o%3d">Notificaciones de Jurídico/Técnico</a></li>
                         </ul>
                     </li>
                     <li id="MnuConsulta" runat="server" visible="false">

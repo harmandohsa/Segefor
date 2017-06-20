@@ -287,8 +287,16 @@ namespace SEGEFOR.WebForms
             iInformacionEnmiendas.ChildNodes[1].AppendChild(iElementosEnmiendas);
 
             int Dictamen_Juridico_Id = ClGestion.Max_Dictamen_Juridico();
+            
+            
             ClGestion.Insert_Dictamen_Juridico( Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)),TxtTitulo.Text,TxtTituloRegente.Text,iInformacion,TxtAnalisisGen.Text,iInformacionAnalisis,Convert.ToInt32(CboConsidera.SelectedValue),Convert.ToInt32(CboOpinion.SelectedValue),Convert.ToInt32(Session["UsuarioId"]),RegionId,iInformacionEnmiendas);
-            ClGestion.Manda_Gestion_Usuario(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 11);
+
+            if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 2)
+                ClGestion.Manda_Gestion_Usuario_Validacion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 11, 2);
+            else
+                ClGestion.Manda_Gestion_Usuario(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 11);
+            
+            
             DataSet dsDatosSubRegional = ClGestion.Get_SubRegional(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
             string MensajeCorreo = "Se ha enviado a su despacho la gestión del señor (a): " + ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["nom"].ToString()), true);
             ClUtilitarios.EnvioCorreo(dsDatosSubRegional.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatosSubRegional.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Envío de gestión", MensajeCorreo, 0, "", "");

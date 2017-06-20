@@ -17,6 +17,7 @@ namespace SEGEFOR.WebForms
         Cl_Usuario ClUsuario;
         Cl_Persona ClPersona;
         Cl_Gestion_Registro ClGestion;
+        Cl_Manejo ClManejo;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,6 +25,8 @@ namespace SEGEFOR.WebForms
             ClUtilitarios = new Cl_Utilitarios();
             ClPersona = new Cl_Persona();
             ClGestion = new Cl_Gestion_Registro();
+            ClManejo = new Cl_Manejo();
+
             GrdSolicitudes.NeedDataSource += GrdSolicitudes_NeedDataSource;
             GrdSolicitudes.ItemDataBound += GrdSolicitudes_ItemDataBound;
             GrdSolicitudes.ItemCommand += GrdSolicitudes_ItemCommand;
@@ -198,6 +201,15 @@ namespace SEGEFOR.WebForms
                     }
 
                 }
+                else if (e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ModuloId"].ToString() == "2")
+                {
+                    if (Convert.ToInt32(Session["TipoUsuarioId"]) == 11)
+                    {
+                        string NUG = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["NUG"].ToString();
+                        int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["GestionId"]), 2, 2);
+                        Response.Redirect("~/WebForms/Wfrm_Seguimiento_Notificacion_deJuridico_SubRegional.aspx?gestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["GestionId"].ToString(), true)) + "&modulo=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ModuloId"].ToString(), true)) + "&subcategoria=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(SubCategoriaId.ToString(), true)) + "&dictamentecid=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(e.Item.Cells[2].Text, true)) + "&dictamenjuridicoid=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(e.Item.Cells[3].Text, true)) + "&gun=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(NUG.ToString(), true)) + "");
+                    }
+                }
             }
           
         }
@@ -211,6 +223,10 @@ namespace SEGEFOR.WebForms
                 {
                     item["actividad"].Text = ClGestion.Get_Actividad_Registro(Convert.ToInt32(item.GetDataKeyValue("GestionId")));
                 }
+                else if (item.GetDataKeyValue("ModuloId").ToString() == "2")
+                {
+                    item["actividad"].Text = ClManejo.Get_Actividad_Manejo(Convert.ToInt32(item.GetDataKeyValue("GestionId")));
+                }
                 if (Convert.ToInt32(Session["TipoUsuarioId"]) == 11)
                 {
                     DataSet ds = ClGestion.Get_Datos_Adicionales_Gestion(Convert.ToInt32(item.GetDataKeyValue("GestionId")));
@@ -219,6 +235,19 @@ namespace SEGEFOR.WebForms
                         item["No_Exp"].Text = ds.Tables["DATOS"].Rows[0]["No_Expediente"].ToString();
                         item["Fecha_Exp"].Text = ds.Tables["DATOS"].Rows[0]["Fecha"].ToString();
                         item["No_Dictamen_Juridico"].Text = ds.Tables["DATOS"].Rows[0]["No_Dictamen"].ToString();
+                        if (item.GetDataKeyValue("ModuloId").ToString() == "2")
+                        {
+                            item["No_Dictamen_Técnico"].Text = ds.Tables["DATOS"].Rows[0]["Dic_Tec"].ToString();
+                            item["DictamenTecnicoId"].Text = ds.Tables["DATOS"].Rows[0]["DictamenTecnicoId"].ToString();
+                            item["Dictamen_JuridicoId"].Text = ds.Tables["DATOS"].Rows[0]["Dictamen_JuridicoId"].ToString();
+                        }
+                        else
+                        {
+                            item["No_Dictamen_Técnico"].Text = "";
+                            item["DictamenTecnicoId"].Text = "";
+                            item["Dictamen_JuridicoId"].Text = "";
+                        }
+                            
                     }
                     ds.Clear();
                 }

@@ -576,6 +576,7 @@
                                                         <telerik:GridBoundColumn DataField="" UniqueName="Turno" HeaderText="Turno" HeaderStyle-Width="75px"></telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="Rodal" UniqueName="Rodal" HeaderText="Rodal" HeaderStyle-Width="75px"></telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="Nombre_Cientifico" UniqueName="Nombre_Cientifico" HeaderText="Nombre Cientifico" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="EspecieId" Visible="false" UniqueName="EspecieId" HeaderText="Nombre Cientifico" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="VolTroza" UniqueName="VolTroza" HeaderText="Vol. Troza" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="VolLena" UniqueName="VolLena" HeaderText="Vol. Lena"  HeaderStyle-Width="125px" ></telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="VolTotal" UniqueName="VolTotal"  HeaderText="Vol. Total"  HeaderStyle-Width="125px"></telerik:GridBoundColumn>

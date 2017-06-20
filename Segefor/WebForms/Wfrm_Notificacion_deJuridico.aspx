@@ -9,10 +9,10 @@
                         <div class="col-lg-12">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
-                                    <h2><strong>Notificaciones de Jurídico</strong></h2>
+                                    <h2><strong>Notificaciones de Jurídico/Técnico</strong></h2>
                                 </div>
                                 <div class="ibox-content">
-                                    <telerik:RadGrid runat="server" ID="GrdSolicitudes" Skin="MetroTouch"
+                                    <telerik:RadGrid runat="server" ID="GrdSolicitudes" Skin="Telerik"
                                         AutoGenerateColumns="false" Width="100%" AllowSorting="true"  AllowFilteringByColumn="true"
                                         GridLines="Both" >
                                         <PagerStyle Mode="NumericPages" NextPageText="Siguiente" 
@@ -23,7 +23,10 @@
                                             <Columns>
                                                 <telerik:GridBoundColumn DataField="GestionId" UniqueName="RegionId" Visible="false"  HeaderStyle-Width="125px"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="ModuloId" UniqueName="ModuloId" Visible="false" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="" UniqueName="DictamenTecnicoId" Visible="false" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="" UniqueName="Dictamen_JuridicoId" Visible="false" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="" UniqueName="No_Dictamen_Juridico" ShowFilterIcon="false" AllowFiltering="false"  HeaderText="No. de Dictamen Jurídico."  HeaderStyle-Width="150px"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="" UniqueName="No_Dictamen_Técnico" ShowFilterIcon="false" AllowFiltering="false"  HeaderText="No. de Dictamen Técnico."  HeaderStyle-Width="150px"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="" UniqueName="No_Exp" ShowFilterIcon="false" AllowFiltering="false"  HeaderText="No. de Expediente."  HeaderStyle-Width="150px"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="" UniqueName="Fecha_Exp" HeaderText="Fecha adm. Expediente." ShowFilterIcon="false" AllowFiltering="false"   HeaderStyle-Width="125px"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="NUG" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"  UniqueName="NUG" HeaderText="No. Gestión"  HeaderStyle-Width="125px"></telerik:GridBoundColumn>

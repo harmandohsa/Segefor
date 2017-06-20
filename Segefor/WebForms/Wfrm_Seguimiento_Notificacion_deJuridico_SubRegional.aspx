@@ -40,6 +40,10 @@
                                         <asp:ImageButton runat="server" ID="ImgVerDictamenJuridico" ImageUrl="~/Imagenes/24x24/pdf.png" formnovalidate ToolTip="Ver Dictamen Jurídico"/>
                                         <asp:Label runat="server" Text="Ver Dictamen Jurídico"></asp:Label>
                                     </div>
+                                    <div class="col-sm-2" runat="server" id="DivVerDicTec">
+                                        <asp:ImageButton runat="server" ID="ImgVerDictamenTecnico" ImageUrl="~/Imagenes/24x24/pdf.png" formnovalidate ToolTip="Ver Dictamen Técnico"/>
+                                        <asp:Label runat="server" Text="Ver Dictamen Técnico"></asp:Label>
+                                    </div>
                                 </div>
                                 <div class="ibox-content">
                                     <div><h4><strong><asp:Label runat="server" ID="Label2" Text="Estado"></asp:Label></strong></h4></div>
@@ -86,6 +90,45 @@
                                             <div class="alert alert-danger alert-dismissable" runat="server" id="DivError" visible="false">
                                                 <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                                                 <asp:Label runat="server" ID="LblMensaje" Font-Bold="true">Error</asp:Label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div runat="server" id="DivDictamenManejo" visible="false">
+                                    <div class="ibox-content">
+                                        <div><h4><strong><asp:Label runat="server" ID="Label5" Text="Desea agregar enmiendas"></asp:Label></strong></h4></div>
+                                        <div><label class="col-sm-2 control-label centradolabel">Tiene Enmiendas:</label>
+                                            <div class="col-sm-8">
+                                                <asp:RadioButtonList runat="server" ID="OptEnmiendas" CssClass="radio radio-inline" AutoPostBack="true">
+                                                    <asp:ListItem Text="No" Value="0" Selected="True"></asp:ListItem>
+                                                    <asp:ListItem Text="Si" Value="1"></asp:ListItem>
+                                                </asp:RadioButtonList>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div><label class="col-sm-2 control-label centradolabel">Considera:</label>
+                                            <div class="col-sm-5"><telerik:RadComboBox ID="CboConsidera" Width="100%" runat="server"></telerik:RadComboBox></div>
+                                        </div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div><label class="col-sm-2 control-label centradolabel">Número de Folios:</label>
+                                            <div class="col-sm-5">
+                                                <telerik:RadNumericTextBox runat="server" MinValue="1" ID="TxtFolios" Width="60px" >
+                                                    <NumberFormat DecimalDigits="0" />
+                                                </telerik:RadNumericTextBox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="col-sm-3"><asp:Button runat="server" Text="Vista Previa Dictamen"  ID="BtnVistaPreviaDictamen" class="btn btn-primary" /></div>
+                                        <div class="col-sm-1"><asp:Button runat="server" Text="Grabar Dictamen"   ID="BtnGrabarDictamen" class="btn btn-primary" /></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="col-sm-9">
+                                            <div class="alert alert-danger alert-dismissable" runat="server" id="DivErrDictamen" visible="false">
+                                                <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                <asp:Label runat="server" ID="LblErrDictamen" Font-Bold="true">Error</asp:Label>
                                             </div>
                                         </div>
                                     </div>

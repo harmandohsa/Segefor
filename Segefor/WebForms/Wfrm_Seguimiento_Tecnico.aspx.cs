@@ -61,6 +61,8 @@ namespace SEGEFOR.WebForms
             GrdMaderaPie.PreRender += GrdMaderaPie_PreRender;
             CboTipoUsuario.SelectedIndexChanged += CboTipoUsuario_SelectedIndexChanged;
             BtnVistaPrevia.Click += BtnVistaPrevia_Click;
+            BtnEnviar.Click += BtnEnviar_Click;
+            BtnYes.Click += BtnYes_Click;
 
             ClUsuario = new Cl_Usuario();
             ClUtilitarios = new Cl_Utilitarios();
@@ -184,6 +186,101 @@ namespace SEGEFOR.WebForms
             }
         }
 
+        void BtnYes_Click(object sender, EventArgs e)
+        {
+            XmlDocument iInformacion = ClXml.CrearDocumentoXML("Etapas");
+            XmlNode iElementos = iInformacion.CreateElement("Etapas");
+            for (int i = 0; i < GrdEtapa.Items.Count; i++)
+            {
+                XmlNode iElementoDetalle = iInformacion.CreateElement("Item");
+                ClXml.AgregarAtributo("EtapaId", GrdEtapa.Items[i].GetDataKeyValue("EtapaId"), iElementoDetalle);
+                iElementos.AppendChild(iElementoDetalle);
+
+                RadDatePicker TxtFecIni = ((RadDatePicker)GrdEtapa.Items[i].FindControl("TxtFecIni"));
+                ClXml.AgregarAtributo("FecIni", TxtFecIni.SelectedDate, iElementoDetalle);
+                iElementos.AppendChild(iElementoDetalle);
+
+                RadDatePicker TxtFecFin = ((RadDatePicker)GrdEtapa.Items[i].FindControl("TxtFecFin"));
+                ClXml.AgregarAtributo("FecFin", TxtFecFin.SelectedDate, iElementoDetalle);
+                iElementos.AppendChild(iElementoDetalle);
+            }
+            iInformacion.ChildNodes[1].AppendChild(iElementos);
+
+            XmlDocument iMAderaPie = ClXml.CrearDocumentoXML("MaderaPie");
+            XmlNode iElemenoMaderaPie = iMAderaPie.CreateElement("MaderaPie");
+            for (int i = 0; i < GrdMaderaPie.Items.Count; i++)
+            {
+                XmlNode iMaderaDetalle = iMAderaPie.CreateElement("Item");
+                ClXml.AgregarAtributo("Turno", GrdMaderaPie.Items[i]["Turno"].Text, iMaderaDetalle);
+                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                ClXml.AgregarAtributo("Rodal", GrdMaderaPie.Items[i].GetDataKeyValue("Rodal"), iMaderaDetalle);
+                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                ClXml.AgregarAtributo("EspecieId", GrdMaderaPie.Items[i].GetDataKeyValue("EspecieId"), iMaderaDetalle);
+                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                ClXml.AgregarAtributo("VolTroza", GrdMaderaPie.Items[i]["VolTroza"].Text, iMaderaDetalle);
+                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                ClXml.AgregarAtributo("VolLena", GrdMaderaPie.Items[i]["VolLena"].Text, iMaderaDetalle);
+                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                ClXml.AgregarAtributo("VolTotal", GrdMaderaPie.Items[i]["VolTotal"].Text, iMaderaDetalle);
+                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                ClXml.AgregarAtributo("ValTroza", GrdMaderaPie.Items[i]["ValTroza"].Text, iMaderaDetalle);
+                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                ClXml.AgregarAtributo("ValLena", GrdMaderaPie.Items[i]["ValLena"].Text, iMaderaDetalle);
+                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                ClXml.AgregarAtributo("ValPagar", GrdMaderaPie.Items[i]["ValPagar"].Text, iMaderaDetalle);
+                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                ClXml.AgregarAtributo("PorPagar", GrdMaderaPie.Items[i]["PorPagar"].Text, iMaderaDetalle);
+                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+            }
+            iMAderaPie.ChildNodes[1].AppendChild(iElemenoMaderaPie);
+            int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+            int Dictamen_Tecnico_Id = ClGestion.Max_Dictamen_Tecnico();
+            int SubRegionId = ClGestion.Get_SubRegion_Gestion(GestionId);
+            int Tamano = 0;
+            int FormaParcelaId = 0;
+            int NotasEntregar = 0;
+            int NotasPendientes = 0;
+            int TipoUSuarioIdDictamen = 0;
+            if ((CboTipoInventario.SelectedValue == "2") || (CboTipoInventario.SelectedValue == "3"))
+            {
+                Tamano = Convert.ToInt32(TxtSize.Text);
+                FormaParcelaId = Convert.ToInt32(CboFormaParcela.SelectedValue);
+            }
+            if (Convert.ToInt32(TxtCantidadAutorizadas.Text) > 10)
+            {
+                NotasEntregar = Convert.ToInt32(TxtNotasEntregar.Text);
+                NotasPendientes = Convert.ToInt32(TXtCantidadRestante.Text);
+                TipoUSuarioIdDictamen = Convert.ToInt32(CboTipoUsuario.SelectedValue);
+            }
+
+            ClGestion.Insert_Dictamen_Tecnico(Dictamen_Tecnico_Id,GestionId,TxtMetodologia.Text,TxtMetodologiaResultados.Text,Convert.ToInt32(CboTipoInventario.SelectedValue),Convert.ToInt32(TxtTotRodales.Text),Convert.ToInt32(TxtRodalesMuestreados.Text),Tamano,FormaParcelaId,TxtConclusionCaracBio.Text,TxtConclusionInventario.Text,TxtConcluManejo.Text,TxtCncluPropuesta.Text,Convert.ToInt32(CboDictamina.SelectedValue),Convert.ToInt32(CboAreaCompromiso.SelectedValue),Convert.ToInt32(CboGarantia.SelectedValue),iInformacion,iMAderaPie,Convert.ToInt32(TxtVigenciaApro.Text),Convert.ToInt32(TxtCantidadAutorizadas.Text),NotasEntregar,NotasPendientes,TipoUSuarioIdDictamen,Convert.ToInt32(Session["UsuarioId"]),SubRegionId, TxtOtrasReco.Text);
+            ClGestion.Manda_Gestion_Usuario_Validacion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 11,1);
+            DataSet dsDatosSubRegional = ClGestion.Get_SubRegional(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+            string MensajeCorreo = "Se ha enviado a su despacho la gestión de Manejo Forestal";
+            ClUtilitarios.EnvioCorreo(dsDatosSubRegional.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatosSubRegional.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Envío de gestión", MensajeCorreo, 0, "", "");
+            dsDatosSubRegional.Clear();
+            Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("8", true)) + "&gestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionId.ToString(), true)) + "");
+        }
+
+        void BtnEnviar_Click(object sender, EventArgs e)
+        {
+            if (Valida() == true)
+            {
+                LblTitConfirmacion.Text = "La Gestíon sera enviada al director subregional, ¿esta seguro (a)?";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindowConfirm.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+            }
+        }
+
         void BtnVistaPrevia_Click(object sender, EventArgs e)
         {
             if (Valida() == true)
@@ -235,6 +332,7 @@ namespace SEGEFOR.WebForms
                 
 
                 Session["DatosDictamenTec"] = ClGestion.ImpresionDictamenTecnio(GestionId, 1, CategoriaId, DsDatosDictamen, DsEtapa, Convert.ToInt32(Session["UsuarioId"]));
+                RadWindow1.Title = "Vista Previa Dictamen Técnico";
                 RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepDictamenTecnico.aspx";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
             }

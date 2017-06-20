@@ -19,6 +19,8 @@ namespace SEGEFOR.WebForms
         Cl_Gestion_Registro ClGestion;
         Ds_Temporales Ds_Temporal = new Ds_Temporales();
         Cl_Xml ClXml;
+        Cl_Manejo ClManejo;
+        Cl_Catalogos ClCatalogos;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,7 +28,10 @@ namespace SEGEFOR.WebForms
             ClUtilitarios = new Cl_Utilitarios();
             ClPersona = new Cl_Persona();
             ClGestion = new Cl_Gestion_Registro();
+            ClManejo = new Cl_Manejo();
             ClXml = new Cl_Xml();
+            ClCatalogos = new Cl_Catalogos();
+
             ImgVerinfo.Click += ImgVerinfo_Click;
             ImgVerProvidencia.Click += ImgVerProvidencia_Click;
             ImgVerDictamenJuridico.Click += ImgVerDictamenJuridico_Click;
@@ -40,6 +45,8 @@ namespace SEGEFOR.WebForms
             BtnYes.Click += BtnYes_Click;
             BtnVPConstancia.Click += BtnVPConstancia_Click;
             BtnGrabarConstancia.Click += BtnGrabarConstancia_Click;
+            BtnVistaPreviaLicencia.Click += BtnVistaPreviaLicencia_Click;
+            ImgVerDictamenTecnico.Click += ImgVerDictamenTecnico_Click;
 
             if (Session["UsuarioId"] == null)
             {
@@ -94,10 +101,166 @@ namespace SEGEFOR.WebForms
                         ImgPerfilFake.Src = "../imagenes/female.png";
                 }
                 LblNug.Text = "Gestión No.: " + ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gun"].ToString()), true);
-                LblSolicitante.Text = "Solicitante: " + ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["nom"].ToString()), true);
+                
                 if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 3)
+                {
                     LblIdentificacion.Text = ClGestion.Get_Identificacion_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                    LblSolicitante.Text = "Solicitante: " + ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["nom"].ToString()), true);
+                    DivResolucion.Visible = true;
+                    DivRegionalRegistro.Visible = true;
+                }
+                else if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 2)
+                {
+                    LblIdentificacion.Text = ClManejo.Get_Identificacion_Gestion_Manejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                    DivVerDicTec.Visible = true;
+                    DivRegionalManejo.Visible = true;
+                }
             }
+        }
+
+        void ImgVerDictamenTecnico_Click(object sender, ImageClickEventArgs e)
+        {
+            RadWindow1.Title = "Dictamen Técnico";
+            int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+
+
+            int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 2, 2);
+            int CategoriaId = ClGestion.Get_CategoriaRNFId(SubCategoriaId);
+
+            DataSet dsDatos = ClGestion.Get_Datos_DictamenTecnico_Gestion(GestionId);
+            DataSet DsDatosDictamen = new DataSet("DsDatosDictamen");
+
+
+            DataTable DtDatosDictamen = DsDatosDictamen.Tables.Add("DatosDictamen");
+            DataColumn MetodologiaCorro = DtDatosDictamen.Columns.Add("MetodologiaCorro", typeof(string));
+            DataColumn MetodologiaInvForestal = DtDatosDictamen.Columns.Add("MetodologiaInvForestal", typeof(string));
+            DataColumn FormaEvaluacion = DtDatosDictamen.Columns.Add("FormaEvaluacion", typeof(string));
+            DataColumn ConCaracBio = DtDatosDictamen.Columns.Add("ConCaracBio", typeof(string));
+            DataColumn ConVeracidad = DtDatosDictamen.Columns.Add("ConVeracidad", typeof(string));
+            DataColumn ConPropuestaManejo = DtDatosDictamen.Columns.Add("ConPropuestaManejo", typeof(string));
+            DataColumn ConPropuestaTratamiento = DtDatosDictamen.Columns.Add("ConPropuestaTratamiento", typeof(string));
+            DataColumn Dictamen = DtDatosDictamen.Columns.Add("Dictamen", typeof(string));
+            DataColumn TipoGarantia = DtDatosDictamen.Columns.Add("TipoGarantia", typeof(string));
+            DataColumn DictamenId = DtDatosDictamen.Columns.Add("DictamenId", typeof(int));
+            DataColumn MontoGarantia = DtDatosDictamen.Columns.Add("MontoGarantia", typeof(double));
+            DataColumn PorGarantia = DtDatosDictamen.Columns.Add("PorGarantia", typeof(int));
+            DataColumn TotValMaderaPie = DtDatosDictamen.Columns.Add("TotValMaderaPie", typeof(double));
+            DataColumn RecomendacionUno = DtDatosDictamen.Columns.Add("RecomendacionUno", typeof(string));
+            DataColumn RecomendacionDos = DtDatosDictamen.Columns.Add("RecomendacionDos", typeof(string));
+            DataColumn OtrasRecomendaciones = DtDatosDictamen.Columns.Add("OtrasRecomendaciones", typeof(string));
+
+            DataSet DsEtapa = new DataSet("DsDatosEtapa");
+            DataTable DtEtapa = DsEtapa.Tables.Add("Etapa");
+            DataColumn EtapaId = DtEtapa.Columns.Add("EtapaId", typeof(int));
+            DataColumn Etapa = DtEtapa.Columns.Add("Etapa", typeof(string));
+            DataColumn FecIni = DtEtapa.Columns.Add("FecIni", typeof(string));
+            DataColumn FecFin = DtEtapa.Columns.Add("FecFin", typeof(string));
+
+
+
+
+            DataRow item = DsDatosDictamen.Tables["DatosDictamen"].NewRow();
+            item["MetodologiaCorro"] = dsDatos.Tables["Datos"].Rows[0]["Metodologia_Corroboracion_Inventario"];
+            item["MetodologiaInvForestal"] = dsDatos.Tables["Datos"].Rows[0]["Metodologia_Resultados_Inventario"];
+            if (dsDatos.Tables["Datos"].Rows[0]["Tipo_InventarioId"].ToString() == "1")
+                item["FormaEvaluacion"] = "Forma de Evaluación: " + dsDatos.Tables["Datos"].Rows[0]["Tipo_Inventario"].ToString() + ", Total de Rodales: " + dsDatos.Tables["Datos"].Rows[0]["TotalRodal"].ToString() + " Rodales Muestreados: " + dsDatos.Tables["Datos"].Rows[0]["RodalesMuestreados"].ToString();
+            else
+                item["FormaEvaluacion"] = "Forma de Evaluación: " + dsDatos.Tables["Datos"].Rows[0]["Tipo_Inventario"].ToString() + ", Tamaño y Forma de parcela: " + dsDatos.Tables["Datos"].Rows[0]["Tamano"].ToString() + " " + dsDatos.Tables["Datos"].Rows[0]["Forma_Parcela"].ToString() + ",  Total de Rodales: " + dsDatos.Tables["Datos"].Rows[0]["TotalRodal"].ToString() + " Rodales Muestreados: " + dsDatos.Tables["Datos"].Rows[0]["RodalesMuestreados"].ToString();
+
+            item["ConCaracBio"] = dsDatos.Tables["Datos"].Rows[0]["Conclusion_Biofisica"].ToString();
+            item["ConVeracidad"] = dsDatos.Tables["Datos"].Rows[0]["Conclusion_Veracidad"].ToString();
+            item["ConPropuestaManejo"] = dsDatos.Tables["Datos"].Rows[0]["Conclusion_PropuestaManejo"].ToString();
+            item["ConPropuestaTratamiento"] = dsDatos.Tables["Datos"].Rows[0]["Conclusion_Propuesta_Tratamiento"].ToString();
+            item["Dictamen"] = dsDatos.Tables["Datos"].Rows[0]["Tipo_Dictamen"].ToString();
+            item["TipoGarantia"] = dsDatos.Tables["Datos"].Rows[0]["Tipo_Garantia"].ToString();
+            item["DictamenId"] = dsDatos.Tables["Datos"].Rows[0]["Tipo_DictamenId"].ToString();
+            DataSet DsGarantia = ClCatalogos.Sp_Get_Monto_Garantia(Convert.ToInt32(dsDatos.Tables["Datos"].Rows[0]["Tipo_GarantiaId"]));
+            item["MontoGarantia"] = (Convert.ToDouble(ClManejo.Get_Compromiso_Area(GestionId)) * Convert.ToDouble(DsGarantia.Tables["Datos"].Rows[0]["Valor_Hectaria"])).ToString();
+            item["PorGarantia"] = DsGarantia.Tables["Datos"].Rows[0]["Porcentaje"].ToString();
+            DsGarantia.Clear();
+            item["TotValMaderaPie"] = ClGestion.Get_TotalValorMadera(GestionId);
+            item["RecomendacionUno"] = "7.1     Se recomienda que la vigencia del aprovechamiento sea de: " + dsDatos.Tables["Datos"].Rows[0]["Vigencia"].ToString() + ".";
+            if (Convert.ToInt32(dsDatos.Tables["Datos"].Rows[0]["Notas_Autorizadas"]) > 10)
+                item["RecomendacionDos"] = "7.1     Que se le autorice la venta total de " + dsDatos.Tables["Datos"].Rows[0]["Notas_Autorizadas"].ToString() + ". De estas, se le entregarán únicamente " + dsDatos.Tables["Datos"].Rows[0]["Notas_Entregar"].ToString() + ", las otras " + dsDatos.Tables["Datos"].Rows[0]["Notas_Restantes"].ToString() + " se adjuntarán al expediente, sin foliar, mismas que se entregarán luego al titular o su representante legal cuando presente Informe de uso de notas de envío.";
+            else
+                item["RecomendacionDos"] = "7.7     Que se le autorice la venta total de " + dsDatos.Tables["Datos"].Rows[0]["Notas_Autorizadas"].ToString() + ".";
+            DataSet dsAreas = ClManejo.Get_Areas_PlanManejo(GestionId);
+
+            if (Convert.ToDouble(dsAreas.Tables["Datos"].Rows[0]["AreaIntervenir"]) > 100)
+                item["OtrasRecomendaciones"] = "7.9     " + dsDatos.Tables["Datos"].Rows[0]["OtrasRecomendacion"].ToString();
+            else
+                item["OtrasRecomendaciones"] = "7.8     " + dsDatos.Tables["Datos"].Rows[0]["OtrasRecomendacion"].ToString();
+            DsDatosDictamen.Tables["DatosDictamen"].Rows.Add(item);
+            dsDatos.Clear();
+
+
+            DataSet dsDatosEtapa = ClGestion.Get_Etapas_Dictamen_Tecnico(GestionId);
+            for (int i = 0; i < dsDatosEtapa.Tables["Datos"].Rows.Count; i++)
+            {
+                DataRow itemEtapa = DsEtapa.Tables["Etapa"].NewRow();
+                itemEtapa["EtapaId"] = dsDatosEtapa.Tables["Datos"].Rows[0]["EtapaId"];
+                itemEtapa["Etapa"] = dsDatosEtapa.Tables["Datos"].Rows[0]["Etapa"];
+                itemEtapa["FecIni"] = dsDatosEtapa.Tables["Datos"].Rows[0]["FecIni"];
+                itemEtapa["Fecfin"] = dsDatosEtapa.Tables["Datos"].Rows[0]["FecFin"];
+                DsEtapa.Tables["Etapa"].Rows.Add(itemEtapa);
+            }
+
+
+            Session["DatosDictamenTec"] = ClGestion.ImpresionDictamenTecnio(GestionId, 2, CategoriaId, DsDatosDictamen, DsEtapa, Convert.ToInt32(Session["UsuarioId"]));
+            RadWindow1.Title = "Vista Previa Dictamen Técnico";
+            RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepDictamenTecnico.aspx";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+        }
+
+        void BtnVistaPreviaLicencia_Click(object sender, EventArgs e)
+        {
+            if (ValidaLicencia() == false)
+            {
+                int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                Session["DatosLicencia"] = ClGestion.ImpresionLicencia(GestionId, 1, Convert.ToInt32(Session["UsuarioId"]), Convert.ToInt32(TxtPeriodo.Text), Convert.ToDateTime(TxtFecIni.SelectedDate), Convert.ToDateTime(TxtFecFin.SelectedDate), CboAprueba.Text);
+                RadWindow1.Title = "Vista Previa Licencia Forestal";
+                RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepLicencia_Forestal.aspx";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+            }
+        }
+
+        bool ValidaLicencia()
+        {
+            bool HayError = false;
+            DivErrLicencia.Visible = false;
+            string LblMensaje = "";
+            if (TxtPeriodo.Text == "")
+            {
+                if (LblMensaje == "")
+                    LblMensaje = "Debe ingresar el periodo de la licencia";
+                else
+                    LblMensaje = LblMensaje + ", debe ingresar el periodo de la licencia";
+                HayError = true;
+            }
+            if (TxtFecIni.DateInput.Text == "")
+            {
+                if (LblMensaje == "")
+                    LblMensaje = "Debe ingresar la fecha de inicio de la licencia";
+                else
+                    LblMensaje = LblMensaje + ", debe ingresar la fecha de inicio de la licencia";
+                HayError = true;
+            }
+            if (TxtFecFin.DateInput.Text == "")
+            {
+                if (LblMensaje == "")
+                    LblMensaje = "Debe ingresar la fecha de finalización de la licencia";
+                else
+                    LblMensaje = LblMensaje + ", debe ingresar la fecha de finalización de la licencia";
+                HayError = true;
+            }
+            if (HayError == true)
+            {
+                DivErrLicencia.Visible = true;
+                LblErrLicencia.Text = LblMensaje;
+                
+            }
+            return HayError;
+
         }
 
         void BtnGrabarConstancia_Click(object sender, EventArgs e)

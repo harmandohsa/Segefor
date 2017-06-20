@@ -1455,6 +1455,7 @@
     <Content Include="WeForms_Reportes\Wfrm_RepCenso.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepConstanciaAdmisionExp.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepDictamenJuridico.aspx" />
+    <Content Include="WeForms_Reportes\Wfrm_RepDictamenSubRegional.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepDictamenTecnico.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepEnmiendasTec.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepFormularioBosqueNatural.aspx" />
@@ -1466,6 +1467,7 @@
     <Content Include="WeForms_Reportes\Wfrm_RepFormularioProfesional.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepFormularioSistemasAgroforestales.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepInventarioForestal.aspx" />
+    <Content Include="WeForms_Reportes\Wfrm_RepLicencia_Forestal.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepOficioDevolucion.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepOficioEnmiendaJuridica.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepProvidenciaTrasladoExp.aspx" />
@@ -1484,7 +1486,7 @@
     <None Include="Data_Set\Ds_Gestiones.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>Ds_Gestiones1.Designer.cs</LastGenOutput>
+      <LastGenOutput>Ds_Gestiones.Designer.cs</LastGenOutput>
     </None>
     <Content Include="Data_Set\Ds_Gestiones.xss">
       <DependentUpon>Ds_Gestiones.xsd</DependentUpon>
@@ -1597,7 +1599,7 @@
     <Compile Include="Clases\Cl_Usuario.cs" />
     <Compile Include="Clases\Cl_Utilitarios.cs" />
     <Compile Include="Clases\Cl_Xml.cs" />
-    <Compile Include="Data_Set\Ds_Gestiones1.Designer.cs">
+    <Compile Include="Data_Set\Ds_Gestiones.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Ds_Gestiones.xsd</DependentUpon>
@@ -1724,6 +1726,12 @@
       <DependentUpon>Rpt_DictamenTecnico.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reportes\Rpt_Dictamen_SubRegional.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_Dictamen_SubRegional.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reportes\Rpt_FormularioBosqueNatural.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1788,6 +1796,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Rpt_InventarioForestal_SistemasAgro.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Rpt_LicenciaForestal.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_LicenciaForestal.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reportes\Rpt_Oficio_Devolucion.cs">
@@ -2488,6 +2502,13 @@
     <Compile Include="WeForms_Reportes\Wfrm_RepDictamenJuridico.aspx.designer.cs">
       <DependentUpon>Wfrm_RepDictamenJuridico.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WeForms_Reportes\Wfrm_RepDictamenSubRegional.aspx.cs">
+      <DependentUpon>Wfrm_RepDictamenSubRegional.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeForms_Reportes\Wfrm_RepDictamenSubRegional.aspx.designer.cs">
+      <DependentUpon>Wfrm_RepDictamenSubRegional.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WeForms_Reportes\Wfrm_RepDictamenTecnico.aspx.cs">
       <DependentUpon>Wfrm_RepDictamenTecnico.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2564,6 +2585,13 @@
     </Compile>
     <Compile Include="WeForms_Reportes\Wfrm_RepInventarioForestal.aspx.designer.cs">
       <DependentUpon>Wfrm_RepInventarioForestal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WeForms_Reportes\Wfrm_RepLicencia_Forestal.aspx.cs">
+      <DependentUpon>Wfrm_RepLicencia_Forestal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeForms_Reportes\Wfrm_RepLicencia_Forestal.aspx.designer.cs">
+      <DependentUpon>Wfrm_RepLicencia_Forestal.aspx</DependentUpon>
     </Compile>
     <Compile Include="WeForms_Reportes\Wfrm_RepOficioDevolucion.aspx.cs">
       <DependentUpon>Wfrm_RepOficioDevolucion.aspx</DependentUpon>
@@ -2659,6 +2687,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_DictamenTecnico.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Rpt_Dictamen_SubRegional.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_Dictamen_SubRegional.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reportes\Rpt_FormularioBosqueNatural.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_FormularioBosqueNatural.cs</LastGenOutput>
@@ -2702,6 +2734,10 @@
     <EmbeddedResource Include="Reportes\Rpt_InventarioForestal_SistemasAgro.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_InventarioForestal_SistemasAgro.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Rpt_LicenciaForestal.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_LicenciaForestal.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\Rpt_Oficio_Devolucion.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2938,7 +2974,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -40,13 +40,17 @@
                                         <asp:ImageButton runat="server" ID="ImgVerDictamenJuridico" ImageUrl="~/Imagenes/24x24/pdf.png" formnovalidate ToolTip="Ver Dictamen Jurídico"/>
                                         <asp:Label runat="server" Text="Ver Dictamen Jurídico"></asp:Label>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-2" runat="server"  id="DivResolucion" visible="false">
                                         <asp:ImageButton runat="server" ID="ImgVerResolucion" ImageUrl="~/Imagenes/24x24/pdf.png" formnovalidate ToolTip="Ver Resolución de Aprobación"/>
                                         <asp:Label runat="server" Text="Ver Resolución de Aprobación"></asp:Label>
                                     </div>
+                                    <div class="col-sm-2" runat="server" id="DivVerDicTec" visible="false">
+                                        <asp:ImageButton runat="server" ID="ImgVerDictamenTecnico" ImageUrl="~/Imagenes/24x24/pdf.png" formnovalidate ToolTip="Ver Dictamen Técnico"/>
+                                        <asp:Label runat="server" Text="Ver Dictamen Técnico"></asp:Label>
+                                    </div>
                                 </div>
                                 <div style="padding-bottom:2em;"></div>
-                                <div runat="server">
+                                <div runat="server" id="DivRegionalRegistro" visible="false">
                                     <div class="ibox-title">
                                         <div><label class="col-sm-2 control-label centradolabel">¿Aprueba Inscripción?:</label>
                                             <div class="col-sm-8">
@@ -147,6 +151,65 @@
                                             <div class="alert alert-danger alert-dismissable" runat="server" id="DivError" visible="false">
                                                 <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                                                 <asp:Label runat="server" ID="LblMensaje" Font-Bold="true">Error</asp:Label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div runat="server" id="DivRegionalManejo" visible="false">
+                                    <div class="ibox-content">
+                                        <div><h4><strong><asp:Label runat="server" ID="Label5" Text="Desea agregar enmiendas"></asp:Label></strong></h4></div>
+                                        <div><label class="col-sm-2 control-label centradolabel">Tiene Enmiendas:</label>
+                                            <div class="col-sm-8">
+                                                <asp:RadioButtonList runat="server" ID="OptEnmiendas" CssClass="radio radio-inline" AutoPostBack="true">
+                                                    <asp:ListItem Text="No" Value="0" Selected="True"></asp:ListItem>
+                                                    <asp:ListItem Text="Si" Value="1"></asp:ListItem>
+                                                </asp:RadioButtonList>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div><label class="col-sm-2 control-label centradolabel">Aprueba:</label>
+                                            <div class="col-sm-5">
+                                                <telerik:RadComboBox ID="CboAprueba" Width="100%" runat="server">
+                                                    <Items>
+                                                        <telerik:RadComboBoxItem Text="No" Value="0" />
+                                                        <telerik:RadComboBoxItem Text="Si" Value="1" Selected="true" />
+                                                    </Items>
+                                                </telerik:RadComboBox>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div><label class="col-sm-2 control-label centradolabel">Periodo de licencia:</label>
+                                            <div class="col-sm-5">
+                                                <telerik:RadNumericTextBox runat="server" MinValue="1" ID="TxtPeriodo" Width="60px" >
+                                                    <NumberFormat DecimalDigits="0" />
+                                                </telerik:RadNumericTextBox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div><label class="col-sm-2 control-label centradolabel">Fecha de inicio</label>
+                                            <div class="col-sm-2">
+                                               <telerik:RadDatePicker ID="TxtFecIni" Width="100%" runat="server"></telerik:RadDatePicker>
+                                            </div>
+                                        </div>
+                                        <div><label class="col-sm-2 control-label centradolabel">Fecha de final</label>
+                                            <div class="col-sm-2">
+                                               <telerik:RadDatePicker ID="TxtFecFin" Width="100%" runat="server"></telerik:RadDatePicker>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="col-sm-3"><asp:Button runat="server" Text="Vista Previa Licencia"  ID="BtnVistaPreviaLicencia" class="btn btn-primary" /></div>
+                                        <div class="col-sm-1"><asp:Button runat="server" Text="Grabar Licencia"   ID="BtnGrabarLicencia" class="btn btn-primary" /></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="col-sm-9">
+                                            <div class="alert alert-danger alert-dismissable" runat="server" id="DivErrLicencia" visible="false">
+                                                <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                <asp:Label runat="server" ID="LblErrLicencia" Font-Bold="true">Error</asp:Label>
                                             </div>
                                         </div>
                                     </div>
