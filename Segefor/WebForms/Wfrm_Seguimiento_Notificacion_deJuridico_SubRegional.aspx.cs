@@ -402,7 +402,7 @@ namespace SEGEFOR.WebForms
                 string MensajeCorreo = "Se ha enviado a su despacho la gestión de Manejo Forestal";
                 ClUtilitarios.EnvioCorreo(dsDatosRegional.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatosRegional.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Envío de gestión", MensajeCorreo, 0, "", "");
                 dsDatosRegional.Clear();
-                Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("9", true)) + "&consultationjuridique=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(Dictamen_SubRegional_Id.ToString(), true)) + "");
+                Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("9", true)) + "&gestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionId.ToString(), true)) + "");
             }
             
             

@@ -259,16 +259,28 @@ namespace SEGEFOR.WebForms
 
 
                         Session["DatosDictamenTec"] = ClGestion.ImpresionDictamenTecnio(GestionId, 2, CategoriaId, DsDatosDictamen, DsEtapa, Convert.ToInt32(Session["UsuarioId"]));
-                        RadWindow1.Title = "Vista Previa Dictamen Técnico";
+                        RadWindow1.Title = "Dictamen Técnico";
                         RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepDictamenTecnico.aspx";
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
                     }
                     else if (llamada == "9") //Dictamen SubRegional
                     {
-                        //RadWindow1.Title = "Dictamen Técnico";
-                        //RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepResolucionAdmision.aspx";
-                        //ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+                        int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                        Session["DatosDictamenSubRegion"] = ClGestion.ImpresionDictamenSubRegional(GestionId, 2, Convert.ToInt32(Session["UsuarioId"]), 0, "");
+                        RadWindow1.Title = "Dictamen Subregional";
+                        RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepDictamenSubRegional.aspx";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
                     }
+                    else if (llamada == "10") //Licencia Forestal
+                    {
+                        int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                        Session["DatosLicencia"] = ClGestion.ImpresionLicencia(GestionId, 2, Convert.ToInt32(Session["UsuarioId"]), 0, DateTime.Now, DateTime.Now, "");
+                        RadWindow1.Title = "Vista Previa Licencia Forestal";
+                        RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepLicencia_Forestal.aspx";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+                    }
+
+
                 }
                 SetColumnasGrid();
             }

@@ -1235,15 +1235,15 @@ namespace SEGEFOR.Clases
             DataSet dsDatosCaratula = Datos_Caratula(AdmisionGestionId);
             Ds_GestionIncompleta.Tables["Dt_Caratula"].Clear();
             DataRow rowCaratula = Ds_GestionIncompleta.Tables["Dt_Caratula"].NewRow();
-            int CategoriaId = Convert.ToInt32(dsDatos.Tables["DATOS"].Rows[0]["CategoriaId"]);
+            int CategoriaId = Convert.ToInt32(dsDatosCaratula.Tables["DATOS"].Rows[0]["CategoriaId"]);
             //int GestionId = Convert.ToInt32(dsDatos.Tables["DATOS"].Rows[0]["GestionId"]);
-            rowCaratula["NoExpediente"] = dsDatos.Tables["DATOS"].Rows[0]["No_Expediente"];
-            rowCaratula["TipoSolicitud"] = dsDatos.Tables["DATOS"].Rows[0]["TipoSolicitud"];
+            rowCaratula["NoExpediente"] = dsDatosCaratula.Tables["DATOS"].Rows[0]["No_Expediente"];
+            rowCaratula["TipoSolicitud"] = dsDatosCaratula.Tables["DATOS"].Rows[0]["TipoSolicitud"];
             rowCaratula["Solicitante"] = Get_Propietarios_Gestion_Registro(GestionId, Categoria);
-            rowCaratula["Representante"] = dsDatos.Tables["DATOS"].Rows[0]["Representante"];
-            rowCaratula["Direccion"] = dsDatos.Tables["DATOS"].Rows[0]["Direccion_Notificacion"] + ", " + dsDatos.Tables["DATOS"].Rows[0]["Departamento"] + ", " + dsDatos.Tables["DATOS"].Rows[0]["Municipio"];
+            rowCaratula["Representante"] = dsDatosCaratula.Tables["DATOS"].Rows[0]["Representante"];
+            rowCaratula["Direccion"] = dsDatosCaratula.Tables["DATOS"].Rows[0]["Direccion_Notificacion"] + ", " + dsDatosCaratula.Tables["DATOS"].Rows[0]["Departamento"] + ", " + dsDatosCaratula.Tables["DATOS"].Rows[0]["Municipio"];
             Ds_GestionIncompleta.Tables["Dt_Caratula"].Rows.Add(rowCaratula);
-            dsDatos.Clear();
+            dsDatosCaratula.Clear();
 
             int ModuloId = SP_Get_Modulo_Gestion(GestionId);
             string AgraegadoSol = Get_CompletaPropietarios(Categoria, GestionId, ModuloId);
@@ -1327,6 +1327,29 @@ namespace SEGEFOR.Clases
                     ds.Tables.Remove("DATOS");
                 cn.Open();
                 OleDbCommand cmd = new OleDbCommand("SP_Get_Datos_Adicionales_Gestion", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public DataSet Get_Datos_Adicionales_Gestion_Manejo(int GestionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("SP_Get_Datos_Adicionales_Gestion_Manejo", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
                 OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
@@ -6327,6 +6350,25 @@ namespace SEGEFOR.Clases
             }
         }
 
+        public int Max_LicenciaForestal()
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("SP_Max_LicenciaForestal", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Resul", OleDbType.Integer).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToInt32(cmd.Parameters["@Resul"].Value);
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
+
         public void Insert_Dictamen_Tecnico(int Dictamen_TecnicoId, int GestionId, string Metodologia_Corroboracion, string Metodologia_Resultados, int Tipo_InventarioId, int TotalRodal, int RodalesMuestreados, int Tamano, int Forma_ParcelaId, string Conclusion_Biofisica, string Conclusion_Veracidad, string Conclusion_PropuestaManejo, string Conclusion_Propuesta_Tratamiento, int Tipo_DictamenId, int Tipo_CalculoCompromisoId, int Tipo_GarantiaId, XmlDocument Etapa, XmlDocument MaderaPie, int Vigencia, int Notas_Autorizadas, int Notas_Entregar, int Notas_Restantes, int Tipo_UsuarioIdDictamenTec, int UsuarioId, int SubRegionId, string OtrasRecomendacion)
         {
             try
@@ -6422,32 +6464,64 @@ namespace SEGEFOR.Clases
             DataRow row = Ds_DictamenSubRegional.Tables["Dt_DictamenSubRegional"].NewRow();
             if (dsDatosDictamenSubRegional.Tables[0].Rows.Count > 0)
             {
-                row["NoSubRegion"] = dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Sub_Region"].ToString();
-                row["LugarSubRegion"] = dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Municipio"].ToString() + ", " +  dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Departamento"].ToString();
-                row["NoDictamen"] = "";
-                row["NoExpediente"] = dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["No_Expediente"].ToString();
-                row["FechaExp"] = DateTime.Now;
-                string Fincas = GetDatosFinca_Gestion_Juntos(GestionId);
-                string AgraegadoSol = "";
-                string Solicitante = "";
-                int ModuloId = SP_Get_Modulo_Gestion(GestionId);
-                Solicitante = Get_Propietarios_Manejo(GestionId);
                 if (Tipo == 1)
-                    AgraegadoSol = Get_CompletaPropietarios(Convert.ToInt32(dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["CategoriaId"]), GestionId, ModuloId);
+                {
+                    row["NoSubRegion"] = dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Sub_Region"].ToString();
+                    row["LugarSubRegion"] = dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Municipio"].ToString() + ", " + dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Departamento"].ToString();
+                    row["NoDictamen"] = "";
+                    row["NoExpediente"] = dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["No_Expediente"].ToString();
+                    row["FechaExp"] = DateTime.Now;
+                    string Fincas = GetDatosFinca_Gestion_Juntos(GestionId);
+                    string AgraegadoSol = "";
+                    string Solicitante = "";
+                    int ModuloId = SP_Get_Modulo_Gestion(GestionId);
+                    Solicitante = Get_Propietarios_Manejo(GestionId);
+                    if (Tipo == 1)
+                        AgraegadoSol = Get_CompletaPropietarios(Convert.ToInt32(dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["CategoriaId"]), GestionId, ModuloId);
+                    else
+                    {
+                        AgraegadoSol = Get_CompletaPropietarios(Convert.ToInt32(dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["CategoriaId"]), GestionId, ModuloId);
+                    }
+
+                    if (AgraegadoSol != "")
+                        Solicitante = Solicitante + " " + AgraegadoSol + ".";
+                    else
+                        Solicitante = Solicitante + ".";
+                    row["Asunto"] = Solicitante + " solicita aprobación del Plan de Manejo para " + dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["SubCategoria"].ToString() + " en finca (s) " + Fincas;
+                    row["Dictamen"] = "Con fecha " + dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Fecha_Gestion"].ToString() + ", el señor (a) (es): " + Solicitante + ", en su calidad de propietario (s) presentó solicitud a efecto se le autorice implementar Plan de Manejo de " + dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["SubCategoria"].ToString() + " constando a " + Folios + " folios; el informe jurídico No. " + dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["DictamenJuridico"].ToString() + " del Asesor (a) " + dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Juridico"].ToString() + ", quien se pronunció en forma favorable  en cuanto a la petición formulada  y el informe del Técnico No. " + dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["DictamenTecnico"].ToString() + " emitido por " + dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Tecnico"].ToString() + " quien verificó las circunstancias consignadas en el plan de manejo. Habiendo sido objeto de análisis la petición planteada, esta Dirección Sub Regional considera que la solicitud llena los requisitos tanto desde el punto de vista técnico como legal. En virtud de lo anterior, salvo mejor opinión al respecto el suscrito RECOMIENDA que es " + Dictamen + " acceder a lo solicitado por " + Solicitante;
+                    row["NombreSubregional"] = dsDatosDictamenSubRegional.Tables["Datos1"].Rows[0]["SubRegional"].ToString();
+                    row["PuestoSubRegional"] = dsDatosDictamenSubRegional.Tables["Datos1"].Rows[0]["Puesto"].ToString();
+                    Ds_DictamenSubRegional.Tables["Dt_DictamenSubRegional"].Rows.Add(row);
+                }
                 else
                 {
-                    AgraegadoSol = Get_CompletaPropietarios(Convert.ToInt32(dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["CategoriaId"]), GestionId, ModuloId);
-                }
+                    row["NoSubRegion"] = dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Sub_Region"].ToString();
+                    row["LugarSubRegion"] = dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Municipio"].ToString() + ", " + dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Departamento"].ToString();
+                    row["NoDictamen"] = dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["DictamenSubRegional"].ToString();
+                    row["NoExpediente"] = dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["No_Expediente"].ToString();
+                    row["FechaExp"] = dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["FecDictRegional"].ToString();
+                    string Fincas = GetDatosFinca_Gestion_Juntos(GestionId);
+                    string AgraegadoSol = "";
+                    string Solicitante = "";
+                    int ModuloId = SP_Get_Modulo_Gestion(GestionId);
+                    Solicitante = Get_Propietarios_Manejo(GestionId);
+                    if (Tipo == 1)
+                        AgraegadoSol = Get_CompletaPropietarios(Convert.ToInt32(dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["CategoriaId"]), GestionId, ModuloId);
+                    else
+                    {
+                        AgraegadoSol = Get_CompletaPropietarios(Convert.ToInt32(dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["CategoriaId"]), GestionId, ModuloId);
+                    }
 
-                if (AgraegadoSol != "")
-                    Solicitante = Solicitante + " " + AgraegadoSol + ".";
-                else
-                    Solicitante = Solicitante + ".";
-                row["Asunto"] = Solicitante + " solicita aprobación del Plan de Manejo para " + dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["SubCategoria"].ToString() + " en finca (s) " + Fincas;
-                row["Dictamen"] = "Con fecha " + dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Fecha_Gestion"].ToString() + ", el señor (a) (es): " + Solicitante + ", en su calidad de propietario (s) presentó solicitud a efecto se le autorice implementar Plan de Manejo de " + dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["SubCategoria"].ToString() + " constando a " + Folios + " folios; el informe jurídico No. " + dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["DictamenJuridico"].ToString() + " del Asesor (a) " + dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Juridico"].ToString() + ", quien se pronunció en forma favorable  en cuanto a la petición formulada  y el informe del Técnico No. " + dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["DictamenTecnico"].ToString() + " emitido por " + dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Tecnico"].ToString() + " quien verificó las circunstancias consignadas en el plan de manejo. Habiendo sido objeto de análisis la petición planteada, esta Dirección Sub Regional considera que la solicitud llena los requisitos tanto desde el punto de vista técnico como legal. En virtud de lo anterior, salvo mejor opinión al respecto el suscrito RECOMIENDA que es " + Dictamen + " acceder a lo solicitado por " + Solicitante;
-                row["NombreSubregional"] = dsDatosDictamenSubRegional.Tables["Datos1"].Rows[0]["SubRegional"].ToString();
-                row["PuestoSubRegional"] = dsDatosDictamenSubRegional.Tables["Datos1"].Rows[0]["Puesto"].ToString();
-                Ds_DictamenSubRegional.Tables["Dt_DictamenSubRegional"].Rows.Add(row);
+                    if (AgraegadoSol != "")
+                        Solicitante = Solicitante + " " + AgraegadoSol + ".";
+                    else
+                        Solicitante = Solicitante + ".";
+                    row["Asunto"] = dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Asunto"].ToString();
+                    row["Dictamen"] = dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Dictamen"].ToString();
+                    row["NombreSubregional"] = dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["SubRegional"].ToString();
+                    row["PuestoSubRegional"] = dsDatosDictamenSubRegional.Tables["Datos"].Rows[0]["Puesto"].ToString();
+                    Ds_DictamenSubRegional.Tables["Dt_DictamenSubRegional"].Rows.Add(row);
+                }
             }
 
             dsDatosDictamenSubRegional.Clear();
@@ -6496,9 +6570,29 @@ namespace SEGEFOR.Clases
             if (dsDatosLicencia.Tables[0].Rows.Count > 0)
             {
                 row["NoRegion"] = dsDatosLicencia.Tables["Datos"].Rows[0]["No_Region"].ToString();
-                row["NoLicencia"] = "";
+                if (Tipo == 1)
+                {
+                    row["NoLicencia"] = "";
+                    row["Fecha"] = DateTime.Now;
+                    row["Periodo"] = Periodo;
+                    row["Del"] = FecIni;
+                    row["Al"] = FecFin;
+                    row["DirectorRegional"] = dsDatosLicencia.Tables["Datos1"].Rows[0]["Regional"].ToString();
+                    row["PuestoRegional"] = dsDatosLicencia.Tables["Datos1"].Rows[0]["Puesto"].ToString();
+                }
+                else
+                {
+                    row["NoLicencia"] = dsDatosLicencia.Tables["Datos"].Rows[0]["NoLicencia"].ToString();
+                    row["Fecha"] = dsDatosLicencia.Tables["Datos"].Rows[0]["FechaLicencia"].ToString();
+                    row["Periodo"] = dsDatosLicencia.Tables["Datos"].Rows[0]["Periodo"].ToString();
+                    row["Del"] = dsDatosLicencia.Tables["Datos"].Rows[0]["FecIni"].ToString();
+                    row["Al"] = dsDatosLicencia.Tables["Datos"].Rows[0]["FecFin"].ToString();
+                    row["DirectorRegional"] = dsDatosLicencia.Tables["Datos"].Rows[0]["Regional"].ToString();
+                    row["PuestoRegional"] = dsDatosLicencia.Tables["Datos"].Rows[0]["PuestoRegional"].ToString();
+                }
+                
                 row["DepartamentoRegion"] = dsDatosLicencia.Tables["Datos"].Rows[0]["departamento"].ToString();
-                row["Fecha"] = DateTime.Now;
+                
                 row["DictamenTecnico"] = dsDatosLicencia.Tables["Datos"].Rows[0]["DictamenTecnico"].ToString();
                 row["Tecnico"] = dsDatosLicencia.Tables["Datos"].Rows[0]["Tecnico"].ToString();
                 row["FechaDicTecnico"] = dsDatosLicencia.Tables["Datos"].Rows[0]["FechaDictTec"].ToString();
@@ -6509,9 +6603,7 @@ namespace SEGEFOR.Clases
                 row["DirectorSubRegional"] = dsDatosLicencia.Tables["Datos"].Rows[0]["Subregional"].ToString();
                 row["FechaDictamenSubRegional"] = dsDatosLicencia.Tables["Datos"].Rows[0]["FecDictSubregional"].ToString();
                 row["Turno"] = Get_MaxTurno_PlanManejo(GestionId);
-                row["Periodo"] = Periodo;
-                row["Del"] = FecIni;
-                row["Al"] = FecFin;
+                
                 row["ValorMaderaPie"] = Get_TotalValorMadera(GestionId);
 
                 string SistemaRepoblacionText = "";
@@ -6529,8 +6621,7 @@ namespace SEGEFOR.Clases
                 row["NoSubRegion"] = dsDatosLicencia.Tables["Datos"].Rows[0]["No_SubRegion"].ToString();
                 row["MunicipioSubRegion"] = dsDatosLicencia.Tables["Datos"].Rows[0]["Municipio"].ToString();
                 row["DepartamentoSubRegion"] = dsDatosLicencia.Tables["Datos"].Rows[0]["Departamento"].ToString();
-                row["DirectorRegional"] = dsDatosLicencia.Tables["Datos1"].Rows[0]["Regional"].ToString();
-                row["PuestoRegional"] = dsDatosLicencia.Tables["Datos1"].Rows[0]["Puesto"].ToString();
+                
 
                 string AgraegadoSol = "";
                 string Solicitante = "";
@@ -6740,5 +6831,77 @@ namespace SEGEFOR.Clases
                 return ds;
             }
         }
+
+        public void Insert_LicenciaForestal(int LicenciaId, int Aprueba, int Periodo, DateTime FecIni, DateTime FecFin, int UsuarioId, int GestionId)
+        {
+            try
+            {
+                cnSql.Open();
+                SqlCommand cmd = new SqlCommand("Sp_Insert_LicenciaForestal", cnSql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@LicenciaId", SqlDbType.Int).Value = LicenciaId;
+
+                cmd.Parameters.Add("@Aprueba", SqlDbType.Int).Value = Aprueba;
+                cmd.Parameters.Add("@Periodo", SqlDbType.Int).Value = Periodo;
+                cmd.Parameters.Add("@FecIni", SqlDbType.DateTime).Value = FecIni;
+                cmd.Parameters.Add("@FecFin", SqlDbType.DateTime).Value = FecFin;
+                cmd.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
+                cmd.Parameters.Add("@GestionId", SqlDbType.Int).Value = GestionId;
+                cmd.ExecuteNonQuery();
+                cnSql.Close();
+            }
+            catch (Exception ex)
+            {
+                cnSql.Close();
+            }
+        }
+
+        public DataSet Get_InteresadosEnviaCorreo(int GestionId) //1 VP,  2. gestion
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_Get_InteresadosEnviaCorreo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public DataSet Get_Historial_ManejoForestal(int UsuarioId, string No_Expediente)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Get_Historial_ManejoForestal", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@UsuarioId", OleDbType.Integer).Value = UsuarioId;
+                cmd.Parameters.Add("@No_Expediente", OleDbType.VarChar, 200).Value = No_Expediente;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
     }
 }

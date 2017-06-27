@@ -48,6 +48,10 @@
                                         <asp:ImageButton runat="server" ID="ImgVerDictamenTecnico" ImageUrl="~/Imagenes/24x24/pdf.png" formnovalidate ToolTip="Ver Dictamen Técnico"/>
                                         <asp:Label runat="server" Text="Ver Dictamen Técnico"></asp:Label>
                                     </div>
+                                    <div class="col-sm-2" runat="server" id="DivVerDicSubRegional" visible="false">
+                                        <asp:ImageButton runat="server" ID="ImgVerDictamenSubRegional" ImageUrl="~/Imagenes/24x24/pdf.png" formnovalidate ToolTip="Ver Dictamen SubRegional"/>
+                                        <asp:Label runat="server" Text="Ver Dictamen Subregional"></asp:Label>
+                                    </div>
                                 </div>
                                 <div style="padding-bottom:2em;"></div>
                                 <div runat="server" id="DivRegionalRegistro" visible="false">

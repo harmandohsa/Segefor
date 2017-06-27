@@ -47,6 +47,8 @@ namespace SEGEFOR.WebForms
             BtnGrabarConstancia.Click += BtnGrabarConstancia_Click;
             BtnVistaPreviaLicencia.Click += BtnVistaPreviaLicencia_Click;
             ImgVerDictamenTecnico.Click += ImgVerDictamenTecnico_Click;
+            ImgVerDictamenSubRegional.Click += ImgVerDictamenSubRegional_Click;
+            BtnGrabarLicencia.Click += BtnGrabarLicencia_Click;
 
             if (Session["UsuarioId"] == null)
             {
@@ -114,8 +116,27 @@ namespace SEGEFOR.WebForms
                     LblIdentificacion.Text = ClManejo.Get_Identificacion_Gestion_Manejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
                     DivVerDicTec.Visible = true;
                     DivRegionalManejo.Visible = true;
+                    DivVerDicSubRegional.Visible = true;
                 }
             }
+        }
+
+        void BtnGrabarLicencia_Click(object sender, EventArgs e)
+        {
+            if (ValidaLicencia() == false)
+            {
+                LblTitConfirmacion.Text = "El sistema generara la licencia forestal, ¿esta seguro (a)?";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindowConfirm.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+            }
+        }
+
+        void ImgVerDictamenSubRegional_Click(object sender, ImageClickEventArgs e)
+        {
+            int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+            Session["DatosDictamenSubRegion"] = ClGestion.ImpresionDictamenSubRegional(GestionId, 2, Convert.ToInt32(Session["UsuarioId"]), 0, "");
+            RadWindow1.Title = "Dictamen Subregional";
+            RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepDictamenSubRegional.aspx";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
         }
 
         void ImgVerDictamenTecnico_Click(object sender, ImageClickEventArgs e)
@@ -321,58 +342,83 @@ namespace SEGEFOR.WebForms
 
         void BtnYes_Click(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(Session["Oficio"]) == 1)
+            if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 3)
             {
-                Session["Oficio"] = 0;
-                XmlDocument iInformacion = ClXml.CrearDocumentoXML("OficioDevolucion");
-                XmlNode iElementos = iInformacion.CreateElement("Motivos");
-                CargaDataSet();
-                for (int i = 0; i < Ds_Temporal.Tables["Dt_Motivo_Oficio_Dev"].Rows.Count; i++)
+                if (Convert.ToInt32(Session["Oficio"]) == 1)
                 {
-                    XmlNode iElementoDetalle = iInformacion.CreateElement("Item");
-                    ClXml.AgregarAtributo("Motivo", Ds_Temporal.Tables["Dt_Motivo_Oficio_Dev"].Rows[i]["Motivo"], iElementoDetalle);
-                    iElementos.AppendChild(iElementoDetalle);
-                }
-                iInformacion.ChildNodes[1].AppendChild(iElementos);
-                int OficioDevolucionId = ClGestion.Max_Oficio_Devolucion();
-                ClGestion.Insert_Oficio_Devolucion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), TxtDirigido.Text, iInformacion, Convert.ToInt32(Session["UsuarioId"]));
+                    Session["Oficio"] = 0;
+                    XmlDocument iInformacion = ClXml.CrearDocumentoXML("OficioDevolucion");
+                    XmlNode iElementos = iInformacion.CreateElement("Motivos");
+                    CargaDataSet();
+                    for (int i = 0; i < Ds_Temporal.Tables["Dt_Motivo_Oficio_Dev"].Rows.Count; i++)
+                    {
+                        XmlNode iElementoDetalle = iInformacion.CreateElement("Item");
+                        ClXml.AgregarAtributo("Motivo", Ds_Temporal.Tables["Dt_Motivo_Oficio_Dev"].Rows[i]["Motivo"], iElementoDetalle);
+                        iElementos.AppendChild(iElementoDetalle);
+                    }
+                    iInformacion.ChildNodes[1].AppendChild(iElementos);
+                    int OficioDevolucionId = ClGestion.Max_Oficio_Devolucion();
+                    ClGestion.Insert_Oficio_Devolucion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), TxtDirigido.Text, iInformacion, Convert.ToInt32(Session["UsuarioId"]));
 
-                if (Convert.ToInt32(Session["TipoUsuarioId"]) == 4)
-                {
-                    DataSet dsDatos = ClGestion.Get_Regional_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
-                    ClUtilitarios.EnvioCorreo(dsDatos.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatos.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Oficio de Devolución", "Se ha enviado Oficio de Devolución", 0, "", "");
-                    dsDatos.Clear();
+                    if (Convert.ToInt32(Session["TipoUsuarioId"]) == 4)
+                    {
+                        DataSet dsDatos = ClGestion.Get_Regional_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                        ClUtilitarios.EnvioCorreo(dsDatos.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatos.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Oficio de Devolución", "Se ha enviado Oficio de Devolución", 0, "", "");
+                        dsDatos.Clear();
+                    }
+                    else
+                    {
+                        DataSet dsDatos = ClGestion.Get_Datos_Persona(1, ClGestion.Get_UsuarioSubRegional_Resolucion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true))));
+                        ClUtilitarios.EnvioCorreo(dsDatos.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatos.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Oficio de Devolución", "Se ha enviado Oficio de Devolución", 0, "", "");
+                        dsDatos.Clear();
+                    }
+                    ClGestion.Cambia_Estatus_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 5);
+                    Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("5", true)) + "&traderefund=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(OficioDevolucionId.ToString(), true)) + "");
                 }
                 else
                 {
-                    DataSet dsDatos = ClGestion.Get_Datos_Persona(1, ClGestion.Get_UsuarioSubRegional_Resolucion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true))));
-                    ClUtilitarios.EnvioCorreo(dsDatos.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatos.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Oficio de Devolución", "Se ha enviado Oficio de Devolución", 0, "", "");
-                    dsDatos.Clear();
+                    int SubCategoriaId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["subcategoria"].ToString()), true));
+                    int RegistroId = ClGestion.Max_registroId();
+                    ClGestion.Insert_RegistroRNF(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), Convert.ToDateTime(string.Format("{0:dd/MM/yyyy}", TxtFecIncripcion.SelectedDate)), Convert.ToDateTime(string.Format("{0:dd/MM/yyyy}", TxtFecVencimiento.SelectedDate)), SubCategoriaId, Convert.ToInt32(Session["UsuarioId"]));
+                    if (Convert.ToInt32(Session["TipoUsuarioId"]) == 4)
+                    {
+                        DataSet dsDatos = ClGestion.Get_Regional_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                        ClUtilitarios.EnvioCorreo(dsDatos.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatos.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Inscripción en el Registro Nacional Forestal", "Inscripción en el Registro Nacional Forestal", 0, "", "");
+                        dsDatos.Clear();
+                    }
+                    else
+                    {
+                        DataSet dsDatos = ClGestion.Get_Datos_Persona(1, ClGestion.Get_UsuarioSubRegional_Resolucion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true))));
+                        ClUtilitarios.EnvioCorreo(dsDatos.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatos.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Inscripción en el Registro Nacional Forestal", "Inscripción en el Registro Nacional Forestal", 0, "", "");
+                        dsDatos.Clear();
+                    }
+                    ClGestion.Cambia_Estatus_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 6);
+                    Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("6", true)) + "&enregistrement=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(RegistroId.ToString(), true)) + "");
                 }
-                ClGestion.Cambia_Estatus_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 5);
-                Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("5", true)) + "&traderefund=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(OficioDevolucionId.ToString(), true)) + "");
             }
-            else
+            else if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 2)
             {
-                int SubCategoriaId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["subcategoria"].ToString()), true));
-                int RegistroId = ClGestion.Max_registroId();
-                ClGestion.Insert_RegistroRNF(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), Convert.ToDateTime(string.Format("{0:dd/MM/yyyy}", TxtFecIncripcion.SelectedDate)), Convert.ToDateTime(string.Format("{0:dd/MM/yyyy}", TxtFecVencimiento.SelectedDate)), SubCategoriaId, Convert.ToInt32(Session["UsuarioId"]));
-                if (Convert.ToInt32(Session["TipoUsuarioId"]) == 4)
-                {
-                    DataSet dsDatos = ClGestion.Get_Regional_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
-                    ClUtilitarios.EnvioCorreo(dsDatos.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatos.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Inscripción en el Registro Nacional Forestal", "Inscripción en el Registro Nacional Forestal", 0, "", "");
-                    dsDatos.Clear();
-                }
-                else
-                {
-                    DataSet dsDatos = ClGestion.Get_Datos_Persona(1, ClGestion.Get_UsuarioSubRegional_Resolucion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true))));
-                    ClUtilitarios.EnvioCorreo(dsDatos.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatos.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Inscripción en el Registro Nacional Forestal", "Inscripción en el Registro Nacional Forestal", 0, "", "");
-                    dsDatos.Clear();
-                }
+                int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                int LicenciaId = ClGestion.Max_LicenciaForestal();
+                ClGestion.Insert_LicenciaForestal(LicenciaId, Convert.ToInt32(CboAprueba.SelectedValue), Convert.ToInt32(TxtPeriodo.Text), Convert.ToDateTime(TxtFecIni.SelectedDate), Convert.ToDateTime(TxtFecFin.SelectedDate),  Convert.ToInt32(Session["UsuarioId"]), GestionId);
+
+
                 ClGestion.Cambia_Estatus_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 6);
-                Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("6", true)) + "&enregistrement=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(RegistroId.ToString(), true)) + "");
+
+
+                DataSet dsDatosInteresados = ClGestion.Get_InteresadosEnviaCorreo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                string MensajeCorreo = "Se ha enviado a su despacho la gestión de Manejo Forestal";
+                for (int i = 0; i < dsDatosInteresados.Tables["Datos"].Rows.Count; i++)
+                {
+                    ClUtilitarios.EnvioCorreo(dsDatosInteresados.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatosInteresados.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Envío de gestión", MensajeCorreo, 0, "", "");    
+                }
+                dsDatosInteresados.Clear();
+                Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("10", true)) + "&gestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionId.ToString(), true)) + "");
             }
+            
         }
+
+
 
         void BtnGrabaOficio_Click(object sender, EventArgs e)
         {
@@ -635,6 +681,7 @@ namespace SEGEFOR.WebForms
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
                 }
             }
+
         }
     }
 }
