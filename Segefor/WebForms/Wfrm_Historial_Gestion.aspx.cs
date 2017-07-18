@@ -489,10 +489,8 @@ namespace SEGEFOR.WebForms
             if (e.Item.ItemType == GridItemType.Item || e.Item.ItemType == GridItemType.AlternatingItem)
             {
                 GridDataItem item = (GridDataItem)e.Item;
-                if (item.GetDataKeyValue("ModuloId").ToString() == "3")
-                {
-                    item["actividad"].Text = ClGestion.Get_Actividad_Registro(Convert.ToInt32(item.GetDataKeyValue("GestionId")));
-                }
+                
+                item["actividad"].Text = ClGestion.Get_Actividad_Registro(Convert.ToInt32(item.GetDataKeyValue("GestionId")));
                 DataSet ds = ClGestion.Get_Datos_Adicionales_Gestion(Convert.ToInt32(item.GetDataKeyValue("GestionId")));
                 LinkButton LnkResolucion;
                 LnkResolucion = (LinkButton)item.FindControl("LnkResolucion");

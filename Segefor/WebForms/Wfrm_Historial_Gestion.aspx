@@ -107,7 +107,7 @@
                                     </telerik:RadPageView>
                                     <telerik:RadPageView ID="RadPageView1" runat="server"> <%--Manejo Forestal--%>
                                         <div class="ibox-title">
-                                            <h2><strong>Registro Nacional Forestal</strong></h2>
+                                            <h2><strong>Licencias Forestales</strong></h2>
                                         </div>
                                         <div class="ibox-content">
                                             <telerik:RadGrid runat="server" ID="GrdManejoForestal" Skin="Telerik"

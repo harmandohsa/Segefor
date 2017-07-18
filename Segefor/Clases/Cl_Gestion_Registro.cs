@@ -6210,15 +6210,18 @@ namespace SEGEFOR.Clases
             for (int i = 0; i < Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows.Count; i++)
             {
                 DataSet DsDatosExtrae = ClManejo.Get_Dato_Silvicultura_Extrae_PlanManejo(GestionId,Convert.ToInt32(Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["Correlativo"]));
-                Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["Turno"] = DsDatosExtrae.Tables["Datos"].Rows[0]["Turno"].ToString();
-                if (DsDatosExtrae.Tables["Datos"].Rows[0]["Tratamiento"].ToString() == "Otro")
-                    Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["Tratamiento"] = DsDatosExtrae.Tables["Datos"].Rows[0]["Otro"].ToString();
-                else
-                    Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["Tratamiento"] = DsDatosExtrae.Tables["Datos"].Rows[0]["Tratamiento"].ToString();
-                Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["VolTroza"] = DsDatosExtrae.Tables["Datos"].Rows[0]["VolTroza"].ToString();
-                Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["VolLena"]  = DsDatosExtrae.Tables["Datos"].Rows[0]["VolLena"].ToString();
-                Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["VolTotal"] = DsDatosExtrae.Tables["Datos"].Rows[0]["VolTotal"].ToString();
-                DsDatosExtrae.Clear();
+                if (DsDatosExtrae.Tables.Count > 0)
+                {
+                    Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["Turno"] = DsDatosExtrae.Tables["Datos"].Rows[0]["Turno"].ToString();
+                    if (DsDatosExtrae.Tables["Datos"].Rows[0]["Tratamiento"].ToString() == "Otro")
+                        Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["Tratamiento"] = DsDatosExtrae.Tables["Datos"].Rows[0]["Otro"].ToString();
+                    else
+                        Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["Tratamiento"] = DsDatosExtrae.Tables["Datos"].Rows[0]["Tratamiento"].ToString();
+                    Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["VolTroza"] = DsDatosExtrae.Tables["Datos"].Rows[0]["VolTroza"].ToString();
+                    Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["VolLena"] = DsDatosExtrae.Tables["Datos"].Rows[0]["VolLena"].ToString();
+                    Ds_DictamenTecnico.Tables["Dt_Silvicultura_DicTec"].Rows[i]["VolTotal"] = DsDatosExtrae.Tables["Datos"].Rows[0]["VolTotal"].ToString();
+                    DsDatosExtrae.Clear();
+                }
             }
 
 

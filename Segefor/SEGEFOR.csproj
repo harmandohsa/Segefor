@@ -2062,6 +2062,12 @@
       <DependentUpon>Rpt_SubRep_PropietariosEmpresa.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SubReportes\Rpt_SubRep_PropietariosFirma.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_SubRep_PropietariosFirma.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SubReportes\Rpt_SubRep_ProteccionPlanManejo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2910,6 +2916,10 @@
     <EmbeddedResource Include="SubReportes\Rpt_SubRep_PropietariosEmpresa.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_SubRep_PropietariosEmpresa.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubReportes\Rpt_SubRep_PropietariosFirma.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_SubRep_PropietariosFirma.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="SubReportes\Rpt_SubRep_ProteccionPlanManejo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

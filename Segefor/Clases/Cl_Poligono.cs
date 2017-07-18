@@ -154,7 +154,7 @@ namespace SEGEFOR.Clases
                 return true;
         }
 
-        public bool Actualizar_Poligono_AreaBosque(XmlDocument pPoligono, ref int AsignacionId, ref int InmuebleId, ref string ErrorMapa)
+        public bool Actualizar_Poligono_AreaBosque(XmlDocument pPoligono, ref int AsignacionId, ref int InmuebleId, ref int Correlativo, ref string ErrorMapa)
         {
 
             
@@ -171,6 +171,9 @@ namespace SEGEFOR.Clases
 
             Comando.Parameters.Add("@Puntos", SqlDbType.Xml, -1);
             Comando.Parameters["@Puntos"].Value = pPoligono.OuterXml;
+
+            Comando.Parameters.Add("@Correlativo", SqlDbType.Int);
+            Comando.Parameters["@Correlativo"].Value = Correlativo ;
 
             Comando.Parameters.Add("@Mensaje", SqlDbType.VarChar, -1);
             Comando.Parameters["@Mensaje"].Direction = ParameterDirection.Output;
@@ -195,7 +198,7 @@ namespace SEGEFOR.Clases
 
 
 
-        public bool Actualizar_Poligono_AreaIntervenir(XmlDocument pPoligono, ref int AsignacionId, ref int InmuebleId, ref string ErrorMapa)
+        public bool Actualizar_Poligono_AreaIntervenir(XmlDocument pPoligono, ref int AsignacionId, ref int InmuebleId, ref int Correlativo, ref string ErrorMapa)
         {
 
 
@@ -213,6 +216,9 @@ namespace SEGEFOR.Clases
 
             Comando.Parameters.Add("@Puntos", SqlDbType.Xml, -1);
             Comando.Parameters["@Puntos"].Value = pPoligono.OuterXml;
+
+            Comando.Parameters.Add("@Correlativo", SqlDbType.Int);
+            Comando.Parameters["@Correlativo"].Value = Correlativo;
 
             Comando.Parameters.Add("@Mensaje", SqlDbType.VarChar, -1);
             Comando.Parameters["@Mensaje"].Direction = ParameterDirection.Output;
@@ -349,7 +355,7 @@ namespace SEGEFOR.Clases
 
         }
 
-        public bool Actualizar_Poligono_AreaRepoblacion(XmlDocument pPoligono, int AsignacionId, ref string ErrorMapa)
+        public bool Actualizar_Poligono_AreaRepoblacion(XmlDocument pPoligono, int AsignacionId,int Correlativo, ref string ErrorMapa)
         {
 
 
@@ -364,6 +370,9 @@ namespace SEGEFOR.Clases
 
             Comando.Parameters.Add("@Puntos", SqlDbType.Xml, -1);
             Comando.Parameters["@Puntos"].Value = pPoligono.OuterXml;
+
+            Comando.Parameters.Add("@Correlativo", SqlDbType.Int);
+            Comando.Parameters["@Correlativo"].Value = Correlativo;
 
             Comando.Parameters.Add("@Mensaje", SqlDbType.VarChar, -1);
             Comando.Parameters["@Mensaje"].Direction = ParameterDirection.Output;

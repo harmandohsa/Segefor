@@ -127,39 +127,48 @@ namespace SEGEFOR.WebForms
                 string Id = HttpContext.Current.Session["Id"].ToString();
                 dsPoligono = ClPoligono.obtener_poligonos_Repoblacion(Convert.ToInt32(Id), Convert.ToInt32(Tipo));
             }
-            string[] puntos = dsPoligono.Tables["Datos"].Rows[0]["Poligono"].ToString().Split(' ');
-            dsPoligono.Clear();
-            
-            DataSet ds = new DataSet();
-            DataTable dt = new DataTable();
+
+
+            //List<object> lstFencingCircleAll = new List<object>();
             List<MAPS> lstFencingCircle = new List<MAPS>();
-            try
+            
+            for (int i = 0; i < dsPoligono.Tables["Datos"].Rows.Count; i++)
             {
-
-                dt.Columns.Add("Latitude");
-                dt.Columns.Add("Longitude");
-
-
-                for (int i = 0; i < puntos.Length; i+=2)
+                string[] puntos = dsPoligono.Tables["Datos"].Rows[i]["Poligono"].ToString().Split(' ');
+                DataSet ds = new DataSet();
+                DataTable dt = new DataTable();
+                
+                try
                 {
-                    string Lat = puntos[i];
-                    string Long = puntos[i+1];
-                    dt.Rows.Add(Lat, Long);
+
+                    dt.Columns.Add("Latitude");
+                    dt.Columns.Add("Longitude");
+
+
+                    for (int j = 0; j < puntos.Length; j += 2)
+                    {
+                        string Lat = puntos[j];
+                        string Long = puntos[j + 1];
+                        dt.Rows.Add(Lat, Long);
+                    }
+                    foreach (DataRow dtrow in dt.Rows)
+                    {
+                        MAPS objMAPS = new MAPS();
+                        objMAPS.Latitude = dtrow["Latitude"].ToString();
+                        objMAPS.Longitude = dtrow["Longitude"].ToString();
+                        objMAPS.Correlativo = (i+1).ToString();
+                        lstFencingCircle.Add(objMAPS);
+                    }
                 }
-                foreach (DataRow dtrow in dt.Rows)
+                catch (Exception ex)
                 {
-                    MAPS objMAPS = new MAPS();
-                    objMAPS.Latitude = dtrow["Latitude"].ToString();
-                    objMAPS.Longitude = dtrow["Longitude"].ToString();
-                    lstFencingCircle.Add(objMAPS);
+                    throw ex;
                 }
+                //lstFencingCircleAll.Add(lstFencingCircle);
+                //lstFencingCircle.Clear();
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-
+            dsPoligono.Clear();
+            //return lstFencingCircleAll.ToArray();
             return lstFencingCircle.ToArray();
         }
 
@@ -167,6 +176,7 @@ namespace SEGEFOR.WebForms
         {
             public string Latitude;
             public string Longitude;
+            public string Correlativo;
         }
     }
 }

@@ -97,7 +97,7 @@ namespace SEGEFOR.WebForms
                     LblIdentificacion.Text = ClManejo.Get_Identificacion_Gestion_Manejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
                 if (CboJuridico.Items.Count > 1)
                     ClUtilitarios.AgregarSeleccioneCombo(CboJuridico,"Jurídico");
-                if (ClGestion.Existe_Resolucion_Admision(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true))) == 1)
+                if (ClGestion.Existe_Resolucion_Admision(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true))) >= 1)
                 { 
                     DivProvidencia.Visible = true;
                     ClUtilitarios.LlenaCombo(ClGestion.Get_Juridicos_SubRegion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["sousregion"].ToString()), true))), CboJuridico, "UsuarioId", "Nombres");

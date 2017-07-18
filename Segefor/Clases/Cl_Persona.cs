@@ -394,6 +394,7 @@ namespace SEGEFOR.Clases
                 OleDbCommand cmd = new OleDbCommand("SP_GetPersonaId", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@UsuarioId", OleDbType.Integer).Value = UsuarioId;
+                cmd.Parameters.Add("@Resul", OleDbType.Integer).Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
                 cn.Close();
                 return Convert.ToInt32(cmd.Parameters["@Resul"].Value);

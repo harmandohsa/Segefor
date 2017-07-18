@@ -25,7 +25,7 @@ namespace SEGEFOR
             BtnIngresar.Click += BtnIngresar_Click;
             BtnOlvio.ServerClick += BtnOlvio_ServerClick;
             BtnEnviaClave.ServerClick += BtnEnviaClave_ServerClick;
-            string conver = HttpUtility.UrlEncode(ClUtilitarios.Encrypt("8", true));
+            string conver = HttpUtility.UrlEncode(ClUtilitarios.Encrypt("1234", true));
         }
 
         void BtnEnviaClave_ServerClick(object sender, EventArgs e)

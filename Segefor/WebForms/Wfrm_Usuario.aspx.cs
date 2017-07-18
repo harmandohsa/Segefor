@@ -135,7 +135,7 @@ namespace SEGEFOR.WebForms
             LblGoodGrabar.Text = "";
             if (e.CommandName == "CmdPass")
             {
-                string Clave = ClUtilitarios.GenerarPass(6, 10);
+                string Clave = "1234";
                 ClUsuario.Actualiza_Clave(Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["UsuarioId"]), ClUtilitarios.Encrypt(Clave, true), 1);
                 DivGoodGrabar.Visible = true;
                 LblGoodGrabar.Text = "Contraseña actualizada";

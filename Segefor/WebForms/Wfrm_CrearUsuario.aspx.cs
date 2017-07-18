@@ -21,7 +21,7 @@ namespace SEGEFOR.WebForms
         Cl_Catalogos ClCatalogos;
         Cl_Persona ClPersona;
         DataSet ds = new DataSet();
-        Regex rex = new Regex("^[A-Z a-z á-é-í-ó-ú]*$");
+        Regex rex = new Regex("^[A-Z a-z á-é-í-ó-ú Á-É-Í-Ó-Í-Ú]*$");
 
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -15,10 +15,10 @@
                                     <h4><strong>Planes de Manejo Solicitados</strong></h4>
                                 </div>
                                 <div class="ibox-content">
-                                    <telerik:RadGrid runat="server" ID="GrdPlanesSolicitados" Skin="MetroTouch"
+                                    <telerik:RadGrid runat="server" ID="GrdPlanesSolicitados" Skin="MetroTouch" AllowPaging="true"  PageSize="6"
                                         AutoGenerateColumns="false" Width="100%" AllowSorting="true" 
                                         GridLines="Both" >
-                                        <PagerStyle Mode="NumericPages" NextPageText="Siguiente" 
+                                        <PagerStyle Mode="NumericPages" NextPageText="Siguiente"  
                                             PrevPageText="Anterior" Position="Bottom" 
                                             PagerTextFormat="Change page: {4} &amp;nbsp;Pagina &lt;strong&gt;{0}&lt;/strong&gt; de &lt;strong&gt;{1}&lt;/strong&gt;, registros &lt;strong&gt;{2}&lt;/strong&gt; a &lt;strong&gt;{3}&lt;/strong&gt; de &lt;strong&gt;{5}&lt;/strong&gt;." 
                                             PageSizeLabelText="Regitros"/>
@@ -30,7 +30,7 @@
                                                 <telerik:GridBoundColumn DataField="Estatus" UniqueName="Estatus" HeaderText="Estatus" HeaderStyle-Width="200px"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="EstatusId" UniqueName="EstatusId" Visible="false" HeaderText="Estatus" HeaderStyle-Width="200px"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="Area" UniqueName="Area"  DataFormatString="{0:#,##0.00}" HeaderText="Área" HeaderStyle-Width="100px"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="Regente" UniqueName="Regente" HeaderText="Regente" HeaderStyle-Width="200px"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="Regente" UniqueName="Regente" HeaderText="Elaborador" HeaderStyle-Width="200px"></telerik:GridBoundColumn>
                                                 <telerik:GridTemplateColumn HeaderText="Ver información" ShowFilterIcon="false" AllowFiltering="false"  Visible="true" UniqueName="VerInfo" ItemStyle-HorizontalAlign="Center">
                                                         <ItemTemplate>
                                                             <asp:ImageButton runat="server" ID="ImgVerinfo" Visible="false" ImageUrl="~/Imagenes/24x24/pdf.png" formnovalidate ToolTip="Ver Información" CommandName="CmdVer"/>
@@ -67,8 +67,8 @@
                                     <h4><strong>Planes de Manejo en Proceso</strong></h4>
                                 </div>
                                 <div class="ibox-content"  runat="server" id="DivPlanProceso">
-                                    <telerik:RadGrid runat="server" ID="GrdPlanesSolicitadosComoRegente" Skin="MetroTouch"
-                                        AutoGenerateColumns="false" Width="100%" AllowSorting="true" AllowFilteringByColumn="true"
+                                    <telerik:RadGrid runat="server" ID="GrdPlanesSolicitadosComoRegente" AllowPaging="true"  Skin="MetroTouch"
+                                        AutoGenerateColumns="false" Width="100%" AllowSorting="true" AllowFilteringByColumn="true" PageSize="6"
                                         GridLines="Both" >
                                         <PagerStyle Mode="NumericPages" NextPageText="Siguiente" 
                                             PrevPageText="Anterior" Position="Bottom" 

@@ -11,6 +11,17 @@
         var map;
         var MapCitys = [];
 
+        function attachPolygonInfoWindow(polygon,Correlativo) {
+            var infoWindow = new google.maps.InfoWindow();
+            google.maps.event.addListener(polygon, 'mouseover', function (e) {
+                infoWindow.setContent(Correlativo);
+                var latLng = e.latLng;
+                infoWindow.setPosition(latLng);
+                infoWindow.open(map);
+            });
+        }
+
+
         function CreatingPolygon(GrpName, ArName) {
             $.ajax({
                 type: "POST",
@@ -21,27 +32,64 @@
                 success: function (data) {
                     var mapProp = {
                         center: new google.maps.LatLng(data.d[0].Latitude, data.d[0].Longitude),
-                        zoom: 17,
+                        zoom: 14,
                         mapTypeId: google.maps.MapTypeId.SATELLITE
                     };
                     map = new google.maps.Map(document.getElementById("idgoogleMap"), mapProp);
 
                     var TriangleCoordList = [];
-                    for (var i = 0; i < data.d.length; i++) {
+                    var Correlativo = 0;
+                    var CorrelativoTemp = 0;
 
-                        var triangleCoords = new google.maps.LatLng(data.d[i].Latitude, data.d[i].Longitude);
-                        TriangleCoordList.push(triangleCoords);
+                    for (var i = 0; i < data.d.length; i++) {
+                        Correlativo = data.d[i].Correlativo;
+                        if ((Correlativo != CorrelativoTemp) && (CorrelativoTemp > 0))
+                        {
+                            
+                            TriangleCoordList.push(triangleCoords);
+                            bermudaTriangle = new google.maps.Polygon({
+                                paths: TriangleCoordList,
+                                strokeColor: "#100E49",
+                                strokeOpacity: 0.8,
+                                strokeWeight: 3,
+                                fillColor: "#5E7B0D",
+                                fillOpacity: 0.35
+                                
+                            });
+                            attachPolygonInfoWindow(bermudaTriangle, CorrelativoTemp)
+                            bermudaTriangle.setMap(map);
+                            MapCitys.push(bermudaTriangle);
+                            CorrelativoTemp = Correlativo;
+                            TriangleCoordList = [];
+                            var triangleCoords = new google.maps.LatLng(data.d[i].Latitude, data.d[i].Longitude);
+                            TriangleCoordList.push(triangleCoords);
+                        }
+                        else
+                        {
+                            var triangleCoords = new google.maps.LatLng(data.d[i].Latitude, data.d[i].Longitude);
+                            TriangleCoordList.push(triangleCoords);
+                            CorrelativoTemp = Correlativo;
+                            if (i + 1 == data.d.length)
+                            {
+                                TriangleCoordList.push(triangleCoords);
+                                bermudaTriangle = new google.maps.Polygon({
+                                    paths: TriangleCoordList,
+                                    strokeColor: "#100E49",
+                                    strokeOpacity: 0.8,
+                                    strokeWeight: 3,
+                                    fillColor: "#5E7B0D",
+                                    fillOpacity: 0.35,
+                                    text: "prueba"
+                                });
+                                attachPolygonInfoWindow(bermudaTriangle, CorrelativoTemp)
+                                bermudaTriangle.setMap(map);
+                                MapCitys.push(bermudaTriangle);
+                            }
+                        }
+                        
                     }
-                    bermudaTriangle = new google.maps.Polygon({
-                        paths: TriangleCoordList,
-                        strokeColor: "#100E49",
-                        strokeOpacity: 0.8,
-                        strokeWeight: 3,
-                        fillColor: "#5E7B0D",
-                        fillOpacity: 0.35
-                    });
-                    bermudaTriangle.setMap(map);
-                    MapCitys.push(bermudaTriangle);
+
+                    
                 },
                 error: function (result) {
                     alert("Error");

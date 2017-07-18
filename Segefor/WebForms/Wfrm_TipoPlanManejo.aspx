@@ -636,15 +636,16 @@
                                                     <telerik:RadTab runat="server" Text="1. Información General (Fincas y Propietarios)" Selected="true"></telerik:RadTab> <%--0--%>
                                                     <telerik:RadTab runat="server" Text="1.1 Información General (Representantes Legales)"></telerik:RadTab> <%--1--%>
                                                     <telerik:RadTab runat="server" Text="1.2 Información General (Datos de Notificación)"></telerik:RadTab> <%--2--%>
-                                                    <telerik:RadTab runat="server" Text="1.3 Información General (Datos Plan Manejo)"></telerik:RadTab> <%--3--%>
-                                                    <telerik:RadTab runat="server" Text="2 Características Biofísicas"></telerik:RadTab> <%--4--%>
-                                                    <telerik:RadTab runat="server" Text="Plan de Investigación" Visible="false"></telerik:RadTab> <%--5--%>
-                                                    <telerik:RadTab runat="server" Text="Descripción de la Plaga" Visible="false"></telerik:RadTab> <%--6--%>
-                                                    <telerik:RadTab runat="server" Text="Medidas de Control" Visible="false"></telerik:RadTab> <%--7--%>
-                                                    <telerik:RadTab runat="server" Text="3 Inventario Forestal"></telerik:RadTab> <%--8--%>
-                                                    <telerik:RadTab runat="server" Text="Actividades de Aprovechamiento" Visible="false"></telerik:RadTab> <%--9--%>
-                                                    <telerik:RadTab runat="server" Text="Acciones de repoblación forestal del área boscosa dañada" Visible="false"></telerik:RadTab> <%--10--%>
-                                                    <telerik:RadTab runat="server" Text="4 Planificación del Manejo" Visible="false"></telerik:RadTab> <%--11--%> 
+                                                    
+                                                    <telerik:RadTab runat="server" Text="2 Características Biofísicas"></telerik:RadTab> <%--4--%>  <%--3--%>
+                                                    <telerik:RadTab runat="server" Text="Plan de Investigación" Visible="false"></telerik:RadTab> <%--5--%>  <%--4--%>
+                                                    <telerik:RadTab runat="server" Text="Descripción de la Plaga" Visible="false"></telerik:RadTab> <%--6--%>  <%--5--%>
+                                                    <telerik:RadTab runat="server" Text="Medidas de Control" Visible="false"></telerik:RadTab> <%--7--%>  <%--6--%>
+                                                    <telerik:RadTab runat="server" Text="3 Inventario Forestal"></telerik:RadTab> <%--8--%>  <%--7--%>
+                                                    <telerik:RadTab runat="server" Text="Actividades de Aprovechamiento" Visible="false"></telerik:RadTab> <%--9--%>  <%--8--%>
+                                                    <telerik:RadTab runat="server" Text="Acciones de repoblación forestal del área boscosa dañada" Visible="false"></telerik:RadTab> <%--10--%>  <%--9--%>
+                                                    <telerik:RadTab runat="server" Text="4 Planificación del Manejo" Visible="false"></telerik:RadTab> <%--11--%>   <%--10--%>
+                                                    <telerik:RadTab runat="server" Text="4.1 Información General (Datos Plan Manejo)"></telerik:RadTab> <%--3--%>  <%--11--%>
                                                     <telerik:RadTab runat="server" Text="5 Medidas de protección" Visible="false"></telerik:RadTab> <%--12--%>
                                                     <telerik:RadTab runat="server" Text="6 Cronograma de Actividades"></telerik:RadTab> <%--13--%> 
                                                     <telerik:RadTab runat="server" Text="7 Anexos (Mapas, Otros)"></telerik:RadTab> <%--13--%> 
@@ -1701,219 +1702,7 @@
                                                         </div>
                                                     </div>
                                                 </telerik:RadPageView>
-                                                <telerik:RadPageView ID="RadPageDatosPlan" runat="server" Visible="false"> <%--Información General ((Datos Plan Manejo))--%>
-                                                    <div class="ibox-title">
-                                                        <h2><strong>1.4 Información General (Datos Plan Manejo)</strong></h2>
-                                                    </div>
-                                                    <div class="ibox-content">
-                                                        <div><label class="col-sm-5 control-label centradolabel">Tiempo de Ejecución del Plan de Manejo Forestal (Años):</label>
-                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtTiempoPlanManejo" CssClass="form-control" type="number" min="1" max="5"></asp:TextBox></div>
-                                                        </div>
-                                                    </div>
-                                                    <div style="padding-bottom:2em;"></div>
-                                                    <div class="ibox-content">
-                                                        <div><label class="col-sm-5 control-label centradolabel">Tiempo de Ejecución de la extracción: (Meses)</label>
-                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtTiempoExtraccion"  min="1" max="12"  type="number"  CssClass="form-control"></asp:TextBox></div>
-                                                        </div>
-                                                    </div>
-                                                    <div style="padding-bottom:2em;"></div>
-                                                    <div class="ibox-content">
-                                                        <h3>Propuesta de Manejo</h3>
-                                                        <div><label class="col-sm-5 control-label centradolabel">Volumen a extraer (metros cubicos)</label>
-                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtVolExtraer" Enabled="false"  CssClass="form-control" ></asp:TextBox></div>
-                                                        </div>
-                                                    </div>
-                                                    <div style="padding-bottom:2em;"></div>
-                                                    <div class="ibox-content">
-                                                        <div><label class="col-sm-5 control-label centradolabel">Sistema de Corta</label>
-                                                            <div class="col-sm-6"><asp:TextBox runat="server" ID="TxtSistemaCorta" Enabled="false" CssClass="form-control" ></asp:TextBox></div>
-                                                        </div>
-                                                    </div>
-                                                    <div style="padding-bottom:2em;"></div>
-                                                    <div class="ibox-content">
-                                                        <div><label class="col-sm-5 control-label centradolabel">Incremento Anual (M3 /Ha/Año)</label>
-                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtIncrementoAnual" Enabled="false"  step="any" min="0" type="number" CssClass="form-control"></asp:TextBox></div>
-                                                        </div>
-                                                    </div>
-                                                    <div style="padding-bottom:2em;"></div>
-                                                    <div class="ibox-content">
-                                                        <div><label class="col-sm-5 control-label centradolabel">Corta Anual Permisible (Metros Cúbicos )</label>
-                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtCortaAnual" Enabled="false" step="any" min="0" type="number"  CssClass="form-control"></asp:TextBox></div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="ibox-content" runat="server" id="DivCambioUso" visible="false">
-                                                        <div><label class="col-sm-3 control-label centradolabel">Cambio de Uso Forestal a:</label>
-                                                            <div class="col-sm-3"><telerik:RadComboBox ID="CboCambioUsoForestal" AutoPostBack="true"  Width="100%" runat="server"></telerik:RadComboBox></div>
-                                                        </div>
-                                                        <div runat="server" visible="false" id="DivEspecifiqueCambioUso"><label class="col-sm-3 control-label centradolabel">Especifique:</label>
-                                                            <div class="col-sm-3"><asp:TextBox runat="server" ID="TxtCambioUsoEspecifique"  step="any" min="0" type="number"  CssClass="form-control"></asp:TextBox></div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div style="padding-bottom:2em;"></div>
-                                                    <div class="ibox-content">
-                                                        <div>
-                                                            <label class="col-sm-1 control-label"></label>
-                                                                <div class="col-sm-10">
-                                                                    <div class="panel-body">
-                                                                        <div class="panel-group" id="accordion6">
-                                                                            <div class="panel panel-default">
-                                                                                <div class="panel-heading">
-                                                                                    <h5 class="panel-title">
-                                                                                        <a data-toggle="collapse" data-parent="#accordion6" href="#collapseOne6">Especies a Manejar</a>
-                                                                                    </h5>
-                                                                                </div>
-                                                                                <div id="collapseOne6" class="panel-collapse collapse in">
-                                                                                    <div class="panel-body">
-                                                                                        <label class="col-sm-2 control-label">Seleccione Especie</label>
-                                                                                        <div class="col-sm-5">
-                                                                                            <telerik:RadComboBox ID="CboEspeciePlanManejo" AllowCustomText="true" Filter="Contains"  Width="100%" runat="server"></telerik:RadComboBox>	
-                                                                                        </div>
-                                                                                        <div class="col-sm-2">
-                                                                                            <a class="btn btn-primary m-b" runat="server" id="BtnAddEspeciePlanManejo">Agregar Especie</a>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="panel-body">
-                                                                                        <telerik:RadGrid runat="server" ID="GrdEspeciePLanManejo" Skin="Telerik"
-                                                                                            AutoGenerateColumns="false" Width="100%" AllowSorting="true"  
-                                                                                            GridLines="Both" PageSize="20" >
-                                                                                            <PagerStyle Mode="NumericPages" NextPageText="Siguiente" 
-                                                                                                PrevPageText="Anterior" Position="Bottom" 
-                                                                                                PagerTextFormat="Change page: {4} &amp;nbsp;Pagina &lt;strong&gt;{0}&lt;/strong&gt; de &lt;strong&gt;{1}&lt;/strong&gt;, registros &lt;strong&gt;{2}&lt;/strong&gt; a &lt;strong&gt;{3}&lt;/strong&gt; de &lt;strong&gt;{5}&lt;/strong&gt;." 
-                                                                                                PageSizeLabelText="Regitros"/>
-                                                                                            <MasterTableView Caption="" DataKeyNames="EspecieId,Especie" NoMasterRecordsText="No Hay Registros" ShowFooter="true">
-                                                                                                <Columns>
-                                                                                                    <telerik:GridBoundColumn DataField="EspecieId" UniqueName="EspecieId" HeaderText="EspecieId"  Visible="false" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
-                                                                                                    <telerik:GridBoundColumn DataField="Especie" UniqueName="Especie" HeaderText="Especie" HeaderStyle-Width="325px"></telerik:GridBoundColumn>
-                                                                                                    <telerik:GridTemplateColumn HeaderText="Eliminar" Visible="true" UniqueName="Del"  HeaderStyle-Width="75px">
-                                                                                                            <ItemTemplate>
-                                                                                                                <asp:ImageButton runat="server" ID="ImgDelEspeciePlan" ImageUrl="~/Imagenes/24x24/delete.png" formnovalidate ToolTip="Eliminar" CommandName="CmdDel"/>
-                                                                                                            </ItemTemplate>
-                                                                                                    </telerik:GridTemplateColumn> 
-                                                                                                </Columns>        
-                                                                                            </MasterTableView>
-                                                                                            <FilterMenu EnableTheming="true">
-                                                                                                <CollapseAnimation Duration="200" Type="OutQuint" />
-                                                                                            </FilterMenu>
-                                                                                        </telerik:RadGrid>
-                                                                                    </div>
-                                                                                    <div class="panel-body">
-                                                                                        <div class="ibox-content">
-                                                                                            <div class="col-sm-9">
-                                                                                                <div class="alert  alert-success alert-dismissable" runat="server" id="DivErrEspeciePlan" visible="false">
-                                                                                                    <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                                                                                                    <asp:Label runat="server" ID="LblErrEspeciePlan" Font-Bold="true">Error</asp:Label>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div style="padding-bottom:2em;"></div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    <div style="padding-bottom:2em;"></div>
-                                                    <div class="ibox-content">
-                                                        <div><label class="col-sm-5 control-label centradolabel">Sistema de Repoblación Forestal</label>
-                                                            <div class="col-sm-5"><telerik:RadComboBox ID="CboSistemaRepoblacion" EnableCheckAllItemsCheckBox="true" Localization-AllItemsCheckedString="Todos los items seleccionados" Localization-CheckAllString="Seleccionar Todos" Localization-ItemsCheckedString="Seleccionados" CheckBoxes="true"  Width="100%" runat="server"></telerik:RadComboBox></div>
-                                                        </div>
-                                                    </div>
-                                                    <div style="padding-bottom:2em;"></div>
-                                                    <div class="ibox-content">
-                                                        <div>
-                                                            <label class="col-sm-1 control-label"></label>
-                                                                <div class="col-sm-10">
-                                                                    <div class="panel-body">
-                                                                        <div class="panel-group" id="accordion7">
-                                                                            <div class="panel panel-default">
-                                                                                <div class="panel-heading">
-                                                                                    <h5 class="panel-title">
-                                                                                        <a data-toggle="collapse" data-parent="#accordion7" href="#collapseOne7">Poligóno Área Repoblación Forestal</a>
-                                                                                    </h5>
-                                                                                </div>
-                                                                                <div id="collapseOne7" class="panel-collapse collapse in">
-                                                                                    <div class="panel-body">
-                                                                                        <label class="col-sm-2 control-label">Archivo de Poligónos</label>
-                                                                                        <div class="col-sm-5">
-                                                                                            <telerik:RadAsyncUpload runat="server" ID="UploadPolAreaRepo" Culture="es-GT" MaxFileInputsCount="1"
-                                                                                                    AllowedFileExtensions="xlsx">
-                                                                                            </telerik:RadAsyncUpload>
-                                                                                        </div>
-                                                                                        <div class="col-sm-2">
-                                                                                            <a class="btn btn-primary m-b" runat="server" id="btnCargarPolAreaRepo">Cargar</a>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="panel-body">
-                                                                                        <telerik:RadGrid runat="server" ID="GrdPolAreaRepo" Skin="Telerik"
-                                                                                            AutoGenerateColumns="false" Width="100%" AllowSorting="true"  
-                                                                                            GridLines="Both" PageSize="20" >
-                                                                                            <PagerStyle Mode="NumericPages" NextPageText="Siguiente" 
-                                                                                                PrevPageText="Anterior" Position="Bottom" 
-                                                                                                PagerTextFormat="Change page: {4} &amp;nbsp;Pagina &lt;strong&gt;{0}&lt;/strong&gt; de &lt;strong&gt;{1}&lt;/strong&gt;, registros &lt;strong&gt;{2}&lt;/strong&gt; a &lt;strong&gt;{3}&lt;/strong&gt; de &lt;strong&gt;{5}&lt;/strong&gt;." 
-                                                                                                PageSizeLabelText="Regitros"/>
-                                                                                            <MasterTableView Caption="" DataKeyNames="Id,X,Y" NoMasterRecordsText="No Hay Registros" ShowFooter="true">
-                                                                                                <Columns>
-                                                                                                    <telerik:GridBoundColumn DataField="Id" UniqueName="Rodal" HeaderText="Rodal" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
-                                                                                                    <telerik:GridBoundColumn DataField="X" UniqueName="X" HeaderText="X" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
-                                                                                                    <telerik:GridBoundColumn DataField="Y" UniqueName="Y" HeaderText="Y" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
-                                                                                                </Columns>        
-                                                                                            </MasterTableView>
-                                                                                            <FilterMenu EnableTheming="true">
-                                                                                                <CollapseAnimation Duration="200" Type="OutQuint" />
-                                                                                            </FilterMenu>
-                                                                                        </telerik:RadGrid>
-                                                                                    </div>
-                                                                                    <div class="panel-body">
-                                                                                        <div class="ibox-content">
-                                                                                            <div class="col-sm-9">
-                                                                                                <div class="alert  alert-success alert-dismissable" runat="server" id="Div4" visible="false">
-                                                                                                    <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                                                                                                    <asp:Label runat="server" ID="Label4" Font-Bold="true">Error</asp:Label>
-                                                                                                </div>
-                                                                                                <div class="alert alert-danger alert-dismissable" runat="server" id="DivErrPolAreaRepo" visible="false">
-                                                                                                    <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                                                                                                    <asp:Label runat="server" ID="LblErrAreaRepo" Font-Bold="true">Error</asp:Label>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div style="padding-bottom:2em;"></div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    <div style="padding-bottom:2em;"></div>
-                                                    <div class="ibox-content">
-                                                        <div><label class="col-sm-5 control-label centradolabel">Tipo de Garantía</label>
-                                                            <div class="col-sm-5"><telerik:RadComboBox ID="CboTipoGarantia"  Width="100%" runat="server"></telerik:RadComboBox></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="ibox-content">
-                                                        <div class="col-sm-5">
-                                                            <asp:Button runat="server" Text="Grabar"  ID="BtnGrabarInfoGenPlan" class="btn btn-primary" />
-                                                        </div>
-                                                    </div>
-                                                    <div style="padding-bottom:2em;"></div>
-                                                    <div class="ibox-content" runat="server" >
-                                                        <div class="col-sm-10">
-                                                            <div class="alert alert-danger alert-dismissable" runat="server" id="DivErrorInfoGenPlan" visible="false">
-                                                                <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                                                                <asp:Label runat="server" ID="LblErrorInfoGenPlan" Font-Bold="true"></asp:Label>
-                                                            </div>
-                                                            <div class="alert alert-success alert-dismissable" runat="server" id="DivGoodInfoGenPlan" visible="false">
-                                                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                                                                <asp:Label runat="server" ID="LblGoodInfoGenPlan" Font-Bold="true">Error</asp:Label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </telerik:RadPageView>
+                                                
                                                 <telerik:RadPageView ID="RadPageCaracBio" runat="server" Visible="false"> <%-- Caracterisicas Biofisicas--%>
                                                     <div class="ibox-content">
                                                         <div><label class="col-sm-2 control-label centradolabel">Altitud msnm</label>
@@ -2244,6 +2033,18 @@
                                                                 </div>
                                                         </div>
                                                     </div>
+                                                    <div class="ibox-content" runat="server" >
+                                                        <div class="col-sm-10">
+                                                            <div class="alert alert-danger alert-dismissable" runat="server" id="DivErrBoleta" visible="false">
+                                                                <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                <asp:Label runat="server" ID="LblErrBoleta" Font-Bold="true"></asp:Label>
+                                                            </div>
+                                                            <div class="alert alert-success alert-dismissable" runat="server" id="Div14" visible="false">
+                                                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                <asp:Label runat="server" ID="Label15" Font-Bold="true">Error</asp:Label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div style="padding-bottom:2em;"></div>
                                                     <div class="ibox-content">
                                                         <telerik:RadGrid runat="server" ID="GrdResumen" Skin="Telerik" CssClass="AddBorders"
@@ -2253,19 +2054,20 @@
                                                                 PrevPageText="Anterior" Position="Bottom" 
                                                                 PagerTextFormat="Change page: {4} &amp;nbsp;Pagina &lt;strong&gt;{0}&lt;/strong&gt; de &lt;strong&gt;{1}&lt;/strong&gt;, registros &lt;strong&gt;{2}&lt;/strong&gt; a &lt;strong&gt;{3}&lt;/strong&gt; de &lt;strong&gt;{5}&lt;/strong&gt;." 
                                                                 PageSizeLabelText="Regitros"/>
-                                                            <MasterTableView Caption="" Name="LabelsResumen" DataKeyNames="Rodal,EspecieId,Nombre_Cientifico,AreaRodal,Clase_Desarrollo,Edad,Tratamiento,Dap,Altura,Densidad,AreaBasal,VolTroza,VolLena,VolOtro,VolTotal,sumadap,sumaaltura,arboles,SumBa,volumen,Troza,Pendiente,INC,VolHa,VolRodal,Extrae,VolTrozaExtrae,VolLenaExtrae,VolOtroExtrae,VolTotalExtrae,AreaBasalRodal" NoMasterRecordsText="No Hay Registros" ShowFooter="true">
+                                                            <MasterTableView Caption="" Name="LabelsResumen" DataKeyNames="Rodal,EspecieId,Nombre_Cientifico,AreaRodal,Clase_Desarrollo,Clase_DesarrolloId,Edad,Tratamiento,Dap,Altura,Densidad,AreaBasal,VolTroza,VolLena,VolOtro,VolTotal,sumadap,sumaaltura,arboles,SumBa,volumen,Troza,Pendiente,INC,VolHa,VolRodal,Extrae,VolTrozaExtrae,VolLenaExtrae,VolOtroExtrae,VolTotalExtrae,AreaBasalRodal" NoMasterRecordsText="No Hay Registros" ShowFooter="true">
                                                                 <Columns>
                                                                     <telerik:GridBoundColumn DataField="Rodal" UniqueName="Rodal" HeaderText="Rodal" HeaderStyle-Width="45px"></telerik:GridBoundColumn>
                                                                     
                                                                     <telerik:GridBoundColumn DataField="AreaRodal" UniqueName="AreaRodal"  HeaderText="Area del Rodal (ha)" Visible="false" HeaderStyle-Width="1px"></telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn DataField="AreaRodal" HeaderText="Area del Rodal (ha)"  UniqueName="AreaRodalEdit" HeaderStyle-Width="75px">
                                                                         <ItemTemplate>
-                                                                            <telerik:RadNumericTextBox runat="server" MinValue="1" ID="TxtAreaRodal" Width="60px" >
-                                                                                
+                                                                            <telerik:RadNumericTextBox runat="server" MinValue="0" ID="TxtAreaRodal" Width="60px" >
+                                                                                <NumberFormat  DecimalDigits="2" />
                                                                             </telerik:RadNumericTextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridBoundColumn DataField="Clase_Desarrollo" UniqueName="Clase_Desarrollo"  HeaderText="Clase_Desarrollo" Visible="false" HeaderStyle-Width="0px"></telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="Clase_DesarrolloIs" UniqueName="Clase_DesarrolloId"  HeaderText="Clase_DesarrolloId" Visible="false" HeaderStyle-Width="0px"></telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn DataField="Clase_Desarrollo" HeaderText="Clase Desarrollo"  UniqueName="Clase_Desarrollo_Edit" HeaderStyle-Width="130px" >
                                                                         <ItemTemplate>
                                                                             <telerik:RadComboBox runat="server" ID="CboClaseDesarrollo" Width="110px"></telerik:RadComboBox>
@@ -2445,7 +2247,9 @@
                                                             <div class="col-sm-3"><telerik:RadComboBox ID="CboTipoMuestreo" EnableCheckAllItemsCheckBox="true" Localization-AllItemsCheckedString="Todos los items seleccionados" Localization-CheckAllString="Seleccionar Todos" Localization-ItemsCheckedString="Seleccionados" CheckBoxes="true"  Width="100%" runat="server"></telerik:RadComboBox></div>
                                                         </div>
                                                         <div><label class="col-sm-2 control-label centradolabel">Intensidad de muestreo</label>
-                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtIntensidadMuestreo"  step="any" min="0" type="number" CssClass="form-control"></asp:TextBox></div>
+                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtIntensidadMuestreo"  step="any" min="0" type="number" CssClass="form-control"></asp:TextBox>
+                                                                <label class="centradolabel">%</label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="ibox-content">
@@ -2568,7 +2372,7 @@
                                                         </div>
                                                          <div class="ibox-content">
                                                             <div class="col-sm-5">
-                                                                <a class="btn btn-primary m-b" runat="server" id="BtnGrabarAnalisis">Grabar Ánalisis</a>
+                                                                <a class="btn btn-primary m-b" runat="server" id="BtnGrabarAnalisis" visible="false">Grabar Ánalisis</a>
                                                             </div>
                                                         </div>
                                                         <div style="padding-bottom:2em;"></div>
@@ -2904,7 +2708,9 @@
                                                                         <telerik:GridBoundColumn DataField="AreaRodal" UniqueName="AreaRodal"  HeaderText="Area del Rodal (ha)" HeaderStyle-Width="1px"></telerik:GridBoundColumn>
                                                                         <telerik:GridTemplateColumn DataField="AreaRodal" HeaderText="Area del Rodal (ha)"  UniqueName="AreaRodalEdit" HeaderStyle-Width="75px">
                                                                             <ItemTemplate>
-                                                                                <telerik:RadNumericTextBox MinValue="1"  runat="server" ID="TxtAreaRodal" Width="60px" Enabled="false"></telerik:RadNumericTextBox>
+                                                                                <telerik:RadNumericTextBox MinValue="0"  runat="server" ID="TxtAreaRodal" Width="60px" Enabled="false">
+                                                                                    <NumberFormat DecimalDigits="2" />
+                                                                                </telerik:RadNumericTextBox>
                                                                             </ItemTemplate>
                                                                         </telerik:GridTemplateColumn>
                                                                         <telerik:GridBoundColumn DataField="Clase_Desarrollo" UniqueName="Clase_Desarrollo"  HeaderText="Clase_Desarrollo" Visible="false" HeaderStyle-Width="0px"></telerik:GridBoundColumn>
@@ -3009,7 +2815,7 @@
                                                                         <telerik:GridBoundColumn DataField="VolTotal" UniqueName="VolTotal" Visible="false" HeaderText="VolTotal"  HeaderStyle-Width="125px"></telerik:GridBoundColumn>
                                                                         <telerik:GridTemplateColumn DataField="VolTotal" HeaderText="Vol. Total"  UniqueName="VolTotalEdit" HeaderStyle-Width="75px" >
                                                                             <ItemTemplate>
-                                                                                <telerik:RadNumericTextBox runat="server" MinValue="0"  ID="TxtVolTotal" Width="60px"></telerik:RadNumericTextBox>
+                                                                                <telerik:RadNumericTextBox runat="server" MinValue="0" Enabled="false"  ID="TxtVolTotal" Width="60px"></telerik:RadNumericTextBox>
                                                                             </ItemTemplate>
                                                                         </telerik:GridTemplateColumn>
 
@@ -3227,6 +3033,9 @@
                                                                                             <div class="col-sm-3">
                                                                                                 <asp:TextBox runat="server" ID="TxtAreaCompromiso" CssClass="form-control" Enabled="false"></asp:TextBox>
                                                                                             </div>
+                                                                                            <div class="col-sm-2">
+                                                                                                <a class="btn btn-primary m-b" visible="false" runat="server" id="BtnCalcularCompromisoSilvi">Calcular Área</a>
+                                                                                            </div>
                                                                                         </div>
                                                                                         <div class="ibox-content">
                                                                                             <div class="col-sm-2">
@@ -3239,9 +3048,9 @@
                                                                                     <div class="panel-body">
                                                                                         <div class="ibox-content">
                                                                                             <div class="col-sm-9">
-                                                                                                <div class="alert  alert-success alert-dismissable" runat="server" id="Div10" visible="false">
+                                                                                                <div class="alert  alert-success alert-dismissable" runat="server" id="DivErrCalculoRepo" visible="false">
                                                                                                     <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                                                                                                    <asp:Label runat="server" ID="Label12" Font-Bold="true">Error</asp:Label>
+                                                                                                    <asp:Label runat="server" ID="LblErrCalculoRepo" Font-Bold="true">Error</asp:Label>
                                                                                                 </div>
                                                                                                 <div class="alert alert-success alert-dismissable" runat="server" id="DivGoodCalculoRepo" visible="false">
                                                                                                     <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
@@ -3279,7 +3088,7 @@
                                                                 <div class="col-sm-3"><telerik:RadComboBox ID="CboEtapa" AutoPostBack="true" Width="100%" runat="server"></telerik:RadComboBox></div>
                                                                 
                                                             </div>
-                                                            <div><label class="col-sm-1 control-label centradolabel">Tratamiento</label>
+                                                            <div><label class="col-sm-2 control-label centradolabel">Actividades Silviculturales</label>
                                                                 <div class="col-sm-3"><asp:TextBox runat="server" ID="TxtTrataminetoRepo" CssClass="form-control"></asp:TextBox></div>
                                                             </div>
                                                             
@@ -3397,10 +3206,223 @@
                                                     </div>
                                                     </div>
                                                 </telerik:RadPageView>
+                                    <telerik:RadPageView ID="RadPageDatosPlan" runat="server" Visible="false"> <%--Información General ((Datos Plan Manejo))--%>
+                                                    <div class="ibox-title">
+                                                        <h2><strong>1.4 Información General (Datos Plan Manejo)</strong></h2>
+                                                    </div>
+                                                    <div class="ibox-content">
+                                                        <div><label class="col-sm-5 control-label centradolabel">Tiempo de Ejecución del Plan de Manejo Forestal (Años):</label>
+                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtTiempoPlanManejo" CssClass="form-control" type="number" min="1" max="5"></asp:TextBox></div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="padding-bottom:2em;"></div>
+                                                    <div class="ibox-content">
+                                                        <div><label class="col-sm-5 control-label centradolabel">Tiempo de Ejecución de la extracción: (Meses)</label>
+                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtTiempoExtraccion"  min="1" max="12"  type="number"  CssClass="form-control"></asp:TextBox></div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="padding-bottom:2em;"></div>
+                                                    <div class="ibox-content">
+                                                        <h3>Propuesta de Manejo</h3>
+                                                        <div><label class="col-sm-5 control-label centradolabel">Volumen a extraer (metros cubicos)</label>
+                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtVolExtraer" Enabled="false"  CssClass="form-control" ></asp:TextBox></div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="padding-bottom:2em;"></div>
+                                                    <div class="ibox-content">
+                                                        <div><label class="col-sm-5 control-label centradolabel">Sistema de Corta</label>
+                                                            <div class="col-sm-6"><asp:TextBox runat="server" ID="TxtSistemaCorta" Enabled="false" CssClass="form-control" ></asp:TextBox></div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="padding-bottom:2em;"></div>
+                                                    <div class="ibox-content">
+                                                        <div><label class="col-sm-5 control-label centradolabel">Incremento Anual (M3 /Ha/Año)</label>
+                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtIncrementoAnual" Enabled="false"  step="any" min="0" type="number" CssClass="form-control"></asp:TextBox></div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="padding-bottom:2em;"></div>
+                                                    <div class="ibox-content">
+                                                        <div><label class="col-sm-5 control-label centradolabel">Corta Anual Permisible (Metros Cúbicos )</label>
+                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtCortaAnual" Enabled="false"  CssClass="form-control"></asp:TextBox></div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="ibox-content" runat="server" id="DivCambioUso" visible="false">
+                                                        <div><label class="col-sm-3 control-label centradolabel">Cambio de Uso Forestal a:</label>
+                                                            <div class="col-sm-3"><telerik:RadComboBox ID="CboCambioUsoForestal" AutoPostBack="true"  Width="100%" runat="server"></telerik:RadComboBox></div>
+                                                        </div>
+                                                        <div runat="server" visible="false" id="DivEspecifiqueCambioUso"><label class="col-sm-3 control-label centradolabel">Especifique:</label>
+                                                            <div class="col-sm-3"><asp:TextBox runat="server" ID="TxtCambioUsoEspecifique"  step="any" min="0" type="number"  CssClass="form-control"></asp:TextBox></div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="padding-bottom:2em;"></div>
+                                                    <div class="ibox-content">
+                                                        <div>
+                                                            <label class="col-sm-1 control-label"></label>
+                                                                <div class="col-sm-10">
+                                                                    <div class="panel-body">
+                                                                        <div class="panel-group" id="accordion6">
+                                                                            <div class="panel panel-default">
+                                                                                <div class="panel-heading">
+                                                                                    <h5 class="panel-title">
+                                                                                        <a data-toggle="collapse" data-parent="#accordion6" href="#collapseOne6">Especies a Manejar</a>
+                                                                                    </h5>
+                                                                                </div>
+                                                                                <div id="collapseOne6" class="panel-collapse collapse in">
+                                                                                    <div class="panel-body" runat="server" visible="false">
+                                                                                        <label class="col-sm-2 control-label">Seleccione Especie</label>
+                                                                                        <div class="col-sm-5">
+                                                                                            <telerik:RadComboBox ID="CboEspeciePlanManejo" AllowCustomText="true" Filter="Contains"  Width="100%" runat="server"></telerik:RadComboBox>	
+                                                                                        </div>
+                                                                                        <div class="col-sm-2">
+                                                                                            <a class="btn btn-primary m-b" runat="server" visible="false" id="BtnAddEspeciePlanManejo">Agregar Especie</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <telerik:RadGrid runat="server" ID="GrdEspeciePLanManejo" Skin="Telerik"
+                                                                                            AutoGenerateColumns="false" Width="100%" AllowSorting="true"  
+                                                                                            GridLines="Both" PageSize="20" >
+                                                                                            <PagerStyle Mode="NumericPages" NextPageText="Siguiente" 
+                                                                                                PrevPageText="Anterior" Position="Bottom" 
+                                                                                                PagerTextFormat="Change page: {4} &amp;nbsp;Pagina &lt;strong&gt;{0}&lt;/strong&gt; de &lt;strong&gt;{1}&lt;/strong&gt;, registros &lt;strong&gt;{2}&lt;/strong&gt; a &lt;strong&gt;{3}&lt;/strong&gt; de &lt;strong&gt;{5}&lt;/strong&gt;." 
+                                                                                                PageSizeLabelText="Regitros"/>
+                                                                                            <MasterTableView Caption="" DataKeyNames="EspecieId,Especie" NoMasterRecordsText="No Hay Registros" ShowFooter="true">
+                                                                                                <Columns>
+                                                                                                    <telerik:GridBoundColumn DataField="EspecieId" UniqueName="EspecieId" HeaderText="EspecieId"  Visible="false" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                                    <telerik:GridBoundColumn DataField="Especie" UniqueName="Especie" HeaderText="Especie" HeaderStyle-Width="325px"></telerik:GridBoundColumn>
+                                                                                                    <telerik:GridTemplateColumn HeaderText="Eliminar" Visible="false" UniqueName="Del"  HeaderStyle-Width="75px">
+                                                                                                            <ItemTemplate>
+                                                                                                                <asp:ImageButton runat="server" ID="ImgDelEspeciePlan" ImageUrl="~/Imagenes/24x24/delete.png" formnovalidate ToolTip="Eliminar" CommandName="CmdDel"/>
+                                                                                                            </ItemTemplate>
+                                                                                                    </telerik:GridTemplateColumn> 
+                                                                                                </Columns>        
+                                                                                            </MasterTableView>
+                                                                                            <FilterMenu EnableTheming="true">
+                                                                                                <CollapseAnimation Duration="200" Type="OutQuint" />
+                                                                                            </FilterMenu>
+                                                                                        </telerik:RadGrid>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <div class="ibox-content">
+                                                                                            <div class="col-sm-9">
+                                                                                                <div class="alert  alert-success alert-dismissable" runat="server" id="DivErrEspeciePlan" visible="false">
+                                                                                                    <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                                                    <asp:Label runat="server" ID="LblErrEspeciePlan" Font-Bold="true">Error</asp:Label>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div style="padding-bottom:2em;"></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <div style="padding-bottom:2em;"></div>
+                                                    <div class="ibox-content">
+                                                        <div><label class="col-sm-5 control-label centradolabel">Sistema de Repoblación Forestal</label>
+                                                            <div class="col-sm-5"><telerik:RadComboBox ID="CboSistemaRepoblacion" EnableCheckAllItemsCheckBox="true" Localization-AllItemsCheckedString="Todos los items seleccionados" Localization-CheckAllString="Seleccionar Todos" Localization-ItemsCheckedString="Seleccionados" CheckBoxes="true"  Width="100%" runat="server"></telerik:RadComboBox></div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="padding-bottom:2em;"></div>
+                                                    <div class="ibox-content">
+                                                        <div>
+                                                            <label class="col-sm-1 control-label"></label>
+                                                                <div class="col-sm-10">
+                                                                    <div class="panel-body">
+                                                                        <div class="panel-group" id="accordion7">
+                                                                            <div class="panel panel-default">
+                                                                                <div class="panel-heading">
+                                                                                    <h5 class="panel-title">
+                                                                                        <a data-toggle="collapse" data-parent="#accordion7" href="#collapseOne7">Poligóno Área Repoblación Forestal</a>
+                                                                                    </h5>
+                                                                                </div>
+                                                                                <div id="collapseOne7" class="panel-collapse collapse in">
+                                                                                    <div class="panel-body">
+                                                                                        <label class="col-sm-2 control-label">Archivo de Poligónos</label>
+                                                                                        <div class="col-sm-5">
+                                                                                            <telerik:RadAsyncUpload runat="server" ID="UploadPolAreaRepo" Culture="es-GT" MaxFileInputsCount="1"
+                                                                                                    AllowedFileExtensions="xlsx">
+                                                                                            </telerik:RadAsyncUpload>
+                                                                                        </div>
+                                                                                        <div class="col-sm-2">
+                                                                                            <a class="btn btn-primary m-b" runat="server" id="btnCargarPolAreaRepo">Cargar</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <telerik:RadGrid runat="server" ID="GrdPolAreaRepo" Skin="Telerik"
+                                                                                            AutoGenerateColumns="false" Width="100%" AllowSorting="true"  
+                                                                                            GridLines="Both" PageSize="20" >
+                                                                                            <PagerStyle Mode="NumericPages" NextPageText="Siguiente" 
+                                                                                                PrevPageText="Anterior" Position="Bottom" 
+                                                                                                PagerTextFormat="Change page: {4} &amp;nbsp;Pagina &lt;strong&gt;{0}&lt;/strong&gt; de &lt;strong&gt;{1}&lt;/strong&gt;, registros &lt;strong&gt;{2}&lt;/strong&gt; a &lt;strong&gt;{3}&lt;/strong&gt; de &lt;strong&gt;{5}&lt;/strong&gt;." 
+                                                                                                PageSizeLabelText="Regitros"/>
+                                                                                            <MasterTableView Caption="" DataKeyNames="Id,X,Y" NoMasterRecordsText="No Hay Registros" ShowFooter="true">
+                                                                                                <Columns>
+                                                                                                    <telerik:GridBoundColumn DataField="Id" UniqueName="Rodal" HeaderText="Rodal" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                                    <telerik:GridBoundColumn DataField="X" UniqueName="X" HeaderText="X" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                                    <telerik:GridBoundColumn DataField="Y" UniqueName="Y" HeaderText="Y" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                                </Columns>        
+                                                                                            </MasterTableView>
+                                                                                            <FilterMenu EnableTheming="true">
+                                                                                                <CollapseAnimation Duration="200" Type="OutQuint" />
+                                                                                            </FilterMenu>
+                                                                                        </telerik:RadGrid>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <div class="ibox-content">
+                                                                                            <div class="col-sm-9">
+                                                                                                <div class="alert  alert-success alert-dismissable" runat="server" id="Div4" visible="false">
+                                                                                                    <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                                                    <asp:Label runat="server" ID="Label4" Font-Bold="true">Error</asp:Label>
+                                                                                                </div>
+                                                                                                <div class="alert alert-danger alert-dismissable" runat="server" id="DivErrPolAreaRepo" visible="false">
+                                                                                                    <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                                                    <asp:Label runat="server" ID="LblErrAreaRepo" Font-Bold="true">Error</asp:Label>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div style="padding-bottom:2em;"></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <div style="padding-bottom:2em;"></div>
+                                                    <div class="ibox-content">
+                                                        <div><label class="col-sm-5 control-label centradolabel">Tipo de Garantía</label>
+                                                            <div class="col-sm-5"><telerik:RadComboBox ID="CboTipoGarantia"  Width="100%" runat="server"></telerik:RadComboBox></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ibox-content">
+                                                        <div class="col-sm-5">
+                                                            <asp:Button runat="server" Text="Grabar"  ID="BtnGrabarInfoGenPlan" class="btn btn-primary" />
+                                                        </div>
+                                                    </div>
+                                                    <div style="padding-bottom:2em;"></div>
+                                                    <div class="ibox-content" runat="server" >
+                                                        <div class="col-sm-10">
+                                                            <div class="alert alert-danger alert-dismissable" runat="server" id="DivErrorInfoGenPlan" visible="false">
+                                                                <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                <asp:Label runat="server" ID="LblErrorInfoGenPlan" Font-Bold="true"></asp:Label>
+                                                            </div>
+                                                            <div class="alert alert-success alert-dismissable" runat="server" id="DivGoodInfoGenPlan" visible="false">
+                                                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                <asp:Label runat="server" ID="LblGoodInfoGenPlan" Font-Bold="true">Error</asp:Label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </telerik:RadPageView>
                                                 <telerik:RadPageView ID="RadPageProteccionForestal" Visible="false" runat="server"> <%-- Proteccion Forestal--%>
                                                     <div class="ibox-content">
-                                                        <div><label class="col-sm-2 control-label centradolabel">Medidas de prevención y control contra incendios forestales.</label>
-                                                            <div class="col-sm-7"><asp:TextBox runat="server" ID="TxtMedidasPrevencion"  TextMode="MultiLine" Height="100px" CssClass="form-control" required=""></asp:TextBox></div>
+                                                        <div><h3><label class="col-sm-9 control-label centradolabel">Medidas de prevención y control contra incendios forestales.</label></h3>
+                                                            <div class="col-sm-7"><asp:TextBox runat="server" ID="TxtMedidasPrevencion" Text="Datos" Visible="false"  TextMode="MultiLine" Height="100px" CssClass="form-control" required=""></asp:TextBox></div>
                                                         </div>
                                                     </div>
                                                     <div class="ibox-content" runat="server" id="DivProteccionAgua" visible="false">
@@ -3409,7 +3431,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="ibox-content" runat="server" id="DivProteccionForJustPrev" visible="false">
-                                                        <div><label class="col-sm-2 control-label centradolabel">Justificación de la Prevención contra IF:</label>
+                                                        <div><label class="col-sm-2 control-label centradolabel">Justificación de la Prevención contra Incendios Forestales:</label>
                                                             <div class="col-sm-7"><asp:TextBox runat="server" ID="TxtJustificacionPrevencionIF"  TextMode="MultiLine" Height="100px" CssClass="form-control" required=""></asp:TextBox></div>
                                                         </div>
                                                     </div>
@@ -3429,7 +3451,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="ibox-content" runat="server" id="DivProteccionForAreasCriticas" visible="false">
-                                                        <div><label class="col-sm-2 control-label centradolabel">Identificación de áreas críticas (topografía, combustibles, áreas mayormente susceptibles a If en la periferia):</label>
+                                                        <div><label class="col-sm-2 control-label centradolabel">Identificación de áreas críticas (topografía, combustibles, áreas mayormente susceptibles a Incendios Forestales en la periferia):</label>
                                                             <div class="col-sm-7"><asp:TextBox runat="server" ID="TxtIdentificacionAreaCritica"  TextMode="MultiLine" Height="100px" CssClass="form-control" required=""></asp:TextBox></div>
                                                         </div>
                                                     </div>
@@ -3459,8 +3481,8 @@
                                                         </div>
                                                     </div>
                                                     <div class="ibox-content">
-                                                        <div><label class="col-sm-2 control-label centradolabel"><asp:Label runat="server" ID="LblPrevecionPlaga" Text="Prevención y control de plagas y enfermedades"></asp:Label></label>
-                                                            <div class="col-sm-7"><asp:TextBox runat="server" ID="TxtPrevencionControlPlaga"  TextMode="MultiLine" Height="100px" CssClass="form-control" required=""></asp:TextBox></div>
+                                                        <div><h3><label class="col-sm-9 control-label centradolabel"><asp:Label runat="server" ID="LblPrevecionPlaga" Text="Prevención y control de plagas y enfermedades"></asp:Label></label></h3>
+                                                            <div class="col-sm-7"><asp:TextBox runat="server" ID="TxtPrevencionControlPlaga" Text="Datos" Visible="false"  TextMode="MultiLine" Height="100px" CssClass="form-control" required=""></asp:TextBox></div>
                                                         </div>
                                                     </div>
                                                     <div class="ibox-content" runat="server" id="DivProteccionOtrosFac" visible="false">
@@ -3469,7 +3491,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="ibox-content" runat="server" id="DivProteccionForJustificacionPF" visible="false">
-                                                        <div><label class="col-sm-2 control-label centradolabel">Justificación de la Prevención contra PF:</label>
+                                                        <div><label class="col-sm-2 control-label centradolabel">Justificación de la Prevención contra Plagas Forestales:</label>
                                                             <div class="col-sm-7"><asp:TextBox runat="server" ID="TxtJustificacionPf"  TextMode="MultiLine" Height="100px" CssClass="form-control" required=""></asp:TextBox></div>
                                                         </div>
                                                     </div>
@@ -3508,7 +3530,7 @@
                                                         <div><label class="col-sm-2 control-label">Tipo Actividad</label>
                                                             <div class="col-sm-3"><telerik:RadComboBox ID="CboTipoActividad" AutoPostBack="true" Width="100%" runat="server"></telerik:RadComboBox></div>
                                                         </div>
-                                                        <div><label class="col-sm-1 control-label centradolabel">Actividad:</label>
+                                                        <div><label class="col-sm-1 control-label centradolabel">Sub Actividad:</label>
                                                             <div class="col-sm-6">
                                                                 <telerik:RadComboBox ID="CboActividad" Width="100%" AutoPostBack="true" runat="server"></telerik:RadComboBox>
                                                             </div>
@@ -3528,6 +3550,14 @@
                                                         <div><label class="col-sm-2 control-label centradolabel">Fecha de Finalización:</label>
                                                             <div class="col-sm-4"><telerik:RadDatePicker ID="TXtFecFin" Width="100%" runat="server"></telerik:RadDatePicker></div>
                                                         </div>
+                                                    </div>
+                                                    <div class="ibox-content">
+                                                        <div><label class="col-sm-2 control-label">Cantidad de años</label>
+                                                            <telerik:RadNumericTextBox runat="server" Value="1" MinValue="0" ID="TxtCantYear" Width="60px" >
+                                                                <NumberFormat  DecimalDigits="0" />
+                                                            </telerik:RadNumericTextBox>
+                                                        </div>
+                                                        
                                                     </div>
                                                     <div class="ibox-content">
                                                         <div class="col-sm-5">
@@ -3559,7 +3589,7 @@
                                                                 <Columns>
                                                                     <telerik:GridBoundColumn DataField="Id" UniqueName="Id" Visible="false" HeaderStyle-Width="425px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="Tipo_Actividad" UniqueName="Tipo_Actividad" HeaderText="Actividad" HeaderStyle-Width="425px"></telerik:GridBoundColumn>
-                                                                    <telerik:GridBoundColumn DataField="Actividad" UniqueName="Actividad" HeaderText="Actividad" HeaderStyle-Width="425px"></telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="Actividad" UniqueName="Actividad" HeaderText="Sub Actividad" HeaderStyle-Width="425px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="ActividadId" Visible="false" UniqueName="ActividadId" HeaderText="Actividad" HeaderStyle-Width="425px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="Fec_Ini" UniqueName="Fec_Ini" HeaderText="Fecha de Inicio" HeaderStyle-Width="175px"></telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="Fec_Fin" UniqueName="Fec_Ini" HeaderText="Fecha de Finalización" HeaderStyle-Width="175px"></telerik:GridBoundColumn>

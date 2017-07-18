@@ -3717,6 +3717,24 @@ namespace SEGEFOR.Clases
             }
         }
 
+
+        public void Borrar_Temp_Compromiso_Calculo(int AsignacionId)
+        {
+            try
+            {
+                cnSql.Open();
+                SqlCommand cmd = new SqlCommand("Sp_Borrar_Temp_Compromiso_Calculo", cnSql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", SqlDbType.Int).Value = AsignacionId;
+                cmd.ExecuteNonQuery();
+                cnSql.Close();
+            }
+            catch (Exception ex)
+            {
+                cnSql.Close();
+            }
+        }
+
         public DataSet Get_CalculosCompromisoForestal(int AsignacionId)
         {
             try
@@ -3746,6 +3764,26 @@ namespace SEGEFOR.Clases
             {
                 cn.Open();
                 OleDbCommand cmd = new OleDbCommand("Get_Sum_VolTotalSilvicultura", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = @AsignacionId;
+                cmd.Parameters.Add("@Resul", OleDbType.Double).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return Convert.ToDouble(cmd.Parameters["@Resul"].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return 0;
+            }
+        }
+
+        public double SumRodales_Temp_Resumen_planManejo(int AsignacionId)
+        {
+            try
+            {
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Get_SumRodales_Temp_Resumen_planManejo", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = @AsignacionId;
                 cmd.Parameters.Add("@Resul", OleDbType.Double).Direction = ParameterDirection.Output;
