@@ -31,6 +31,7 @@ namespace SEGEFOR.WebForms
             ClManejo = new Cl_Manejo();
             ClXml = new Cl_Xml();
             ClCatalogos = new Cl_Catalogos();
+            DataSet ds = new DataSet();
 
             ImgVerinfo.Click += ImgVerinfo_Click;
             ImgVerProvidencia.Click += ImgVerProvidencia_Click;
@@ -49,6 +50,10 @@ namespace SEGEFOR.WebForms
             ImgVerDictamenTecnico.Click += ImgVerDictamenTecnico_Click;
             ImgVerDictamenSubRegional.Click += ImgVerDictamenSubRegional_Click;
             BtnGrabarLicencia.Click += BtnGrabarLicencia_Click;
+            OptEnmiendas.SelectedIndexChanged += OptEnmiendas_SelectedIndexChanged;
+            BtnAddEnmienda.ServerClick += BtnAddEnmienda_ServerClick;
+            GrdEnmiendas.NeedDataSource += GrdEnmiendas_NeedDataSource;
+            GrdEnmiendas.ItemCommand += GrdEnmiendas_ItemCommand;
 
             if (Session["UsuarioId"] == null)
             {
@@ -118,16 +123,222 @@ namespace SEGEFOR.WebForms
                     DivRegionalManejo.Visible = true;
                     DivVerDicSubRegional.Visible = true;
                 }
+                //int TieneEnmiendas = ClGestion.Tiene_Enmiendas_Dictamen_Juridico(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                //if (TieneEnmiendas == 0)
+                //{
+                //    LblEstado.Text = "Dictamen Jurídico sin enmiendas";
+                //}
+                //else
+                //{
+                //    LblEstado.Text = "Dictamen Jurídico con enmiendas";
+                //    DivApruebaLicenciaUno.Visible = false;
+                //    DivApruebaLicenciaDos.Visible = false;
+                //    DivApruebaLicenciaTres.Visible = false;
+                //    BtnVistaPreviaLicencia.Text = "Vista Previa Oficio de Enmiendas";
+                //    BtnGrabarLicencia.Text = "Grabar Oficio de Enmiendas";
+                //    TxtTieneEnmiendas.Text = "1";
+                //}
+                TieneDictamenTec();
+                //TieneEnmiendasTec();
+                TieneDictamenSubReg();
+                //TieneEnmiendasSubRegional();
             }
         }
 
+        void GrdEnmiendas_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+            if (e.CommandName == "CmdDel")
+            {
+                EliminarEnmienda(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["Enmienda"].ToString());
+                TxtEnmienda.Text = "";
+
+            }
+        }
+
+
+        void EliminarEnmienda(string Item)
+        {
+            for (int i = 0; i < GrdEnmiendas.Items.Count; i++)
+            {
+                if (Item != GrdEnmiendas.Items[i].OwnerTableView.DataKeyValues[i]["Enmienda"].ToString())
+                {
+                    DataRow row = Ds_Temporal.Tables["Dt_Enminedas_Subregional"].NewRow();
+                    row["Enmienda"] = GrdEnmiendas.Items[i].OwnerTableView.DataKeyValues[i]["Enmienda"];
+                    Ds_Temporal.Tables["Dt_Enminedas_Subregional"].Rows.Add(row);
+                }
+            }
+            GrdEnmiendas.Rebind();
+        }
+
+        void GrdEnmiendas_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            if (Ds_Temporal.Tables["Dt_Enminedas_Subregional"].Rows.Count > 0)
+                ClUtilitarios.LlenaGridDt(Ds_Temporal, GrdEnmiendas, "Dt_Enminedas_Subregional");
+        }
+
+        void BtnAddEnmienda_ServerClick(object sender, EventArgs e)
+        {
+            DivErrEnmineda.Visible = false;
+            if (TxtEnmienda.Text == "")
+            {
+                DivErrEnmineda.Visible = true;
+                LblErrEnmienda.Text = "Debe ingresar una enmienda";
+            }
+            else
+            {
+                AgregarEnmienda(TxtEnmienda.Text);
+                GrdEnmiendas.Rebind();
+                TxtEnmienda.Text = "";
+            }
+        }
+
+        void AgregarEnmienda(string Enmienda)
+        {
+            CargaDataSetEnmienda();
+            DataRow rowNew = Ds_Temporal.Tables["Dt_Enminedas_Subregional"].NewRow();
+            rowNew["Enmienda"] = Enmienda;
+            Ds_Temporal.Tables["Dt_Enminedas_Subregional"].Rows.Add(rowNew);
+
+        }
+
+        void CargaDataSetEnmienda()
+        {
+            for (int i = 0; i < GrdEnmiendas.Items.Count; i++)
+            {
+                DataRow row = Ds_Temporal.Tables["Dt_Enminedas_Subregional"].NewRow();
+                row["Enmienda"] = GrdEnmiendas.Items[i].OwnerTableView.DataKeyValues[i]["Enmienda"];
+                Ds_Temporal.Tables["Dt_Enminedas_Subregional"].Rows.Add(row);
+            }
+        }
+
+        void OptEnmiendas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (OptEnmiendas.SelectedItem.Value == "1")
+            {
+                DivEnmiendas.Visible = true;
+                DivEnmiendaGrid.Visible = true;
+                DivApruebaLicenciaUno.Visible = false;
+                DivApruebaLicenciaDos.Visible = false;
+                DivApruebaLicenciaTres.Visible = false;
+                BtnVistaPreviaLicencia.Text = "Vista Previa Oficio de Enmiendas";
+                BtnGrabarLicencia.Text = "Grabar Oficio de Enmiendas";
+                TxtTieneEnmiendas.Text = "1";
+            }
+            else
+            {
+                DivEnmiendas.Visible = false;
+                DivEnmiendaGrid.Visible = false;
+                DivApruebaLicenciaUno.Visible = true;
+                DivApruebaLicenciaDos.Visible = true;
+                DivApruebaLicenciaTres.Visible = true;
+                BtnVistaPreviaLicencia.Text = "Vista Previa Licencia";
+                BtnGrabarLicencia.Text = "Grabar Licencia";
+                TxtTieneEnmiendas.Text = "1";
+            }
+        }
+
+        void ImgVerEnmiendasSubReg_Click(object sender, ImageClickEventArgs e)
+        {
+            int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+            Session["DatosEnmiendaSubRegion"] = ClGestion.ImpresionOficioEnmiendasSubRegional(GestionId, 2, Convert.ToInt32(Session["UsuarioId"]), Ds_Temporal);
+            RadWindow1.Title = "Enmiendas SubRegional";
+            RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepOficioEnmiendasSubRegional.aspx";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+        }
+
+        void ImgVerEnmiendasTec_Click(object sender, ImageClickEventArgs e)
+        {
+            int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+            Session["DatosEnmiendasTecnicas"] = ClGestion.ImpresionEnmiendasTecnicas(GestionId, 2);
+            RadWindow1.Title = "Enmiendas Técnicas";
+            RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepEnmiendasTec.aspx";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+        }
+
+        void TieneDictamenTec()
+        {
+            int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+            int TieneDictamen = ClGestion.Tiene_DictamenTecnico_Gestion(GestionId);
+            if (TieneDictamen == 0)
+                DivVerDicTec.Visible = false;
+
+            else
+                LblEstado.Text = LblEstado.Text + ", Expediente con dictamen técnico favorable";
+
+        }
+
+
+
+
+        //void TieneEnmiendasTec()
+        //{
+        //    int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+        //    int TieneDictamen = ClGestion.Tiene_EnmienasTecnico_Gestion(GestionId);
+        //    if (TieneDictamen > 0)
+        //    {
+        //        DivEnmiendasTec.Visible = true;
+        //        LblEstado.Text = LblEstado.Text + ", Expediente con informe de enmiendas técnicas";
+        //        DivVerDicTec.Visible = false;
+        //        DivApruebaLicenciaUno.Visible = false;
+        //        DivApruebaLicenciaDos.Visible = false;
+        //        DivApruebaLicenciaTres.Visible = false;
+        //        BtnVistaPreviaLicencia.Text = "Vista Previa Oficio de Enmiendas";
+        //        BtnGrabarLicencia.Text = "Grabar Oficio de Enmiendas";
+        //        TxtTieneEnmiendas.Text = "1";
+        //    }
+
+        //}
+
+        void TieneDictamenSubReg()
+        {
+            int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+            int TieneDictamen = ClGestion.Tiene_DictamenSubRegional_Gestion(GestionId);
+            if (TieneDictamen == 0)
+                DivVerDicSubRegional.Visible = false;
+            else
+                LblEstado.Text = LblEstado.Text + ", Expediente con dictamen subregional favorable";
+
+        }
+
+        //void TieneEnmiendasSubRegional()
+        //{
+        //    int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+        //    int TieneDictamen = ClGestion.Tiene_EnminedasSubRegional_Gestion(GestionId);
+        //    if (TieneDictamen > 0)
+        //    {
+        //        DivVerEnmiendasSubRegional.Visible = true;
+        //        LblEstado.Text = LblEstado.Text + ", Expediente con informe de enmiendas del subregional";
+        //        DivVerDicTec.Visible = false;
+        //        DivApruebaLicenciaUno.Visible = false;
+        //        DivApruebaLicenciaDos.Visible = false;
+        //        DivApruebaLicenciaTres.Visible = false;
+        //        BtnVistaPreviaLicencia.Text = "Vista Previa Oficio de Enmiendas";
+        //        BtnGrabarLicencia.Text = "Grabar Oficio de Enmiendas";
+        //        TxtTieneEnmiendas.Text = "1";
+        //    }
+
+        //}
+
         void BtnGrabarLicencia_Click(object sender, EventArgs e)
         {
-            if (ValidaLicencia() == false)
+            if (TxtTieneEnmiendas.Text == "0")
             {
-                LblTitConfirmacion.Text = "El sistema generara la licencia forestal, ¿esta seguro (a)?";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindowConfirm.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+                if (ValidaLicencia() == false)
+                {
+                    LblTitConfirmacion.Text = "El sistema generara la licencia forestal, ¿esta seguro (a)?";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindowConfirm.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+                }
             }
+            else
+            {
+                if (ValidaEnmiendas() == false)
+                {
+                    LblTitConfirmacion.Text = "El sistema generara una solicitud de enmiendas, ¿esta seguro (a)?";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindowConfirm.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+                }
+            }
+            
+
         }
 
         void ImgVerDictamenSubRegional_Click(object sender, ImageClickEventArgs e)
@@ -195,54 +406,76 @@ namespace SEGEFOR.WebForms
             item["Dictamen"] = dsDatos.Tables["Datos"].Rows[0]["Tipo_Dictamen"].ToString();
             item["TipoGarantia"] = dsDatos.Tables["Datos"].Rows[0]["Tipo_Garantia"].ToString();
             item["DictamenId"] = dsDatos.Tables["Datos"].Rows[0]["Tipo_DictamenId"].ToString();
-            DataSet DsGarantia = ClCatalogos.Sp_Get_Monto_Garantia(Convert.ToInt32(dsDatos.Tables["Datos"].Rows[0]["Tipo_GarantiaId"]));
-            item["MontoGarantia"] = (Convert.ToDouble(ClManejo.Get_Compromiso_Area(GestionId)) * Convert.ToDouble(DsGarantia.Tables["Datos"].Rows[0]["Valor_Hectaria"])).ToString();
-            item["PorGarantia"] = DsGarantia.Tables["Datos"].Rows[0]["Porcentaje"].ToString();
-            DsGarantia.Clear();
-            item["TotValMaderaPie"] = ClGestion.Get_TotalValorMadera(GestionId);
-            item["RecomendacionUno"] = "7.1     Se recomienda que la vigencia del aprovechamiento sea de: " + dsDatos.Tables["Datos"].Rows[0]["Vigencia"].ToString() + ".";
-            if (Convert.ToInt32(dsDatos.Tables["Datos"].Rows[0]["Notas_Autorizadas"]) > 10)
-                item["RecomendacionDos"] = "7.1     Que se le autorice la venta total de " + dsDatos.Tables["Datos"].Rows[0]["Notas_Autorizadas"].ToString() + ". De estas, se le entregarán únicamente " + dsDatos.Tables["Datos"].Rows[0]["Notas_Entregar"].ToString() + ", las otras " + dsDatos.Tables["Datos"].Rows[0]["Notas_Restantes"].ToString() + " se adjuntarán al expediente, sin foliar, mismas que se entregarán luego al titular o su representante legal cuando presente Informe de uso de notas de envío.";
-            else
-                item["RecomendacionDos"] = "7.7     Que se le autorice la venta total de " + dsDatos.Tables["Datos"].Rows[0]["Notas_Autorizadas"].ToString() + ".";
-            DataSet dsAreas = ClManejo.Get_Areas_PlanManejo(GestionId);
+            if (dsDatos.Tables["Datos"].Rows[0]["Tipo_DictamenId"].ToString() == "1")
+            {
+                DataSet DsGarantia = ClCatalogos.Sp_Get_Monto_Garantia(Convert.ToInt32(dsDatos.Tables["Datos"].Rows[0]["Tipo_GarantiaId"]));
+                item["MontoGarantia"] = (Convert.ToDouble(ClManejo.Get_Compromiso_Area(GestionId)) * Convert.ToDouble(DsGarantia.Tables["Datos"].Rows[0]["Valor_Hectaria"])).ToString();
+                item["PorGarantia"] = DsGarantia.Tables["Datos"].Rows[0]["Porcentaje"].ToString();
+                DsGarantia.Clear();
+                item["TotValMaderaPie"] = ClGestion.Get_TotalValorMadera(GestionId);
+                item["RecomendacionUno"] = "7.1     Se recomienda que la vigencia del aprovechamiento sea de: " + dsDatos.Tables["Datos"].Rows[0]["Vigencia"].ToString() + ".";
+                if (Convert.ToInt32(dsDatos.Tables["Datos"].Rows[0]["Notas_Autorizadas"]) > 10)
+                    item["RecomendacionDos"] = "7.1     Que se le autorice la venta total de " + dsDatos.Tables["Datos"].Rows[0]["Notas_Autorizadas"].ToString() + ". De estas, se le entregarán únicamente " + dsDatos.Tables["Datos"].Rows[0]["Notas_Entregar"].ToString() + ", las otras " + dsDatos.Tables["Datos"].Rows[0]["Notas_Restantes"].ToString() + " se adjuntarán al expediente, sin foliar, mismas que se entregarán luego al titular o su representante legal cuando presente Informe de uso de notas de envío.";
+                else
+                    item["RecomendacionDos"] = "7.7     Que se le autorice la venta total de " + dsDatos.Tables["Datos"].Rows[0]["Notas_Autorizadas"].ToString() + ".";
+                DataSet dsAreas = ClManejo.Get_Areas_PlanManejo(GestionId);
 
-            if (Convert.ToDouble(dsAreas.Tables["Datos"].Rows[0]["AreaIntervenir"]) > 100)
-                item["OtrasRecomendaciones"] = "7.9     " + dsDatos.Tables["Datos"].Rows[0]["OtrasRecomendacion"].ToString();
-            else
-                item["OtrasRecomendaciones"] = "7.8     " + dsDatos.Tables["Datos"].Rows[0]["OtrasRecomendacion"].ToString();
+                if (Convert.ToDouble(dsAreas.Tables["Datos"].Rows[0]["AreaIntervenir"]) > 100)
+                    item["OtrasRecomendaciones"] = "7.9     " + dsDatos.Tables["Datos"].Rows[0]["OtrasRecomendacion"].ToString();
+                else
+                    item["OtrasRecomendaciones"] = "7.8     " + dsDatos.Tables["Datos"].Rows[0]["OtrasRecomendacion"].ToString();
+
+                DataSet dsDatosEtapa = ClGestion.Get_Etapas_Dictamen_Tecnico(GestionId);
+                for (int i = 0; i < dsDatosEtapa.Tables["Datos"].Rows.Count; i++)
+                {
+                    DataRow itemEtapa = DsEtapa.Tables["Etapa"].NewRow();
+                    itemEtapa["EtapaId"] = dsDatosEtapa.Tables["Datos"].Rows[0]["EtapaId"];
+                    itemEtapa["Etapa"] = dsDatosEtapa.Tables["Datos"].Rows[0]["Etapa"];
+                    itemEtapa["FecIni"] = dsDatosEtapa.Tables["Datos"].Rows[0]["FecIni"];
+                    itemEtapa["Fecfin"] = dsDatosEtapa.Tables["Datos"].Rows[0]["FecFin"];
+                    DsEtapa.Tables["Etapa"].Rows.Add(itemEtapa);
+                }
+            }
             DsDatosDictamen.Tables["DatosDictamen"].Rows.Add(item);
             dsDatos.Clear();
 
 
-            DataSet dsDatosEtapa = ClGestion.Get_Etapas_Dictamen_Tecnico(GestionId);
-            for (int i = 0; i < dsDatosEtapa.Tables["Datos"].Rows.Count; i++)
-            {
-                DataRow itemEtapa = DsEtapa.Tables["Etapa"].NewRow();
-                itemEtapa["EtapaId"] = dsDatosEtapa.Tables["Datos"].Rows[0]["EtapaId"];
-                itemEtapa["Etapa"] = dsDatosEtapa.Tables["Datos"].Rows[0]["Etapa"];
-                itemEtapa["FecIni"] = dsDatosEtapa.Tables["Datos"].Rows[0]["FecIni"];
-                itemEtapa["Fecfin"] = dsDatosEtapa.Tables["Datos"].Rows[0]["FecFin"];
-                DsEtapa.Tables["Etapa"].Rows.Add(itemEtapa);
-            }
-
-
             Session["DatosDictamenTec"] = ClGestion.ImpresionDictamenTecnio(GestionId, 2, CategoriaId, DsDatosDictamen, DsEtapa, Convert.ToInt32(Session["UsuarioId"]));
-            RadWindow1.Title = "Vista Previa Dictamen Técnico";
+            RadWindow1.Title = "Dictamen Técnico";
             RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepDictamenTecnico.aspx";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
         }
 
+
+
         void BtnVistaPreviaLicencia_Click(object sender, EventArgs e)
         {
-            if (ValidaLicencia() == false)
+            if (TxtTieneEnmiendas.Text == "0")
             {
-                int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
-                Session["DatosLicencia"] = ClGestion.ImpresionLicencia(GestionId, 1, Convert.ToInt32(Session["UsuarioId"]), Convert.ToInt32(TxtPeriodo.Text), Convert.ToDateTime(TxtFecIni.SelectedDate), Convert.ToDateTime(TxtFecFin.SelectedDate), CboAprueba.Text);
-                RadWindow1.Title = "Vista Previa Licencia Forestal";
-                RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepLicencia_Forestal.aspx";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+                if (ValidaLicencia() == false)
+                {
+                    int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                    Session["DatosLicencia"] = ClGestion.ImpresionLicencia(GestionId, 1, Convert.ToInt32(Session["UsuarioId"]), Convert.ToInt32(TxtPeriodo.Text), Convert.ToDateTime(TxtFecIni.SelectedDate), Convert.ToDateTime(TxtFecFin.SelectedDate), CboAprueba.Text);
+                    RadWindow1.Title = "Vista Previa Licencia Forestal";
+                    RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepLicencia_Forestal.aspx";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+                }
             }
+            else
+            {
+                if (ValidaEnmiendas() == false)
+                {
+                    int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                    CargaDataSetEnmienda();
+                    Session["DatosEnmiendaRegion"] = ClGestion.ImpresionOficioEnmiendasRegional(GestionId, 1, Convert.ToInt32(Session["UsuarioId"]), Ds_Temporal);
+                    RadWindow1.Title = "Vista Previa Oficio de Enmiendas";
+                    RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepOficioEnmiendaRegional.aspx";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+                }
+                
+            }
+            
+            
         }
 
         bool ValidaLicencia()
@@ -279,6 +512,29 @@ namespace SEGEFOR.WebForms
                 DivErrLicencia.Visible = true;
                 LblErrLicencia.Text = LblMensaje;
                 
+            }
+            return HayError;
+
+        }
+
+        bool ValidaEnmiendas()
+        {
+            bool HayError = false;
+            DivErrLicencia.Visible = false;
+            string LblMensaje = "";
+            if (GrdEnmiendas.Items.Count == 0)
+            {
+                if (LblMensaje == "")
+                    LblMensaje = "Debe ingresar al menos una enmienda";
+                else
+                    LblMensaje = LblMensaje + ", debe ingresar al menos una enmienda";
+                HayError = true;
+            }
+            if (HayError == true)
+            {
+                DivErrLicencia.Visible = true;
+                LblErrLicencia.Text = LblMensaje;
+
             }
             return HayError;
 
@@ -399,21 +655,42 @@ namespace SEGEFOR.WebForms
             else if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 2)
             {
                 int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
-                int LicenciaId = ClGestion.Max_LicenciaForestal();
-                ClGestion.Insert_LicenciaForestal(LicenciaId, Convert.ToInt32(CboAprueba.SelectedValue), Convert.ToInt32(TxtPeriodo.Text), Convert.ToDateTime(TxtFecIni.SelectedDate), Convert.ToDateTime(TxtFecFin.SelectedDate),  Convert.ToInt32(Session["UsuarioId"]), GestionId);
-
-
-                ClGestion.Cambia_Estatus_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 6);
-
-
-                DataSet dsDatosInteresados = ClGestion.Get_InteresadosEnviaCorreo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
-                string MensajeCorreo = "Se ha enviado a su despacho la gestión de Manejo Forestal";
-                for (int i = 0; i < dsDatosInteresados.Tables["Datos"].Rows.Count; i++)
+                if (TxtTieneEnmiendas.Text == "0")
                 {
-                    ClUtilitarios.EnvioCorreo(dsDatosInteresados.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatosInteresados.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Envío de gestión", MensajeCorreo, 0, "", "");    
+                    int LicenciaId = ClGestion.Max_LicenciaForestal();
+                    ClGestion.Insert_LicenciaForestal(LicenciaId, Convert.ToInt32(CboAprueba.SelectedValue), Convert.ToInt32(TxtPeriodo.Text), Convert.ToDateTime(TxtFecIni.SelectedDate), Convert.ToDateTime(TxtFecFin.SelectedDate), Convert.ToInt32(Session["UsuarioId"]), GestionId);
+
+
+                    ClGestion.Cambia_Estatus_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 6);
+
+
+                    DataSet dsDatosInteresados = ClGestion.Get_InteresadosEnviaCorreo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                    string MensajeCorreo = "Se ha enviado a su despacho la gestión de Manejo Forestal";
+                    for (int i = 0; i < dsDatosInteresados.Tables["Datos"].Rows.Count; i++)
+                    {
+                        ClUtilitarios.EnvioCorreo(dsDatosInteresados.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatosInteresados.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Envío de gestión", MensajeCorreo, 0, "", "");
+                    }
+                    dsDatosInteresados.Clear();
+                    Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("10", true)) + "&gestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionId.ToString(), true)) + "");
                 }
-                dsDatosInteresados.Clear();
-                Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("10", true)) + "&gestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionId.ToString(), true)) + "");
+                else
+                {
+                    int OficioEnmiedaRegionalId = ClGestion.Max_OficioEnmiendaRegional();
+                    XmlDocument iInformacion = ClXml.CrearDocumentoXML("Enmiendas");
+                    XmlNode iElementos = iInformacion.CreateElement("Enmiendas");
+                    for (int i = 0; i < GrdEnmiendas.Items.Count; i++)
+                    {
+                        XmlNode iElementoDetalle = iInformacion.CreateElement("Item");
+                        ClXml.AgregarAtributo("Enmienda", GrdEnmiendas.Items[i].GetDataKeyValue("Enmienda"), iElementoDetalle);
+                        iElementos.AppendChild(iElementoDetalle);
+
+                    }
+                    iInformacion.ChildNodes[1].AppendChild(iElementos);
+                    ClGestion.Insert_OfcioEnmiendaRegional(OficioEnmiedaRegionalId, GestionId, iInformacion, Convert.ToInt32(Session["UsuarioId"]));
+                    ClGestion.Cambia_Estatus_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 7);
+                    Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("13", true)) + "&gestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionId.ToString(), true)) + "");
+                }
+                
             }
             
         }

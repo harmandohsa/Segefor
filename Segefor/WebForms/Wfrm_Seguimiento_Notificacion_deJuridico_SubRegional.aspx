@@ -40,9 +40,13 @@
                                         <asp:ImageButton runat="server" ID="ImgVerDictamenJuridico" ImageUrl="~/Imagenes/24x24/pdf.png" formnovalidate ToolTip="Ver Dictamen Jurídico"/>
                                         <asp:Label runat="server" Text="Ver Dictamen Jurídico"></asp:Label>
                                     </div>
-                                    <div class="col-sm-2" runat="server" id="DivVerDicTec">
+                                    <div class="col-sm-2" runat="server" id="DivVerDicTec" >
                                         <asp:ImageButton runat="server" ID="ImgVerDictamenTecnico" ImageUrl="~/Imagenes/24x24/pdf.png" formnovalidate ToolTip="Ver Dictamen Técnico"/>
                                         <asp:Label runat="server" Text="Ver Dictamen Técnico"></asp:Label>
+                                    </div>
+                                    <div class="col-sm-2" runat="server" id="DivEnmiendasTec" visible="false" >
+                                        <asp:ImageButton runat="server" ID="ImgVerEnmiendasTec" ImageUrl="~/Imagenes/24x24/pdf.png" formnovalidate ToolTip="Ver Dictamen Técnico"/>
+                                        <asp:Label runat="server" Text="Ver Enmiendas Técnico"></asp:Label>
                                     </div>
                                 </div>
                                 <div class="ibox-content">
@@ -106,12 +110,51 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="ibox-content">
+                                    <div runat="server" id="DivEnmiendas" class="panel-body" visible="false">
+                                        <div><label class="col-sm-3 control-label centradolabel">Ingrese enmiendas:</label>
+                                            <div class="col-sm-7">
+                                                <asp:TextBox runat="server" Text="" ID="TxtEnmienda" class="form-control"></asp:TextBox>    
+                                            </div>
+                                            <div class="col-sm-1"><input type="button" runat="server" id="BtnAddEnmienda" title="Agregar" class="btn btn-primary" value="Agregar" /></div>
+                                        </div>
+                                    </div>
+                                    <div runat="server" id="DivEnmiendaGrid" class="panel-body" visible="false">
+                                        <telerik:RadGrid runat="server" ID="GrdEnmiendas" Skin="MetroTouch"
+                                            AutoGenerateColumns="false" Width="100%" AllowSorting="true" 
+                                            GridLines="Both" >
+                                            <PagerStyle Mode="NumericPages" NextPageText="Siguiente" 
+                                                PrevPageText="Anterior" Position="Bottom" 
+                                                PagerTextFormat="Change page: {4} &amp;nbsp;Pagina &lt;strong&gt;{0}&lt;/strong&gt; de &lt;strong&gt;{1}&lt;/strong&gt;, registros &lt;strong&gt;{2}&lt;/strong&gt; a &lt;strong&gt;{3}&lt;/strong&gt; de &lt;strong&gt;{5}&lt;/strong&gt;." 
+                                                PageSizeLabelText="Regitros"/>
+                                            <MasterTableView Caption="" DataKeyNames="Enmienda" NoMasterRecordsText="No Hay Registros" ShowFooter="true">
+                                                <Columns>
+                                                    <telerik:GridBoundColumn DataField="Enmienda" UniqueName="Enmienda" HeaderText="Enmienda" HeaderStyle-Width="675px"></telerik:GridBoundColumn>
+                                                    <telerik:GridTemplateColumn HeaderText="Eliminar" Visible="true" UniqueName="Del">
+                                                            <ItemTemplate>
+                                                                <asp:ImageButton runat="server" ID="ImgDel" ImageUrl="~/Imagenes/24x24/trashcan.png" formnovalidate ToolTip="Eliminar" CommandName="CmdDel"/>
+                                                            </ItemTemplate>
+                                                    </telerik:GridTemplateColumn> 
+                                                </Columns>        
+                                            </MasterTableView>
+                                            <FilterMenu EnableTheming="true">
+                                                <CollapseAnimation Duration="200" Type="OutQuint" />
+                                            </FilterMenu>
+                                        </telerik:RadGrid>
+                                    </div>
+                                     <div class="ibox-content" runat="server" id="DivErrEnmineda" visible="false">
+                                        <div class="col-sm-9">
+                                            <div class="alert alert-danger alert-dismissable">
+                                                <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                <asp:Label runat="server" ID="LblErrEnmienda" Font-Bold="true">Error</asp:Label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ibox-content" runat="server" id="DivDictamenTecUno">
                                         <div><label class="col-sm-2 control-label centradolabel">Considera:</label>
                                             <div class="col-sm-5"><telerik:RadComboBox ID="CboConsidera" Width="100%" runat="server"></telerik:RadComboBox></div>
                                         </div>
                                     </div>
-                                    <div class="ibox-content">
+                                    <div class="ibox-content" runat="server" id="DivDictamenTecDos">
                                         <div><label class="col-sm-2 control-label centradolabel">Número de Folios:</label>
                                             <div class="col-sm-5">
                                                 <telerik:RadNumericTextBox runat="server" MinValue="1" ID="TxtFolios" Width="60px" >
@@ -163,6 +206,7 @@
                     </telerik:RadWindow>
                     </Windows>
                 </telerik:RadWindowManager>
+            <asp:TextBox runat="server" ID="TxtTieneEnmiendas" Text="0" Visible="false"></asp:TextBox>
         </ContentTemplate>
     </asp:UpdatePanel>
     <script>

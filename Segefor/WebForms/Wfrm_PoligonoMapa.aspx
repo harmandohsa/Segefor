@@ -40,19 +40,34 @@
                     var TriangleCoordList = [];
                     var Correlativo = 0;
                     var CorrelativoTemp = 0;
+                    var Tipo = '';
+                    var Color = '#5E7B0D';
+
 
                     for (var i = 0; i < data.d.length; i++) {
                         Correlativo = data.d[i].Correlativo;
+                        
+                        
+                        
+                        
+
                         if ((Correlativo != CorrelativoTemp) && (CorrelativoTemp > 0))
                         {
-                            
+                            Tipo = data.d[i - 1].Tipo;
+                            if (Tipo == 'd') {
+                                Color = '#F1083E';
+                            }
+                            else {
+                                Color = '#5E7B0D';
+                            }
+                            //alert(Color);
                             TriangleCoordList.push(triangleCoords);
                             bermudaTriangle = new google.maps.Polygon({
                                 paths: TriangleCoordList,
                                 strokeColor: "#100E49",
                                 strokeOpacity: 0.8,
                                 strokeWeight: 3,
-                                fillColor: "#5E7B0D",
+                                fillColor: Color,
                                 fillOpacity: 0.35
                                 
                             });
@@ -71,13 +86,21 @@
                             CorrelativoTemp = Correlativo;
                             if (i + 1 == data.d.length)
                             {
+                                Tipo = data.d[i - 1].Tipo;
+                                if (Tipo == 'd') {
+                                    Color = '#F1083E';
+                                }
+                                else {
+                                    Color = '#5E7B0D';
+                                }
+                                //alert(Color);
                                 TriangleCoordList.push(triangleCoords);
                                 bermudaTriangle = new google.maps.Polygon({
                                     paths: TriangleCoordList,
                                     strokeColor: "#100E49",
                                     strokeOpacity: 0.8,
                                     strokeWeight: 3,
-                                    fillColor: "#5E7B0D",
+                                    fillColor: Color,
                                     fillOpacity: 0.35,
                                     text: "prueba"
                                 });
@@ -96,8 +119,83 @@
                 }
             });
         };
+
+
+
+        function CreatingPolygonDescuento(GrpName, ArName) {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "Wfrm_PoligonoMapa.aspx/BindMapPointsDesc",
+                data: '{name: "' + GrpName + '",name1: "' + ArName + '"}',
+                dataType: "json",
+                success: function (data) {
+                    var mapProp = {
+                        center: new google.maps.LatLng(data.d[0].Latitude, data.d[0].Longitude),
+                        zoom: 14,
+                        mapTypeId: google.maps.MapTypeId.SATELLITE
+                    };
+                    map = google.maps.Map(document.getElementById("idgoogleMap"), mapProp);
+
+                    var TriangleCoordList = [];
+                    var Correlativo = 0;
+                    var CorrelativoTemp = 0;
+
+                    for (var i = 0; i < data.d.length; i++) {
+                        Correlativo = data.d[i].Correlativo;
+                        if ((Correlativo != CorrelativoTemp) && (CorrelativoTemp > 0)) {
+
+                            TriangleCoordList.push(triangleCoords);
+                            bermudaTriangle = new google.maps.Polygon({
+                                paths: TriangleCoordList,
+                                strokeColor: "#100E49",
+                                strokeOpacity: 0.8,
+                                strokeWeight: 3,
+                                fillColor: "#5E7B0D",
+                                fillOpacity: 0.35
+
+                            });
+                            attachPolygonInfoWindow(bermudaTriangle, CorrelativoTemp)
+                            bermudaTriangle.setMap(map);
+                            MapCitys.push(bermudaTriangle);
+                            CorrelativoTemp = Correlativo;
+                            TriangleCoordList = [];
+                            var triangleCoords = new google.maps.LatLng(data.d[i].Latitude, data.d[i].Longitude);
+                            TriangleCoordList.push(triangleCoords);
+                        }
+                        else {
+                            var triangleCoords = new google.maps.LatLng(data.d[i].Latitude, data.d[i].Longitude);
+                            TriangleCoordList.push(triangleCoords);
+                            CorrelativoTemp = Correlativo;
+                            if (i + 1 == data.d.length) {
+                                TriangleCoordList.push(triangleCoords);
+                                bermudaTriangle = new google.maps.Polygon({
+                                    paths: TriangleCoordList,
+                                    strokeColor: "#100E49",
+                                    strokeOpacity: 0.8,
+                                    strokeWeight: 3,
+                                    fillColor: "#5E7B0D",
+                                    fillOpacity: 0.35,
+                                    text: "prueba"
+                                });
+                                attachPolygonInfoWindow(bermudaTriangle, CorrelativoTemp)
+                                bermudaTriangle.setMap(map);
+                                MapCitys.push(bermudaTriangle);
+                            }
+                        }
+
+                    }
+
+
+                },
+                error: function (result) {
+                    alert("Error");
+                }
+            });
+        };
         
         google.maps.event.addDomListener(window, 'load', CreatingPolygon('', ''));
+        //google.maps.event.addDomListener(window, 'load', CreatingPolygonDescuento('', ''));
 
     </script>
     <title></title>                    

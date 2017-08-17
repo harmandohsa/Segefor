@@ -1470,6 +1470,8 @@
     <Content Include="WeForms_Reportes\Wfrm_RepLicencia_Forestal.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepOficioDevolucion.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepOficioEnmiendaJuridica.aspx" />
+    <Content Include="WeForms_Reportes\Wfrm_RepOficioEnmiendaRegional.aspx" />
+    <Content Include="WeForms_Reportes\Wfrm_RepOficioEnmiendasSubRegional.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepProvidenciaTrasladoExp.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepResolucionAdmision.aspx" />
     <Content Include="WeForms_Reportes\Wfrm_RepResolucionAprobacion.aspx" />
@@ -1684,6 +1686,12 @@
       <DependentUpon>Site1.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reportes\RptOficioEnmiendasRegional.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptOficioEnmiendasRegional.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reportes\RptPlanManejo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1802,6 +1810,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Rpt_LicenciaForestal.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Rpt_OficioEnmiendaRegional.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_OficioEnmiendaRegional.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Rpt_OficioEnmiendasSubRegional.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_OficioEnmiendasSubRegional.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reportes\Rpt_Oficio_Devolucion.cs">
@@ -1988,6 +2008,24 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Rpt_SubRep_DatosNotificaPlanManejo.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SubReportes\Rpt_SubRep_EnmiendasJuridicas.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_SubRep_EnmiendasJuridicas.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SubReportes\Rpt_SubRep_EnmiendasSubRegional.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_SubRep_EnmiendasSubRegional.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SubReportes\Rpt_SubRep_EnmiendasTec.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_SubRep_EnmiendasTec.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SubReportes\Rpt_SubRep_Enmiendas_Oficio_Enmiendas_Jur.cs">
@@ -2613,6 +2651,20 @@
     <Compile Include="WeForms_Reportes\Wfrm_RepOficioEnmiendaJuridica.aspx.designer.cs">
       <DependentUpon>Wfrm_RepOficioEnmiendaJuridica.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WeForms_Reportes\Wfrm_RepOficioEnmiendaRegional.aspx.cs">
+      <DependentUpon>Wfrm_RepOficioEnmiendaRegional.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeForms_Reportes\Wfrm_RepOficioEnmiendaRegional.aspx.designer.cs">
+      <DependentUpon>Wfrm_RepOficioEnmiendaRegional.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WeForms_Reportes\Wfrm_RepOficioEnmiendasSubRegional.aspx.cs">
+      <DependentUpon>Wfrm_RepOficioEnmiendasSubRegional.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeForms_Reportes\Wfrm_RepOficioEnmiendasSubRegional.aspx.designer.cs">
+      <DependentUpon>Wfrm_RepOficioEnmiendasSubRegional.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WeForms_Reportes\Wfrm_RepProvidenciaTrasladoExp.aspx.cs">
       <DependentUpon>Wfrm_RepProvidenciaTrasladoExp.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2665,6 +2717,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Reportes\RptOficioEnmiendasRegional.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptOficioEnmiendasRegional.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reportes\RptPlanManejo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RptPlanManejo.cs</LastGenOutput>
@@ -2744,6 +2800,14 @@
     <EmbeddedResource Include="Reportes\Rpt_LicenciaForestal.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_LicenciaForestal.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Rpt_OficioEnmiendaRegional.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_OficioEnmiendaRegional.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Rpt_OficioEnmiendasSubRegional.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_OficioEnmiendasSubRegional.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\Rpt_Oficio_Devolucion.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2869,6 +2933,18 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_SubRep_DatosNotificaPlanManejo.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubReportes\Rpt_SubRep_EnmiendasJuridicas.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_SubRep_EnmiendasJuridicas.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubReportes\Rpt_SubRep_EnmiendasSubRegional.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_SubRep_EnmiendasSubRegional.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubReportes\Rpt_SubRep_EnmiendasTec.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_SubRep_EnmiendasTec.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubReportes\Rpt_SubRep_Enmiendas_Oficio_Enmiendas_Jur.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_SubRep_Enmiendas_Oficio_Enmiendas_Jur.cs</LastGenOutput>
@@ -2984,7 +3060,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

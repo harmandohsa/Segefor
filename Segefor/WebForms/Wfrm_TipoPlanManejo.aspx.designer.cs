@@ -1255,6 +1255,78 @@ namespace SEGEFOR.WebForms {
         protected global::System.Web.UI.WebControls.Label LblErrPolBosque;
         
         /// <summary>
+        /// RadUploadoPolBosqueDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadAsyncUpload RadUploadoPolBosqueDescuento;
+        
+        /// <summary>
+        /// BtnCargaPolBosqueDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor BtnCargaPolBosqueDescuento;
+        
+        /// <summary>
+        /// BtnDelPoligonoDescBosque control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor BtnDelPoligonoDescBosque;
+        
+        /// <summary>
+        /// GrdPolBoqueDecuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid GrdPolBoqueDecuento;
+        
+        /// <summary>
+        /// DivErrPolBosqueDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivErrPolBosqueDescuento;
+        
+        /// <summary>
+        /// LblMensajeErrBosqueDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblMensajeErrBosqueDescuento;
+        
+        /// <summary>
+        /// Div12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div12;
+        
+        /// <summary>
+        /// Label13 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label13;
+        
+        /// <summary>
         /// DivSeparador7 control.
         /// </summary>
         /// <remarks>
@@ -1361,6 +1433,78 @@ namespace SEGEFOR.WebForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblErrPolIntervencion;
+        
+        /// <summary>
+        /// RadUploadPolIntervenirDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadAsyncUpload RadUploadPolIntervenirDescuento;
+        
+        /// <summary>
+        /// BtnCargaPolIntervenirDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor BtnCargaPolIntervenirDescuento;
+        
+        /// <summary>
+        /// BtnEliminarPolIntervenirDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor BtnEliminarPolIntervenirDescuento;
+        
+        /// <summary>
+        /// GrdPolIntervenirDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid GrdPolIntervenirDescuento;
+        
+        /// <summary>
+        /// Div10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div10;
+        
+        /// <summary>
+        /// Label12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label12;
+        
+        /// <summary>
+        /// DivErrPolInervencionDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivErrPolInervencionDescuento;
+        
+        /// <summary>
+        /// LblErrPolIntervencioDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblErrPolIntervencioDescuento;
         
         /// <summary>
         /// DivSeparador9 control.
@@ -1687,6 +1831,15 @@ namespace SEGEFOR.WebForms {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor BtncargarPolProteccion;
         
         /// <summary>
+        /// BtnEliminarPolProteccion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor BtnEliminarPolProteccion;
+        
+        /// <summary>
         /// GrdPolProteccion control.
         /// </summary>
         /// <remarks>
@@ -1730,6 +1883,78 @@ namespace SEGEFOR.WebForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblErrPolProteccion;
+        
+        /// <summary>
+        /// RadUloadPolProteccionDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadAsyncUpload RadUloadPolProteccionDescuento;
+        
+        /// <summary>
+        /// BtncargarPolProteccionDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor BtncargarPolProteccionDescuento;
+        
+        /// <summary>
+        /// BtnEliminarPolProteccionDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor BtnEliminarPolProteccionDescuento;
+        
+        /// <summary>
+        /// GrdPolProteccionDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid GrdPolProteccionDescuento;
+        
+        /// <summary>
+        /// Div15 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div15;
+        
+        /// <summary>
+        /// Label16 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label16;
+        
+        /// <summary>
+        /// DivErrPolProteccionDecuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivErrPolProteccionDecuento;
+        
+        /// <summary>
+        /// LblErrPolProteccionDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblErrPolProteccionDescuento;
         
         /// <summary>
         /// BtnGrabarAreas control.
@@ -4324,6 +4549,78 @@ namespace SEGEFOR.WebForms {
         protected global::System.Web.UI.WebControls.Label LblErrAreaRepo;
         
         /// <summary>
+        /// UploadPolAreaRepoDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadAsyncUpload UploadPolAreaRepoDescuento;
+        
+        /// <summary>
+        /// btnCargarPolAreaRepoDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnCargarPolAreaRepoDescuento;
+        
+        /// <summary>
+        /// btnEliminarPolAreaRepoDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnEliminarPolAreaRepoDescuento;
+        
+        /// <summary>
+        /// GrdPolAreaRepoDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid GrdPolAreaRepoDescuento;
+        
+        /// <summary>
+        /// Div16 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div16;
+        
+        /// <summary>
+        /// Label17 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label17;
+        
+        /// <summary>
+        /// DivErrPolAreaRepoDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivErrPolAreaRepoDescuento;
+        
+        /// <summary>
+        /// LblErrAreaRepoDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblErrAreaRepoDescuento;
+        
+        /// <summary>
         /// CboTipoGarantia control.
         /// </summary>
         /// <remarks>
@@ -5330,5 +5627,32 @@ namespace SEGEFOR.WebForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtRegionId;
+        
+        /// <summary>
+        /// TxtSumaPolDescBosque control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtSumaPolDescBosque;
+        
+        /// <summary>
+        /// TxtSumaPolDescIntervenir control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtSumaPolDescIntervenir;
+        
+        /// <summary>
+        /// TxtSumaPolDescProteccion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtSumaPolDescProteccion;
     }
 }

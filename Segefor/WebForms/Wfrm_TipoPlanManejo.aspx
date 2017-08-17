@@ -1218,14 +1218,14 @@
                                                         <div class="ibox-content" runat="server" id="DivSuperficieBosque">
                                                             <h3>SUPERFICIE CON BOSQUE</h3>
                                                             <div><label runat="server" id="LblAreaBosque" class="col-sm-3 control-label centradolabel">Área con bosque (ha):</label>
-                                                                <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtAreaBosque" step="any" min="0" onkeyup="VerificaAreaBosque()"  type="number"  CssClass="form-control" required=""></asp:TextBox></div>
+                                                                <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtAreaBosque" step="any" min="0" onkeyup="VerificaAreaBosque()"  type="number"  CssClass="form-control" required="" disabled></asp:TextBox></div>
                                                             </div>
                                                         </div>
                                                         <div runat="server" id="DivSeparador6" style="padding-bottom:2em;"></div>
                                                         <div class="ibox-content" runat="server" id="DivPoligonoAraBosque">
                                                         <div>
                                                             <label class="col-sm-1 control-label"></label>
-                                                                <div class="col-sm-10">
+                                                                <div class="col-sm-5">
                                                                     <div class="panel-body">
                                                                         <div class="panel-group" id="accordion">
                                                                             <div class="panel panel-default">
@@ -1236,12 +1236,16 @@
                                                                                 </div>
                                                                                 <div id="collapseOne" class="panel-collapse collapse in">
                                                                                     <div class="panel-body">
-                                                                                        <label class="col-sm-2 control-label">Archivo de Poligónos</label>
-                                                                                        <div class="col-sm-5">
-                                                                                            <telerik:RadAsyncUpload runat="server" ID="RadUploadoPolBosque" Culture="es-GT" MaxFileInputsCount="1"
+                                                                                        <label class="control-label">Archivo de Poligónos</label>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <div class="col-sm-3">
+                                                                                            <telerik:RadAsyncUpload runat="server" Width="50px" ID="RadUploadoPolBosque" Culture="es-GT" MaxFileInputsCount="1"
                                                                                                  AllowedFileExtensions="xlsx">
                                                                                             </telerik:RadAsyncUpload>
                                                                                         </div>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
                                                                                         <div class="col-sm-2">
                                                                                             <a class="btn btn-primary m-b" runat="server" id="BtnCargaPolBosque">Cargar</a>
                                                                                         </div>
@@ -1286,19 +1290,87 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="panel-body">
+                                                                        <div class="panel-group" id="accordionDescAreaBosqueDesc">
+                                                                            <div class="panel panel-default">
+                                                                                <div class="panel-heading">
+                                                                                    <h5 class="panel-title">
+                                                                                        <a data-toggle="collapse" data-parent="#accordionDescAreaBosqueDesc" href="#collapseOneDescAreaBosque">Polígono de descuento Área con Bosque</a>
+                                                                                    </h5>
+                                                                                </div>
+                                                                                <div id="collapseOneDescAreaBosque" class="panel-collapse collapse in">
+                                                                                    <div class="panel-body">
+                                                                                        <label class="control-label">Archivo de Poligónos</label>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <div class="col-sm-3">
+                                                                                            <telerik:RadAsyncUpload runat="server" Width="50px" ID="RadUploadoPolBosqueDescuento" Culture="es-GT" MaxFileInputsCount="1"
+                                                                                                 AllowedFileExtensions="xlsx">
+                                                                                            </telerik:RadAsyncUpload>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <div class="col-sm-3">
+                                                                                            <a class="btn btn-primary m-b" runat="server" id="BtnCargaPolBosqueDescuento">Cargar</a>
+                                                                                        </div>
+                                                                                        <div class="col-sm-2">
+                                                                                            <a class="btn btn-primary m-b" runat="server" id="BtnDelPoligonoDescBosque">Eliminar Polígono</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <telerik:RadGrid runat="server" ID="GrdPolBoqueDecuento" Skin="Telerik"
+                                                                                            AutoGenerateColumns="false" Width="100%" AllowSorting="true"  
+                                                                                            GridLines="Both" PageSize="20" >
+                                                                                            <PagerStyle Mode="NumericPages" NextPageText="Siguiente" 
+                                                                                                PrevPageText="Anterior" Position="Bottom" 
+                                                                                                PagerTextFormat="Change page: {4} &amp;nbsp;Pagina &lt;strong&gt;{0}&lt;/strong&gt; de &lt;strong&gt;{1}&lt;/strong&gt;, registros &lt;strong&gt;{2}&lt;/strong&gt; a &lt;strong&gt;{3}&lt;/strong&gt; de &lt;strong&gt;{5}&lt;/strong&gt;." 
+                                                                                                PageSizeLabelText="Regitros"/>
+                                                                                            <MasterTableView Caption="" DataKeyNames="Id,X,Y" NoMasterRecordsText="No Hay Registros" ShowFooter="true">
+                                                                                                <Columns>
+                                                                                                    <telerik:GridBoundColumn DataField="Id" UniqueName="Rodal" HeaderText="Rodal" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                                    <telerik:GridBoundColumn DataField="X" UniqueName="X" HeaderText="X" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                                    <telerik:GridBoundColumn DataField="Y" UniqueName="Y" HeaderText="Y" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                                </Columns>        
+                                                                                            </MasterTableView>
+                                                                                            <FilterMenu EnableTheming="true">
+                                                                                                <CollapseAnimation Duration="200" Type="OutQuint" />
+                                                                                            </FilterMenu>
+                                                                                        </telerik:RadGrid>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <div class="ibox-content">
+                                                                                            <div class="col-sm-9">
+                                                                                                <div class="alert  alert-success alert-dismissable" runat="server" id="DivErrPolBosqueDescuento" visible="false">
+                                                                                                    <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                                                    <asp:Label runat="server" ID="LblMensajeErrBosqueDescuento" Font-Bold="true">Error</asp:Label>
+                                                                                                </div>
+                                                                                                <div class="alert alert-danger alert-dismissable" runat="server" id="Div12" visible="false">
+                                                                                                    <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                                                    <asp:Label runat="server" ID="Label13" Font-Bold="true">Error</asp:Label>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div style="padding-bottom:2em;"></div>
+                                                                                            </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                         </div>
                                                     </div>
                                                     <div runat="server" id="DivSeparador7" style="padding-bottom:2em;"></div>
                                                     <div class="ibox-content" runat="server" id="DivAreaIntervenir">
                                                         <div><label class="col-sm-3 control-label centradolabel">Área Intervenir (ha):</label>
-                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtAreaIntervenir" onkeyup="VerificaAreaIntervenir()" step="any" min="0"  type="number"  CssClass="form-control" required=""></asp:TextBox></div>
+                                                            <div class="col-sm-2"><asp:TextBox runat="server" ID="TxtAreaIntervenir" onkeyup="VerificaAreaIntervenir()" disabled step="any" min="0"  type="number"  CssClass="form-control" required=""></asp:TextBox></div>
                                                         </div>
                                                     </div>
                                                     <div  runat="server" id="DivSeparador8" style="padding-bottom:2em;"></div>
                                                     <div class="ibox-content"  runat="server" id="DivPolAreaIntervenir">
                                                     <div>
                                                         <label class="col-sm-1 control-label"></label>
-                                                            <div class="col-sm-10">
+                                                            <div class="col-sm-5">
                                                                 <div class="panel-body">
                                                                     <div class="panel-group" id="accordion4">
                                                                         <div class="panel panel-default">
@@ -1309,15 +1381,19 @@
                                                                             </div>
                                                                             <div id="collapseOne4" class="panel-collapse collapse in">
                                                                                 <div class="panel-body">
-                                                                                    <label class="col-sm-2 control-label">Archivo de Poligónos</label>
-                                                                                    <div class="col-sm-5">
+                                                                                    <label class=" control-label">Archivo de Poligónos</label>
+                                                                                </div>
+                                                                                <div class="panel-body">
+                                                                                    
+                                                                                    <div class="col-sm-3">
                                                                                         <telerik:RadAsyncUpload runat="server" ID="RadUploadPolIntervenir" Culture="es-GT" MaxFileInputsCount="1"
                                                                                                 AllowedFileExtensions="xlsx">
                                                                                         </telerik:RadAsyncUpload>
                                                                                     </div>
-                                                                                    <div class="col-sm-2">
-                                                                                        <a class="btn btn-primary m-b" runat="server" id="BtnCargaPolIntervenir">Cargar</a>
-                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                                <div class="panel-body">
+                                                                                    <a class="btn btn-primary m-b" runat="server" id="BtnCargaPolIntervenir">Cargar</a>
                                                                                 </div>
                                                                                 <div class="panel-body">
                                                                                     <telerik:RadGrid runat="server" ID="GrdPolIntervenir" Skin="Telerik"
@@ -1360,6 +1436,80 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+
+                                                            <div class="col-sm-5">
+                                                                <div class="panel-body">
+                                                                    <div class="panel-group" id="accordionDescPolInter">
+                                                                        <div class="panel panel-default">
+                                                                            <div class="panel-heading">
+                                                                                <h5 class="panel-title">
+                                                                                    <a data-toggle="collapse" data-parent="#accordionDescPolInter" href="#collapseOneDescPolInter">Poligóno descuento Área Intervenir (ha)</a>
+                                                                                </h5>
+                                                                            </div>
+                                                                            <div id="collapseOneDescPolInter" class="panel-collapse collapse in">
+                                                                                <div class="panel-body">
+                                                                                    <label class=" control-label">Archivo de Poligónos</label>
+                                                                                </div>
+                                                                                <div class="panel-body">
+                                                                                    
+                                                                                    <div class="col-sm-3">
+                                                                                        <telerik:RadAsyncUpload runat="server" ID="RadUploadPolIntervenirDescuento" Culture="es-GT" MaxFileInputsCount="1"
+                                                                                                AllowedFileExtensions="xlsx">
+                                                                                        </telerik:RadAsyncUpload>
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                                <div class="panel-body">
+                                                                                    <div class="col-sm-3">
+                                                                                        <a class="btn btn-primary m-b" runat="server" id="BtnCargaPolIntervenirDescuento">Cargar</a>
+                                                                                    </div>
+                                                                                    <div class="col-sm-3">
+                                                                                        <a class="btn btn-primary m-b" runat="server" id="BtnEliminarPolIntervenirDescuento">Eliminar Polígono</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="panel-body">
+                                                                                    <telerik:RadGrid runat="server" ID="GrdPolIntervenirDescuento" Skin="Telerik"
+                                                                                        AutoGenerateColumns="false" Width="100%" AllowSorting="true"  
+                                                                                        GridLines="Both" PageSize="20" >
+                                                                                        <PagerStyle Mode="NumericPages" NextPageText="Siguiente" 
+                                                                                            PrevPageText="Anterior" Position="Bottom" 
+                                                                                            PagerTextFormat="Change page: {4} &amp;nbsp;Pagina &lt;strong&gt;{0}&lt;/strong&gt; de &lt;strong&gt;{1}&lt;/strong&gt;, registros &lt;strong&gt;{2}&lt;/strong&gt; a &lt;strong&gt;{3}&lt;/strong&gt; de &lt;strong&gt;{5}&lt;/strong&gt;." 
+                                                                                            PageSizeLabelText="Regitros"/>
+                                                                                        <MasterTableView Caption="" DataKeyNames="Id,X,Y" NoMasterRecordsText="No Hay Registros" ShowFooter="true">
+                                                                                            <Columns>
+                                                                                                <telerik:GridBoundColumn DataField="Id" UniqueName="Rodal" HeaderText="Rodal" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                                <telerik:GridBoundColumn DataField="X" UniqueName="X" HeaderText="X" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                                <telerik:GridBoundColumn DataField="Y" UniqueName="Y" HeaderText="Y" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                            </Columns>        
+                                                                                        </MasterTableView>
+                                                                                        <FilterMenu EnableTheming="true">
+                                                                                            <CollapseAnimation Duration="200" Type="OutQuint" />
+                                                                                        </FilterMenu>
+                                                                                    </telerik:RadGrid>
+                                                                                </div>
+                                                                                <div class="panel-body">
+                                                                                    <div class="ibox-content">
+                                                                                        <div class="col-sm-9">
+                                                                                            <div class="alert  alert-success alert-dismissable" runat="server" id="Div10" visible="false">
+                                                                                                <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                                                <asp:Label runat="server" ID="Label12" Font-Bold="true">Error</asp:Label>
+                                                                                            </div>
+                                                                                            <div class="alert alert-danger alert-dismissable" runat="server" id="DivErrPolInervencionDescuento" visible="false">
+                                                                                                <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                                                <asp:Label runat="server" ID="LblErrPolIntervencioDescuento" Font-Bold="true">Error</asp:Label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div style="padding-bottom:2em;"></div>
+                                                                                        </div>
+                                                                                </div>
+                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
                                                         </div>
                                                     </div>
                                                     <div style="padding-bottom:2em;" runat="server" id="DivSeparador9"></div>
@@ -1429,7 +1579,7 @@
                                                         <div class="ibox-content" runat="server" id="DivPoligonoProteccion"> 
                                                         <div>
                                                             <label class="col-sm-1 control-label"></label>
-                                                                <div class="col-sm-10">
+                                                                <div class="col-sm-5">
                                                                     <div class="panel-body">
                                                                         <div class="panel-group" id="accordion5">
                                                                             <div class="panel panel-default">
@@ -1440,14 +1590,22 @@
                                                                                 </div>
                                                                                 <div id="collapseOne5" class="panel-collapse collapse in">
                                                                                     <div class="panel-body">
-                                                                                        <label class="col-sm-2 control-label">Archivo de Poligónos</label>
-                                                                                        <div class="col-sm-5">
+                                                                                        <label class=" control-label">Archivo de Poligónos</label>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <div class="col-sm-3">
                                                                                             <telerik:RadAsyncUpload runat="server" ID="RadUloadPolProteccion" Culture="es-GT" MaxFileInputsCount="1"
                                                                                                     AllowedFileExtensions="xlsx">
                                                                                             </telerik:RadAsyncUpload>
                                                                                         </div>
-                                                                                        <div class="col-sm-2">
+                                                                                        
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <div class="col-sm-3">
                                                                                             <a class="btn btn-primary m-b" runat="server" id="BtncargarPolProteccion">Cargar</a>
+                                                                                        </div>
+                                                                                        <div class="col-sm-3">
+                                                                                            <a class="btn btn-primary m-b" runat="server" id="BtnEliminarPolProteccion">Eliminar Polígono</a>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="panel-body">
@@ -1480,6 +1638,76 @@
                                                                                                 <div class="alert alert-danger alert-dismissable" runat="server" id="DivErrPolProteccion" visible="false">
                                                                                                     <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                                                                                                     <asp:Label runat="server" ID="LblErrPolProteccion" Font-Bold="true">Error</asp:Label>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div style="padding-bottom:2em;"></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="panel-body">
+                                                                        <div class="panel-group" id="accordionPolProteccDesc">
+                                                                            <div class="panel panel-default">
+                                                                                <div class="panel-heading">
+                                                                                    <h5 class="panel-title">
+                                                                                        <a data-toggle="collapse" data-parent="#accordionPolProteccDesc" href="#collapseOnePolDescProtec">Poligóno de descuento Área Protección (ha)</a>
+                                                                                    </h5>
+                                                                                </div>
+                                                                                <div id="collapseOnePolDescProtec" class="panel-collapse collapse in">
+                                                                                    <div class="panel-body">
+                                                                                        <label class=" control-label">Archivo de Poligónos</label>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <div class="col-sm-3">
+                                                                                            <telerik:RadAsyncUpload runat="server" ID="RadUloadPolProteccionDescuento" Culture="es-GT" MaxFileInputsCount="1"
+                                                                                                    AllowedFileExtensions="xlsx">
+                                                                                            </telerik:RadAsyncUpload>
+                                                                                        </div>
+                                                                                        
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <div class="col-sm-3">
+                                                                                            <a class="btn btn-primary m-b" runat="server" id="BtncargarPolProteccionDescuento">Cargar</a>
+                                                                                        </div>
+                                                                                        <div class="col-sm-3">
+                                                                                            <a class="btn btn-primary m-b" runat="server" id="BtnEliminarPolProteccionDescuento">Eliminar Polígono</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <telerik:RadGrid runat="server" ID="GrdPolProteccionDescuento" Skin="Telerik"
+                                                                                            AutoGenerateColumns="false" Width="100%" AllowSorting="true"  
+                                                                                            GridLines="Both" PageSize="20" >
+                                                                                            <PagerStyle Mode="NumericPages" NextPageText="Siguiente" 
+                                                                                                PrevPageText="Anterior" Position="Bottom" 
+                                                                                                PagerTextFormat="Change page: {4} &amp;nbsp;Pagina &lt;strong&gt;{0}&lt;/strong&gt; de &lt;strong&gt;{1}&lt;/strong&gt;, registros &lt;strong&gt;{2}&lt;/strong&gt; a &lt;strong&gt;{3}&lt;/strong&gt; de &lt;strong&gt;{5}&lt;/strong&gt;." 
+                                                                                                PageSizeLabelText="Regitros"/>
+                                                                                            <MasterTableView Caption="" DataKeyNames="Id,X,Y" NoMasterRecordsText="No Hay Registros" ShowFooter="true">
+                                                                                                <Columns>
+                                                                                                    <telerik:GridBoundColumn DataField="Id" UniqueName="Rodal" HeaderText="Rodal" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                                    <telerik:GridBoundColumn DataField="X" UniqueName="X" HeaderText="X" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                                    <telerik:GridBoundColumn DataField="Y" UniqueName="Y" HeaderText="Y" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                                </Columns>        
+                                                                                            </MasterTableView>
+                                                                                            <FilterMenu EnableTheming="true">
+                                                                                                <CollapseAnimation Duration="200" Type="OutQuint" />
+                                                                                            </FilterMenu>
+                                                                                        </telerik:RadGrid>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <div class="ibox-content">
+                                                                                            <div class="col-sm-9">
+                                                                                                <div class="alert  alert-success alert-dismissable" runat="server" id="Div15" visible="false">
+                                                                                                    <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                                                    <asp:Label runat="server" ID="Label16" Font-Bold="true">Error</asp:Label>
+                                                                                                </div>
+                                                                                                <div class="alert alert-danger alert-dismissable" runat="server" id="DivErrPolProteccionDecuento" visible="false">
+                                                                                                    <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                                                    <asp:Label runat="server" ID="LblErrPolProteccionDescuento" Font-Bold="true">Error</asp:Label>
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div style="padding-bottom:2em;"></div>
@@ -3331,7 +3559,7 @@
                                                     <div class="ibox-content">
                                                         <div>
                                                             <label class="col-sm-1 control-label"></label>
-                                                                <div class="col-sm-10">
+                                                                <div class="col-sm-5">
                                                                     <div class="panel-body">
                                                                         <div class="panel-group" id="accordion7">
                                                                             <div class="panel panel-default">
@@ -3343,11 +3571,16 @@
                                                                                 <div id="collapseOne7" class="panel-collapse collapse in">
                                                                                     <div class="panel-body">
                                                                                         <label class="col-sm-2 control-label">Archivo de Poligónos</label>
-                                                                                        <div class="col-sm-5">
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <div class="col-sm-3">
                                                                                             <telerik:RadAsyncUpload runat="server" ID="UploadPolAreaRepo" Culture="es-GT" MaxFileInputsCount="1"
                                                                                                     AllowedFileExtensions="xlsx">
                                                                                             </telerik:RadAsyncUpload>
                                                                                         </div>
+                                                                                        
+                                                                                    </div>
+                                                                                    <div class="panel-body">
                                                                                         <div class="col-sm-2">
                                                                                             <a class="btn btn-primary m-b" runat="server" id="btnCargarPolAreaRepo">Cargar</a>
                                                                                         </div>
@@ -3382,6 +3615,75 @@
                                                                                                 <div class="alert alert-danger alert-dismissable" runat="server" id="DivErrPolAreaRepo" visible="false">
                                                                                                     <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                                                                                                     <asp:Label runat="server" ID="LblErrAreaRepo" Font-Bold="true">Error</asp:Label>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div style="padding-bottom:2em;"></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="panel-body">
+                                                                        <div class="panel-group" id="accordionDescPolRepo">
+                                                                            <div class="panel panel-default">
+                                                                                <div class="panel-heading">
+                                                                                    <h5 class="panel-title">
+                                                                                        <a data-toggle="collapse" data-parent="#accordionDescPolRepo" href="#collapseOneDescPolRepo">Poligóno Descuento Área Repoblación Forestal</a>
+                                                                                    </h5>
+                                                                                </div>
+                                                                                <div id="collapseOneDescPolRepo" class="panel-collapse collapse in">
+                                                                                    <div class="panel-body">
+                                                                                        <label class="col-sm-2 control-label">Archivo de Poligónos</label>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <div class="col-sm-3">
+                                                                                            <telerik:RadAsyncUpload runat="server" ID="UploadPolAreaRepoDescuento" Culture="es-GT" MaxFileInputsCount="1"
+                                                                                                    AllowedFileExtensions="xlsx">
+                                                                                            </telerik:RadAsyncUpload>
+                                                                                        </div>
+                                                                                        
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <div class="col-sm-3">
+                                                                                            <a class="btn btn-primary m-b" runat="server" id="btnCargarPolAreaRepoDescuento">Cargar</a>
+                                                                                        </div>
+                                                                                        <div class="col-sm-3">
+                                                                                            <a class="btn btn-primary m-b" runat="server" id="btnEliminarPolAreaRepoDescuento">Eliminar</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <telerik:RadGrid runat="server" ID="GrdPolAreaRepoDescuento" Skin="Telerik"
+                                                                                            AutoGenerateColumns="false" Width="100%" AllowSorting="true"  
+                                                                                            GridLines="Both" PageSize="20" >
+                                                                                            <PagerStyle Mode="NumericPages" NextPageText="Siguiente" 
+                                                                                                PrevPageText="Anterior" Position="Bottom" 
+                                                                                                PagerTextFormat="Change page: {4} &amp;nbsp;Pagina &lt;strong&gt;{0}&lt;/strong&gt; de &lt;strong&gt;{1}&lt;/strong&gt;, registros &lt;strong&gt;{2}&lt;/strong&gt; a &lt;strong&gt;{3}&lt;/strong&gt; de &lt;strong&gt;{5}&lt;/strong&gt;." 
+                                                                                                PageSizeLabelText="Regitros"/>
+                                                                                            <MasterTableView Caption="" DataKeyNames="Id,X,Y" NoMasterRecordsText="No Hay Registros" ShowFooter="true">
+                                                                                                <Columns>
+                                                                                                    <telerik:GridBoundColumn DataField="Id" UniqueName="Rodal" HeaderText="Rodal" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                                    <telerik:GridBoundColumn DataField="X" UniqueName="X" HeaderText="X" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                                    <telerik:GridBoundColumn DataField="Y" UniqueName="Y" HeaderText="Y" HeaderStyle-Width="125px"></telerik:GridBoundColumn>
+                                                                                                </Columns>        
+                                                                                            </MasterTableView>
+                                                                                            <FilterMenu EnableTheming="true">
+                                                                                                <CollapseAnimation Duration="200" Type="OutQuint" />
+                                                                                            </FilterMenu>
+                                                                                        </telerik:RadGrid>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <div class="ibox-content">
+                                                                                            <div class="col-sm-9">
+                                                                                                <div class="alert  alert-success alert-dismissable" runat="server" id="Div16" visible="false">
+                                                                                                    <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                                                    <asp:Label runat="server" ID="Label17" Font-Bold="true">Error</asp:Label>
+                                                                                                </div>
+                                                                                                <div class="alert alert-danger alert-dismissable" runat="server" id="DivErrPolAreaRepoDescuento" visible="false">
+                                                                                                    <button runat="server" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                                                                    <asp:Label runat="server" ID="LblErrAreaRepoDescuento" Font-Bold="true">Error</asp:Label>
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div style="padding-bottom:2em;"></div>
@@ -4030,6 +4332,9 @@
             <asp:TextBox runat="server" ID="TxtRegion" Text="0" style="display:none;"></asp:TextBox>
             <asp:TextBox runat="server" ID="TxtSubRegion" Text="0" style="display:none;"></asp:TextBox>
             <asp:TextBox runat="server" ID="TxtRegionId" Text="0" style="display:none;"></asp:TextBox>
+            <asp:TextBox runat="server" ID="TxtSumaPolDescBosque" Text="0" style="display:none;"></asp:TextBox>
+            <asp:TextBox runat="server" ID="TxtSumaPolDescIntervenir" Text="0" style="display:none;"></asp:TextBox>
+            <asp:TextBox runat="server" ID="TxtSumaPolDescProteccion" Text="0" style="display:none;"></asp:TextBox>
         </ContentTemplate>
     </asp:UpdatePanel>
     <script>

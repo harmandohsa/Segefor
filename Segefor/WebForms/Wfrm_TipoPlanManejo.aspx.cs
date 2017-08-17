@@ -266,7 +266,19 @@ namespace SEGEFOR.WebForms
             CboTipoActividad.SelectedIndexChanged += CboTipoActividad_SelectedIndexChanged;
             CboActividad.SelectedIndexChanged += CboActividad_SelectedIndexChanged;
             BtnCalcularCompromisoSilvi.ServerClick += BtnCalcularCompromisoSilvi_ServerClick;
-            
+            BtnCargaPolBosqueDescuento.ServerClick += BtnCargaPolBosqueDescuento_ServerClick;
+            GrdPolBoqueDecuento.NeedDataSource += GrdPolBoqueDecuento_NeedDataSource;
+            BtnDelPoligonoDescBosque.ServerClick += BtnDelPoligonoDescBosque_ServerClick;
+            BtnCargaPolIntervenirDescuento.ServerClick += BtnCargaPolIntervenirDescuento_ServerClick;
+            BtnEliminarPolIntervenirDescuento.ServerClick += BtnEliminarPolIntervenirDescuento_ServerClick;
+            GrdPolIntervenirDescuento.NeedDataSource += GrdPolIntervenirDescuento_NeedDataSource;
+            BtnEliminarPolProteccion.ServerClick += BtnEliminarPolProteccion_ServerClick;
+            BtncargarPolProteccionDescuento.ServerClick += BtncargarPolProteccionDescuento_ServerClick;
+            GrdPolProteccionDescuento.NeedDataSource += GrdPolProteccionDescuento_NeedDataSource;
+            BtnEliminarPolProteccionDescuento.ServerClick += BtnEliminarPolProteccionDescuento_ServerClick;
+            btnCargarPolAreaRepoDescuento.ServerClick += btnCargarPolAreaRepoDescuento_ServerClick;
+            GrdPolAreaRepoDescuento.NeedDataSource += GrdPolAreaRepoDescuento_NeedDataSource;
+            btnEliminarPolAreaRepoDescuento.ServerClick += btnEliminarPolAreaRepoDescuento_ServerClick;
 
             if (Session["UsuarioId"] == null)
             {
@@ -510,6 +522,503 @@ namespace SEGEFOR.WebForms
                 }
             }
             dsDatosEcuacion.Clear();
+            
+        }
+
+        void btnEliminarPolAreaRepoDescuento_ServerClick(object sender, EventArgs e)
+        {
+            int AsignacionId = Convert.ToInt32(TxtAsignacionId.Text);
+            ClManejo.Eliminar_PoligonoRepoblacionDescuento(AsignacionId);
+            Ds_Temporal.Tables["Dt_PoligonoDescuentoAreaRepo"].Clear();
+            GrdPolAreaRepoDescuento.Rebind();
+        }
+
+        void GrdPolAreaRepoDescuento_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            if (Ds_Temporal.Tables["Dt_PoligonoDescuentoAreaRepo"].Rows.Count > 0)
+                ClUtilitarios.LlenaGridDt(Ds_Temporal, GrdPolAreaRepoDescuento, "Dt_PoligonoDescuentoAreaRepo");
+        }
+
+        void btnCargarPolAreaRepoDescuento_ServerClick(object sender, EventArgs e)
+        {
+            DivErrPolAreaRepoDescuento.Visible = false;
+            if (UploadPolAreaRepoDescuento.UploadedFiles.Count > 0)
+            {
+                string Extension = UploadPolAreaRepoDescuento.UploadedFiles[0].GetExtension().ToString();
+                if ((Extension == ".xls") || (Extension == ".XLS"))
+                {
+                    DivErrPolAreaRepoDescuento.Visible = true;
+                    LblErrAreaRepoDescuento.Text = "Solo puede subir archivos .xlsx";
+                }
+                else
+                {
+                    try
+                    {
+                        Stream stream = UploadPolAreaRepoDescuento.UploadedFiles[0].InputStream;
+                        IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+                        excelReader.IsFirstRowAsColumnNames = true;
+                        resultXls = excelReader.AsDataSet();
+
+                        Ds_Temporal.Tables["Dt_PoligonoDescuentoAreaRepo"].Clear();
+                        foreach (DataRow iDtRow in resultXls.Tables[0].Rows)
+                        {
+                            if (iDtRow["X"].ToString() != "")
+                            {
+                                DataRow rowNew = Ds_Temporal.Tables["Dt_PoligonoDescuentoAreaRepo"].NewRow();
+                                rowNew["Id"] = iDtRow["Poligono"];
+                                rowNew["X"] = iDtRow["X"];
+                                rowNew["Y"] = iDtRow["Y"];
+                                Ds_Temporal.Tables["Dt_PoligonoDescuentoAreaRepo"].Rows.Add(rowNew);
+                            }
+
+                        }
+
+                        GrdPolAreaRepoDescuento.Rebind();
+                    }
+                    catch (Exception ex)
+                    {
+                        DivErrPolAreaRepoDescuento.Visible = true;
+                        LblErrAreaRepoDescuento.Text = ex.Message;
+                    }
+                }
+
+
+
+            }
+            else
+            {
+                DivErrPolAreaRepo.Visible = true;
+                LblErrAreaRepo.Text = "Solo puede subir archivos .xlsx, no selecciono un archivo valido";
+            }
+        }
+
+        void BtnEliminarPolProteccionDescuento_ServerClick(object sender, EventArgs e)
+        {
+            int AsignacionId = Convert.ToInt32(TxtAsignacionId.Text);
+            int InmuebleId = Convert.ToInt32(TxtInmuebleId.Text);
+            ClManejo.Eliminar_PoligonoFinca_ProteccionDescuento(AsignacionId, InmuebleId);
+            Ds_Temporal.Tables["Dt_PoligonoProteccion_Descuento"].Clear();
+            GrdPolProteccionDescuento.Rebind();
+            TxtAreaProteccion.Text = (Convert.ToDouble(TxtAreaProteccion.Text) + Convert.ToDouble(TxtSumaPolDescProteccion.Text)).ToString();
+        }
+
+        void GrdPolProteccionDescuento_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            if (Ds_Temporal.Tables["Dt_PoligonoProteccion_Descuento"].Rows.Count > 0)
+                ClUtilitarios.LlenaGridDt(Ds_Temporal, GrdPolProteccionDescuento, "Dt_PoligonoProteccion_Descuento");
+        }
+
+        void BtncargarPolProteccionDescuento_ServerClick(object sender, EventArgs e)
+        {
+            DivErrPolProteccionDecuento.Visible = false;
+            if (GrdPolProteccion.Items.Count == 0)
+            {
+                DivErrPolProteccionDecuento.Visible = true;
+                LblErrPolProteccionDescuento.Text = "No ha cargado el polígono de protección";
+            }
+            else
+            {
+                if (RadUloadPolProteccionDescuento.UploadedFiles.Count > 0)
+                {
+                    string Extension = RadUloadPolProteccionDescuento.UploadedFiles[0].GetExtension().ToString();
+                    if ((Extension == ".xls") || (Extension == ".XLS"))
+                    {
+                        DivErrPolProteccionDecuento.Visible = true;
+                        LblErrPolProteccionDescuento.Text = "Solo puede subir archivos .xlsx";
+                    }
+                    else
+                    {
+                        try
+                        {
+                            Stream stream = RadUloadPolProteccionDescuento.UploadedFiles[0].InputStream;
+                            IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+                            excelReader.IsFirstRowAsColumnNames = true;
+                            resultXls = excelReader.AsDataSet();
+
+                            Ds_Temporal.Tables["Dt_PoligonoProteccion_Descuento"].Clear();
+                            foreach (DataRow iDtRow in resultXls.Tables[0].Rows)
+                            {
+                                if (iDtRow["X"].ToString() != "")
+                                {
+                                    DataRow rowNew = Ds_Temporal.Tables["Dt_PoligonoProteccion_Descuento"].NewRow();
+                                    rowNew["Id"] = iDtRow["Poligono"];
+                                    rowNew["X"] = iDtRow["X"];
+                                    rowNew["Y"] = iDtRow["Y"];
+                                    Ds_Temporal.Tables["Dt_PoligonoProteccion_Descuento"].Rows.Add(rowNew);
+                                }
+
+                            }
+
+                            GrdPolProteccionDescuento.Rebind();
+                            int AsignacionId = Convert.ToInt32(TxtAsignacionId.Text);
+                            int InmuebleId = Convert.ToInt32(TxtInmuebleId.Text);
+                            string ErrorMapaBosque = "";
+                            ClManejo.Eliminar_PoligonoFinca_ProteccionDescuento(AsignacionId, InmuebleId);
+                            int PoligonoId = 0;
+                            int PoligonoAux = 0;
+                            int Correlativo = 1;
+                            double TotalAreaBosque = 0;
+                            double AreaTotal = 0;
+                            if (GrdPolProteccionDescuento.Items.Count > 0)
+                            {
+                                XmlDocument iInformacionPolBosque = ClXml.CrearDocumentoXML("Poligonos");
+                                XmlNode iElementoPoligono = iInformacionPolBosque.CreateElement("Puntos");
+
+                                for (int i = 0; i < GrdPolProteccionDescuento.Items.Count; i++)
+                                {
+                                    PoligonoId = Convert.ToInt32(GrdPolProteccionDescuento.Items[i].OwnerTableView.DataKeyValues[i]["Id"]);
+
+                                    if ((PoligonoId != PoligonoAux) && (PoligonoAux > 0))
+                                    {
+                                        iInformacionPolBosque.ChildNodes[1].AppendChild(iElementoPoligono);
+                                        if (!ClPoligono.poligonos_AreaProteccion_Descuento(iInformacionPolBosque, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaBosque, ref TotalAreaBosque))
+                                        {
+                                            DivErrPolProteccionDecuento.Visible = true;
+                                            LblErrPolProteccionDescuento.Text = "Error Poligono Protección: " + ErrorMapaBosque;
+                                        }
+                                        AreaTotal = AreaTotal + TotalAreaBosque;
+                                        Correlativo = Correlativo + 1;
+                                        PoligonoAux = PoligonoId;
+                                        iElementoPoligono.InnerXml = "";
+                                        XmlNode iElementoDetalle = iInformacionPolBosque.CreateElement("Item");
+                                        ClXml.AgregarAtributo("Id", GrdPolProteccionDescuento.Items[i].OwnerTableView.DataKeyValues[i]["Id"], iElementoDetalle);
+                                        ClXml.AgregarAtributo("X", GrdPolProteccionDescuento.Items[i].OwnerTableView.DataKeyValues[i]["X"], iElementoDetalle);
+                                        ClXml.AgregarAtributo("Y", GrdPolProteccionDescuento.Items[i].OwnerTableView.DataKeyValues[i]["Y"], iElementoDetalle);
+                                        iElementoPoligono.AppendChild(iElementoDetalle);
+                                    }
+                                    else
+                                    {
+                                        XmlNode iElementoDetalle = iInformacionPolBosque.CreateElement("Item");
+                                        ClXml.AgregarAtributo("Id", GrdPolProteccionDescuento.Items[i].OwnerTableView.DataKeyValues[i]["Id"], iElementoDetalle);
+                                        ClXml.AgregarAtributo("X", GrdPolProteccionDescuento.Items[i].OwnerTableView.DataKeyValues[i]["X"], iElementoDetalle);
+                                        ClXml.AgregarAtributo("Y", GrdPolProteccionDescuento.Items[i].OwnerTableView.DataKeyValues[i]["Y"], iElementoDetalle);
+                                        iElementoPoligono.AppendChild(iElementoDetalle);
+                                        PoligonoAux = PoligonoId;
+                                        if (i + 1 == GrdPolProteccionDescuento.Items.Count)
+                                        {
+                                            PoligonoId = PoligonoId + 1;
+                                            iInformacionPolBosque.ChildNodes[1].AppendChild(iElementoPoligono);
+                                            if (!ClPoligono.poligonos_AreaProteccion_Descuento(iInformacionPolBosque, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaBosque, ref TotalAreaBosque))
+                                            {
+                                                DivErrPolProteccionDecuento.Visible = true;
+                                                LblErrPolProteccionDescuento.Text = "Error Poligono Protección: " + ErrorMapaBosque;
+                                            }
+                                            else
+                                                AreaTotal = AreaTotal + TotalAreaBosque;
+                                        }
+                                    }
+
+                                }
+
+                            }
+                            TxtAreaProteccion.Text = (Convert.ToDouble(TxtAreaProteccion.Text) - AreaTotal).ToString();
+                            TxtSumaPolDescProteccion.Text = AreaTotal.ToString();
+                        }
+                        catch (Exception ex)
+                        {
+                            String iM = ex.Message;
+                            DivErrPolInervencionDescuento.Visible = true;
+                            LblErrPolIntervencioDescuento.Text = ex.Message;
+                        }
+                    }
+
+                }
+                else
+                {
+                    DivErrPolInervencionDescuento.Visible = true;
+                    LblErrPolIntervencioDescuento.Text = "Solo puede subir archivos .xlsx, no selecciono un archivo valido";
+                }
+            }
+        }
+
+        void BtnEliminarPolProteccion_ServerClick(object sender, EventArgs e)
+        {
+            int AsignacionId = Convert.ToInt32(TxtAsignacionId.Text);
+            int InmuebleId = Convert.ToInt32(TxtInmuebleId.Text);
+            ClManejo.Eliminar_PoligonoFinca_Proteccion(AsignacionId, InmuebleId);
+            Ds_Temporal.Tables["Dt_PoligonoProteccion"].Clear();
+            GrdPolProteccion.Rebind();
+            ClManejo.Eliminar_PoligonoFinca_ProteccionDescuento(AsignacionId, InmuebleId);
+            Ds_Temporal.Tables["Dt_PoligonoProteccion_Descuento"].Clear();
+            GrdPolProteccionDescuento.Rebind();
+            TxtAreaProteccion.Text = "0";
+
+            TxtAreaProteccion.Text = "0";
+        }
+
+        void GrdPolIntervenirDescuento_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            if (Ds_Temporal.Tables["Dt_PoligonoIntervencio_Descuento"].Rows.Count > 0)
+                ClUtilitarios.LlenaGridDt(Ds_Temporal, GrdPolIntervenirDescuento, "Dt_PoligonoIntervencio_Descuento");
+        }
+
+        void BtnEliminarPolIntervenirDescuento_ServerClick(object sender, EventArgs e)
+        {
+            int AsignacionId = Convert.ToInt32(TxtAsignacionId.Text);
+            int InmuebleId = Convert.ToInt32(TxtInmuebleId.Text);
+            ClManejo.Eliminar_PoligonoFinca_IntervencionDescuento(AsignacionId, InmuebleId);
+            Ds_Temporal.Tables["Dt_PoligonoIntervencio_Descuento"].Clear();
+            GrdPolIntervenirDescuento.Rebind();
+            TxtAreaIntervenir.Text = (Convert.ToDouble(TxtAreaIntervenir.Text) + Convert.ToDouble(TxtSumaPolDescIntervenir.Text)).ToString();
+        }
+
+        void BtnCargaPolIntervenirDescuento_ServerClick(object sender, EventArgs e)
+        {
+            DivErrPolInervencionDescuento.Visible = false;
+            if (GrdPolIntervenir.Items.Count == 0)
+            {
+                DivErrPolInervencionDescuento.Visible = true;
+                LblErrPolIntervencioDescuento.Text = "No ha cargado el polígono del área a intervenir";
+            }
+            else
+            {
+                if (RadUploadPolIntervenirDescuento.UploadedFiles.Count > 0)
+                {
+                    string Extension = RadUploadPolIntervenirDescuento.UploadedFiles[0].GetExtension().ToString();
+                    if ((Extension == ".xls") || (Extension == ".XLS"))
+                    {
+                        DivErrPolInervencionDescuento.Visible = true;
+                        LblErrPolIntervencioDescuento.Text = "Solo puede subir archivos .xlsx";
+                    }
+                    else
+                    {
+                        try
+                        {
+                            Stream stream = RadUploadPolIntervenirDescuento.UploadedFiles[0].InputStream;
+                            IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+                            excelReader.IsFirstRowAsColumnNames = true;
+                            resultXls = excelReader.AsDataSet();
+
+                            Ds_Temporal.Tables["Dt_PoligonoIntervencio_Descuento"].Clear();
+                            foreach (DataRow iDtRow in resultXls.Tables[0].Rows)
+                            {
+                                if (iDtRow["X"].ToString() != "")
+                                {
+                                    DataRow rowNew = Ds_Temporal.Tables["Dt_PoligonoIntervencio_Descuento"].NewRow();
+                                    rowNew["Id"] = iDtRow["Poligono"];
+                                    rowNew["X"] = iDtRow["X"];
+                                    rowNew["Y"] = iDtRow["Y"];
+                                    Ds_Temporal.Tables["Dt_PoligonoIntervencio_Descuento"].Rows.Add(rowNew);
+                                }
+
+                            }
+
+                            GrdPolIntervenirDescuento.Rebind();
+                            int AsignacionId = Convert.ToInt32(TxtAsignacionId.Text);
+                            int InmuebleId = Convert.ToInt32(TxtInmuebleId.Text);
+                            string ErrorMapaBosque = "";
+                            ClManejo.Eliminar_PoligonoFinca_IntervencionDescuento(AsignacionId, InmuebleId);
+                            int PoligonoId = 0;
+                            int PoligonoAux = 0;
+                            int Correlativo = 1;
+                            double TotalAreaBosque = 0;
+                            double AreaTotal = 0;
+                            if (GrdPolIntervenirDescuento.Items.Count > 0)
+                            {
+                                XmlDocument iInformacionPolBosque = ClXml.CrearDocumentoXML("Poligonos");
+                                XmlNode iElementoPoligono = iInformacionPolBosque.CreateElement("Puntos");
+
+                                for (int i = 0; i < GrdPolIntervenirDescuento.Items.Count; i++)
+                                {
+                                    PoligonoId = Convert.ToInt32(GrdPolIntervenirDescuento.Items[i].OwnerTableView.DataKeyValues[i]["Id"]);
+
+                                    if ((PoligonoId != PoligonoAux) && (PoligonoAux > 0))
+                                    {
+                                        iInformacionPolBosque.ChildNodes[1].AppendChild(iElementoPoligono);
+                                        if (!ClPoligono.poligonos_AreaIntervencion_Descuento(iInformacionPolBosque, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaBosque, ref TotalAreaBosque))
+                                        {
+                                            DivErrPolInervencionDescuento.Visible = true;
+                                            LblErrPolIntervencioDescuento.Text = "Error Poligono Bosque: " + ErrorMapaBosque;
+                                        }
+                                        AreaTotal = AreaTotal + TotalAreaBosque;
+                                        Correlativo = Correlativo + 1;
+                                        PoligonoAux = PoligonoId;
+                                        iElementoPoligono.InnerXml = "";
+                                        XmlNode iElementoDetalle = iInformacionPolBosque.CreateElement("Item");
+                                        ClXml.AgregarAtributo("Id", GrdPolIntervenirDescuento.Items[i].OwnerTableView.DataKeyValues[i]["Id"], iElementoDetalle);
+                                        ClXml.AgregarAtributo("X", GrdPolIntervenirDescuento.Items[i].OwnerTableView.DataKeyValues[i]["X"], iElementoDetalle);
+                                        ClXml.AgregarAtributo("Y", GrdPolIntervenirDescuento.Items[i].OwnerTableView.DataKeyValues[i]["Y"], iElementoDetalle);
+                                        iElementoPoligono.AppendChild(iElementoDetalle);
+                                    }
+                                    else
+                                    {
+                                        XmlNode iElementoDetalle = iInformacionPolBosque.CreateElement("Item");
+                                        ClXml.AgregarAtributo("Id", GrdPolIntervenirDescuento.Items[i].OwnerTableView.DataKeyValues[i]["Id"], iElementoDetalle);
+                                        ClXml.AgregarAtributo("X", GrdPolIntervenirDescuento.Items[i].OwnerTableView.DataKeyValues[i]["X"], iElementoDetalle);
+                                        ClXml.AgregarAtributo("Y", GrdPolIntervenirDescuento.Items[i].OwnerTableView.DataKeyValues[i]["Y"], iElementoDetalle);
+                                        iElementoPoligono.AppendChild(iElementoDetalle);
+                                        PoligonoAux = PoligonoId;
+                                        if (i + 1 == GrdPolIntervenirDescuento.Items.Count)
+                                        {
+                                            PoligonoId = PoligonoId + 1;
+                                            iInformacionPolBosque.ChildNodes[1].AppendChild(iElementoPoligono);
+                                            if (!ClPoligono.poligonos_AreaIntervencion_Descuento(iInformacionPolBosque, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaBosque, ref TotalAreaBosque))
+                                            {
+                                                DivErrPolInervencionDescuento.Visible = true;
+                                                LblErrPolIntervencioDescuento.Text = "Error Poligono Bosque: " + ErrorMapaBosque;
+                                            }
+                                            else
+                                                AreaTotal = AreaTotal + TotalAreaBosque;
+                                        }
+                                    }
+
+                                }
+
+                            }
+                            TxtAreaIntervenir.Text = (Convert.ToDouble(TxtAreaIntervenir.Text) - AreaTotal).ToString();
+                            TxtSumaPolDescIntervenir.Text = AreaTotal.ToString();
+                        }
+                        catch (Exception ex)
+                        {
+                            String iM = ex.Message;
+                            DivErrPolInervencionDescuento.Visible = true;
+                            LblErrPolIntervencioDescuento.Text = ex.Message;
+                        }
+                    }
+
+                }
+                else
+                {
+                    DivErrPolInervencionDescuento.Visible = true;
+                    LblErrPolIntervencioDescuento.Text = "Solo puede subir archivos .xlsx, no selecciono un archivo valido";
+                }
+            }
+        }
+
+        void BtnDelPoligonoDescBosque_ServerClick(object sender, EventArgs e)
+        {
+            
+            int AsignacionId = Convert.ToInt32(TxtAsignacionId.Text);
+            int InmuebleId = Convert.ToInt32(TxtInmuebleId.Text);
+            ClManejo.Eliminar_PoligonoFinca_BosqueDescuento(AsignacionId, InmuebleId);
+            Ds_Temporal.Tables["Dt_PoligonoBosque_Descuento"].Clear();
+            GrdPolBoqueDecuento.Rebind();
+            TxtAreaBosque.Text = (Convert.ToDouble(TxtAreaBosque.Text) + Convert.ToDouble(TxtSumaPolDescBosque.Text)).ToString();
+        }
+
+        void GrdPolBoqueDecuento_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            if (Ds_Temporal.Tables["Dt_PoligonoBosque_Descuento"].Rows.Count > 0)
+                ClUtilitarios.LlenaGridDt(Ds_Temporal, GrdPolBoqueDecuento, "Dt_PoligonoBosque_Descuento");
+        }
+
+        void BtnCargaPolBosqueDescuento_ServerClick(object sender, EventArgs e)
+        {
+            DivErrPolBosqueDescuento.Visible = false;
+            if (GrdPolBoque.Items.Count == 0)
+            {
+                DivErrPolBosqueDescuento.Visible = true;
+                LblMensajeErrBosqueDescuento.Text = "No ha cargado el polígono de bosque";
+            }
+            else
+            {
+                if (RadUploadoPolBosqueDescuento.UploadedFiles.Count > 0)
+                {
+                    string Extension = RadUploadoPolBosqueDescuento.UploadedFiles[0].GetExtension().ToString();
+                    if ((Extension == ".xls") || (Extension == ".XLS"))
+                    {
+                        DivErrPolBosqueDescuento.Visible = true;
+                        LblMensajeErrBosqueDescuento.Text = "Solo puede subir archivos .xlsx";
+                    }
+                    else
+                    {
+                        try
+                        {
+                            Stream stream = RadUploadoPolBosqueDescuento.UploadedFiles[0].InputStream;
+                            IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+                            excelReader.IsFirstRowAsColumnNames = true;
+                            resultXls = excelReader.AsDataSet();
+
+                            Ds_Temporal.Tables["Dt_PoligonoBosque_Descuento"].Clear();
+                            foreach (DataRow iDtRow in resultXls.Tables[0].Rows)
+                            {
+                                if (iDtRow["X"].ToString() != "")
+                                {
+                                    DataRow rowNew = Ds_Temporal.Tables["Dt_PoligonoBosque_Descuento"].NewRow();
+                                    rowNew["Id"] = iDtRow["Poligono"];
+                                    rowNew["X"] = iDtRow["X"];
+                                    rowNew["Y"] = iDtRow["Y"];
+                                    Ds_Temporal.Tables["Dt_PoligonoBosque_Descuento"].Rows.Add(rowNew);
+                                }
+
+                            }
+
+                            GrdPolBoqueDecuento.Rebind();
+                            int AsignacionId = Convert.ToInt32(TxtAsignacionId.Text);
+                            int InmuebleId = Convert.ToInt32(TxtInmuebleId.Text);
+                            string ErrorMapaBosque = "";
+                            ClManejo.Eliminar_PoligonoFinca_BosqueDescuento(AsignacionId, InmuebleId);
+                            int PoligonoId = 0;
+                            int PoligonoAux = 0;
+                            int Correlativo = 1;
+                            double TotalAreaBosque = 0;
+                            double AreaTotal = 0;
+                            if (GrdPolBoqueDecuento.Items.Count > 0)
+                            {
+                                XmlDocument iInformacionPolBosque = ClXml.CrearDocumentoXML("Poligonos");
+                                XmlNode iElementoPoligono = iInformacionPolBosque.CreateElement("Puntos");
+
+                                for (int i = 0; i < GrdPolBoqueDecuento.Items.Count; i++)
+                                {
+                                    PoligonoId = Convert.ToInt32(GrdPolBoqueDecuento.Items[i].OwnerTableView.DataKeyValues[i]["Id"]);
+
+                                    if ((PoligonoId != PoligonoAux) && (PoligonoAux > 0))
+                                    {
+                                        iInformacionPolBosque.ChildNodes[1].AppendChild(iElementoPoligono);
+                                        if (!ClPoligono.Actualizar_Poligono_AreaBosqueDescuento(iInformacionPolBosque, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaBosque, ref TotalAreaBosque))
+                                            LblMensajeErrBosqueDescuento.Text = "Error Poligono Bosque: " + ErrorMapaBosque;
+                                        AreaTotal = AreaTotal + TotalAreaBosque;
+                                        Correlativo = Correlativo + 1;
+                                        PoligonoAux = PoligonoId;
+                                        iElementoPoligono.InnerXml = "";
+                                        XmlNode iElementoDetalle = iInformacionPolBosque.CreateElement("Item");
+                                        ClXml.AgregarAtributo("Id", GrdPolBoqueDecuento.Items[i].OwnerTableView.DataKeyValues[i]["Id"], iElementoDetalle);
+                                        ClXml.AgregarAtributo("X", GrdPolBoqueDecuento.Items[i].OwnerTableView.DataKeyValues[i]["X"], iElementoDetalle);
+                                        ClXml.AgregarAtributo("Y", GrdPolBoqueDecuento.Items[i].OwnerTableView.DataKeyValues[i]["Y"], iElementoDetalle);
+                                        iElementoPoligono.AppendChild(iElementoDetalle);
+                                    }
+                                    else
+                                    {
+                                        XmlNode iElementoDetalle = iInformacionPolBosque.CreateElement("Item");
+                                        ClXml.AgregarAtributo("Id", GrdPolBoqueDecuento.Items[i].OwnerTableView.DataKeyValues[i]["Id"], iElementoDetalle);
+                                        ClXml.AgregarAtributo("X", GrdPolBoqueDecuento.Items[i].OwnerTableView.DataKeyValues[i]["X"], iElementoDetalle);
+                                        ClXml.AgregarAtributo("Y", GrdPolBoqueDecuento.Items[i].OwnerTableView.DataKeyValues[i]["Y"], iElementoDetalle);
+                                        iElementoPoligono.AppendChild(iElementoDetalle);
+                                        PoligonoAux = PoligonoId;
+                                        if (i + 1 == GrdPolBoqueDecuento.Items.Count)
+                                        {
+                                            PoligonoId = PoligonoId + 1;
+                                            iInformacionPolBosque.ChildNodes[1].AppendChild(iElementoPoligono);
+                                            if (!ClPoligono.Actualizar_Poligono_AreaBosqueDescuento(iInformacionPolBosque, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaBosque, ref TotalAreaBosque))
+                                                LblMensajeErrBosqueDescuento.Text = "Error Poligono Bosque: " + ErrorMapaBosque;
+                                            else
+                                                AreaTotal = AreaTotal + TotalAreaBosque;
+                                        }
+                                    }
+
+                                }
+
+                            }
+                            TxtAreaBosque.Text = (Convert.ToDouble(TxtAreaBosque.Text) - AreaTotal).ToString();
+                            TxtSumaPolDescBosque.Text = AreaTotal.ToString();
+                        }
+                        catch (Exception ex)
+                        {
+                            String iM = ex.Message;
+                            DivErrPolBosqueDescuento.Visible = true;
+                            LblMensajeErrBosqueDescuento.Text = ex.Message;
+                        }
+                    }
+
+                }
+                else
+                {
+                    DivErrPolBosqueDescuento.Visible = true;
+                    LblMensajeErrBosqueDescuento.Text = "Solo puede subir archivos .xlsx, no selecciono un archivo valido";
+                }
+            }
+
+
             
         }
 
@@ -3138,6 +3647,7 @@ namespace SEGEFOR.WebForms
         void BtnGrabarSilvicultura_Click(object sender, EventArgs e)
         {
             Ds_Temporal.Tables["Dt_EspecieArb"].Clear();
+            GrdEspeciePLanManejo.Rebind();
             bool Agrego = false;
             DivErrSilvicultura.Visible = false;
             SumarSilvicultara();
@@ -3660,6 +4170,7 @@ namespace SEGEFOR.WebForms
                         Temp = AreaRodal * 10000;
                         ((RadNumericTextBox)GrdResumen.Items[i]["DensidadEdit"].FindControl("TxtDensidad")).Text = ((10000 * arboles) / Temp).ToString("N2");
                         ((RadNumericTextBox)GrdResumen.Items[i]["AreaBasalEdit"].FindControl("TxtAreaBasal")).Text = SumBa.ToString("N2");
+                        ((RadNumericTextBox)GrdResumen.Items[i]["AreaBasalRodalEdit"].FindControl("TxtAreaBasalRodal")).Text = (SumBa * AreaRodal).ToString("N2");
                         RodalAct = Convert.ToInt32(GrdResumen.Items[i].OwnerTableView.DataKeyValues[i]["Rodal"]);
                         
                         
@@ -3835,20 +4346,32 @@ namespace SEGEFOR.WebForms
 
                     double totInc = 0;
                     string CodClaseDesarrollo = "";
+                    double INCTemp = 0;
                     int RodalTemp = 0;
+                    double AreaRodalTemp = 0;
                     for (int i = 0; i < GrdResumen.Items.Count; i++)
                     {
                         int Rodal =  Convert.ToInt32(GrdResumen.Items[i].GetDataKeyValue("Rodal"));
-                        object AreaRodal = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtAreaRodal")).Text;
+
+                        object INC = "";
+
+
+
+                        object AreaRodal = 0;
                         if (AreaRodal == "")
                             AreaRodal = 0;
                         
                         if (Rodal == RodalTemp)
                         {
+                            INC = 0;
+                            AreaRodal = AreaRodalTemp;
                         }
                         else
                         {
-                             CodClaseDesarrollo = ((RadComboBox)this.GrdResumen.Items[i].FindControl("CboClaseDesarrollo")).SelectedValue.ToString().Trim();
+                            CodClaseDesarrollo = ((RadComboBox)this.GrdResumen.Items[i].FindControl("CboClaseDesarrollo")).SelectedValue.ToString().Trim();
+                            INC = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtINC")).Text;
+                            AreaRodal = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtAreaRodal")).Text;
+                            AreaRodalTemp = Convert.ToDouble(AreaRodal);
                         }
                         string Edad = ((TextBox)this.GrdResumen.Items[i].FindControl("TxtEdad")).Text;
                         string TratamientoId = ((RadComboBox)this.GrdResumen.Items[i].FindControl("CboTratamiento")).SelectedValue;
@@ -3879,9 +4402,7 @@ namespace SEGEFOR.WebForms
                         object Pendiente = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtPendiente")).Text;
                         if (Pendiente == "")
                             Pendiente = 0;
-                        object INC = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtINC")).Text;
-                        if (INC == "")
-                            INC = 0;
+                        
                         totInc = Convert.ToDouble(INC) + totInc;
                         object VolHa = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtVolHa")).Text;
                         if (VolHa == "")
@@ -3923,9 +4444,43 @@ namespace SEGEFOR.WebForms
         bool ValidaAprovechamientoFilas()
         {
             bool NoHayDato = false;
+            int Rodal = 0;
+            int RodalTemp = 0;
+            string EdadTemp = "";
+            string AreaTEmp = "";
+            string PendienteTemp = "";
+            string IncTemp = "";
             for (int i = 0; i < GrdResumen.Items.Count; i++)
             {
-                
+                Rodal = Convert.ToInt32(GrdResumen.Items[i].GetDataKeyValue("Rodal"));
+                object TxtEdad = "";
+                object TxtArea = "";
+                object TxtPendiente = "";
+                object TxtInc = "";
+                if (Rodal != RodalTemp)
+                {
+                    TxtEdad = ((TextBox)this.GrdResumen.Items[i].FindControl("TxtEdad")).Text;
+                    EdadTemp = TxtEdad.ToString();
+                    TxtArea = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtAreaRodal")).Text;
+                    AreaTEmp = TxtArea.ToString();
+                    TxtPendiente = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtPendiente")).Text;
+                    PendienteTemp = TxtPendiente.ToString();
+                    TxtInc = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtINC")).Text;
+                    IncTemp = TxtInc.ToString();
+                }
+                else
+                {
+                    TxtEdad = EdadTemp;
+                    TxtArea = AreaTEmp;
+                    TxtPendiente = PendienteTemp;
+                    TxtInc = IncTemp;
+                }
+
+                TextBox TxtEdadTxt = ((TextBox)this.GrdResumen.Items[i].FindControl("TxtEdad"));
+                RadNumericTextBox TxtAreaRodalTxt = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtAreaRodal"));
+                RadNumericTextBox TxtPendienteTxt = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtPendiente"));
+                RadNumericTextBox TxtINCTxt = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtINC"));
+
                 object TxtDap = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtDap")).Text;
                 RadNumericTextBox TxtDapTxt = ((RadNumericTextBox)this.GrdResumen.Items[i].FindControl("TxtDap"));
                 if (TxtDap.ToString() == "")
@@ -4010,6 +4565,53 @@ namespace SEGEFOR.WebForms
                 {
                     VolRodalTxt.BackColor = Color.White;
                 }
+                if (EdadTemp.ToString() == "")
+                {
+                    TxtEdadTxt.BackColor = Color.Red;
+                    NoHayDato = true;
+                }
+                else
+                {
+                    TxtEdadTxt.BackColor = Color.White;
+                }
+                if (EdadTemp.ToString() == "")
+                {
+                    TxtEdadTxt.BackColor = Color.Red;
+                    NoHayDato = true;
+                }
+                else
+                {
+                    TxtEdadTxt.BackColor = Color.White;
+                }
+                if (AreaTEmp.ToString() == "")
+                {
+                    TxtAreaRodalTxt.BackColor = Color.Red;
+                    NoHayDato = true;
+                }
+                else
+                {
+                    TxtAreaRodalTxt.BackColor = Color.White;
+                }
+                if (PendienteTemp.ToString() == "")
+                {
+                    TxtPendienteTxt.BackColor = Color.Red;
+                    NoHayDato = true;
+                }
+                else
+                {
+                    TxtPendienteTxt.BackColor = Color.White;
+                }
+                if (IncTemp.ToString() == "")
+                {
+                    TxtINCTxt.BackColor = Color.Red;
+                    NoHayDato = true;
+                }
+                else
+                {
+                    TxtINCTxt.BackColor = Color.White;
+                }
+                
+                RodalTemp = Rodal;
             }
             return NoHayDato;
         }
@@ -4421,8 +5023,8 @@ namespace SEGEFOR.WebForms
                     else
                     {
                         int AsignacionId = Convert.ToInt32(TxtAsignacionId.Text);
-                        DateTime NewIni = Convert.ToDateTime(TxtFecIni.SelectedDate).AddYears(1);
-                        DateTime NewFin = Convert.ToDateTime(TXtFecFin.SelectedDate).AddYears(1);
+                        DateTime NewIni = Convert.ToDateTime(TxtFecIni.SelectedDate).AddYears(i);
+                        DateTime NewFin = Convert.ToDateTime(TXtFecFin.SelectedDate).AddYears(i);
                         ClManejo.Insert_ActividadCronograma(AsignacionId, Convert.ToInt32(CboActividad.SelectedValue), TxtOtros.Text, Convert.ToDateTime(string.Format("{0:dd/MM/yyyy}", NewIni)), Convert.ToDateTime(string.Format("{0:dd/MM/yyyy}", NewFin)));
                     }
                 }
@@ -5158,6 +5760,7 @@ namespace SEGEFOR.WebForms
                 ClManejo.Eliminar_InfoGeneral_SistemaRepoblacion_PlanManejo(AsignacionId);
                 ClManejo.Eliminar_Poligono_Repoblacion_PlanManejo(AsignacionId);
                 ClManejo.Eliminar_InfoGeneral_PlanManejo(AsignacionId);
+                ClManejo.Eliminar_PoligonoRepoblacionDescuento(AsignacionId);
 
                 XmlDocument iInformacion = ClXml.CrearDocumentoXML("Especies");
                 XmlNode iElementos = iInformacion.CreateElement("Especie");
@@ -5230,6 +5833,51 @@ namespace SEGEFOR.WebForms
                         }
                     }
 
+                    PoligonoId = 0;
+                    PoligonoAux = 0;
+                    Correlativo = 1;
+                    if (GrdPolAreaRepoDescuento.Items.Count > 0)
+                    {
+                        XmlDocument iInformacionPolBosqueDescuento = ClXml.CrearDocumentoXML("Poligonos");
+                        XmlNode iElementoPoligonoDescuento = iInformacionPolBosqueDescuento.CreateElement("Puntos");
+
+                        for (int i = 0; i < GrdPolAreaRepoDescuento.Items.Count; i++)
+                        {
+                            PoligonoId = Convert.ToInt32(GrdPolAreaRepoDescuento.Items[i].OwnerTableView.DataKeyValues[i]["Id"]);
+
+                            if ((PoligonoId != PoligonoAux) && (PoligonoAux > 0))
+                            {
+                                iInformacionPolBosqueDescuento.ChildNodes[1].AppendChild(iElementoPoligonoDescuento);
+                                String iPoligonoGML = "";
+                                ClPoligono.poligonos_Area_Proteccion_Descuento(iInformacionPolBosqueDescuento, AsignacionId, Correlativo, ref ErrorMapa);
+                                Correlativo = Correlativo + 1;
+                                PoligonoAux = PoligonoId;
+                                iElementoPoligono.InnerXml = "";
+                                XmlNode iElementoDetalle = iInformacionPolBosqueDescuento.CreateElement("Item");
+                                ClXml.AgregarAtributo("Id", GrdPolAreaRepoDescuento.Items[i].OwnerTableView.DataKeyValues[i]["Id"], iElementoDetalle);
+                                ClXml.AgregarAtributo("X", GrdPolAreaRepoDescuento.Items[i].OwnerTableView.DataKeyValues[i]["X"], iElementoDetalle);
+                                ClXml.AgregarAtributo("Y", GrdPolAreaRepoDescuento.Items[i].OwnerTableView.DataKeyValues[i]["Y"], iElementoDetalle);
+                                iElementoPoligonoDescuento.AppendChild(iElementoDetalle);
+
+                            }
+                            else
+                            {
+                                XmlNode iElementoDetalle = iInformacionPolBosqueDescuento.CreateElement("Item");
+                                ClXml.AgregarAtributo("Id", GrdPolAreaRepoDescuento.Items[i].OwnerTableView.DataKeyValues[i]["Id"], iElementoDetalle);
+                                ClXml.AgregarAtributo("X", GrdPolAreaRepoDescuento.Items[i].OwnerTableView.DataKeyValues[i]["X"], iElementoDetalle);
+                                ClXml.AgregarAtributo("Y", GrdPolAreaRepoDescuento.Items[i].OwnerTableView.DataKeyValues[i]["Y"], iElementoDetalle);
+                                iElementoPoligonoDescuento.AppendChild(iElementoDetalle);
+                                PoligonoAux = PoligonoId;
+                                if (i + 1 == GrdPolAreaRepoDescuento.Items.Count)
+                                {
+                                    PoligonoId = PoligonoId + 1;
+                                    iInformacionPolBosqueDescuento.ChildNodes[1].AppendChild(iElementoPoligonoDescuento);
+                                    ClPoligono.poligonos_Area_Proteccion_Descuento(iInformacionPolBosqueDescuento, AsignacionId, Correlativo, ref ErrorMapa);
+                                }
+                            }
+                        }
+
+                    }
 
 
                     if (ErrorMapa != "")
@@ -5238,6 +5886,7 @@ namespace SEGEFOR.WebForms
                         LblErrorInfoGenPlan.Text = ErrorMapa;
                         ClManejo.Eliminar_InfoGeneral_SistemaRepoblacion_PlanManejo(AsignacionId);
                         ClManejo.Eliminar_Poligono_Repoblacion_PlanManejo(AsignacionId);
+                        ClManejo.Eliminar_PoligonoRepoblacionDescuento(AsignacionId);
                         ClManejo.Eliminar_InfoGeneral_PlanManejo(AsignacionId);
                     }
                     else
@@ -5576,8 +6225,89 @@ namespace SEGEFOR.WebForms
                             }
 
                         }
-
                         GrdPolProteccion.Rebind();
+
+
+                        int AsignacionId = Convert.ToInt32(TxtAsignacionId.Text);
+                        int InmuebleId = Convert.ToInt32(TxtInmuebleId.Text);
+                        string ErrorMapaProteccion = "";
+                        string ErrorMapa = "";
+                        int PoligonoIdProteccion = 0;
+                        int PoligonoIdProteccionAux = 0;
+                        int Correlativo = 1;
+                        double TotalAreaBosque = 0;
+                        double AreaTotal = 0;
+                        ClManejo.Eliminar_PoligonoFinca_Proteccion(AsignacionId, InmuebleId);
+                        if (GrdPolProteccion.Items.Count > 0)
+                        {
+                            XmlDocument iInformacionPolProteccion = ClXml.CrearDocumentoXML("Poligonos");
+                            XmlNode iElementoPoligono = iInformacionPolProteccion.CreateElement("Puntos");
+
+                            for (int i = 0; i < GrdPolProteccion.Items.Count; i++)
+                            {
+                                PoligonoIdProteccion = Convert.ToInt32(GrdPolProteccion.Items[i].OwnerTableView.DataKeyValues[i]["Id"]);
+                                if ((PoligonoIdProteccion != PoligonoIdProteccionAux) && (PoligonoIdProteccionAux > 0))
+                                {
+                                    iInformacionPolProteccion.ChildNodes[1].AppendChild(iElementoPoligono);
+                                    if (!ClPoligono.Actualizar_Poligono_AreaProteger(iInformacionPolProteccion, ref AsignacionId, ref InmuebleId, ref ErrorMapaProteccion, ref TotalAreaBosque))
+                                    {
+                                        if (ErrorMapaProteccion != "")
+                                        {
+                                            if (@ErrorMapa == "")
+                                                ErrorMapa = "Error poligono Área Protección: " + ErrorMapaProteccion;
+                                            else
+                                                ErrorMapa = ErrorMapa + ", error poligono Área Protección: " + ErrorMapaProteccion;
+                                        }
+                                    }
+                                    else
+                                        AreaTotal = AreaTotal + TotalAreaBosque;
+
+                                    Correlativo = Correlativo + 1;
+                                    PoligonoIdProteccionAux = PoligonoIdProteccion;
+                                    iElementoPoligono.InnerXml = "";
+                                    XmlNode iElementoDetalle = iInformacionPolProteccion.CreateElement("Item");
+                                    ClXml.AgregarAtributo("Id", GrdPolProteccion.Items[i].OwnerTableView.DataKeyValues[i]["Id"], iElementoDetalle);
+                                    ClXml.AgregarAtributo("X", GrdPolProteccion.Items[i].OwnerTableView.DataKeyValues[i]["X"], iElementoDetalle);
+                                    ClXml.AgregarAtributo("Y", GrdPolProteccion.Items[i].OwnerTableView.DataKeyValues[i]["Y"], iElementoDetalle);
+                                    iElementoPoligono.AppendChild(iElementoDetalle);
+
+                                }
+                                else
+                                {
+                                    XmlNode iElementoDetalle = iInformacionPolProteccion.CreateElement("Item");
+                                    ClXml.AgregarAtributo("Id", GrdPolProteccion.Items[i].OwnerTableView.DataKeyValues[i]["Id"], iElementoDetalle);
+                                    ClXml.AgregarAtributo("X", GrdPolProteccion.Items[i].OwnerTableView.DataKeyValues[i]["X"], iElementoDetalle);
+                                    ClXml.AgregarAtributo("Y", GrdPolProteccion.Items[i].OwnerTableView.DataKeyValues[i]["Y"], iElementoDetalle);
+                                    iElementoPoligono.AppendChild(iElementoDetalle);
+                                    PoligonoIdProteccionAux = PoligonoIdProteccion;
+                                    if (i + 1 == GrdPolProteccion.Items.Count)
+                                    {
+                                        iInformacionPolProteccion.ChildNodes[1].AppendChild(iElementoPoligono);
+                                        if (!ClPoligono.Actualizar_Poligono_AreaProteger(iInformacionPolProteccion, ref AsignacionId, ref InmuebleId, ref ErrorMapaProteccion, ref TotalAreaBosque))
+                                        {
+                                            if (ErrorMapaProteccion != "")
+                                            {
+                                                if (@ErrorMapa == "")
+                                                    ErrorMapa = "Error poligono Área Protección: " + ErrorMapaProteccion;
+                                                else
+                                                    ErrorMapa = ErrorMapa + ", error poligono Área Protección: " + ErrorMapaProteccion;
+                                            }
+                                        }
+                                        else
+                                            AreaTotal = AreaTotal + TotalAreaBosque;
+                                    }
+                                }
+                            }
+                        }
+                        TxtAreaProteccion.Text = AreaTotal.ToString();
+                        
+                        
+                        //ClManejo.Eliminar_PoligonoFinca_BosqueDescuento(AsignacionId, InmuebleId);
+                        ///Ds_Temporal.Tables["Dt_PoligonoBosque_Descuento"].Rows.Clear();
+                        //GrdPolBoqueDecuento.Rebind();
+
+
+
                     }
                     catch (Exception ex)
                     {
@@ -5723,6 +6453,7 @@ namespace SEGEFOR.WebForms
                     int PoligonoIdProteccion = 0;
                     int PoligonoIdProteccionAux = 0;
                     int Correlativo = 1;
+                    double TotalAreaBosque = 0;
                     if (GrdPolBoque.Items.Count > 0)
                     {
                         XmlDocument iInformacionPolBosque = ClXml.CrearDocumentoXML("Poligonos");
@@ -5735,7 +6466,7 @@ namespace SEGEFOR.WebForms
                             if ((PoligonoId != PoligonoAux) && (PoligonoAux > 0))
                             {
                                 iInformacionPolBosque.ChildNodes[1].AppendChild(iElementoPoligono);
-                                if (!ClPoligono.Actualizar_Poligono_AreaBosque(iInformacionPolBosque, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaBosque))
+                                if (!ClPoligono.Actualizar_Poligono_AreaBosque(iInformacionPolBosque, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaBosque, ref TotalAreaBosque))
                                     ErrorMapa = "Error Poligono Bosque: " + ErrorMapaBosque;
                                 Correlativo = Correlativo + 1;
                                 PoligonoAux = PoligonoId;
@@ -5758,7 +6489,7 @@ namespace SEGEFOR.WebForms
                                 {
                                     PoligonoId = PoligonoId + 1;
                                     iInformacionPolBosque.ChildNodes[1].AppendChild(iElementoPoligono);
-                                    if (!ClPoligono.Actualizar_Poligono_AreaBosque(iInformacionPolBosque, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaBosque))
+                                    if (!ClPoligono.Actualizar_Poligono_AreaBosque(iInformacionPolBosque, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaBosque, ref TotalAreaBosque))
                                         ErrorMapa = "Error Poligono Bosque: " + ErrorMapaBosque;
                                 }
                             }
@@ -5779,8 +6510,8 @@ namespace SEGEFOR.WebForms
                             if ((PoligonoIdIntervenir != PoligonoIdIntervenirAux) && (PoligonoIdIntervenirAux > 0))
                             {
                                 iInformacionPolIntervernir.ChildNodes[1].AppendChild(iElementoPoligono);
-                                
-                                if (!ClPoligono.Actualizar_Poligono_AreaIntervenir(iInformacionPolIntervernir, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaIntervencion))
+
+                                if (!ClPoligono.Actualizar_Poligono_AreaIntervenir(iInformacionPolIntervernir, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaIntervencion, ref TotalAreaBosque))
                                 {
                                     if (ErrorMapaIntervencion != "")
                                     {
@@ -5811,7 +6542,7 @@ namespace SEGEFOR.WebForms
                                 {
                                     PoligonoIdIntervenirAux = PoligonoIdIntervenirAux + 1;
                                     iInformacionPolIntervernir.ChildNodes[1].AppendChild(iElementoPoligono);
-                                    if (!ClPoligono.Actualizar_Poligono_AreaIntervenir(iInformacionPolIntervernir, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaIntervencion))
+                                    if (!ClPoligono.Actualizar_Poligono_AreaIntervenir(iInformacionPolIntervernir, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaIntervencion, ref TotalAreaBosque))
                                     {
                                         if (ErrorMapaIntervencion != "")
                                         {
@@ -5828,7 +6559,6 @@ namespace SEGEFOR.WebForms
                     }
 
                     Correlativo = 1;
-
                     if (GrdPolProteccion.Items.Count > 0)
                     {
                         XmlDocument iInformacionPolProteccion = ClXml.CrearDocumentoXML("Poligonos");
@@ -5840,7 +6570,7 @@ namespace SEGEFOR.WebForms
                             if ((PoligonoIdProteccion != PoligonoIdProteccionAux) && (PoligonoIdProteccionAux > 0))
                             {
                                 iInformacionPolProteccion.ChildNodes[1].AppendChild(iElementoPoligono);
-                                if (!ClPoligono.Actualizar_Poligono_AreaProteger(iInformacionPolProteccion, ref AsignacionId, ref InmuebleId, ref ErrorMapaProteccion))
+                                if (!ClPoligono.Actualizar_Poligono_AreaProteger(iInformacionPolProteccion, ref AsignacionId, ref InmuebleId, ref ErrorMapaProteccion, ref TotalAreaBosque))
                                 {
                                     if (ErrorMapaProteccion != "")
                                     {
@@ -5871,7 +6601,7 @@ namespace SEGEFOR.WebForms
                                 if (i + 1 == GrdPolProteccion.Items.Count)
                                 {
                                     iInformacionPolProteccion.ChildNodes[1].AppendChild(iElementoPoligono);
-                                    if (!ClPoligono.Actualizar_Poligono_AreaProteger(iInformacionPolProteccion, ref AsignacionId, ref InmuebleId, ref ErrorMapaProteccion))
+                                    if (!ClPoligono.Actualizar_Poligono_AreaProteger(iInformacionPolProteccion, ref AsignacionId, ref InmuebleId, ref ErrorMapaProteccion, ref TotalAreaBosque))
                                     {
                                         if (ErrorMapaProteccion != "")
                                         {
@@ -6099,6 +6829,8 @@ namespace SEGEFOR.WebForms
                 }
             }
             dsDatosSistemaRepoblacion.Clear();
+            
+            
             DataSet dsDatosPuntosAreaRepoblacion = ClManejo.obtener_puntos_poligonos_Area_Repoblacion(Convert.ToInt32(TxtAsignacionId.Text));
             for (int i = 0; i < dsDatosPuntosAreaRepoblacion.Tables["Datos"].Rows.Count; i++)
             {
@@ -6110,6 +6842,18 @@ namespace SEGEFOR.WebForms
             }
             GrdPolAreaRepo.Rebind();
             dsDatosPuntosAreaRepoblacion.Clear();
+
+            DataSet dsDatosPuntosAreaRepoblacionDescuento = ClManejo.obtener_puntos_poligonos_Area_Repoblacion_Descuento(Convert.ToInt32(TxtAsignacionId.Text));
+            for (int i = 0; i < dsDatosPuntosAreaRepoblacion.Tables["Datos"].Rows.Count; i++)
+            {
+                DataRow rowNew = Ds_Temporal.Tables["Dt_PoligonoDescuentoAreaRepo"].NewRow();
+                rowNew["Id"] = dsDatosPuntosAreaRepoblacionDescuento.Tables["Datos"].Rows[i]["Id"];
+                rowNew["X"] = dsDatosPuntosAreaRepoblacionDescuento.Tables["Datos"].Rows[i]["Punto_X"];
+                rowNew["Y"] = dsDatosPuntosAreaRepoblacionDescuento.Tables["Datos"].Rows[i]["Punto_Y"];
+                Ds_Temporal.Tables["Dt_PoligonoDescuentoAreaRepo"].Rows.Add(rowNew);
+            }
+            GrdPolAreaRepoDescuento.Rebind();
+            dsDatosPuntosAreaRepoblacionDescuento.Clear();
 
             if (TxtSubCategoria.Text == "14")
             {
@@ -6203,6 +6947,20 @@ namespace SEGEFOR.WebForms
                     GrdPolBoque.Rebind();
                     dsDatosPuntosAreaBosque.Clear();
 
+
+                    DataSet dsDatosPuntosAreaBosqueDescuento = ClManejo.obtener_puntos_poligonos_AreaBosqueDescuento(Convert.ToInt32(TxtAsignacionId.Text), Convert.ToInt32(TxtInmuebleId.Text));
+                    for (int i = 0; i < dsDatosPuntosAreaBosqueDescuento.Tables["Datos"].Rows.Count; i++)
+                    {
+                        DataRow rowNew = Ds_Temporal.Tables["Dt_PoligonoBosque_Descuento"].NewRow();
+                        rowNew["Id"] = dsDatosPuntosAreaBosqueDescuento.Tables["Datos"].Rows[i]["Id"];
+                        rowNew["X"] = dsDatosPuntosAreaBosqueDescuento.Tables["Datos"].Rows[i]["Punto_X"];
+                        rowNew["Y"] = dsDatosPuntosAreaBosqueDescuento.Tables["Datos"].Rows[i]["Punto_Y"];
+                        Ds_Temporal.Tables["Dt_PoligonoBosque_Descuento"].Rows.Add(rowNew);
+                    }
+                    GrdPolBoqueDecuento.Rebind();
+                    dsDatosPuntosAreaBosqueDescuento.Clear();
+
+
                     DataSet dsDatosPuntosAreaIntervencion = ClManejo.obtener_puntos_poligonos_AreaIntervencion(Convert.ToInt32(TxtAsignacionId.Text), Convert.ToInt32(TxtInmuebleId.Text));
                     for (int i = 0; i < dsDatosPuntosAreaIntervencion.Tables["Datos"].Rows.Count; i++)
                     {
@@ -6215,6 +6973,22 @@ namespace SEGEFOR.WebForms
                     GrdPolIntervenir.Rebind();
                     dsDatosPuntosAreaIntervencion.Clear();
 
+
+                    DataSet dsDatosPuntosAreaIntervencionDescuento = ClManejo.sp_obtener_puntos_poligonos_AreaIntervencion_Descuento(Convert.ToInt32(TxtAsignacionId.Text), Convert.ToInt32(TxtInmuebleId.Text));
+                    for (int i = 0; i < dsDatosPuntosAreaIntervencion.Tables["Datos"].Rows.Count; i++)
+                    {
+                        DataRow rowNew = Ds_Temporal.Tables["Dt_PoligonoIntervencio_Descuento"].NewRow();
+                        rowNew["Id"] = dsDatosPuntosAreaIntervencionDescuento.Tables["Datos"].Rows[i]["Id"];
+                        rowNew["X"] = dsDatosPuntosAreaIntervencionDescuento.Tables["Datos"].Rows[i]["Punto_X"];
+                        rowNew["Y"] = dsDatosPuntosAreaIntervencionDescuento.Tables["Datos"].Rows[i]["Punto_Y"];
+                        Ds_Temporal.Tables["Dt_PoligonoIntervencio_Descuento"].Rows.Add(rowNew);
+                    }
+                    GrdPolIntervenirDescuento.Rebind();
+                    dsDatosPuntosAreaIntervencionDescuento.Clear();
+
+
+
+
                     DataSet dsDatosPuntosAreaProteccion = ClManejo.obtener_puntos_poligonos_AreaProteccion(Convert.ToInt32(TxtAsignacionId.Text), Convert.ToInt32(TxtInmuebleId.Text));
                     for (int i = 0; i < dsDatosPuntosAreaProteccion.Tables["Datos"].Rows.Count; i++)
                     {
@@ -6226,6 +7000,19 @@ namespace SEGEFOR.WebForms
                     }
                     GrdPolProteccion.Rebind();
                     dsDatosPuntosAreaProteccion.Clear();
+
+
+                    DataSet dsDatosPuntosAreaProteccionDescuento = ClManejo.obtener_puntos_poligonos_AreaProteccion_Descuento(Convert.ToInt32(TxtAsignacionId.Text), Convert.ToInt32(TxtInmuebleId.Text));
+                    for (int i = 0; i < dsDatosPuntosAreaProteccion.Tables["Datos"].Rows.Count; i++)
+                    {
+                        DataRow rowNew = Ds_Temporal.Tables["Dt_PoligonoProteccion_Descuento"].NewRow();
+                        rowNew["Id"] = dsDatosPuntosAreaProteccionDescuento.Tables["Datos"].Rows[i]["Id"];
+                        rowNew["X"] = dsDatosPuntosAreaProteccionDescuento.Tables["Datos"].Rows[i]["Punto_X"];
+                        rowNew["Y"] = dsDatosPuntosAreaProteccionDescuento.Tables["Datos"].Rows[i]["Punto_Y"];
+                        Ds_Temporal.Tables["Dt_PoligonoProteccion_Descuento"].Rows.Add(rowNew);
+                    }
+                    GrdPolProteccionDescuento.Rebind();
+                    dsDatosPuntosAreaProteccionDescuento.Clear();
                 }
                 
             }
@@ -6531,6 +7318,7 @@ namespace SEGEFOR.WebForms
                 ClManejo.Eliminar_ClaseDesarrolloFinca_PlanManejo(AsignacionId, InmuebleId);
                 ClManejo.Eliminar_AreasInmueble(AsignacionId, InmuebleId);
                 ClManejo.Eliminar_Propietarios_Finca(AsignacionId, InmuebleId);
+                ClManejo.Eliminar_PoligonoFinca_BosqueDescuento(AsignacionId, InmuebleId);
                 LimpiarAreas();
                 DivPropietariosFinca.Visible = false;
                 DivUsosAreas.Visible = false;
@@ -6889,7 +7677,8 @@ namespace SEGEFOR.WebForms
                 ClUtilitarios.LlenaGridDt(Ds_Temporal, GrdPolIntervenir, "Dt_PoligonoIntervenir");
         }
 
-        void BtnCargaPolIntervenir_ServerClick(object sender, EventArgs e)
+        void 
+            BtnCargaPolIntervenir_ServerClick(object sender, EventArgs e)
         {
             DivErrPolIntervencion.Visible = false;
             if (RadUploadPolIntervenir.UploadedFiles.Count > 0)
@@ -6922,8 +7711,91 @@ namespace SEGEFOR.WebForms
                             }
 
                         }
-
                         GrdPolIntervenir.Rebind();
+                        string ErrorMapaIntervencion = "";
+                        int PoligonoIdIntervenir = 0;
+                        int PoligonoIdIntervenirAux = 0;
+                        int Correlativo = 1;
+                        int AsignacionId = Convert.ToInt32(TxtAsignacionId.Text);
+                        int InmuebleId = Convert.ToInt32(TxtInmuebleId.Text);
+                        string ErrorMapa = "";
+                        double TotalAreaBosque = 0;
+                        double AreaTotal = 0;
+
+                        ClManejo.Eliminar_PoligonoFinca_Intervenir(AsignacionId, InmuebleId);
+                        Correlativo = 1;
+
+                        if (GrdPolIntervenir.Items.Count > 0)
+                        {
+                            XmlDocument iInformacionPolIntervernir = ClXml.CrearDocumentoXML("Poligonos");
+                            XmlNode iElementoPoligono = iInformacionPolIntervernir.CreateElement("Puntos");
+
+                            for (int i = 0; i < GrdPolIntervenir.Items.Count; i++)
+                            {
+                                PoligonoIdIntervenir = Convert.ToInt32(GrdPolIntervenir.Items[i].OwnerTableView.DataKeyValues[i]["Id"]);
+                                if ((PoligonoIdIntervenir != PoligonoIdIntervenirAux) && (PoligonoIdIntervenirAux > 0))
+                                {
+                                    iInformacionPolIntervernir.ChildNodes[1].AppendChild(iElementoPoligono);
+
+                                    if (!ClPoligono.Actualizar_Poligono_AreaIntervenir(iInformacionPolIntervernir, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaIntervencion, ref TotalAreaBosque))
+                                    {
+                                        if (ErrorMapaIntervencion != "")
+                                        {
+                                            if (ErrorMapa == "")
+                                                ErrorMapa = "Error poligono Área intervención: " + ErrorMapaIntervencion;
+                                            else
+                                                ErrorMapa = ErrorMapa + ", error poligono Área intervención: " + ErrorMapaIntervencion;
+                                        }
+                                    }
+                                    else
+                                        AreaTotal = AreaTotal + TotalAreaBosque;
+                                    Correlativo = Correlativo + 1;
+                                    PoligonoIdIntervenirAux = PoligonoIdIntervenir;
+                                    iElementoPoligono.InnerXml = "";
+                                    XmlNode iElementoDetalle = iInformacionPolIntervernir.CreateElement("Item");
+                                    ClXml.AgregarAtributo("Id", GrdPolIntervenir.Items[i].OwnerTableView.DataKeyValues[i]["Id"], iElementoDetalle);
+                                    ClXml.AgregarAtributo("X", GrdPolIntervenir.Items[i].OwnerTableView.DataKeyValues[i]["X"], iElementoDetalle);
+                                    ClXml.AgregarAtributo("Y", GrdPolIntervenir.Items[i].OwnerTableView.DataKeyValues[i]["Y"], iElementoDetalle);
+                                    iElementoPoligono.AppendChild(iElementoDetalle);
+                                }
+                                else
+                                {
+                                    XmlNode iElementoDetalle = iInformacionPolIntervernir.CreateElement("Item");
+                                    ClXml.AgregarAtributo("Id", GrdPolIntervenir.Items[i].OwnerTableView.DataKeyValues[i]["Id"], iElementoDetalle);
+                                    ClXml.AgregarAtributo("X", GrdPolIntervenir.Items[i].OwnerTableView.DataKeyValues[i]["X"], iElementoDetalle);
+                                    ClXml.AgregarAtributo("Y", GrdPolIntervenir.Items[i].OwnerTableView.DataKeyValues[i]["Y"], iElementoDetalle);
+                                    iElementoPoligono.AppendChild(iElementoDetalle);
+                                    PoligonoIdIntervenirAux = PoligonoIdIntervenir;
+                                    if (i + 1 == GrdPolIntervenir.Items.Count)
+                                    {
+                                        PoligonoIdIntervenirAux = PoligonoIdIntervenirAux + 1;
+                                        iInformacionPolIntervernir.ChildNodes[1].AppendChild(iElementoPoligono);
+                                        if (!ClPoligono.Actualizar_Poligono_AreaIntervenir(iInformacionPolIntervernir, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaIntervencion, ref TotalAreaBosque))
+                                        {
+                                            if (ErrorMapaIntervencion != "")
+                                            {
+                                                if (ErrorMapa == "")
+                                                    ErrorMapa = "Error poligono Área intervención: " + ErrorMapaIntervencion;
+                                                else
+                                                    ErrorMapa = ErrorMapa + ", error poligono Área intervención: " + ErrorMapaIntervencion;
+                                            }
+                                        }
+                                        else
+                                            AreaTotal = AreaTotal + TotalAreaBosque;
+                                    }
+                                }
+
+                            }
+
+                            TxtAreaIntervenir.Text = AreaTotal.ToString();
+                            ClManejo.Eliminar_PoligonoFinca_IntervencionDescuento(AsignacionId, InmuebleId);
+                            Ds_Temporal.Tables["Dt_PoligonoIntervencio_Descuento"].Rows.Clear();
+                            GrdPolIntervenirDescuento.Rebind();
+                        }
+
+
+
+
                     }
                     catch (Exception ex)
                     {
@@ -6949,13 +7821,13 @@ namespace SEGEFOR.WebForms
 
         void BtnCargaPolBosque_ServerClick(object sender, EventArgs e)
         {
-            DivErrPolBosque.Visible = false;
+            ErrPolBosque.Visible = false;
             if (RadUploadoPolBosque.UploadedFiles.Count > 0)
             {
                 string Extension = RadUploadoPolBosque.UploadedFiles[0].GetExtension().ToString();
                 if ((Extension == ".xls") || (Extension == ".XLS"))
                 {
-                    DivErrPolBosque.Visible = true;
+                    ErrPolBosque.Visible = true;
                     LblErrPolBosque.Text = "Solo puede subir archivos .xlsx";
                 }
                 else
@@ -6982,11 +7854,80 @@ namespace SEGEFOR.WebForms
                         }
 
                         GrdPolBoque.Rebind();
+                        int AsignacionId = Convert.ToInt32(TxtAsignacionId.Text);
+                        int InmuebleId = Convert.ToInt32(TxtInmuebleId.Text);
+                        string ErrorMapaBosque = "";
+                        ClManejo.Eliminar_PoligonoFinca_Bosque(AsignacionId, InmuebleId);
+                        int PoligonoId = 0;
+                        int PoligonoAux = 0;
+                        int Correlativo = 1;
+                        double TotalAreaBosque = 0;
+                        double AreaTotal = 0;
+                        
+
+                        if (GrdPolBoque.Items.Count > 0)
+                        {
+                            XmlDocument iInformacionPolBosque = ClXml.CrearDocumentoXML("Poligonos");
+                            XmlNode iElementoPoligono = iInformacionPolBosque.CreateElement("Puntos");
+
+                            for (int i = 0; i < GrdPolBoque.Items.Count; i++)
+                            {
+                                PoligonoId = Convert.ToInt32(GrdPolBoque.Items[i].OwnerTableView.DataKeyValues[i]["Id"]);
+
+                                if ((PoligonoId != PoligonoAux) && (PoligonoAux > 0))
+                                {
+                                    iInformacionPolBosque.ChildNodes[1].AppendChild(iElementoPoligono);
+                                    if (!ClPoligono.Actualizar_Poligono_AreaBosque(iInformacionPolBosque, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaBosque, ref TotalAreaBosque))
+                                    {
+                                        ErrPolBosque.Visible = true;
+                                        LblErrPolBosque.Text = "Error Poligono Bosque: " + ErrorMapaBosque;
+                                    }
+                                    else
+                                        AreaTotal = AreaTotal + TotalAreaBosque;
+                                    Correlativo = Correlativo + 1;
+                                    PoligonoAux = PoligonoId;
+                                    iElementoPoligono.InnerXml = "";
+                                    XmlNode iElementoDetalle = iInformacionPolBosque.CreateElement("Item");
+                                    ClXml.AgregarAtributo("Id", GrdPolBoque.Items[i].OwnerTableView.DataKeyValues[i]["Id"], iElementoDetalle);
+                                    ClXml.AgregarAtributo("X", GrdPolBoque.Items[i].OwnerTableView.DataKeyValues[i]["X"], iElementoDetalle);
+                                    ClXml.AgregarAtributo("Y", GrdPolBoque.Items[i].OwnerTableView.DataKeyValues[i]["Y"], iElementoDetalle);
+                                    iElementoPoligono.AppendChild(iElementoDetalle);
+                                }
+                                else
+                                {
+                                    XmlNode iElementoDetalle = iInformacionPolBosque.CreateElement("Item");
+                                    ClXml.AgregarAtributo("Id", GrdPolBoque.Items[i].OwnerTableView.DataKeyValues[i]["Id"], iElementoDetalle);
+                                    ClXml.AgregarAtributo("X", GrdPolBoque.Items[i].OwnerTableView.DataKeyValues[i]["X"], iElementoDetalle);
+                                    ClXml.AgregarAtributo("Y", GrdPolBoque.Items[i].OwnerTableView.DataKeyValues[i]["Y"], iElementoDetalle);
+                                    iElementoPoligono.AppendChild(iElementoDetalle);
+                                    PoligonoAux = PoligonoId;
+                                    if (i + 1 == GrdPolBoque.Items.Count)
+                                    {
+                                        PoligonoId = PoligonoId + 1;
+                                        iInformacionPolBosque.ChildNodes[1].AppendChild(iElementoPoligono);
+                                        if (!ClPoligono.Actualizar_Poligono_AreaBosque(iInformacionPolBosque, ref AsignacionId, ref InmuebleId, ref Correlativo, ref ErrorMapaBosque, ref TotalAreaBosque))
+                                        {
+                                            ErrPolBosque.Visible = true;
+                                            LblErrPolBosque.Text = "Error Poligono Bosque: " + ErrorMapaBosque;
+                                        }
+                                        else
+                                            AreaTotal = AreaTotal + TotalAreaBosque;
+                                    }
+                                }
+
+                            }
+
+                        }
+                        TxtAreaBosque.Text = AreaTotal.ToString();
+                        ClManejo.Eliminar_PoligonoFinca_BosqueDescuento(AsignacionId, InmuebleId);
+                        Ds_Temporal.Tables["Dt_PoligonoBosque_Descuento"].Rows.Clear();
+                        GrdPolBoqueDecuento.Rebind();
+
                     }
                     catch (Exception ex)
                     {
                         String iM = ex.Message;
-                        DivErrPolBosque.Visible = true;
+                        ErrPolBosque.Visible = true;
                         LblErrPolBosque.Text = ex.Message;
                     }
                 }

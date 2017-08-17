@@ -30,6 +30,7 @@ namespace SEGEFOR.WebForms
             ClGestionRegistro = new Cl_Gestion_Registro();
             ClManejo = new Cl_Manejo();
             ClCatalogos = new Cl_Catalogos();
+            DataSet ds = new DataSet();
 
             GrdSolicitudes.NeedDataSource += GrdSolicitudes_NeedDataSource;
             GrdSolicitudes.ItemDataBound += GrdSolicitudes_ItemDataBound;
@@ -226,36 +227,38 @@ namespace SEGEFOR.WebForms
                         item["Dictamen"] = dsDatos.Tables["Datos"].Rows[0]["Tipo_Dictamen"].ToString();
                         item["TipoGarantia"] = dsDatos.Tables["Datos"].Rows[0]["Tipo_Garantia"].ToString();
                         item["DictamenId"] = dsDatos.Tables["Datos"].Rows[0]["Tipo_DictamenId"].ToString();
-                        DataSet DsGarantia = ClCatalogos.Sp_Get_Monto_Garantia(Convert.ToInt32(dsDatos.Tables["Datos"].Rows[0]["Tipo_GarantiaId"]));
-                        item["MontoGarantia"] = (Convert.ToDouble(ClManejo.Get_Compromiso_Area(GestionId)) * Convert.ToDouble(DsGarantia.Tables["Datos"].Rows[0]["Valor_Hectaria"])).ToString();
-                        item["PorGarantia"] = DsGarantia.Tables["Datos"].Rows[0]["Porcentaje"].ToString();
-                        DsGarantia.Clear();
-                        item["TotValMaderaPie"] = ClGestion.Get_TotalValorMadera(GestionId);
-                        item["RecomendacionUno"] = "7.1     Se recomienda que la vigencia del aprovechamiento sea de: " + dsDatos.Tables["Datos"].Rows[0]["Vigencia"].ToString() + ".";
-                        if (Convert.ToInt32(dsDatos.Tables["Datos"].Rows[0]["Notas_Autorizadas"]) > 10)
-                            item["RecomendacionDos"] = "7.1     Que se le autorice la venta total de " + dsDatos.Tables["Datos"].Rows[0]["Notas_Autorizadas"].ToString() + ". De estas, se le entregarán únicamente " + dsDatos.Tables["Datos"].Rows[0]["Notas_Entregar"].ToString() + ", las otras " + dsDatos.Tables["Datos"].Rows[0]["Notas_Restantes"].ToString() + " se adjuntarán al expediente, sin foliar, mismas que se entregarán luego al titular o su representante legal cuando presente Informe de uso de notas de envío.";
-                        else
-                            item["RecomendacionDos"] = "7.7     Que se le autorice la venta total de " + dsDatos.Tables["Datos"].Rows[0]["Notas_Autorizadas"].ToString() + ".";
-                        DataSet dsAreas = ClManejo.Get_Areas_PlanManejo(GestionId);
+                        if (dsDatos.Tables["Datos"].Rows[0]["Tipo_DictamenId"].ToString() == "1")
+                        {
+                            DataSet DsGarantia = ClCatalogos.Sp_Get_Monto_Garantia(Convert.ToInt32(dsDatos.Tables["Datos"].Rows[0]["Tipo_GarantiaId"]));
+                            item["MontoGarantia"] = (Convert.ToDouble(ClManejo.Get_Compromiso_Area(GestionId)) * Convert.ToDouble(DsGarantia.Tables["Datos"].Rows[0]["Valor_Hectaria"])).ToString();
+                            item["PorGarantia"] = DsGarantia.Tables["Datos"].Rows[0]["Porcentaje"].ToString();
+                            DsGarantia.Clear();
+                            item["TotValMaderaPie"] = ClGestion.Get_TotalValorMadera(GestionId);
+                            item["RecomendacionUno"] = "7.1     Se recomienda que la vigencia del aprovechamiento sea de: " + dsDatos.Tables["Datos"].Rows[0]["Vigencia"].ToString() + ".";
+                            if (Convert.ToInt32(dsDatos.Tables["Datos"].Rows[0]["Notas_Autorizadas"]) > 10)
+                                item["RecomendacionDos"] = "7.1     Que se le autorice la venta total de " + dsDatos.Tables["Datos"].Rows[0]["Notas_Autorizadas"].ToString() + ". De estas, se le entregarán únicamente " + dsDatos.Tables["Datos"].Rows[0]["Notas_Entregar"].ToString() + ", las otras " + dsDatos.Tables["Datos"].Rows[0]["Notas_Restantes"].ToString() + " se adjuntarán al expediente, sin foliar, mismas que se entregarán luego al titular o su representante legal cuando presente Informe de uso de notas de envío.";
+                            else
+                                item["RecomendacionDos"] = "7.7     Que se le autorice la venta total de " + dsDatos.Tables["Datos"].Rows[0]["Notas_Autorizadas"].ToString() + ".";
+                            DataSet dsAreas = ClManejo.Get_Areas_PlanManejo(GestionId);
 
-                        if (Convert.ToDouble(dsAreas.Tables["Datos"].Rows[0]["AreaIntervenir"]) > 100)
-                            item["OtrasRecomendaciones"] = "7.9     " + dsDatos.Tables["Datos"].Rows[0]["OtrasRecomendacion"].ToString();
-                        else
-                            item["OtrasRecomendaciones"] = "7.8     " + dsDatos.Tables["Datos"].Rows[0]["OtrasRecomendacion"].ToString();
+                            if (Convert.ToDouble(dsAreas.Tables["Datos"].Rows[0]["AreaIntervenir"]) > 100)
+                                item["OtrasRecomendaciones"] = "7.9     " + dsDatos.Tables["Datos"].Rows[0]["OtrasRecomendacion"].ToString();
+                            else
+                                item["OtrasRecomendaciones"] = "7.8     " + dsDatos.Tables["Datos"].Rows[0]["OtrasRecomendacion"].ToString();
+
+                            DataSet dsDatosEtapa = ClGestion.Get_Etapas_Dictamen_Tecnico(GestionId);
+                            for (int i = 0; i < dsDatosEtapa.Tables["Datos"].Rows.Count; i++)
+                            {
+                                DataRow itemEtapa = DsEtapa.Tables["Etapa"].NewRow();
+                                itemEtapa["EtapaId"] = dsDatosEtapa.Tables["Datos"].Rows[0]["EtapaId"];
+                                itemEtapa["Etapa"] = dsDatosEtapa.Tables["Datos"].Rows[0]["Etapa"];
+                                itemEtapa["FecIni"] = dsDatosEtapa.Tables["Datos"].Rows[0]["FecIni"];
+                                itemEtapa["Fecfin"] = dsDatosEtapa.Tables["Datos"].Rows[0]["FecFin"];
+                                DsEtapa.Tables["Etapa"].Rows.Add(itemEtapa);
+                            }
+                        }
                         DsDatosDictamen.Tables["DatosDictamen"].Rows.Add(item);
                         dsDatos.Clear();
-
-
-                        DataSet dsDatosEtapa = ClGestion.Get_Etapas_Dictamen_Tecnico(GestionId);
-                        for (int i = 0; i < dsDatosEtapa.Tables["Datos"].Rows.Count; i++)
-                        {
-                            DataRow itemEtapa = DsEtapa.Tables["Etapa"].NewRow();
-                            itemEtapa["EtapaId"] = dsDatosEtapa.Tables["Datos"].Rows[0]["EtapaId"];
-                            itemEtapa["Etapa"] = dsDatosEtapa.Tables["Datos"].Rows[0]["Etapa"];
-                            itemEtapa["FecIni"] = dsDatosEtapa.Tables["Datos"].Rows[0]["FecIni"];
-                            itemEtapa["Fecfin"] = dsDatosEtapa.Tables["Datos"].Rows[0]["FecFin"];
-                            DsEtapa.Tables["Etapa"].Rows.Add(itemEtapa);
-                        }
 
 
                         Session["DatosDictamenTec"] = ClGestion.ImpresionDictamenTecnio(GestionId, 2, CategoriaId, DsDatosDictamen, DsEtapa, Convert.ToInt32(Session["UsuarioId"]));
@@ -275,11 +278,34 @@ namespace SEGEFOR.WebForms
                     {
                         int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
                         Session["DatosLicencia"] = ClGestion.ImpresionLicencia(GestionId, 2, Convert.ToInt32(Session["UsuarioId"]), 0, DateTime.Now, DateTime.Now, "");
-                        RadWindow1.Title = "Vista Previa Licencia Forestal";
+                        RadWindow1.Title = "Licencia Forestal";
                         RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepLicencia_Forestal.aspx";
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
                     }
-
+                    else if (llamada == "11") //Enmiendas Técnicas
+                    {
+                        int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                        Session["DatosEnmiendasTecnicas"] = ClGestion.ImpresionEnmiendasTecnicas(GestionId,2);
+                        RadWindow1.Title = "Enmiendas Técnicas";
+                        RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepEnmiendasTec.aspx";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+                    }
+                    else if (llamada == "12") //Enmiendas Subregional
+                    {
+                        int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                        Session["DatosEnmiendaSubRegion"] = ClGestion.ImpresionOficioEnmiendasSubRegional(GestionId, 2, Convert.ToInt32(Session["UsuarioId"]), ds);
+                        RadWindow1.Title = "Enmiendas SubRegional";
+                        RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepOficioEnmiendasSubRegional.aspx";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+                    }
+                    else if (llamada == "13") //Enmiendas Regional
+                    {
+                        int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                        Session["DatosEnmiendaRegion"] = ClGestion.ImpresionOficioEnmiendasRegional(GestionId, 2, Convert.ToInt32(Session["UsuarioId"]), ds);
+                        RadWindow1.Title = "Oficio de Enmiendas";
+                        RadWindow1.NavigateUrl = "~/WeForms_Reportes/Wfrm_RepOficioEnmiendaRegional.aspx";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindow1.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+                    }
 
                 }
                 SetColumnasGrid();

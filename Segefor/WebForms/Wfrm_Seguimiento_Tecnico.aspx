@@ -703,6 +703,7 @@
             <asp:TextBox runat="server" ID="TxtIdAnalisis" Visible="false"></asp:TextBox>
             <asp:TextBox runat="server" ID="TxtIdEnmienda" Visible="false"></asp:TextBox>
             <asp:TextBox runat="server" ID="TxtTotMaderaPie" Visible="false"></asp:TextBox>
+            <asp:TextBox runat="server" ID="TxtTipoSi" Visible="false"></asp:TextBox>
         </ContentTemplate>
     </asp:UpdatePanel>
     <script>

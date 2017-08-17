@@ -72,6 +72,18 @@ namespace SEGEFOR.Data_Set {
         
         private Dt_LicenciaDataTable tableDt_Licencia;
         
+        private DtOficioEnmiendaSubRegionalDataTable tableDtOficioEnmiendaSubRegional;
+        
+        private Dt_Enmiendas_JuridicasDetDataTable tableDt_Enmiendas_JuridicasDet;
+        
+        private Dt_Enmiendas_TecnicasDetDataTable tableDt_Enmiendas_TecnicasDet;
+        
+        private Dt_EnmiendasSubregionalDetDataTable tableDt_EnmiendasSubregionalDet;
+        
+        private DtOficioEnmiendaRegionalDataTable tableDtOficioEnmiendaRegional;
+        
+        private Dt_EnmiendaRegionalDataTable tableDt_EnmiendaRegional;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -171,6 +183,24 @@ namespace SEGEFOR.Data_Set {
                 }
                 if ((ds.Tables["Dt_Licencia"] != null)) {
                     base.Tables.Add(new Dt_LicenciaDataTable(ds.Tables["Dt_Licencia"]));
+                }
+                if ((ds.Tables["DtOficioEnmiendaSubRegional"] != null)) {
+                    base.Tables.Add(new DtOficioEnmiendaSubRegionalDataTable(ds.Tables["DtOficioEnmiendaSubRegional"]));
+                }
+                if ((ds.Tables["Dt_Enmiendas_JuridicasDet"] != null)) {
+                    base.Tables.Add(new Dt_Enmiendas_JuridicasDetDataTable(ds.Tables["Dt_Enmiendas_JuridicasDet"]));
+                }
+                if ((ds.Tables["Dt_Enmiendas_TecnicasDet"] != null)) {
+                    base.Tables.Add(new Dt_Enmiendas_TecnicasDetDataTable(ds.Tables["Dt_Enmiendas_TecnicasDet"]));
+                }
+                if ((ds.Tables["Dt_EnmiendasSubregionalDet"] != null)) {
+                    base.Tables.Add(new Dt_EnmiendasSubregionalDetDataTable(ds.Tables["Dt_EnmiendasSubregionalDet"]));
+                }
+                if ((ds.Tables["DtOficioEnmiendaRegional"] != null)) {
+                    base.Tables.Add(new DtOficioEnmiendaRegionalDataTable(ds.Tables["DtOficioEnmiendaRegional"]));
+                }
+                if ((ds.Tables["Dt_EnmiendaRegional"] != null)) {
+                    base.Tables.Add(new Dt_EnmiendaRegionalDataTable(ds.Tables["Dt_EnmiendaRegional"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -432,6 +462,66 @@ namespace SEGEFOR.Data_Set {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public DtOficioEnmiendaSubRegionalDataTable DtOficioEnmiendaSubRegional {
+            get {
+                return this.tableDtOficioEnmiendaSubRegional;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public Dt_Enmiendas_JuridicasDetDataTable Dt_Enmiendas_JuridicasDet {
+            get {
+                return this.tableDt_Enmiendas_JuridicasDet;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public Dt_Enmiendas_TecnicasDetDataTable Dt_Enmiendas_TecnicasDet {
+            get {
+                return this.tableDt_Enmiendas_TecnicasDet;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public Dt_EnmiendasSubregionalDetDataTable Dt_EnmiendasSubregionalDet {
+            get {
+                return this.tableDt_EnmiendasSubregionalDet;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public DtOficioEnmiendaRegionalDataTable DtOficioEnmiendaRegional {
+            get {
+                return this.tableDtOficioEnmiendaRegional;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public Dt_EnmiendaRegionalDataTable Dt_EnmiendaRegional {
+            get {
+                return this.tableDt_EnmiendaRegional;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -568,6 +658,24 @@ namespace SEGEFOR.Data_Set {
                 }
                 if ((ds.Tables["Dt_Licencia"] != null)) {
                     base.Tables.Add(new Dt_LicenciaDataTable(ds.Tables["Dt_Licencia"]));
+                }
+                if ((ds.Tables["DtOficioEnmiendaSubRegional"] != null)) {
+                    base.Tables.Add(new DtOficioEnmiendaSubRegionalDataTable(ds.Tables["DtOficioEnmiendaSubRegional"]));
+                }
+                if ((ds.Tables["Dt_Enmiendas_JuridicasDet"] != null)) {
+                    base.Tables.Add(new Dt_Enmiendas_JuridicasDetDataTable(ds.Tables["Dt_Enmiendas_JuridicasDet"]));
+                }
+                if ((ds.Tables["Dt_Enmiendas_TecnicasDet"] != null)) {
+                    base.Tables.Add(new Dt_Enmiendas_TecnicasDetDataTable(ds.Tables["Dt_Enmiendas_TecnicasDet"]));
+                }
+                if ((ds.Tables["Dt_EnmiendasSubregionalDet"] != null)) {
+                    base.Tables.Add(new Dt_EnmiendasSubregionalDetDataTable(ds.Tables["Dt_EnmiendasSubregionalDet"]));
+                }
+                if ((ds.Tables["DtOficioEnmiendaRegional"] != null)) {
+                    base.Tables.Add(new DtOficioEnmiendaRegionalDataTable(ds.Tables["DtOficioEnmiendaRegional"]));
+                }
+                if ((ds.Tables["Dt_EnmiendaRegional"] != null)) {
+                    base.Tables.Add(new Dt_EnmiendaRegionalDataTable(ds.Tables["Dt_EnmiendaRegional"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -746,6 +854,42 @@ namespace SEGEFOR.Data_Set {
                     this.tableDt_Licencia.InitVars();
                 }
             }
+            this.tableDtOficioEnmiendaSubRegional = ((DtOficioEnmiendaSubRegionalDataTable)(base.Tables["DtOficioEnmiendaSubRegional"]));
+            if ((initTable == true)) {
+                if ((this.tableDtOficioEnmiendaSubRegional != null)) {
+                    this.tableDtOficioEnmiendaSubRegional.InitVars();
+                }
+            }
+            this.tableDt_Enmiendas_JuridicasDet = ((Dt_Enmiendas_JuridicasDetDataTable)(base.Tables["Dt_Enmiendas_JuridicasDet"]));
+            if ((initTable == true)) {
+                if ((this.tableDt_Enmiendas_JuridicasDet != null)) {
+                    this.tableDt_Enmiendas_JuridicasDet.InitVars();
+                }
+            }
+            this.tableDt_Enmiendas_TecnicasDet = ((Dt_Enmiendas_TecnicasDetDataTable)(base.Tables["Dt_Enmiendas_TecnicasDet"]));
+            if ((initTable == true)) {
+                if ((this.tableDt_Enmiendas_TecnicasDet != null)) {
+                    this.tableDt_Enmiendas_TecnicasDet.InitVars();
+                }
+            }
+            this.tableDt_EnmiendasSubregionalDet = ((Dt_EnmiendasSubregionalDetDataTable)(base.Tables["Dt_EnmiendasSubregionalDet"]));
+            if ((initTable == true)) {
+                if ((this.tableDt_EnmiendasSubregionalDet != null)) {
+                    this.tableDt_EnmiendasSubregionalDet.InitVars();
+                }
+            }
+            this.tableDtOficioEnmiendaRegional = ((DtOficioEnmiendaRegionalDataTable)(base.Tables["DtOficioEnmiendaRegional"]));
+            if ((initTable == true)) {
+                if ((this.tableDtOficioEnmiendaRegional != null)) {
+                    this.tableDtOficioEnmiendaRegional.InitVars();
+                }
+            }
+            this.tableDt_EnmiendaRegional = ((Dt_EnmiendaRegionalDataTable)(base.Tables["Dt_EnmiendaRegional"]));
+            if ((initTable == true)) {
+                if ((this.tableDt_EnmiendaRegional != null)) {
+                    this.tableDt_EnmiendaRegional.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -804,6 +948,18 @@ namespace SEGEFOR.Data_Set {
             base.Tables.Add(this.tableDt_DictamenSubRegional);
             this.tableDt_Licencia = new Dt_LicenciaDataTable();
             base.Tables.Add(this.tableDt_Licencia);
+            this.tableDtOficioEnmiendaSubRegional = new DtOficioEnmiendaSubRegionalDataTable();
+            base.Tables.Add(this.tableDtOficioEnmiendaSubRegional);
+            this.tableDt_Enmiendas_JuridicasDet = new Dt_Enmiendas_JuridicasDetDataTable();
+            base.Tables.Add(this.tableDt_Enmiendas_JuridicasDet);
+            this.tableDt_Enmiendas_TecnicasDet = new Dt_Enmiendas_TecnicasDetDataTable();
+            base.Tables.Add(this.tableDt_Enmiendas_TecnicasDet);
+            this.tableDt_EnmiendasSubregionalDet = new Dt_EnmiendasSubregionalDetDataTable();
+            base.Tables.Add(this.tableDt_EnmiendasSubregionalDet);
+            this.tableDtOficioEnmiendaRegional = new DtOficioEnmiendaRegionalDataTable();
+            base.Tables.Add(this.tableDtOficioEnmiendaRegional);
+            this.tableDt_EnmiendaRegional = new Dt_EnmiendaRegionalDataTable();
+            base.Tables.Add(this.tableDt_EnmiendaRegional);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -952,6 +1108,42 @@ namespace SEGEFOR.Data_Set {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeDtOficioEnmiendaSubRegional() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeDt_Enmiendas_JuridicasDet() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeDt_Enmiendas_TecnicasDet() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeDt_EnmiendasSubregionalDet() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeDtOficioEnmiendaRegional() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeDt_EnmiendaRegional() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void SchemaChanged(object sender, global::System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == global::System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -1076,6 +1268,24 @@ namespace SEGEFOR.Data_Set {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void Dt_LicenciaRowChangeEventHandler(object sender, Dt_LicenciaRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void DtOficioEnmiendaSubRegionalRowChangeEventHandler(object sender, DtOficioEnmiendaSubRegionalRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void Dt_Enmiendas_JuridicasDetRowChangeEventHandler(object sender, Dt_Enmiendas_JuridicasDetRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void Dt_Enmiendas_TecnicasDetRowChangeEventHandler(object sender, Dt_Enmiendas_TecnicasDetRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void Dt_EnmiendasSubregionalDetRowChangeEventHandler(object sender, Dt_EnmiendasSubregionalDetRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void DtOficioEnmiendaRegionalRowChangeEventHandler(object sender, DtOficioEnmiendaRegionalRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void Dt_EnmiendaRegionalRowChangeEventHandler(object sender, Dt_EnmiendaRegionalRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -10616,6 +10826,2023 @@ namespace SEGEFOR.Data_Set {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class DtOficioEnmiendaSubRegionalDataTable : global::System.Data.TypedTableBase<DtOficioEnmiendaSubRegionalRow> {
+            
+            private global::System.Data.DataColumn columnNoSubRegion;
+            
+            private global::System.Data.DataColumn columnNoOficio;
+            
+            private global::System.Data.DataColumn columnLugarSubRegion;
+            
+            private global::System.Data.DataColumn columnFecha;
+            
+            private global::System.Data.DataColumn columnPropietario;
+            
+            private global::System.Data.DataColumn columnElaborador;
+            
+            private global::System.Data.DataColumn columnNoExpediente;
+            
+            private global::System.Data.DataColumn columnTieneEnmiendasJur;
+            
+            private global::System.Data.DataColumn columnTieneEnmiendasTec;
+            
+            private global::System.Data.DataColumn columnTieneEnmiendasSubReg;
+            
+            private global::System.Data.DataColumn columnSubRegional;
+            
+            private global::System.Data.DataColumn columnPuesto;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public DtOficioEnmiendaSubRegionalDataTable() {
+                this.TableName = "DtOficioEnmiendaSubRegional";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal DtOficioEnmiendaSubRegionalDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected DtOficioEnmiendaSubRegionalDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NoSubRegionColumn {
+                get {
+                    return this.columnNoSubRegion;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NoOficioColumn {
+                get {
+                    return this.columnNoOficio;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LugarSubRegionColumn {
+                get {
+                    return this.columnLugarSubRegion;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn FechaColumn {
+                get {
+                    return this.columnFecha;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PropietarioColumn {
+                get {
+                    return this.columnPropietario;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ElaboradorColumn {
+                get {
+                    return this.columnElaborador;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NoExpedienteColumn {
+                get {
+                    return this.columnNoExpediente;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn TieneEnmiendasJurColumn {
+                get {
+                    return this.columnTieneEnmiendasJur;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn TieneEnmiendasTecColumn {
+                get {
+                    return this.columnTieneEnmiendasTec;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn TieneEnmiendasSubRegColumn {
+                get {
+                    return this.columnTieneEnmiendasSubReg;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SubRegionalColumn {
+                get {
+                    return this.columnSubRegional;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PuestoColumn {
+                get {
+                    return this.columnPuesto;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public DtOficioEnmiendaSubRegionalRow this[int index] {
+                get {
+                    return ((DtOficioEnmiendaSubRegionalRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event DtOficioEnmiendaSubRegionalRowChangeEventHandler DtOficioEnmiendaSubRegionalRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event DtOficioEnmiendaSubRegionalRowChangeEventHandler DtOficioEnmiendaSubRegionalRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event DtOficioEnmiendaSubRegionalRowChangeEventHandler DtOficioEnmiendaSubRegionalRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event DtOficioEnmiendaSubRegionalRowChangeEventHandler DtOficioEnmiendaSubRegionalRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddDtOficioEnmiendaSubRegionalRow(DtOficioEnmiendaSubRegionalRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public DtOficioEnmiendaSubRegionalRow AddDtOficioEnmiendaSubRegionalRow(string NoSubRegion, string NoOficio, string LugarSubRegion, System.DateTime Fecha, string Propietario, string Elaborador, string NoExpediente, int TieneEnmiendasJur, int TieneEnmiendasTec, int TieneEnmiendasSubReg, string SubRegional, string Puesto) {
+                DtOficioEnmiendaSubRegionalRow rowDtOficioEnmiendaSubRegionalRow = ((DtOficioEnmiendaSubRegionalRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        NoSubRegion,
+                        NoOficio,
+                        LugarSubRegion,
+                        Fecha,
+                        Propietario,
+                        Elaborador,
+                        NoExpediente,
+                        TieneEnmiendasJur,
+                        TieneEnmiendasTec,
+                        TieneEnmiendasSubReg,
+                        SubRegional,
+                        Puesto};
+                rowDtOficioEnmiendaSubRegionalRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowDtOficioEnmiendaSubRegionalRow);
+                return rowDtOficioEnmiendaSubRegionalRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                DtOficioEnmiendaSubRegionalDataTable cln = ((DtOficioEnmiendaSubRegionalDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new DtOficioEnmiendaSubRegionalDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnNoSubRegion = base.Columns["NoSubRegion"];
+                this.columnNoOficio = base.Columns["NoOficio"];
+                this.columnLugarSubRegion = base.Columns["LugarSubRegion"];
+                this.columnFecha = base.Columns["Fecha"];
+                this.columnPropietario = base.Columns["Propietario"];
+                this.columnElaborador = base.Columns["Elaborador"];
+                this.columnNoExpediente = base.Columns["NoExpediente"];
+                this.columnTieneEnmiendasJur = base.Columns["TieneEnmiendasJur"];
+                this.columnTieneEnmiendasTec = base.Columns["TieneEnmiendasTec"];
+                this.columnTieneEnmiendasSubReg = base.Columns["TieneEnmiendasSubReg"];
+                this.columnSubRegional = base.Columns["SubRegional"];
+                this.columnPuesto = base.Columns["Puesto"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnNoSubRegion = new global::System.Data.DataColumn("NoSubRegion", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNoSubRegion);
+                this.columnNoOficio = new global::System.Data.DataColumn("NoOficio", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNoOficio);
+                this.columnLugarSubRegion = new global::System.Data.DataColumn("LugarSubRegion", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLugarSubRegion);
+                this.columnFecha = new global::System.Data.DataColumn("Fecha", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFecha);
+                this.columnPropietario = new global::System.Data.DataColumn("Propietario", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPropietario);
+                this.columnElaborador = new global::System.Data.DataColumn("Elaborador", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnElaborador);
+                this.columnNoExpediente = new global::System.Data.DataColumn("NoExpediente", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNoExpediente);
+                this.columnTieneEnmiendasJur = new global::System.Data.DataColumn("TieneEnmiendasJur", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTieneEnmiendasJur);
+                this.columnTieneEnmiendasTec = new global::System.Data.DataColumn("TieneEnmiendasTec", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTieneEnmiendasTec);
+                this.columnTieneEnmiendasSubReg = new global::System.Data.DataColumn("TieneEnmiendasSubReg", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTieneEnmiendasSubReg);
+                this.columnSubRegional = new global::System.Data.DataColumn("SubRegional", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSubRegional);
+                this.columnPuesto = new global::System.Data.DataColumn("Puesto", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPuesto);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public DtOficioEnmiendaSubRegionalRow NewDtOficioEnmiendaSubRegionalRow() {
+                return ((DtOficioEnmiendaSubRegionalRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new DtOficioEnmiendaSubRegionalRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(DtOficioEnmiendaSubRegionalRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.DtOficioEnmiendaSubRegionalRowChanged != null)) {
+                    this.DtOficioEnmiendaSubRegionalRowChanged(this, new DtOficioEnmiendaSubRegionalRowChangeEvent(((DtOficioEnmiendaSubRegionalRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.DtOficioEnmiendaSubRegionalRowChanging != null)) {
+                    this.DtOficioEnmiendaSubRegionalRowChanging(this, new DtOficioEnmiendaSubRegionalRowChangeEvent(((DtOficioEnmiendaSubRegionalRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.DtOficioEnmiendaSubRegionalRowDeleted != null)) {
+                    this.DtOficioEnmiendaSubRegionalRowDeleted(this, new DtOficioEnmiendaSubRegionalRowChangeEvent(((DtOficioEnmiendaSubRegionalRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.DtOficioEnmiendaSubRegionalRowDeleting != null)) {
+                    this.DtOficioEnmiendaSubRegionalRowDeleting(this, new DtOficioEnmiendaSubRegionalRowChangeEvent(((DtOficioEnmiendaSubRegionalRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveDtOficioEnmiendaSubRegionalRow(DtOficioEnmiendaSubRegionalRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                Ds_Gestiones ds = new Ds_Gestiones();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "DtOficioEnmiendaSubRegionalDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class Dt_Enmiendas_JuridicasDetDataTable : global::System.Data.TypedTableBase<Dt_Enmiendas_JuridicasDetRow> {
+            
+            private global::System.Data.DataColumn columnNoDictamen;
+            
+            private global::System.Data.DataColumn columnEnmienda;
+            
+            private global::System.Data.DataColumn columnNo;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmiendas_JuridicasDetDataTable() {
+                this.TableName = "Dt_Enmiendas_JuridicasDet";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal Dt_Enmiendas_JuridicasDetDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected Dt_Enmiendas_JuridicasDetDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NoDictamenColumn {
+                get {
+                    return this.columnNoDictamen;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EnmiendaColumn {
+                get {
+                    return this.columnEnmienda;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NoColumn {
+                get {
+                    return this.columnNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmiendas_JuridicasDetRow this[int index] {
+                get {
+                    return ((Dt_Enmiendas_JuridicasDetRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_Enmiendas_JuridicasDetRowChangeEventHandler Dt_Enmiendas_JuridicasDetRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_Enmiendas_JuridicasDetRowChangeEventHandler Dt_Enmiendas_JuridicasDetRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_Enmiendas_JuridicasDetRowChangeEventHandler Dt_Enmiendas_JuridicasDetRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_Enmiendas_JuridicasDetRowChangeEventHandler Dt_Enmiendas_JuridicasDetRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddDt_Enmiendas_JuridicasDetRow(Dt_Enmiendas_JuridicasDetRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmiendas_JuridicasDetRow AddDt_Enmiendas_JuridicasDetRow(string NoDictamen, string Enmienda, int No) {
+                Dt_Enmiendas_JuridicasDetRow rowDt_Enmiendas_JuridicasDetRow = ((Dt_Enmiendas_JuridicasDetRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        NoDictamen,
+                        Enmienda,
+                        No};
+                rowDt_Enmiendas_JuridicasDetRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowDt_Enmiendas_JuridicasDetRow);
+                return rowDt_Enmiendas_JuridicasDetRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                Dt_Enmiendas_JuridicasDetDataTable cln = ((Dt_Enmiendas_JuridicasDetDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new Dt_Enmiendas_JuridicasDetDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnNoDictamen = base.Columns["NoDictamen"];
+                this.columnEnmienda = base.Columns["Enmienda"];
+                this.columnNo = base.Columns["No"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnNoDictamen = new global::System.Data.DataColumn("NoDictamen", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNoDictamen);
+                this.columnEnmienda = new global::System.Data.DataColumn("Enmienda", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEnmienda);
+                this.columnNo = new global::System.Data.DataColumn("No", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNo);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmiendas_JuridicasDetRow NewDt_Enmiendas_JuridicasDetRow() {
+                return ((Dt_Enmiendas_JuridicasDetRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new Dt_Enmiendas_JuridicasDetRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(Dt_Enmiendas_JuridicasDetRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.Dt_Enmiendas_JuridicasDetRowChanged != null)) {
+                    this.Dt_Enmiendas_JuridicasDetRowChanged(this, new Dt_Enmiendas_JuridicasDetRowChangeEvent(((Dt_Enmiendas_JuridicasDetRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.Dt_Enmiendas_JuridicasDetRowChanging != null)) {
+                    this.Dt_Enmiendas_JuridicasDetRowChanging(this, new Dt_Enmiendas_JuridicasDetRowChangeEvent(((Dt_Enmiendas_JuridicasDetRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.Dt_Enmiendas_JuridicasDetRowDeleted != null)) {
+                    this.Dt_Enmiendas_JuridicasDetRowDeleted(this, new Dt_Enmiendas_JuridicasDetRowChangeEvent(((Dt_Enmiendas_JuridicasDetRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.Dt_Enmiendas_JuridicasDetRowDeleting != null)) {
+                    this.Dt_Enmiendas_JuridicasDetRowDeleting(this, new Dt_Enmiendas_JuridicasDetRowChangeEvent(((Dt_Enmiendas_JuridicasDetRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveDt_Enmiendas_JuridicasDetRow(Dt_Enmiendas_JuridicasDetRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                Ds_Gestiones ds = new Ds_Gestiones();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "Dt_Enmiendas_JuridicasDetDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class Dt_Enmiendas_TecnicasDetDataTable : global::System.Data.TypedTableBase<Dt_Enmiendas_TecnicasDetRow> {
+            
+            private global::System.Data.DataColumn columnNoInforme;
+            
+            private global::System.Data.DataColumn columnEnmienda;
+            
+            private global::System.Data.DataColumn columnNo;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmiendas_TecnicasDetDataTable() {
+                this.TableName = "Dt_Enmiendas_TecnicasDet";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal Dt_Enmiendas_TecnicasDetDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected Dt_Enmiendas_TecnicasDetDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NoInformeColumn {
+                get {
+                    return this.columnNoInforme;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EnmiendaColumn {
+                get {
+                    return this.columnEnmienda;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NoColumn {
+                get {
+                    return this.columnNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmiendas_TecnicasDetRow this[int index] {
+                get {
+                    return ((Dt_Enmiendas_TecnicasDetRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_Enmiendas_TecnicasDetRowChangeEventHandler Dt_Enmiendas_TecnicasDetRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_Enmiendas_TecnicasDetRowChangeEventHandler Dt_Enmiendas_TecnicasDetRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_Enmiendas_TecnicasDetRowChangeEventHandler Dt_Enmiendas_TecnicasDetRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_Enmiendas_TecnicasDetRowChangeEventHandler Dt_Enmiendas_TecnicasDetRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddDt_Enmiendas_TecnicasDetRow(Dt_Enmiendas_TecnicasDetRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmiendas_TecnicasDetRow AddDt_Enmiendas_TecnicasDetRow(string NoInforme, string Enmienda, int No) {
+                Dt_Enmiendas_TecnicasDetRow rowDt_Enmiendas_TecnicasDetRow = ((Dt_Enmiendas_TecnicasDetRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        NoInforme,
+                        Enmienda,
+                        No};
+                rowDt_Enmiendas_TecnicasDetRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowDt_Enmiendas_TecnicasDetRow);
+                return rowDt_Enmiendas_TecnicasDetRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                Dt_Enmiendas_TecnicasDetDataTable cln = ((Dt_Enmiendas_TecnicasDetDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new Dt_Enmiendas_TecnicasDetDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnNoInforme = base.Columns["NoInforme"];
+                this.columnEnmienda = base.Columns["Enmienda"];
+                this.columnNo = base.Columns["No"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnNoInforme = new global::System.Data.DataColumn("NoInforme", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNoInforme);
+                this.columnEnmienda = new global::System.Data.DataColumn("Enmienda", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEnmienda);
+                this.columnNo = new global::System.Data.DataColumn("No", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNo);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmiendas_TecnicasDetRow NewDt_Enmiendas_TecnicasDetRow() {
+                return ((Dt_Enmiendas_TecnicasDetRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new Dt_Enmiendas_TecnicasDetRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(Dt_Enmiendas_TecnicasDetRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.Dt_Enmiendas_TecnicasDetRowChanged != null)) {
+                    this.Dt_Enmiendas_TecnicasDetRowChanged(this, new Dt_Enmiendas_TecnicasDetRowChangeEvent(((Dt_Enmiendas_TecnicasDetRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.Dt_Enmiendas_TecnicasDetRowChanging != null)) {
+                    this.Dt_Enmiendas_TecnicasDetRowChanging(this, new Dt_Enmiendas_TecnicasDetRowChangeEvent(((Dt_Enmiendas_TecnicasDetRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.Dt_Enmiendas_TecnicasDetRowDeleted != null)) {
+                    this.Dt_Enmiendas_TecnicasDetRowDeleted(this, new Dt_Enmiendas_TecnicasDetRowChangeEvent(((Dt_Enmiendas_TecnicasDetRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.Dt_Enmiendas_TecnicasDetRowDeleting != null)) {
+                    this.Dt_Enmiendas_TecnicasDetRowDeleting(this, new Dt_Enmiendas_TecnicasDetRowChangeEvent(((Dt_Enmiendas_TecnicasDetRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveDt_Enmiendas_TecnicasDetRow(Dt_Enmiendas_TecnicasDetRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                Ds_Gestiones ds = new Ds_Gestiones();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "Dt_Enmiendas_TecnicasDetDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class Dt_EnmiendasSubregionalDetDataTable : global::System.Data.TypedTableBase<Dt_EnmiendasSubregionalDetRow> {
+            
+            private global::System.Data.DataColumn columnEnmienda;
+            
+            private global::System.Data.DataColumn columnNo;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_EnmiendasSubregionalDetDataTable() {
+                this.TableName = "Dt_EnmiendasSubregionalDet";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal Dt_EnmiendasSubregionalDetDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected Dt_EnmiendasSubregionalDetDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EnmiendaColumn {
+                get {
+                    return this.columnEnmienda;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NoColumn {
+                get {
+                    return this.columnNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_EnmiendasSubregionalDetRow this[int index] {
+                get {
+                    return ((Dt_EnmiendasSubregionalDetRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_EnmiendasSubregionalDetRowChangeEventHandler Dt_EnmiendasSubregionalDetRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_EnmiendasSubregionalDetRowChangeEventHandler Dt_EnmiendasSubregionalDetRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_EnmiendasSubregionalDetRowChangeEventHandler Dt_EnmiendasSubregionalDetRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_EnmiendasSubregionalDetRowChangeEventHandler Dt_EnmiendasSubregionalDetRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddDt_EnmiendasSubregionalDetRow(Dt_EnmiendasSubregionalDetRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_EnmiendasSubregionalDetRow AddDt_EnmiendasSubregionalDetRow(string Enmienda, int No) {
+                Dt_EnmiendasSubregionalDetRow rowDt_EnmiendasSubregionalDetRow = ((Dt_EnmiendasSubregionalDetRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        Enmienda,
+                        No};
+                rowDt_EnmiendasSubregionalDetRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowDt_EnmiendasSubregionalDetRow);
+                return rowDt_EnmiendasSubregionalDetRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                Dt_EnmiendasSubregionalDetDataTable cln = ((Dt_EnmiendasSubregionalDetDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new Dt_EnmiendasSubregionalDetDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnEnmienda = base.Columns["Enmienda"];
+                this.columnNo = base.Columns["No"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnEnmienda = new global::System.Data.DataColumn("Enmienda", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEnmienda);
+                this.columnNo = new global::System.Data.DataColumn("No", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNo);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_EnmiendasSubregionalDetRow NewDt_EnmiendasSubregionalDetRow() {
+                return ((Dt_EnmiendasSubregionalDetRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new Dt_EnmiendasSubregionalDetRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(Dt_EnmiendasSubregionalDetRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.Dt_EnmiendasSubregionalDetRowChanged != null)) {
+                    this.Dt_EnmiendasSubregionalDetRowChanged(this, new Dt_EnmiendasSubregionalDetRowChangeEvent(((Dt_EnmiendasSubregionalDetRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.Dt_EnmiendasSubregionalDetRowChanging != null)) {
+                    this.Dt_EnmiendasSubregionalDetRowChanging(this, new Dt_EnmiendasSubregionalDetRowChangeEvent(((Dt_EnmiendasSubregionalDetRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.Dt_EnmiendasSubregionalDetRowDeleted != null)) {
+                    this.Dt_EnmiendasSubregionalDetRowDeleted(this, new Dt_EnmiendasSubregionalDetRowChangeEvent(((Dt_EnmiendasSubregionalDetRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.Dt_EnmiendasSubregionalDetRowDeleting != null)) {
+                    this.Dt_EnmiendasSubregionalDetRowDeleting(this, new Dt_EnmiendasSubregionalDetRowChangeEvent(((Dt_EnmiendasSubregionalDetRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveDt_EnmiendasSubregionalDetRow(Dt_EnmiendasSubregionalDetRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                Ds_Gestiones ds = new Ds_Gestiones();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "Dt_EnmiendasSubregionalDetDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class DtOficioEnmiendaRegionalDataTable : global::System.Data.TypedTableBase<DtOficioEnmiendaRegionalRow> {
+            
+            private global::System.Data.DataColumn columnNoRegion;
+            
+            private global::System.Data.DataColumn columnNoOficio;
+            
+            private global::System.Data.DataColumn columnLugarRegion;
+            
+            private global::System.Data.DataColumn columnFecha;
+            
+            private global::System.Data.DataColumn columnPropietario;
+            
+            private global::System.Data.DataColumn columnElaborador;
+            
+            private global::System.Data.DataColumn columnNoExpediente;
+            
+            private global::System.Data.DataColumn columnTieneEnmiendasJur;
+            
+            private global::System.Data.DataColumn columnTieneEnmiendasTec;
+            
+            private global::System.Data.DataColumn columnTieneEnmiendasSubReg;
+            
+            private global::System.Data.DataColumn columnTieneEnminedasRegional;
+            
+            private global::System.Data.DataColumn columnRegional;
+            
+            private global::System.Data.DataColumn columnPuesto;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public DtOficioEnmiendaRegionalDataTable() {
+                this.TableName = "DtOficioEnmiendaRegional";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal DtOficioEnmiendaRegionalDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected DtOficioEnmiendaRegionalDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NoRegionColumn {
+                get {
+                    return this.columnNoRegion;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NoOficioColumn {
+                get {
+                    return this.columnNoOficio;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LugarRegionColumn {
+                get {
+                    return this.columnLugarRegion;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn FechaColumn {
+                get {
+                    return this.columnFecha;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PropietarioColumn {
+                get {
+                    return this.columnPropietario;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ElaboradorColumn {
+                get {
+                    return this.columnElaborador;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NoExpedienteColumn {
+                get {
+                    return this.columnNoExpediente;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn TieneEnmiendasJurColumn {
+                get {
+                    return this.columnTieneEnmiendasJur;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn TieneEnmiendasTecColumn {
+                get {
+                    return this.columnTieneEnmiendasTec;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn TieneEnmiendasSubRegColumn {
+                get {
+                    return this.columnTieneEnmiendasSubReg;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn TieneEnminedasRegionalColumn {
+                get {
+                    return this.columnTieneEnminedasRegional;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn RegionalColumn {
+                get {
+                    return this.columnRegional;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PuestoColumn {
+                get {
+                    return this.columnPuesto;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public DtOficioEnmiendaRegionalRow this[int index] {
+                get {
+                    return ((DtOficioEnmiendaRegionalRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event DtOficioEnmiendaRegionalRowChangeEventHandler DtOficioEnmiendaRegionalRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event DtOficioEnmiendaRegionalRowChangeEventHandler DtOficioEnmiendaRegionalRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event DtOficioEnmiendaRegionalRowChangeEventHandler DtOficioEnmiendaRegionalRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event DtOficioEnmiendaRegionalRowChangeEventHandler DtOficioEnmiendaRegionalRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddDtOficioEnmiendaRegionalRow(DtOficioEnmiendaRegionalRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public DtOficioEnmiendaRegionalRow AddDtOficioEnmiendaRegionalRow(string NoRegion, string NoOficio, string LugarRegion, System.DateTime Fecha, string Propietario, string Elaborador, string NoExpediente, int TieneEnmiendasJur, int TieneEnmiendasTec, int TieneEnmiendasSubReg, string TieneEnminedasRegional, string Regional, string Puesto) {
+                DtOficioEnmiendaRegionalRow rowDtOficioEnmiendaRegionalRow = ((DtOficioEnmiendaRegionalRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        NoRegion,
+                        NoOficio,
+                        LugarRegion,
+                        Fecha,
+                        Propietario,
+                        Elaborador,
+                        NoExpediente,
+                        TieneEnmiendasJur,
+                        TieneEnmiendasTec,
+                        TieneEnmiendasSubReg,
+                        TieneEnminedasRegional,
+                        Regional,
+                        Puesto};
+                rowDtOficioEnmiendaRegionalRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowDtOficioEnmiendaRegionalRow);
+                return rowDtOficioEnmiendaRegionalRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                DtOficioEnmiendaRegionalDataTable cln = ((DtOficioEnmiendaRegionalDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new DtOficioEnmiendaRegionalDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnNoRegion = base.Columns["NoRegion"];
+                this.columnNoOficio = base.Columns["NoOficio"];
+                this.columnLugarRegion = base.Columns["LugarRegion"];
+                this.columnFecha = base.Columns["Fecha"];
+                this.columnPropietario = base.Columns["Propietario"];
+                this.columnElaborador = base.Columns["Elaborador"];
+                this.columnNoExpediente = base.Columns["NoExpediente"];
+                this.columnTieneEnmiendasJur = base.Columns["TieneEnmiendasJur"];
+                this.columnTieneEnmiendasTec = base.Columns["TieneEnmiendasTec"];
+                this.columnTieneEnmiendasSubReg = base.Columns["TieneEnmiendasSubReg"];
+                this.columnTieneEnminedasRegional = base.Columns["TieneEnminedasRegional"];
+                this.columnRegional = base.Columns["Regional"];
+                this.columnPuesto = base.Columns["Puesto"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnNoRegion = new global::System.Data.DataColumn("NoRegion", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNoRegion);
+                this.columnNoOficio = new global::System.Data.DataColumn("NoOficio", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNoOficio);
+                this.columnLugarRegion = new global::System.Data.DataColumn("LugarRegion", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLugarRegion);
+                this.columnFecha = new global::System.Data.DataColumn("Fecha", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFecha);
+                this.columnPropietario = new global::System.Data.DataColumn("Propietario", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPropietario);
+                this.columnElaborador = new global::System.Data.DataColumn("Elaborador", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnElaborador);
+                this.columnNoExpediente = new global::System.Data.DataColumn("NoExpediente", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNoExpediente);
+                this.columnTieneEnmiendasJur = new global::System.Data.DataColumn("TieneEnmiendasJur", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTieneEnmiendasJur);
+                this.columnTieneEnmiendasTec = new global::System.Data.DataColumn("TieneEnmiendasTec", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTieneEnmiendasTec);
+                this.columnTieneEnmiendasSubReg = new global::System.Data.DataColumn("TieneEnmiendasSubReg", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTieneEnmiendasSubReg);
+                this.columnTieneEnminedasRegional = new global::System.Data.DataColumn("TieneEnminedasRegional", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTieneEnminedasRegional);
+                this.columnRegional = new global::System.Data.DataColumn("Regional", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRegional);
+                this.columnPuesto = new global::System.Data.DataColumn("Puesto", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPuesto);
+                this.columnNoRegion.Caption = "NoSubRegion";
+                this.columnLugarRegion.Caption = "LugarSubRegion";
+                this.columnRegional.Caption = "SubRegional";
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public DtOficioEnmiendaRegionalRow NewDtOficioEnmiendaRegionalRow() {
+                return ((DtOficioEnmiendaRegionalRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new DtOficioEnmiendaRegionalRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(DtOficioEnmiendaRegionalRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.DtOficioEnmiendaRegionalRowChanged != null)) {
+                    this.DtOficioEnmiendaRegionalRowChanged(this, new DtOficioEnmiendaRegionalRowChangeEvent(((DtOficioEnmiendaRegionalRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.DtOficioEnmiendaRegionalRowChanging != null)) {
+                    this.DtOficioEnmiendaRegionalRowChanging(this, new DtOficioEnmiendaRegionalRowChangeEvent(((DtOficioEnmiendaRegionalRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.DtOficioEnmiendaRegionalRowDeleted != null)) {
+                    this.DtOficioEnmiendaRegionalRowDeleted(this, new DtOficioEnmiendaRegionalRowChangeEvent(((DtOficioEnmiendaRegionalRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.DtOficioEnmiendaRegionalRowDeleting != null)) {
+                    this.DtOficioEnmiendaRegionalRowDeleting(this, new DtOficioEnmiendaRegionalRowChangeEvent(((DtOficioEnmiendaRegionalRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveDtOficioEnmiendaRegionalRow(DtOficioEnmiendaRegionalRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                Ds_Gestiones ds = new Ds_Gestiones();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "DtOficioEnmiendaRegionalDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class Dt_EnmiendaRegionalDataTable : global::System.Data.TypedTableBase<Dt_EnmiendaRegionalRow> {
+            
+            private global::System.Data.DataColumn columnRegion;
+            
+            private global::System.Data.DataColumn columnNoOficio;
+            
+            private global::System.Data.DataColumn columnFecha;
+            
+            private global::System.Data.DataColumn columnSubregional;
+            
+            private global::System.Data.DataColumn columnSubRegion;
+            
+            private global::System.Data.DataColumn columnLugarSubRegion;
+            
+            private global::System.Data.DataColumn columnSaludo;
+            
+            private global::System.Data.DataColumn columnEnmienda;
+            
+            private global::System.Data.DataColumn columnRegional;
+            
+            private global::System.Data.DataColumn columnLugarRegion;
+            
+            private global::System.Data.DataColumn columnPuestoRegional;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_EnmiendaRegionalDataTable() {
+                this.TableName = "Dt_EnmiendaRegional";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal Dt_EnmiendaRegionalDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected Dt_EnmiendaRegionalDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn RegionColumn {
+                get {
+                    return this.columnRegion;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NoOficioColumn {
+                get {
+                    return this.columnNoOficio;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn FechaColumn {
+                get {
+                    return this.columnFecha;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SubregionalColumn {
+                get {
+                    return this.columnSubregional;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SubRegionColumn {
+                get {
+                    return this.columnSubRegion;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LugarSubRegionColumn {
+                get {
+                    return this.columnLugarSubRegion;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SaludoColumn {
+                get {
+                    return this.columnSaludo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EnmiendaColumn {
+                get {
+                    return this.columnEnmienda;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn RegionalColumn {
+                get {
+                    return this.columnRegional;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LugarRegionColumn {
+                get {
+                    return this.columnLugarRegion;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PuestoRegionalColumn {
+                get {
+                    return this.columnPuestoRegional;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_EnmiendaRegionalRow this[int index] {
+                get {
+                    return ((Dt_EnmiendaRegionalRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_EnmiendaRegionalRowChangeEventHandler Dt_EnmiendaRegionalRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_EnmiendaRegionalRowChangeEventHandler Dt_EnmiendaRegionalRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_EnmiendaRegionalRowChangeEventHandler Dt_EnmiendaRegionalRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event Dt_EnmiendaRegionalRowChangeEventHandler Dt_EnmiendaRegionalRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddDt_EnmiendaRegionalRow(Dt_EnmiendaRegionalRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_EnmiendaRegionalRow AddDt_EnmiendaRegionalRow(string Region, string NoOficio, System.DateTime Fecha, string Subregional, string SubRegion, string LugarSubRegion, string Saludo, string Enmienda, string Regional, string LugarRegion, string PuestoRegional) {
+                Dt_EnmiendaRegionalRow rowDt_EnmiendaRegionalRow = ((Dt_EnmiendaRegionalRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        Region,
+                        NoOficio,
+                        Fecha,
+                        Subregional,
+                        SubRegion,
+                        LugarSubRegion,
+                        Saludo,
+                        Enmienda,
+                        Regional,
+                        LugarRegion,
+                        PuestoRegional};
+                rowDt_EnmiendaRegionalRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowDt_EnmiendaRegionalRow);
+                return rowDt_EnmiendaRegionalRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                Dt_EnmiendaRegionalDataTable cln = ((Dt_EnmiendaRegionalDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new Dt_EnmiendaRegionalDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnRegion = base.Columns["Region"];
+                this.columnNoOficio = base.Columns["NoOficio"];
+                this.columnFecha = base.Columns["Fecha"];
+                this.columnSubregional = base.Columns["Subregional"];
+                this.columnSubRegion = base.Columns["SubRegion"];
+                this.columnLugarSubRegion = base.Columns["LugarSubRegion"];
+                this.columnSaludo = base.Columns["Saludo"];
+                this.columnEnmienda = base.Columns["Enmienda"];
+                this.columnRegional = base.Columns["Regional"];
+                this.columnLugarRegion = base.Columns["LugarRegion"];
+                this.columnPuestoRegional = base.Columns["PuestoRegional"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnRegion = new global::System.Data.DataColumn("Region", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRegion);
+                this.columnNoOficio = new global::System.Data.DataColumn("NoOficio", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNoOficio);
+                this.columnFecha = new global::System.Data.DataColumn("Fecha", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFecha);
+                this.columnSubregional = new global::System.Data.DataColumn("Subregional", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSubregional);
+                this.columnSubRegion = new global::System.Data.DataColumn("SubRegion", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSubRegion);
+                this.columnLugarSubRegion = new global::System.Data.DataColumn("LugarSubRegion", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLugarSubRegion);
+                this.columnSaludo = new global::System.Data.DataColumn("Saludo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSaludo);
+                this.columnEnmienda = new global::System.Data.DataColumn("Enmienda", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEnmienda);
+                this.columnRegional = new global::System.Data.DataColumn("Regional", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRegional);
+                this.columnLugarRegion = new global::System.Data.DataColumn("LugarRegion", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLugarRegion);
+                this.columnPuestoRegional = new global::System.Data.DataColumn("PuestoRegional", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPuestoRegional);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_EnmiendaRegionalRow NewDt_EnmiendaRegionalRow() {
+                return ((Dt_EnmiendaRegionalRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new Dt_EnmiendaRegionalRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(Dt_EnmiendaRegionalRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.Dt_EnmiendaRegionalRowChanged != null)) {
+                    this.Dt_EnmiendaRegionalRowChanged(this, new Dt_EnmiendaRegionalRowChangeEvent(((Dt_EnmiendaRegionalRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.Dt_EnmiendaRegionalRowChanging != null)) {
+                    this.Dt_EnmiendaRegionalRowChanging(this, new Dt_EnmiendaRegionalRowChangeEvent(((Dt_EnmiendaRegionalRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.Dt_EnmiendaRegionalRowDeleted != null)) {
+                    this.Dt_EnmiendaRegionalRowDeleted(this, new Dt_EnmiendaRegionalRowChangeEvent(((Dt_EnmiendaRegionalRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.Dt_EnmiendaRegionalRowDeleting != null)) {
+                    this.Dt_EnmiendaRegionalRowDeleting(this, new Dt_EnmiendaRegionalRowChangeEvent(((Dt_EnmiendaRegionalRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveDt_EnmiendaRegionalRow(Dt_EnmiendaRegionalRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                Ds_Gestiones ds = new Ds_Gestiones();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "Dt_EnmiendaRegionalDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class Dt_Solicitud_CompletacionRow : global::System.Data.DataRow {
@@ -18674,6 +20901,1346 @@ namespace SEGEFOR.Data_Set {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class DtOficioEnmiendaSubRegionalRow : global::System.Data.DataRow {
+            
+            private DtOficioEnmiendaSubRegionalDataTable tableDtOficioEnmiendaSubRegional;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal DtOficioEnmiendaSubRegionalRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableDtOficioEnmiendaSubRegional = ((DtOficioEnmiendaSubRegionalDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string NoSubRegion {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtOficioEnmiendaSubRegional.NoSubRegionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NoSubRegion\' in table \'DtOficioEnmiendaSubRegional\' is DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaSubRegional.NoSubRegionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string NoOficio {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtOficioEnmiendaSubRegional.NoOficioColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NoOficio\' in table \'DtOficioEnmiendaSubRegional\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaSubRegional.NoOficioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string LugarSubRegion {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtOficioEnmiendaSubRegional.LugarSubRegionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LugarSubRegion\' in table \'DtOficioEnmiendaSubRegional\' is D" +
+                                "BNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaSubRegional.LugarSubRegionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime Fecha {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableDtOficioEnmiendaSubRegional.FechaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Fecha\' in table \'DtOficioEnmiendaSubRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaSubRegional.FechaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Propietario {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtOficioEnmiendaSubRegional.PropietarioColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Propietario\' in table \'DtOficioEnmiendaSubRegional\' is DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaSubRegional.PropietarioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Elaborador {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtOficioEnmiendaSubRegional.ElaboradorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Elaborador\' in table \'DtOficioEnmiendaSubRegional\' is DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaSubRegional.ElaboradorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string NoExpediente {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtOficioEnmiendaSubRegional.NoExpedienteColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NoExpediente\' in table \'DtOficioEnmiendaSubRegional\' is DBN" +
+                                "ull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaSubRegional.NoExpedienteColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int TieneEnmiendasJur {
+                get {
+                    try {
+                        return ((int)(this[this.tableDtOficioEnmiendaSubRegional.TieneEnmiendasJurColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TieneEnmiendasJur\' in table \'DtOficioEnmiendaSubRegional\' i" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaSubRegional.TieneEnmiendasJurColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int TieneEnmiendasTec {
+                get {
+                    try {
+                        return ((int)(this[this.tableDtOficioEnmiendaSubRegional.TieneEnmiendasTecColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TieneEnmiendasTec\' in table \'DtOficioEnmiendaSubRegional\' i" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaSubRegional.TieneEnmiendasTecColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int TieneEnmiendasSubReg {
+                get {
+                    try {
+                        return ((int)(this[this.tableDtOficioEnmiendaSubRegional.TieneEnmiendasSubRegColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TieneEnmiendasSubReg\' in table \'DtOficioEnmiendaSubRegional" +
+                                "\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaSubRegional.TieneEnmiendasSubRegColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string SubRegional {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtOficioEnmiendaSubRegional.SubRegionalColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SubRegional\' in table \'DtOficioEnmiendaSubRegional\' is DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaSubRegional.SubRegionalColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Puesto {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtOficioEnmiendaSubRegional.PuestoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Puesto\' in table \'DtOficioEnmiendaSubRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaSubRegional.PuestoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNoSubRegionNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaSubRegional.NoSubRegionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNoSubRegionNull() {
+                this[this.tableDtOficioEnmiendaSubRegional.NoSubRegionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNoOficioNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaSubRegional.NoOficioColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNoOficioNull() {
+                this[this.tableDtOficioEnmiendaSubRegional.NoOficioColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLugarSubRegionNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaSubRegional.LugarSubRegionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetLugarSubRegionNull() {
+                this[this.tableDtOficioEnmiendaSubRegional.LugarSubRegionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsFechaNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaSubRegional.FechaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetFechaNull() {
+                this[this.tableDtOficioEnmiendaSubRegional.FechaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPropietarioNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaSubRegional.PropietarioColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPropietarioNull() {
+                this[this.tableDtOficioEnmiendaSubRegional.PropietarioColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsElaboradorNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaSubRegional.ElaboradorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetElaboradorNull() {
+                this[this.tableDtOficioEnmiendaSubRegional.ElaboradorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNoExpedienteNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaSubRegional.NoExpedienteColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNoExpedienteNull() {
+                this[this.tableDtOficioEnmiendaSubRegional.NoExpedienteColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTieneEnmiendasJurNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaSubRegional.TieneEnmiendasJurColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTieneEnmiendasJurNull() {
+                this[this.tableDtOficioEnmiendaSubRegional.TieneEnmiendasJurColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTieneEnmiendasTecNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaSubRegional.TieneEnmiendasTecColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTieneEnmiendasTecNull() {
+                this[this.tableDtOficioEnmiendaSubRegional.TieneEnmiendasTecColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTieneEnmiendasSubRegNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaSubRegional.TieneEnmiendasSubRegColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTieneEnmiendasSubRegNull() {
+                this[this.tableDtOficioEnmiendaSubRegional.TieneEnmiendasSubRegColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSubRegionalNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaSubRegional.SubRegionalColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSubRegionalNull() {
+                this[this.tableDtOficioEnmiendaSubRegional.SubRegionalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPuestoNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaSubRegional.PuestoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPuestoNull() {
+                this[this.tableDtOficioEnmiendaSubRegional.PuestoColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class Dt_Enmiendas_JuridicasDetRow : global::System.Data.DataRow {
+            
+            private Dt_Enmiendas_JuridicasDetDataTable tableDt_Enmiendas_JuridicasDet;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal Dt_Enmiendas_JuridicasDetRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableDt_Enmiendas_JuridicasDet = ((Dt_Enmiendas_JuridicasDetDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string NoDictamen {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_Enmiendas_JuridicasDet.NoDictamenColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NoDictamen\' in table \'Dt_Enmiendas_JuridicasDet\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_Enmiendas_JuridicasDet.NoDictamenColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Enmienda {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_Enmiendas_JuridicasDet.EnmiendaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Enmienda\' in table \'Dt_Enmiendas_JuridicasDet\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_Enmiendas_JuridicasDet.EnmiendaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int No {
+                get {
+                    try {
+                        return ((int)(this[this.tableDt_Enmiendas_JuridicasDet.NoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'No\' in table \'Dt_Enmiendas_JuridicasDet\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_Enmiendas_JuridicasDet.NoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNoDictamenNull() {
+                return this.IsNull(this.tableDt_Enmiendas_JuridicasDet.NoDictamenColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNoDictamenNull() {
+                this[this.tableDt_Enmiendas_JuridicasDet.NoDictamenColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEnmiendaNull() {
+                return this.IsNull(this.tableDt_Enmiendas_JuridicasDet.EnmiendaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEnmiendaNull() {
+                this[this.tableDt_Enmiendas_JuridicasDet.EnmiendaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNoNull() {
+                return this.IsNull(this.tableDt_Enmiendas_JuridicasDet.NoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNoNull() {
+                this[this.tableDt_Enmiendas_JuridicasDet.NoColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class Dt_Enmiendas_TecnicasDetRow : global::System.Data.DataRow {
+            
+            private Dt_Enmiendas_TecnicasDetDataTable tableDt_Enmiendas_TecnicasDet;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal Dt_Enmiendas_TecnicasDetRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableDt_Enmiendas_TecnicasDet = ((Dt_Enmiendas_TecnicasDetDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string NoInforme {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_Enmiendas_TecnicasDet.NoInformeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NoInforme\' in table \'Dt_Enmiendas_TecnicasDet\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_Enmiendas_TecnicasDet.NoInformeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Enmienda {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_Enmiendas_TecnicasDet.EnmiendaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Enmienda\' in table \'Dt_Enmiendas_TecnicasDet\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_Enmiendas_TecnicasDet.EnmiendaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int No {
+                get {
+                    try {
+                        return ((int)(this[this.tableDt_Enmiendas_TecnicasDet.NoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'No\' in table \'Dt_Enmiendas_TecnicasDet\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_Enmiendas_TecnicasDet.NoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNoInformeNull() {
+                return this.IsNull(this.tableDt_Enmiendas_TecnicasDet.NoInformeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNoInformeNull() {
+                this[this.tableDt_Enmiendas_TecnicasDet.NoInformeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEnmiendaNull() {
+                return this.IsNull(this.tableDt_Enmiendas_TecnicasDet.EnmiendaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEnmiendaNull() {
+                this[this.tableDt_Enmiendas_TecnicasDet.EnmiendaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNoNull() {
+                return this.IsNull(this.tableDt_Enmiendas_TecnicasDet.NoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNoNull() {
+                this[this.tableDt_Enmiendas_TecnicasDet.NoColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class Dt_EnmiendasSubregionalDetRow : global::System.Data.DataRow {
+            
+            private Dt_EnmiendasSubregionalDetDataTable tableDt_EnmiendasSubregionalDet;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal Dt_EnmiendasSubregionalDetRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableDt_EnmiendasSubregionalDet = ((Dt_EnmiendasSubregionalDetDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Enmienda {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_EnmiendasSubregionalDet.EnmiendaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Enmienda\' in table \'Dt_EnmiendasSubregionalDet\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_EnmiendasSubregionalDet.EnmiendaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int No {
+                get {
+                    try {
+                        return ((int)(this[this.tableDt_EnmiendasSubregionalDet.NoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'No\' in table \'Dt_EnmiendasSubregionalDet\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_EnmiendasSubregionalDet.NoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEnmiendaNull() {
+                return this.IsNull(this.tableDt_EnmiendasSubregionalDet.EnmiendaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEnmiendaNull() {
+                this[this.tableDt_EnmiendasSubregionalDet.EnmiendaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNoNull() {
+                return this.IsNull(this.tableDt_EnmiendasSubregionalDet.NoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNoNull() {
+                this[this.tableDt_EnmiendasSubregionalDet.NoColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class DtOficioEnmiendaRegionalRow : global::System.Data.DataRow {
+            
+            private DtOficioEnmiendaRegionalDataTable tableDtOficioEnmiendaRegional;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal DtOficioEnmiendaRegionalRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableDtOficioEnmiendaRegional = ((DtOficioEnmiendaRegionalDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string NoRegion {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtOficioEnmiendaRegional.NoRegionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NoRegion\' in table \'DtOficioEnmiendaRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaRegional.NoRegionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string NoOficio {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtOficioEnmiendaRegional.NoOficioColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NoOficio\' in table \'DtOficioEnmiendaRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaRegional.NoOficioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string LugarRegion {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtOficioEnmiendaRegional.LugarRegionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LugarRegion\' in table \'DtOficioEnmiendaRegional\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaRegional.LugarRegionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime Fecha {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableDtOficioEnmiendaRegional.FechaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Fecha\' in table \'DtOficioEnmiendaRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaRegional.FechaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Propietario {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtOficioEnmiendaRegional.PropietarioColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Propietario\' in table \'DtOficioEnmiendaRegional\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaRegional.PropietarioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Elaborador {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtOficioEnmiendaRegional.ElaboradorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Elaborador\' in table \'DtOficioEnmiendaRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaRegional.ElaboradorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string NoExpediente {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtOficioEnmiendaRegional.NoExpedienteColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NoExpediente\' in table \'DtOficioEnmiendaRegional\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaRegional.NoExpedienteColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int TieneEnmiendasJur {
+                get {
+                    try {
+                        return ((int)(this[this.tableDtOficioEnmiendaRegional.TieneEnmiendasJurColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TieneEnmiendasJur\' in table \'DtOficioEnmiendaRegional\' is D" +
+                                "BNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaRegional.TieneEnmiendasJurColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int TieneEnmiendasTec {
+                get {
+                    try {
+                        return ((int)(this[this.tableDtOficioEnmiendaRegional.TieneEnmiendasTecColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TieneEnmiendasTec\' in table \'DtOficioEnmiendaRegional\' is D" +
+                                "BNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaRegional.TieneEnmiendasTecColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int TieneEnmiendasSubReg {
+                get {
+                    try {
+                        return ((int)(this[this.tableDtOficioEnmiendaRegional.TieneEnmiendasSubRegColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TieneEnmiendasSubReg\' in table \'DtOficioEnmiendaRegional\' i" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaRegional.TieneEnmiendasSubRegColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string TieneEnminedasRegional {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtOficioEnmiendaRegional.TieneEnminedasRegionalColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TieneEnminedasRegional\' in table \'DtOficioEnmiendaRegional\'" +
+                                " is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaRegional.TieneEnminedasRegionalColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Regional {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtOficioEnmiendaRegional.RegionalColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Regional\' in table \'DtOficioEnmiendaRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaRegional.RegionalColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Puesto {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtOficioEnmiendaRegional.PuestoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Puesto\' in table \'DtOficioEnmiendaRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtOficioEnmiendaRegional.PuestoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNoRegionNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaRegional.NoRegionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNoRegionNull() {
+                this[this.tableDtOficioEnmiendaRegional.NoRegionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNoOficioNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaRegional.NoOficioColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNoOficioNull() {
+                this[this.tableDtOficioEnmiendaRegional.NoOficioColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLugarRegionNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaRegional.LugarRegionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetLugarRegionNull() {
+                this[this.tableDtOficioEnmiendaRegional.LugarRegionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsFechaNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaRegional.FechaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetFechaNull() {
+                this[this.tableDtOficioEnmiendaRegional.FechaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPropietarioNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaRegional.PropietarioColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPropietarioNull() {
+                this[this.tableDtOficioEnmiendaRegional.PropietarioColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsElaboradorNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaRegional.ElaboradorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetElaboradorNull() {
+                this[this.tableDtOficioEnmiendaRegional.ElaboradorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNoExpedienteNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaRegional.NoExpedienteColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNoExpedienteNull() {
+                this[this.tableDtOficioEnmiendaRegional.NoExpedienteColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTieneEnmiendasJurNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaRegional.TieneEnmiendasJurColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTieneEnmiendasJurNull() {
+                this[this.tableDtOficioEnmiendaRegional.TieneEnmiendasJurColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTieneEnmiendasTecNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaRegional.TieneEnmiendasTecColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTieneEnmiendasTecNull() {
+                this[this.tableDtOficioEnmiendaRegional.TieneEnmiendasTecColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTieneEnmiendasSubRegNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaRegional.TieneEnmiendasSubRegColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTieneEnmiendasSubRegNull() {
+                this[this.tableDtOficioEnmiendaRegional.TieneEnmiendasSubRegColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTieneEnminedasRegionalNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaRegional.TieneEnminedasRegionalColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTieneEnminedasRegionalNull() {
+                this[this.tableDtOficioEnmiendaRegional.TieneEnminedasRegionalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsRegionalNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaRegional.RegionalColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetRegionalNull() {
+                this[this.tableDtOficioEnmiendaRegional.RegionalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPuestoNull() {
+                return this.IsNull(this.tableDtOficioEnmiendaRegional.PuestoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPuestoNull() {
+                this[this.tableDtOficioEnmiendaRegional.PuestoColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class Dt_EnmiendaRegionalRow : global::System.Data.DataRow {
+            
+            private Dt_EnmiendaRegionalDataTable tableDt_EnmiendaRegional;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal Dt_EnmiendaRegionalRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableDt_EnmiendaRegional = ((Dt_EnmiendaRegionalDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Region {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_EnmiendaRegional.RegionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Region\' in table \'Dt_EnmiendaRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_EnmiendaRegional.RegionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string NoOficio {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_EnmiendaRegional.NoOficioColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NoOficio\' in table \'Dt_EnmiendaRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_EnmiendaRegional.NoOficioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime Fecha {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableDt_EnmiendaRegional.FechaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Fecha\' in table \'Dt_EnmiendaRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_EnmiendaRegional.FechaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Subregional {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_EnmiendaRegional.SubregionalColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Subregional\' in table \'Dt_EnmiendaRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_EnmiendaRegional.SubregionalColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string SubRegion {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_EnmiendaRegional.SubRegionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SubRegion\' in table \'Dt_EnmiendaRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_EnmiendaRegional.SubRegionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string LugarSubRegion {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_EnmiendaRegional.LugarSubRegionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LugarSubRegion\' in table \'Dt_EnmiendaRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_EnmiendaRegional.LugarSubRegionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Saludo {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_EnmiendaRegional.SaludoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Saludo\' in table \'Dt_EnmiendaRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_EnmiendaRegional.SaludoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Enmienda {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_EnmiendaRegional.EnmiendaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Enmienda\' in table \'Dt_EnmiendaRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_EnmiendaRegional.EnmiendaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Regional {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_EnmiendaRegional.RegionalColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Regional\' in table \'Dt_EnmiendaRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_EnmiendaRegional.RegionalColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string LugarRegion {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_EnmiendaRegional.LugarRegionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LugarRegion\' in table \'Dt_EnmiendaRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_EnmiendaRegional.LugarRegionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string PuestoRegional {
+                get {
+                    try {
+                        return ((string)(this[this.tableDt_EnmiendaRegional.PuestoRegionalColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PuestoRegional\' in table \'Dt_EnmiendaRegional\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDt_EnmiendaRegional.PuestoRegionalColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsRegionNull() {
+                return this.IsNull(this.tableDt_EnmiendaRegional.RegionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetRegionNull() {
+                this[this.tableDt_EnmiendaRegional.RegionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNoOficioNull() {
+                return this.IsNull(this.tableDt_EnmiendaRegional.NoOficioColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNoOficioNull() {
+                this[this.tableDt_EnmiendaRegional.NoOficioColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsFechaNull() {
+                return this.IsNull(this.tableDt_EnmiendaRegional.FechaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetFechaNull() {
+                this[this.tableDt_EnmiendaRegional.FechaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSubregionalNull() {
+                return this.IsNull(this.tableDt_EnmiendaRegional.SubregionalColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSubregionalNull() {
+                this[this.tableDt_EnmiendaRegional.SubregionalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSubRegionNull() {
+                return this.IsNull(this.tableDt_EnmiendaRegional.SubRegionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSubRegionNull() {
+                this[this.tableDt_EnmiendaRegional.SubRegionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLugarSubRegionNull() {
+                return this.IsNull(this.tableDt_EnmiendaRegional.LugarSubRegionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetLugarSubRegionNull() {
+                this[this.tableDt_EnmiendaRegional.LugarSubRegionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSaludoNull() {
+                return this.IsNull(this.tableDt_EnmiendaRegional.SaludoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSaludoNull() {
+                this[this.tableDt_EnmiendaRegional.SaludoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEnmiendaNull() {
+                return this.IsNull(this.tableDt_EnmiendaRegional.EnmiendaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEnmiendaNull() {
+                this[this.tableDt_EnmiendaRegional.EnmiendaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsRegionalNull() {
+                return this.IsNull(this.tableDt_EnmiendaRegional.RegionalColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetRegionalNull() {
+                this[this.tableDt_EnmiendaRegional.RegionalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLugarRegionNull() {
+                return this.IsNull(this.tableDt_EnmiendaRegional.LugarRegionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetLugarRegionNull() {
+                this[this.tableDt_EnmiendaRegional.LugarRegionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPuestoRegionalNull() {
+                return this.IsNull(this.tableDt_EnmiendaRegional.PuestoRegionalColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPuestoRegionalNull() {
+                this[this.tableDt_EnmiendaRegional.PuestoRegionalColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -19475,6 +23042,210 @@ namespace SEGEFOR.Data_Set {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Dt_LicenciaRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class DtOficioEnmiendaSubRegionalRowChangeEvent : global::System.EventArgs {
+            
+            private DtOficioEnmiendaSubRegionalRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public DtOficioEnmiendaSubRegionalRowChangeEvent(DtOficioEnmiendaSubRegionalRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public DtOficioEnmiendaSubRegionalRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class Dt_Enmiendas_JuridicasDetRowChangeEvent : global::System.EventArgs {
+            
+            private Dt_Enmiendas_JuridicasDetRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmiendas_JuridicasDetRowChangeEvent(Dt_Enmiendas_JuridicasDetRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmiendas_JuridicasDetRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class Dt_Enmiendas_TecnicasDetRowChangeEvent : global::System.EventArgs {
+            
+            private Dt_Enmiendas_TecnicasDetRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmiendas_TecnicasDetRowChangeEvent(Dt_Enmiendas_TecnicasDetRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_Enmiendas_TecnicasDetRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class Dt_EnmiendasSubregionalDetRowChangeEvent : global::System.EventArgs {
+            
+            private Dt_EnmiendasSubregionalDetRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_EnmiendasSubregionalDetRowChangeEvent(Dt_EnmiendasSubregionalDetRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_EnmiendasSubregionalDetRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class DtOficioEnmiendaRegionalRowChangeEvent : global::System.EventArgs {
+            
+            private DtOficioEnmiendaRegionalRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public DtOficioEnmiendaRegionalRowChangeEvent(DtOficioEnmiendaRegionalRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public DtOficioEnmiendaRegionalRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class Dt_EnmiendaRegionalRowChangeEvent : global::System.EventArgs {
+            
+            private Dt_EnmiendaRegionalRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_EnmiendaRegionalRowChangeEvent(Dt_EnmiendaRegionalRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public Dt_EnmiendaRegionalRow Row {
                 get {
                     return this.eventRow;
                 }

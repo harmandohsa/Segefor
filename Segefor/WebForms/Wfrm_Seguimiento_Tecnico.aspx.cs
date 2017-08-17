@@ -32,6 +32,7 @@ namespace SEGEFOR.WebForms
         DataSet DsDatosDictamen = new DataSet("DsDatosDictamen");
         DataSet DsEtapa = new DataSet("DsDatosEtapa");
         double Total = 0;
+        int TipoSi = 0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -63,6 +64,7 @@ namespace SEGEFOR.WebForms
             BtnVistaPrevia.Click += BtnVistaPrevia_Click;
             BtnEnviar.Click += BtnEnviar_Click;
             BtnYes.Click += BtnYes_Click;
+            BtnEnviarEnmienda.Click += BtnEnviarEnmienda_Click;
 
             ClUsuario = new Cl_Usuario();
             ClUtilitarios = new Cl_Utilitarios();
@@ -186,96 +188,151 @@ namespace SEGEFOR.WebForms
             }
         }
 
+        void BtnEnviarEnmienda_Click(object sender, EventArgs e)
+        {
+            if (ValidaEnmiendas() == true)
+            {
+                TxtTipoSi.Text = "2";
+                LblTitConfirmacion.Text = "La Gestion generará un informe de enmiendas?";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindowConfirm.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
+            }
+        }
+
         void BtnYes_Click(object sender, EventArgs e)
         {
-            XmlDocument iInformacion = ClXml.CrearDocumentoXML("Etapas");
-            XmlNode iElementos = iInformacion.CreateElement("Etapas");
-            for (int i = 0; i < GrdEtapa.Items.Count; i++)
+            if (Convert.ToInt32(TxtTipoSi.Text) == 1)
             {
-                XmlNode iElementoDetalle = iInformacion.CreateElement("Item");
-                ClXml.AgregarAtributo("EtapaId", GrdEtapa.Items[i].GetDataKeyValue("EtapaId"), iElementoDetalle);
-                iElementos.AppendChild(iElementoDetalle);
+                XmlDocument iInformacion = ClXml.CrearDocumentoXML("Etapas");
+                XmlNode iElementos = iInformacion.CreateElement("Etapas");
+                for (int i = 0; i < GrdEtapa.Items.Count; i++)
+                {
+                    XmlNode iElementoDetalle = iInformacion.CreateElement("Item");
+                    ClXml.AgregarAtributo("EtapaId", GrdEtapa.Items[i].GetDataKeyValue("EtapaId"), iElementoDetalle);
+                    iElementos.AppendChild(iElementoDetalle);
 
-                RadDatePicker TxtFecIni = ((RadDatePicker)GrdEtapa.Items[i].FindControl("TxtFecIni"));
-                ClXml.AgregarAtributo("FecIni", TxtFecIni.SelectedDate, iElementoDetalle);
-                iElementos.AppendChild(iElementoDetalle);
+                    RadDatePicker TxtFecIni = ((RadDatePicker)GrdEtapa.Items[i].FindControl("TxtFecIni"));
+                    ClXml.AgregarAtributo("FecIni", TxtFecIni.SelectedDate, iElementoDetalle);
+                    iElementos.AppendChild(iElementoDetalle);
 
-                RadDatePicker TxtFecFin = ((RadDatePicker)GrdEtapa.Items[i].FindControl("TxtFecFin"));
-                ClXml.AgregarAtributo("FecFin", TxtFecFin.SelectedDate, iElementoDetalle);
-                iElementos.AppendChild(iElementoDetalle);
+                    RadDatePicker TxtFecFin = ((RadDatePicker)GrdEtapa.Items[i].FindControl("TxtFecFin"));
+                    ClXml.AgregarAtributo("FecFin", TxtFecFin.SelectedDate, iElementoDetalle);
+                    iElementos.AppendChild(iElementoDetalle);
+                }
+                iInformacion.ChildNodes[1].AppendChild(iElementos);
+
+                XmlDocument iMAderaPie = ClXml.CrearDocumentoXML("MaderaPie");
+                XmlNode iElemenoMaderaPie = iMAderaPie.CreateElement("MaderaPie");
+                for (int i = 0; i < GrdMaderaPie.Items.Count; i++)
+                {
+                    XmlNode iMaderaDetalle = iMAderaPie.CreateElement("Item");
+                    ClXml.AgregarAtributo("Turno", GrdMaderaPie.Items[i]["Turno"].Text, iMaderaDetalle);
+                    iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                    ClXml.AgregarAtributo("Rodal", GrdMaderaPie.Items[i].GetDataKeyValue("Rodal"), iMaderaDetalle);
+                    iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                    ClXml.AgregarAtributo("EspecieId", GrdMaderaPie.Items[i].GetDataKeyValue("EspecieId"), iMaderaDetalle);
+                    iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                    ClXml.AgregarAtributo("VolTroza", GrdMaderaPie.Items[i]["VolTroza"].Text, iMaderaDetalle);
+                    iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                    ClXml.AgregarAtributo("VolLena", GrdMaderaPie.Items[i]["VolLena"].Text, iMaderaDetalle);
+                    iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                    ClXml.AgregarAtributo("VolTotal", GrdMaderaPie.Items[i]["VolTotal"].Text, iMaderaDetalle);
+                    iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                    ClXml.AgregarAtributo("ValTroza", GrdMaderaPie.Items[i]["ValTroza"].Text, iMaderaDetalle);
+                    iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                    ClXml.AgregarAtributo("ValLena", GrdMaderaPie.Items[i]["ValLena"].Text, iMaderaDetalle);
+                    iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                    ClXml.AgregarAtributo("ValPagar", GrdMaderaPie.Items[i]["ValPagar"].Text, iMaderaDetalle);
+                    iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                    ClXml.AgregarAtributo("PorPagar", GrdMaderaPie.Items[i]["PorPagar"].Text, iMaderaDetalle);
+                    iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+
+                }
+                iMAderaPie.ChildNodes[1].AppendChild(iElemenoMaderaPie);
+                int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                int Dictamen_Tecnico_Id = ClGestion.Max_Dictamen_Tecnico();
+                int SubRegionId = ClGestion.Get_SubRegion_Gestion(GestionId);
+                int Tamano = 0;
+                int FormaParcelaId = 0;
+                int NotasEntregar = 0;
+                int NotasPendientes = 0;
+                int TipoUSuarioIdDictamen = 0;
+                if ((CboTipoInventario.SelectedValue == "2") || (CboTipoInventario.SelectedValue == "3"))
+                {
+                    Tamano = Convert.ToInt32(TxtSize.Text);
+                    FormaParcelaId = Convert.ToInt32(CboFormaParcela.SelectedValue);
+                }
+
+                if (CboDictamina.SelectedValue == "1")
+                {
+                    if (Convert.ToInt32(TxtCantidadAutorizadas.Text) > 10)
+                    {
+                        NotasEntregar = Convert.ToInt32(TxtNotasEntregar.Text);
+                        NotasPendientes = Convert.ToInt32(TXtCantidadRestante.Text);
+                        TipoUSuarioIdDictamen = Convert.ToInt32(CboTipoUsuario.SelectedValue);
+                    }
+
+                }
+                int AreaCompromiso = 0;
+                int Garantia = 0;
+                int CantidadAutorizada = 0;
+                if (CboDictamina.SelectedValue == "1")
+                {
+                    AreaCompromiso = Convert.ToInt32(CboAreaCompromiso.SelectedValue);
+                    Garantia = Convert.ToInt32(CboGarantia.SelectedValue);
+                    CantidadAutorizada = Convert.ToInt32(TxtCantidadAutorizadas.Text);
+                }
+
+
+                ClGestion.Insert_Dictamen_Tecnico(Dictamen_Tecnico_Id, GestionId, TxtMetodologia.Text, TxtMetodologiaResultados.Text, Convert.ToInt32(CboTipoInventario.SelectedValue), Convert.ToInt32(TxtTotRodales.Text), Convert.ToInt32(TxtRodalesMuestreados.Text), Tamano, FormaParcelaId, TxtConclusionCaracBio.Text, TxtConclusionInventario.Text, TxtConcluManejo.Text, TxtCncluPropuesta.Text, Convert.ToInt32(CboDictamina.SelectedValue), AreaCompromiso, Garantia, iInformacion, iMAderaPie, Convert.ToInt32(TxtVigenciaApro.Text), CantidadAutorizada, NotasEntregar, NotasPendientes, TipoUSuarioIdDictamen, Convert.ToInt32(Session["UsuarioId"]), SubRegionId, TxtOtrasReco.Text);
+                ClGestion.Manda_Gestion_Usuario_Validacion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 11, 1);
+                DataSet dsDatosSubRegional = ClGestion.Get_SubRegional(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                string MensajeCorreo = "Se ha enviado a su despacho la gestión de Manejo Forestal";
+                ClUtilitarios.EnvioCorreo(dsDatosSubRegional.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatosSubRegional.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Envío de gestión", MensajeCorreo, 0, "", "");
+                dsDatosSubRegional.Clear();
+                Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("8", true)) + "&gestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionId.ToString(), true)) + "");
             }
-            iInformacion.ChildNodes[1].AppendChild(iElementos);
-
-            XmlDocument iMAderaPie = ClXml.CrearDocumentoXML("MaderaPie");
-            XmlNode iElemenoMaderaPie = iMAderaPie.CreateElement("MaderaPie");
-            for (int i = 0; i < GrdMaderaPie.Items.Count; i++)
+            else if (Convert.ToInt32(TxtTipoSi.Text) == 2)
             {
-                XmlNode iMaderaDetalle = iMAderaPie.CreateElement("Item");
-                ClXml.AgregarAtributo("Turno", GrdMaderaPie.Items[i]["Turno"].Text, iMaderaDetalle);
-                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+                int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+                int Enmienda_Tecnico_Id = ClGestion.Max_Enmienda_Tecnico();
+                int SubRegionId = ClGestion.Get_SubRegion_Gestion(GestionId);
 
-                ClXml.AgregarAtributo("Rodal", GrdMaderaPie.Items[i].GetDataKeyValue("Rodal"), iMaderaDetalle);
-                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+                XmlDocument iInformacion = ClXml.CrearDocumentoXML("Enmiendas");
+                XmlNode iElementos = iInformacion.CreateElement("Enmiendas");
+                for (int i = 0; i < GrdEnmiendas.Items.Count; i++)
+                {
+                    XmlNode iElementoDetalle = iInformacion.CreateElement("Item");
+                    ClXml.AgregarAtributo("Enmineda", GrdEnmiendas.Items[i].GetDataKeyValue("Enmienda"), iElementoDetalle);
+                    iElementos.AppendChild(iElementoDetalle);
+                }
+                iInformacion.ChildNodes[1].AppendChild(iElementos);
 
-                ClXml.AgregarAtributo("EspecieId", GrdMaderaPie.Items[i].GetDataKeyValue("EspecieId"), iMaderaDetalle);
-                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
-
-                ClXml.AgregarAtributo("VolTroza", GrdMaderaPie.Items[i]["VolTroza"].Text, iMaderaDetalle);
-                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
-
-                ClXml.AgregarAtributo("VolLena", GrdMaderaPie.Items[i]["VolLena"].Text, iMaderaDetalle);
-                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
-
-                ClXml.AgregarAtributo("VolTotal", GrdMaderaPie.Items[i]["VolTotal"].Text, iMaderaDetalle);
-                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
-
-                ClXml.AgregarAtributo("ValTroza", GrdMaderaPie.Items[i]["ValTroza"].Text, iMaderaDetalle);
-                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
-
-                ClXml.AgregarAtributo("ValLena", GrdMaderaPie.Items[i]["ValLena"].Text, iMaderaDetalle);
-                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
-
-                ClXml.AgregarAtributo("ValPagar", GrdMaderaPie.Items[i]["ValPagar"].Text, iMaderaDetalle);
-                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
-
-                ClXml.AgregarAtributo("PorPagar", GrdMaderaPie.Items[i]["PorPagar"].Text, iMaderaDetalle);
-                iElemenoMaderaPie.AppendChild(iMaderaDetalle);
+                DataSet dsDatosSubRegional = ClGestion.Get_SubRegional(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
+                ClGestion.Insert_Enmiendas_Tecnico(Enmienda_Tecnico_Id, GestionId, Convert.ToInt32(dsDatosSubRegional.Tables["Datos"].Rows[0]["UsuarioId"].ToString()), Convert.ToInt32(Session["UsuarioId"]), iInformacion, SubRegionId);
+                ClGestion.Manda_Gestion_Usuario_Validacion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 11, 1);
+                string MensajeCorreo = "Se ha enviado a su despacho la gestión de Manejo Forestal";
+                ClUtilitarios.EnvioCorreo(dsDatosSubRegional.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatosSubRegional.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Envío de gestión", MensajeCorreo, 0, "", "");
+                dsDatosSubRegional.Clear();
+                Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("11", true)) + "&gestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionId.ToString(), true)) + "");
 
             }
-            iMAderaPie.ChildNodes[1].AppendChild(iElemenoMaderaPie);
-            int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
-            int Dictamen_Tecnico_Id = ClGestion.Max_Dictamen_Tecnico();
-            int SubRegionId = ClGestion.Get_SubRegion_Gestion(GestionId);
-            int Tamano = 0;
-            int FormaParcelaId = 0;
-            int NotasEntregar = 0;
-            int NotasPendientes = 0;
-            int TipoUSuarioIdDictamen = 0;
-            if ((CboTipoInventario.SelectedValue == "2") || (CboTipoInventario.SelectedValue == "3"))
-            {
-                Tamano = Convert.ToInt32(TxtSize.Text);
-                FormaParcelaId = Convert.ToInt32(CboFormaParcela.SelectedValue);
-            }
-            if (Convert.ToInt32(TxtCantidadAutorizadas.Text) > 10)
-            {
-                NotasEntregar = Convert.ToInt32(TxtNotasEntregar.Text);
-                NotasPendientes = Convert.ToInt32(TXtCantidadRestante.Text);
-                TipoUSuarioIdDictamen = Convert.ToInt32(CboTipoUsuario.SelectedValue);
-            }
-
-            ClGestion.Insert_Dictamen_Tecnico(Dictamen_Tecnico_Id,GestionId,TxtMetodologia.Text,TxtMetodologiaResultados.Text,Convert.ToInt32(CboTipoInventario.SelectedValue),Convert.ToInt32(TxtTotRodales.Text),Convert.ToInt32(TxtRodalesMuestreados.Text),Tamano,FormaParcelaId,TxtConclusionCaracBio.Text,TxtConclusionInventario.Text,TxtConcluManejo.Text,TxtCncluPropuesta.Text,Convert.ToInt32(CboDictamina.SelectedValue),Convert.ToInt32(CboAreaCompromiso.SelectedValue),Convert.ToInt32(CboGarantia.SelectedValue),iInformacion,iMAderaPie,Convert.ToInt32(TxtVigenciaApro.Text),Convert.ToInt32(TxtCantidadAutorizadas.Text),NotasEntregar,NotasPendientes,TipoUSuarioIdDictamen,Convert.ToInt32(Session["UsuarioId"]),SubRegionId, TxtOtrasReco.Text);
-            ClGestion.Manda_Gestion_Usuario_Validacion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 11,1);
-            DataSet dsDatosSubRegional = ClGestion.Get_SubRegional(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
-            string MensajeCorreo = "Se ha enviado a su despacho la gestión de Manejo Forestal";
-            ClUtilitarios.EnvioCorreo(dsDatosSubRegional.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatosSubRegional.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Envío de gestión", MensajeCorreo, 0, "", "");
-            dsDatosSubRegional.Clear();
-            Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("8", true)) + "&gestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionId.ToString(), true)) + "");
+            
         }
 
         void BtnEnviar_Click(object sender, EventArgs e)
         {
             if (Valida() == true)
             {
+                TxtTipoSi.Text = "1";
                 LblTitConfirmacion.Text = "La Gestíon sera enviada al director subregional, ¿esta seguro (a)?";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "function f(){$find('" + RadWindowConfirm.ClientID + "').show();Sys.Application.remove_load(f);}Sys.Application.add_load(f);", true);
             }
@@ -303,18 +360,23 @@ namespace SEGEFOR.WebForms
                 item["Dictamen"] = CboDictamina.Text;
                 item["TipoGarantia"] = CboGarantia.Text;
                 item["DictamenId"] = CboDictamina.SelectedValue;
-                item["MontoGarantia"] = TxtMonto.Text;
-                item["PorGarantia"] = TxtPorcentajeGarantia.Text;
-                item["TotValMaderaPie"] = TxtTotMaderaPie.Text;
-                item["RecomendacionUno"] = "7.1     Se recomienda que la vigencia del aprovechamiento sea de: " + TxtVigenciaApro.Text + ".";
-                if (Convert.ToInt32(TxtCantidadAutorizadas.Text) > 10)
-                    item["RecomendacionDos"] = "7.1     Que se le autorice la venta total de " + TxtCantidadAutorizadas.Text + ". De estas, se le entregarán únicamente " + TxtNotasEntregar.Text + ", las otras " + TXtCantidadRestante.Text + " se adjuntarán al expediente, sin foliar, mismas que se entregarán luego al titular o su representante legal cuando presente Informe de uso de notas de envío.";
-                else
-                    item["RecomendacionDos"] = "7.7     Que se le autorice la venta total de " + TxtCantidadAutorizadas.Text + ".";
-                if (Convert.ToDouble(LblAreaIntervenir.InnerText) > 100)
-                    item["OtrasRecomendaciones"] = "7.9     " + TxtOtrasReco.Text;
-                else
-                    item["OtrasRecomendaciones"] = "7.8     " + TxtOtrasReco.Text;
+                if (CboDictamina.SelectedValue == "1")
+                {
+                    item["MontoGarantia"] = TxtMonto.Text;
+                    item["PorGarantia"] = TxtPorcentajeGarantia.Text;
+                    item["TotValMaderaPie"] = TxtTotMaderaPie.Text;
+                    item["RecomendacionUno"] = "7.1     Se recomienda que la vigencia del aprovechamiento sea de: " + TxtVigenciaApro.Text + ".";
+                    if (Convert.ToInt32(TxtCantidadAutorizadas.Text) > 10)
+                        item["RecomendacionDos"] = "7.1     Que se le autorice la venta total de " + TxtCantidadAutorizadas.Text + ". De estas, se le entregarán únicamente " + TxtNotasEntregar.Text + ", las otras " + TXtCantidadRestante.Text + " se adjuntarán al expediente, sin foliar, mismas que se entregarán luego al titular o su representante legal cuando presente Informe de uso de notas de envío.";
+                    else
+                        item["RecomendacionDos"] = "7.7     Que se le autorice la venta total de " + TxtCantidadAutorizadas.Text + ".";
+                    if (Convert.ToDouble(LblAreaIntervenir.InnerText) > 100)
+                        item["OtrasRecomendaciones"] = "7.9     " + TxtOtrasReco.Text;
+                    else
+                        item["OtrasRecomendaciones"] = "7.8     " + TxtOtrasReco.Text;
+                }
+                    
+                
                 DsDatosDictamen.Tables["DatosDictamen"].Rows.Add(item);
 
                 
@@ -432,7 +494,7 @@ namespace SEGEFOR.WebForms
                     LblErr = LblErr + ", debe ingresar la conclusión sobre la propuesta de tratamiento integrando características biofísicas, inventario forestal.";
                 HayError = true;
             }
-            if ((CboAreaCompromiso.SelectedValue == "") || (CboAreaCompromiso.SelectedValue == "0"))
+            if ((CboDictamina.SelectedValue == "1") && ((CboAreaCompromiso.SelectedValue == "") || (CboAreaCompromiso.SelectedValue == "0")))
             {
                 if (LblErr == "")
                     LblErr = "Debe seleccionar el tipo de calculo de compromiso";
@@ -440,7 +502,7 @@ namespace SEGEFOR.WebForms
                     LblErr = LblErr + ", debe seleccionar el tipo de calculo de compromiso";
                 HayError = true;
             }
-            if ((CboGarantia.SelectedValue == "") || (CboGarantia.SelectedValue == "0"))
+            if ((CboDictamina.SelectedValue == "1") &&  ((CboGarantia.SelectedValue == "") || (CboGarantia.SelectedValue == "0")))
             {
                 if (LblErr == "")
                     LblErr = "Debe seleccionar el tipo de garantía";
@@ -448,7 +510,7 @@ namespace SEGEFOR.WebForms
                     LblErr = LblErr + ", debe seleccionar el tipo de garantía";
                 HayError = true;
             }
-            if (TxtCantidadAutorizadas.Text == "")
+            if ((CboDictamina.SelectedValue == "1") &&  (TxtCantidadAutorizadas.Text == ""))
             {
                 if (LblErr == "")
                     LblErr = "Debe ingresar la cantidad de notas autorizadas";
@@ -456,7 +518,7 @@ namespace SEGEFOR.WebForms
                     LblErr = LblErr + ", debe ingresar la cantidad de notas autorizadas";
                 HayError = true;
             }
-            if ((Convert.ToInt32(TxtCantidadAutorizadas.Text) > 10) && ((CboTipoUsuario.SelectedValue == "") || (CboTipoUsuario.SelectedValue == "0")))
+            if ((CboDictamina.SelectedValue == "1") && ((Convert.ToInt32(TxtCantidadAutorizadas.Text) > 10) && ((CboTipoUsuario.SelectedValue == "") || (CboTipoUsuario.SelectedValue == "0"))))
             {
                 if (LblErr == "")
                     LblErr = "Debe seleccionar el tipo de usuario";
@@ -464,7 +526,7 @@ namespace SEGEFOR.WebForms
                     LblErr = LblErr + ", debe seleccionar el tipo de usuario";
                 HayError = true;
             }
-            if (TxtOtrasReco.Text == "")
+            if ((CboDictamina.SelectedValue == "1") &&  (TxtOtrasReco.Text == ""))
             {
                 if (LblErr == "")
                     LblErr = "Debe ingresar otras recomendaciones";
@@ -473,7 +535,7 @@ namespace SEGEFOR.WebForms
                 HayError = true;
             }
             string MensajeEtapa = "";
-            if (ValidaEtapas(ref MensajeEtapa) == false)
+            if ((CboDictamina.SelectedValue == "1") &&  (ValidaEtapas(ref MensajeEtapa) == false))
             {
                 if (LblErr == "")
                     LblErr = MensajeEtapa;
@@ -967,7 +1029,7 @@ namespace SEGEFOR.WebForms
                         row["Fecha"] = DateTime.Now;
                         row["Subregional"] = DsEnmiendasTec.Tables["Datos"].Rows[0]["SubRegional"];
                         row["Cuerpo"] = Cuerpo;
-                        row["No"] = i + 1;
+                        row["No"] = (i + 1).ToString() + ".";
                         row["Enmienda"] = GrdEnmiendas.Items[i].GetDataKeyValue("Enmienda");
                         row["Tecnico"] = ClPersona.Nombre_Usuario(ClPersona.GetPersonaId(Convert.ToInt32(Session["UsuarioId"])));
                         Ds_Enmiendas_Tec.Tables["Dt_EnmiendasTec"].Rows.Add(row);        

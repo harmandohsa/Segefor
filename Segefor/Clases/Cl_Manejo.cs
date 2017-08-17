@@ -560,6 +560,77 @@ namespace SEGEFOR.Clases
             }
         }
 
+        public void Eliminar_PoligonoFinca_BosqueDescuento(int AsignacionId, int InmuebleId)
+        {
+            try
+            {
+                cnSql.Open();
+                SqlCommand cmd = new SqlCommand("Sp_Eliminar_PoligonoFinca_BosqueDescuento", cnSql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", SqlDbType.Int).Value = AsignacionId;
+                cmd.Parameters.Add("@InmuebleId", SqlDbType.Int).Value = InmuebleId;
+                cmd.ExecuteNonQuery();
+                cnSql.Close();
+            }
+            catch (Exception ex)
+            {
+                cnSql.Close();
+            }
+        }
+
+        public void Eliminar_PoligonoFinca_IntervencionDescuento(int AsignacionId, int InmuebleId)
+        {
+            try
+            {
+                cnSql.Open();
+                SqlCommand cmd = new SqlCommand("Sp_Eliminar_PoligonoFinca_IntervencionDescuento", cnSql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", SqlDbType.Int).Value = AsignacionId;
+                cmd.Parameters.Add("@InmuebleId", SqlDbType.Int).Value = InmuebleId;
+                cmd.ExecuteNonQuery();
+                cnSql.Close();
+            }
+            catch (Exception ex)
+            {
+                cnSql.Close();
+            }
+        }
+
+        public void Eliminar_PoligonoRepoblacionDescuento(int AsignacionId)
+        {
+            try
+            {
+                cnSql.Open();
+                SqlCommand cmd = new SqlCommand("Sp_Eliminar_PoligonoRepoblacionDescuento", cnSql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", SqlDbType.Int).Value = AsignacionId;
+                cmd.ExecuteNonQuery();
+                cnSql.Close();
+            }
+            catch (Exception ex)
+            {
+                cnSql.Close();
+            }
+        }
+
+        public void Eliminar_PoligonoFinca_ProteccionDescuento(int AsignacionId, int InmuebleId)
+        {
+            try
+            {
+                cnSql.Open();
+                SqlCommand cmd = new SqlCommand("Sp_Eliminar_PoligonoFinca_ProteccionDescuento", cnSql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", SqlDbType.Int).Value = AsignacionId;
+                cmd.Parameters.Add("@InmuebleId", SqlDbType.Int).Value = InmuebleId;
+                cmd.ExecuteNonQuery();
+                cnSql.Close();
+            }
+            catch (Exception ex)
+            {
+                cnSql.Close();
+            }
+        }
+
         public void Eliminar_PoligonoFinca_Intervenir(int AsignacionId, int InmuebleId)
         {
             try
@@ -747,7 +818,29 @@ namespace SEGEFOR.Clases
             }
         }
 
-       
+        public DataSet obtener_puntos_poligonos_AreaBosqueDescuento(int AsignacionId, int InmuebleId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_obtener_puntos_poligonos_AreaBosqueDescuento", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = AsignacionId;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
 
         public DataSet obtener_puntos_poligonos_AreaIntervencion(int AsignacionId, int InmuebleId)
         {
@@ -773,6 +866,30 @@ namespace SEGEFOR.Clases
             }
         }
 
+        public DataSet sp_obtener_puntos_poligonos_AreaIntervencion_Descuento(int AsignacionId, int InmuebleId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_obtener_puntos_poligonos_AreaIntervencion_Descuento", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = AsignacionId;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
         public DataSet obtener_puntos_poligonos_AreaProteccion(int AsignacionId, int InmuebleId)
         {
             try
@@ -781,6 +898,31 @@ namespace SEGEFOR.Clases
                     ds.Tables.Remove("DATOS");
                 cn.Open();
                 OleDbCommand cmd = new OleDbCommand("sp_obtener_puntos_poligonos_AreaProteccion", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = AsignacionId;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+
+        public DataSet obtener_puntos_poligonos_AreaProteccion_Descuento(int AsignacionId, int InmuebleId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_obtener_puntos_poligonos_AreaProteccion_Descuento", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = AsignacionId;
                 cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
@@ -1129,6 +1271,29 @@ namespace SEGEFOR.Clases
                     ds.Tables.Remove("DATOS");
                 cn.Open();
                 OleDbCommand cmd = new OleDbCommand("sp_obtener_puntos_poligonos_Area_Repoblacion", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = AsignacionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public DataSet obtener_puntos_poligonos_Area_Repoblacion_Descuento(int AsignacionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_obtener_puntos_poligonos_Area_Repoblacion_Descuento", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@AsignacionId", OleDbType.Integer).Value = AsignacionId;
                 OleDbDataAdapter adp = new OleDbDataAdapter(cmd);

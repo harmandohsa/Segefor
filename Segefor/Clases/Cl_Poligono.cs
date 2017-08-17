@@ -154,7 +154,7 @@ namespace SEGEFOR.Clases
                 return true;
         }
 
-        public bool Actualizar_Poligono_AreaBosque(XmlDocument pPoligono, ref int AsignacionId, ref int InmuebleId, ref int Correlativo, ref string ErrorMapa)
+        public bool Actualizar_Poligono_AreaBosque(XmlDocument pPoligono, ref int AsignacionId, ref int InmuebleId, ref int Correlativo, ref string ErrorMapa, ref double Area)
         {
 
             
@@ -178,6 +178,9 @@ namespace SEGEFOR.Clases
             Comando.Parameters.Add("@Mensaje", SqlDbType.VarChar, -1);
             Comando.Parameters["@Mensaje"].Direction = ParameterDirection.Output;
 
+            Comando.Parameters.Add("@Area", SqlDbType.Float);
+            Comando.Parameters["@Area"].Direction = ParameterDirection.Output;
+
 
             Comando.ExecuteNonQuery();
 
@@ -190,7 +193,155 @@ namespace SEGEFOR.Clases
                 return false;
             }
             else
+            {
+                Area = Convert.ToDouble(Comando.Parameters["@Area"].Value);
                 return true;
+            }
+                
+
+
+        }
+
+        public bool Actualizar_Poligono_AreaBosqueDescuento(XmlDocument pPoligono, ref int AsignacionId, ref int InmuebleId, ref int Correlativo, ref string ErrorMapa, ref double Area)
+        {
+
+
+            SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.AppSettings["ConexionSql"]);
+            cn.Open();
+            SqlCommand Comando = new SqlCommand("sp_poligonos_AreaBosque_Descuento", cn);
+            Comando.CommandType = CommandType.StoredProcedure;
+
+            Comando.Parameters.Add("@AsignacionId", SqlDbType.Int);
+            Comando.Parameters["@AsignacionId"].Value = AsignacionId;
+
+            Comando.Parameters.Add("@InmuebleId", SqlDbType.Int);
+            Comando.Parameters["@InmuebleId"].Value = InmuebleId;
+
+            Comando.Parameters.Add("@Puntos", SqlDbType.Xml, -1);
+            Comando.Parameters["@Puntos"].Value = pPoligono.OuterXml;
+
+            Comando.Parameters.Add("@Correlativo", SqlDbType.Int);
+            Comando.Parameters["@Correlativo"].Value = Correlativo;
+
+            Comando.Parameters.Add("@Mensaje", SqlDbType.VarChar, -1);
+            Comando.Parameters["@Mensaje"].Direction = ParameterDirection.Output;
+
+            Comando.Parameters.Add("@Area", SqlDbType.Float);
+            Comando.Parameters["@Area"].Direction = ParameterDirection.Output;
+
+
+            Comando.ExecuteNonQuery();
+
+            //-	Aquí es donde ejecuta el proceso almacena donde se ingresan nuevos polígonos o se actualizan este proceso hace las dos funciones y es en ese proceso donde convierte las coordenadas GTM a coordenadas geográficas las x las convierte en latitud y las Y en longitud
+
+            if (!Convert.IsDBNull(Comando.Parameters["@Mensaje"].Value))
+            {
+                string ErrorDescripcion = Comando.Parameters["@Mensaje"].Value.ToString();
+                ErrorMapa = ErrorDescripcion;
+                return false;
+            }
+            else
+            {
+                Area = Convert.ToDouble(Comando.Parameters["@Area"].Value);
+                return true;
+            }
+
+
+
+        }
+
+        public bool poligonos_AreaIntervencion_Descuento(XmlDocument pPoligono, ref int AsignacionId, ref int InmuebleId, ref int Correlativo, ref string ErrorMapa, ref double Area)
+        {
+
+
+            SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.AppSettings["ConexionSql"]);
+            cn.Open();
+            SqlCommand Comando = new SqlCommand("sp_poligonos_AreaIntervencion_Descuento", cn);
+            Comando.CommandType = CommandType.StoredProcedure;
+
+            Comando.Parameters.Add("@AsignacionId", SqlDbType.Int);
+            Comando.Parameters["@AsignacionId"].Value = AsignacionId;
+
+            Comando.Parameters.Add("@InmuebleId", SqlDbType.Int);
+            Comando.Parameters["@InmuebleId"].Value = InmuebleId;
+
+            Comando.Parameters.Add("@Puntos", SqlDbType.Xml, -1);
+            Comando.Parameters["@Puntos"].Value = pPoligono.OuterXml;
+
+            Comando.Parameters.Add("@Correlativo", SqlDbType.Int);
+            Comando.Parameters["@Correlativo"].Value = Correlativo;
+
+            Comando.Parameters.Add("@Mensaje", SqlDbType.VarChar, -1);
+            Comando.Parameters["@Mensaje"].Direction = ParameterDirection.Output;
+
+            Comando.Parameters.Add("@Area", SqlDbType.Float);
+            Comando.Parameters["@Area"].Direction = ParameterDirection.Output;
+
+
+            Comando.ExecuteNonQuery();
+
+            //-	Aquí es donde ejecuta el proceso almacena donde se ingresan nuevos polígonos o se actualizan este proceso hace las dos funciones y es en ese proceso donde convierte las coordenadas GTM a coordenadas geográficas las x las convierte en latitud y las Y en longitud
+
+            if (!Convert.IsDBNull(Comando.Parameters["@Mensaje"].Value))
+            {
+                string ErrorDescripcion = Comando.Parameters["@Mensaje"].Value.ToString();
+                ErrorMapa = ErrorDescripcion;
+                return false;
+            }
+            else
+            {
+                Area = Convert.ToDouble(Comando.Parameters["@Area"].Value);
+                return true;
+            }
+
+
+
+        }
+
+        public bool poligonos_AreaProteccion_Descuento(XmlDocument pPoligono, ref int AsignacionId, ref int InmuebleId, ref int Correlativo, ref string ErrorMapa, ref double Area)
+        {
+
+
+            SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.AppSettings["ConexionSql"]);
+            cn.Open();
+            SqlCommand Comando = new SqlCommand("sp_poligonos_AreaProteccion_Descuento", cn);
+            Comando.CommandType = CommandType.StoredProcedure;
+
+            Comando.Parameters.Add("@AsignacionId", SqlDbType.Int);
+            Comando.Parameters["@AsignacionId"].Value = AsignacionId;
+
+            Comando.Parameters.Add("@InmuebleId", SqlDbType.Int);
+            Comando.Parameters["@InmuebleId"].Value = InmuebleId;
+
+            Comando.Parameters.Add("@Puntos", SqlDbType.Xml, -1);
+            Comando.Parameters["@Puntos"].Value = pPoligono.OuterXml;
+
+            Comando.Parameters.Add("@Correlativo", SqlDbType.Int);
+            Comando.Parameters["@Correlativo"].Value = Correlativo;
+
+            Comando.Parameters.Add("@Mensaje", SqlDbType.VarChar, -1);
+            Comando.Parameters["@Mensaje"].Direction = ParameterDirection.Output;
+
+            Comando.Parameters.Add("@Area", SqlDbType.Float);
+            Comando.Parameters["@Area"].Direction = ParameterDirection.Output;
+
+
+            Comando.ExecuteNonQuery();
+
+            //-	Aquí es donde ejecuta el proceso almacena donde se ingresan nuevos polígonos o se actualizan este proceso hace las dos funciones y es en ese proceso donde convierte las coordenadas GTM a coordenadas geográficas las x las convierte en latitud y las Y en longitud
+
+            if (!Convert.IsDBNull(Comando.Parameters["@Mensaje"].Value))
+            {
+                string ErrorDescripcion = Comando.Parameters["@Mensaje"].Value.ToString();
+                ErrorMapa = ErrorDescripcion;
+                return false;
+            }
+            else
+            {
+                Area = Convert.ToDouble(Comando.Parameters["@Area"].Value);
+                return true;
+            }
+
 
 
         }
@@ -198,7 +349,8 @@ namespace SEGEFOR.Clases
 
 
 
-        public bool Actualizar_Poligono_AreaIntervenir(XmlDocument pPoligono, ref int AsignacionId, ref int InmuebleId, ref int Correlativo, ref string ErrorMapa)
+
+        public bool Actualizar_Poligono_AreaIntervenir(XmlDocument pPoligono, ref int AsignacionId, ref int InmuebleId, ref int Correlativo, ref string ErrorMapa, ref double Area)
         {
 
 
@@ -223,6 +375,9 @@ namespace SEGEFOR.Clases
             Comando.Parameters.Add("@Mensaje", SqlDbType.VarChar, -1);
             Comando.Parameters["@Mensaje"].Direction = ParameterDirection.Output;
 
+            Comando.Parameters.Add("@Area", SqlDbType.Float);
+            Comando.Parameters["@Area"].Direction = ParameterDirection.Output;
+
 
             Comando.ExecuteNonQuery();
 
@@ -235,13 +390,17 @@ namespace SEGEFOR.Clases
                 return false;
             }
             else
+            {
+                Area = Convert.ToDouble(Comando.Parameters["@Area"].Value);
                 return true;
+            }
+                
 
 
         }
 
 
-        public bool Actualizar_Poligono_AreaProteger(XmlDocument pPoligono, ref int AsignacionId, ref int InmuebleId, ref string ErrorMapa)
+        public bool Actualizar_Poligono_AreaProteger(XmlDocument pPoligono, ref int AsignacionId, ref int InmuebleId, ref string ErrorMapa, ref double Area)
         {
 
 
@@ -262,6 +421,9 @@ namespace SEGEFOR.Clases
             Comando.Parameters.Add("@Mensaje", SqlDbType.VarChar, -1);
             Comando.Parameters["@Mensaje"].Direction = ParameterDirection.Output;
 
+            Comando.Parameters.Add("@Area", SqlDbType.Float);
+            Comando.Parameters["@Area"].Direction = ParameterDirection.Output;
+
 
             Comando.ExecuteNonQuery();
 
@@ -275,7 +437,10 @@ namespace SEGEFOR.Clases
                     return false;
             }
             else
+            {
+                Area = Convert.ToDouble(Comando.Parameters["@Area"].Value);
                 return true;
+            }
 
 
         }
@@ -378,6 +543,48 @@ namespace SEGEFOR.Clases
             Comando.Parameters["@Mensaje"].Direction = ParameterDirection.Output;
 
            
+
+
+            Comando.ExecuteNonQuery();
+
+            //-	Aquí es donde ejecuta el proceso almacena donde se ingresan nuevos polígonos o se actualizan este proceso hace las dos funciones y es en ese proceso donde convierte las coordenadas GTM a coordenadas geográficas las x las convierte en latitud y las Y en longitud
+
+            if (!Convert.IsDBNull(Comando.Parameters["@Mensaje"].Value))
+            {
+
+                string ErrorDescripcion = Comando.Parameters["@Mensaje"].Value.ToString();
+                ErrorMapa = ErrorDescripcion;
+                return false;
+            }
+            else
+                return true;
+
+
+        }
+
+        public bool poligonos_Area_Proteccion_Descuento(XmlDocument pPoligono, int AsignacionId, int Correlativo, ref string ErrorMapa)
+        {
+
+
+            SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.AppSettings["ConexionSql"]);
+            cn.Open();
+            SqlCommand Comando = new SqlCommand("sp_poligonos_Area_Proteccion_Descuento", cn);
+            Comando.CommandType = CommandType.StoredProcedure;
+
+            Comando.Parameters.Add("@AsignacionId", SqlDbType.Int);
+            Comando.Parameters["@AsignacionId"].Value = AsignacionId;
+
+
+            Comando.Parameters.Add("@Puntos", SqlDbType.Xml, -1);
+            Comando.Parameters["@Puntos"].Value = pPoligono.OuterXml;
+
+            Comando.Parameters.Add("@Correlativo", SqlDbType.Int);
+            Comando.Parameters["@Correlativo"].Value = Correlativo;
+
+            Comando.Parameters.Add("@Mensaje", SqlDbType.VarChar, -1);
+            Comando.Parameters["@Mensaje"].Direction = ParameterDirection.Output;
+
+
 
 
             Comando.ExecuteNonQuery();
@@ -790,6 +997,131 @@ namespace SEGEFOR.Clases
                     ds.Tables.Remove("DATOS");
                 cn.Open();
                 OleDbCommand cmd = new OleDbCommand("sp_obtener_poligonos_Repoblacion", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public DataSet obtener_poligonos_Repoblacion_Ambos(int Id, int Tipo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_obtener_poligonos_Repoblacion_Ambos", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public DataSet obtener_poligonos_Bosque_Ambos(int InmuebleId, int Id, int Tipo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_obtener_poligonos_Bosque_Ambos", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public DataSet obtener_poligonos_Intervenir_Ambos(int InmuebleId, int Id, int Tipo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_obtener_poligonos_Intervenir_Ambos", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+
+        public DataSet obtener_poligonos_Proteccion_Ambos(int InmuebleId, int Id, int Tipo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_obtener_poligonos_Proteccion_Ambos", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@InmuebleId", OleDbType.Integer).Value = InmuebleId;
+                cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
+                cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
+        public DataSet obtener_poligonos_Repoblacion_Descuento(int Id, int Tipo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("sp_obtener_poligonos_Repoblacion_Descuento", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", OleDbType.Integer).Value = Id;
                 cmd.Parameters.Add("@Tipo", OleDbType.Integer).Value = Tipo;

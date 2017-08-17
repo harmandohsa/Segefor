@@ -85,6 +85,24 @@ namespace SEGEFOR.WebForms {
         protected global::System.Web.UI.WebControls.ImageButton ImgVerDictamenTecnico;
         
         /// <summary>
+        /// DivEnmiendasTec control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivEnmiendasTec;
+        
+        /// <summary>
+        /// ImgVerEnmiendasTec control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImgVerEnmiendasTec;
+        
+        /// <summary>
         /// Label2 control.
         /// </summary>
         /// <remarks>
@@ -229,6 +247,78 @@ namespace SEGEFOR.WebForms {
         protected global::System.Web.UI.WebControls.RadioButtonList OptEnmiendas;
         
         /// <summary>
+        /// DivEnmiendas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivEnmiendas;
+        
+        /// <summary>
+        /// TxtEnmienda control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtEnmienda;
+        
+        /// <summary>
+        /// BtnAddEnmienda control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputButton BtnAddEnmienda;
+        
+        /// <summary>
+        /// DivEnmiendaGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivEnmiendaGrid;
+        
+        /// <summary>
+        /// GrdEnmiendas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid GrdEnmiendas;
+        
+        /// <summary>
+        /// DivErrEnmineda control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivErrEnmineda;
+        
+        /// <summary>
+        /// LblErrEnmienda control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblErrEnmienda;
+        
+        /// <summary>
+        /// DivDictamenTecUno control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivDictamenTecUno;
+        
+        /// <summary>
         /// CboConsidera control.
         /// </summary>
         /// <remarks>
@@ -236,6 +326,15 @@ namespace SEGEFOR.WebForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadComboBox CboConsidera;
+        
+        /// <summary>
+        /// DivDictamenTecDos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivDictamenTecDos;
         
         /// <summary>
         /// TxtFolios control.
@@ -335,5 +434,14 @@ namespace SEGEFOR.WebForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnYes;
+        
+        /// <summary>
+        /// TxtTieneEnmiendas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtTieneEnmiendas;
     }
 }
