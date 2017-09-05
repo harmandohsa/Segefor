@@ -629,12 +629,87 @@ namespace SEGEFOR.WebForms
                     }
                     ClUtilitarios.EnvioCorreo(Correo, Nombres, "Solicitud de enminedas para su licencia forestal", MensajeCorreo, 0, "", "");
                     dsDatosUsuario.Clear();
+                    ClGestion.Manda_Gestion_Usuario(GestionId, 1);
+                    ClGestion.Cambia_Estatus_Gestion(GestionId, 8);
+                    int AsignacionId = ClGestion.RetornaPlanManejoEnmienda(GestionId);
+                    CopiarAnexos(AsignacionId, GestionId);
                     Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("12", true)) + "&gestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionId.ToString(), true)) + "");
                 }
                 
             }
             
             
+        }
+
+        public static void CopyAll(DirectoryInfo source, DirectoryInfo target)
+        {
+            Directory.CreateDirectory(target.FullName);
+
+            // Copy each file into the new directory.
+            foreach (FileInfo fi in source.GetFiles())
+            {
+                Console.WriteLine(@"Copying {0}\{1}", target.FullName, fi.Name);
+                fi.CopyTo(Path.Combine(target.FullName, fi.Name), true);
+            }
+
+            // Copy each subdirectory using recursion.
+            foreach (DirectoryInfo diSourceSubDir in source.GetDirectories())
+            {
+                DirectoryInfo nextTargetSubDir =
+                    target.CreateSubdirectory(diSourceSubDir.Name);
+                CopyAll(diSourceSubDir, nextTargetSubDir);
+            }
+        }
+
+        void CopiarAnexos(int AsignacionId, int GestionId)
+        {
+
+
+            string sourceDirectory = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaPendiente\" + GestionId;
+            string targetDirectory = Server.MapPath(".") + @"\Archivos\Anexos\MapaPendiente\" + AsignacionId;
+            DirectoryInfo diSource = new DirectoryInfo(sourceDirectory);
+            DirectoryInfo diTarget = new DirectoryInfo(targetDirectory);
+            if (diSource.Exists)
+            {
+                CopyAll(diSource, diTarget);
+            }
+
+            string sourceDirectoryCro = Server.MapPath(".") + @"\Archivos\AnexosPM\Croquis\" + GestionId;
+            string targetDirectoryCro = Server.MapPath(".") + @"\Archivos\Anexos\Croquis\" + AsignacionId;
+            DirectoryInfo diSourceCro = new DirectoryInfo(sourceDirectoryCro);
+            DirectoryInfo diTargetCro = new DirectoryInfo(targetDirectoryCro);
+            if (diSourceCro.Exists)
+            {
+                CopyAll(diSourceCro, diTargetCro);
+            }
+
+            string sourceDirectoryRonda = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaRonda\" + GestionId;
+            string targetDirectoryRonda = Server.MapPath(".") + @"\Archivos\Anexos\MapaRonda\" + AsignacionId;
+            DirectoryInfo diSourceRonda = new DirectoryInfo(sourceDirectoryRonda);
+            DirectoryInfo diTargetRonda = new DirectoryInfo(targetDirectoryRonda);
+            if (diSourceRonda.Exists)
+            {
+                CopyAll(diSourceRonda, diTargetRonda);
+            }
+
+            string sourceDirectoryUbi = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaUbicacion\" + GestionId;
+            string targetDirectoryUbi = Server.MapPath(".") + @"\Archivos\Anexos\MapaUbicacion\" + AsignacionId;
+            DirectoryInfo diSourceUbi = new DirectoryInfo(sourceDirectoryUbi);
+            DirectoryInfo diTargetUbi = new DirectoryInfo(targetDirectoryUbi);
+            if (diSourceUbi.Exists)
+            {
+                CopyAll(diSourceUbi, diTargetUbi);
+            }
+
+            string sourceDirectoryUsoActual = Server.MapPath(".") + @"\Archivos\AnexosPM\MapaUsoActual\" + GestionId;
+            string targetDirectoryUsoActual = Server.MapPath(".") + @"\Archivos\Anexos\MapaUsoActual\" + AsignacionId;
+            DirectoryInfo diSourceUsoActual = new DirectoryInfo(sourceDirectoryUsoActual);
+            DirectoryInfo diTargetUsoActual = new DirectoryInfo(targetDirectoryUsoActual);
+            if (diSourceUsoActual.Exists)
+            {
+                CopyAll(diSourceUsoActual, diTargetUsoActual);
+            }
+
         }
 
         void BtnEnviarOficio_Click(object sender, EventArgs e)

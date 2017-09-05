@@ -67,7 +67,7 @@
                         <a><img src="../Imagenes/24x24/list.png" /><span class="nav-label">Gestiones</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li runat="server" id="MnuGestNeuva" visible="false"><a href="../WebForms/Wfrm_GestionNueva.aspx?appel=ctiVKPaat!o%3d">Gestiones nuevas</a></li>
-                            <li runat="server" id="MnuGestEnmiendas" visible="false"><a>Enmiendas</a></li>
+                            <li runat="server" id="MnuGestEnmiendas" visible="false"><a  href="../WebForms/Wfrm_Enmiendas.aspx?appel=ctiVKPaat!o%3d">Enmiendas</a></li>
                             <li runat="server" id="MnuGestMod" visible="false" ><a>Modificaciones</a></li>
                             <li runat="server" id="MnuGestCurso" visible="false"><a href="../WebForms/Wfrm_SeguimientoUsuario.aspx">Gestiones en Curso  (historial)</a></li>
                             <li runat="server" id="MnuGestHistorial" visible="false"><a href="../WebForms/Wfrm_Historial_Gestion.aspx">Historial</a></li>

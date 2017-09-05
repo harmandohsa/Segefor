@@ -6655,6 +6655,29 @@ namespace SEGEFOR.Clases
             }
         }
 
+        public DataSet GetEnmiendasRegional(int GestionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("Sp_GetEnmiendasRegional", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                return ds;
+            }
+        }
+
         public DataSet GetEnmiendasTecnicas(int GestionId)
         {
             try
@@ -7523,6 +7546,26 @@ namespace SEGEFOR.Clases
             catch (Exception ex)
             {
                 cn.Close();
+                return 0;
+            }
+        }
+
+        public int RetornaPlanManejoEnmienda(int GestionId)
+        {
+            try
+            {
+                cnSql.Open();
+                SqlCommand cmd = new SqlCommand("SP_RetornaPlanManejoEnmienda", cnSql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", SqlDbType.Int).Value = GestionId;
+                cmd.Parameters.Add("@AsignacionId", OleDbType.Double).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cnSql.Close();
+                return Convert.ToInt32(cmd.Parameters["@AsignacionId"].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                cnSql.Close();
                 return 0;
             }
         }

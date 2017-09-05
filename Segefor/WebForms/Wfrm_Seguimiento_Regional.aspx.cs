@@ -688,6 +688,7 @@ namespace SEGEFOR.WebForms
                     iInformacion.ChildNodes[1].AppendChild(iElementos);
                     ClGestion.Insert_OfcioEnmiendaRegional(OficioEnmiedaRegionalId, GestionId, iInformacion, Convert.ToInt32(Session["UsuarioId"]));
                     ClGestion.Cambia_Estatus_Gestion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 7);
+                    ClGestion.Manda_Gestion_Usuario(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 11);
                     Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("13", true)) + "&gestion=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(GestionId.ToString(), true)) + "");
                 }
                 

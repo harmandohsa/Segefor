@@ -1338,6 +1338,7 @@
     <Content Include="WebForms\Wfrm_CambioClave.aspx" />
     <Content Include="WebForms\Wfrm_CatalogoImgBosque.aspx" />
     <Content Include="WebForms\Wfrm_EnConstruccion.aspx" />
+    <Content Include="WebForms\Wfrm_Enmiendas.aspx" />
     <Content Include="WebForms\Wfrm_Especies.aspx" />
     <Content Include="WebForms\Wfrm_GestionManejoForestal.aspx" />
     <Content Include="WebForms\Wfrm_GestionManejoForestalAsocRegente.aspx" />
@@ -2231,6 +2232,13 @@
     <Compile Include="WebForms\Wfrm_EnConstruccion.aspx.designer.cs">
       <DependentUpon>Wfrm_EnConstruccion.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebForms\Wfrm_Enmiendas.aspx.cs">
+      <DependentUpon>Wfrm_Enmiendas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_Enmiendas.aspx.designer.cs">
+      <DependentUpon>Wfrm_Enmiendas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebForms\Wfrm_Especies.aspx.cs">
       <DependentUpon>Wfrm_Especies.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3060,7 +3068,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

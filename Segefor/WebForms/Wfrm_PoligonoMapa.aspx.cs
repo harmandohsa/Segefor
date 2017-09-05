@@ -160,7 +160,7 @@ namespace SEGEFOR.WebForms
                         MAPS objMAPS = new MAPS();
                         objMAPS.Latitude = dtrow["Latitude"].ToString();
                         objMAPS.Longitude = dtrow["Longitude"].ToString();
-                        objMAPS.Tipo = dsPoligono.Tables["Datos"].Rows[i]["Tipo"].ToString();
+                        objMAPS.Tipo = Tipo;
                         objMAPS.Correlativo = (i+1).ToString();
                         lstFencingCircle.Add(objMAPS);
                     }

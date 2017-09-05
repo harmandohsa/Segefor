@@ -303,7 +303,7 @@
                     </Windows>
                 </telerik:RadWindowManager>
                 <asp:TextBox runat="server" ID="TxtMotivoId" Visible="false"></asp:TextBox>
-            <asp:TextBox runat="server" ID="TxtTieneEnmiendas" Visible="false"></asp:TextBox>
+            <asp:TextBox runat="server" ID="TxtTieneEnmiendas" Text="0" Visible="false"></asp:TextBox>
         </ContentTemplate>
     </asp:UpdatePanel>
     <script>

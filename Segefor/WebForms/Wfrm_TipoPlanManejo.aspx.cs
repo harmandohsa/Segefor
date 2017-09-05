@@ -493,6 +493,26 @@ namespace SEGEFOR.WebForms
             dsDatosMuestreo.Clear();
 
 
+
+            CargaClaseDesarrollo();
+
+            DataSet dsDatosEcuacion = ClManejo.Get_Ecuacion_Aprovechamiento_Forestal(Convert.ToInt32(TxtAsignacionId.Text));
+            for (int i = 0; i < dsDatosEcuacion.Tables["Datos"].Rows.Count; i++)
+            {
+                for (int j = 1; j < CboEcuacion.Items.Count; j++)
+                {
+                    if (Convert.ToInt32(CboEcuacion.Items[j].Value) == Convert.ToInt32(dsDatosEcuacion.Tables["Datos"].Rows[i]["EcuacionId"]))
+                    {
+                        CboEcuacion.Items[j].Checked = true;
+                    }
+                }
+            }
+            dsDatosEcuacion.Clear();
+            
+        }
+
+        void CargaClaseDesarrollo()
+        {
             if (TxtInmuebleId.Text != "")
             {
                 DataSet dsDatosClaseDesarrollo = ClManejo.GetClaseDesarrolloFinca_PlanManejo(Convert.ToInt32(TxtAsignacionId.Text), Convert.ToInt32(TxtInmuebleId.Text));
@@ -508,21 +528,6 @@ namespace SEGEFOR.WebForms
                 }
                 dsDatosClaseDesarrollo.Clear();
             }
-            
-
-            DataSet dsDatosEcuacion = ClManejo.Get_Ecuacion_Aprovechamiento_Forestal(Convert.ToInt32(TxtAsignacionId.Text));
-            for (int i = 0; i < dsDatosEcuacion.Tables["Datos"].Rows.Count; i++)
-            {
-                for (int j = 1; j < CboEcuacion.Items.Count; j++)
-                {
-                    if (Convert.ToInt32(CboEcuacion.Items[j].Value) == Convert.ToInt32(dsDatosEcuacion.Tables["Datos"].Rows[i]["EcuacionId"]))
-                    {
-                        CboEcuacion.Items[j].Checked = true;
-                    }
-                }
-            }
-            dsDatosEcuacion.Clear();
-            
         }
 
         void btnEliminarPolAreaRepoDescuento_ServerClick(object sender, EventArgs e)
@@ -7371,6 +7376,7 @@ namespace SEGEFOR.WebForms
                 TxtAreaInmueble.Text = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["Area"].ToString();
                 LimpiarAreas();
                 RetornoAreas();
+                CargaClaseDesarrollo();
                 int SubCategoriaId = ClManejo.Get_SubCategoriaPlanManejo(Convert.ToInt32(TxtAsignacionId.Text),1,2);
                 if (SubCategoriaId == 10)
                 {
