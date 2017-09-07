@@ -264,6 +264,7 @@
             <asp:TextBox runat="server" ID="TxtIdArticulo" Visible="false"></asp:TextBox>
             <asp:TextBox runat="server" ID="TxtIdAnalisis" Visible="false"></asp:TextBox>
             <asp:TextBox runat="server" ID="TxtIdEnmienda" Visible="false"></asp:TextBox>
+            <asp:TextBox runat="server" ID="TxtEsModificacion" Text="0" Visible="false"></asp:TextBox>
         </ContentTemplate>
     </asp:UpdatePanel>
     <script>

@@ -114,9 +114,54 @@ namespace SEGEFOR.WebForms
                     LblIdentificacion.Text = ClManejo.Get_Identificacion_Gestion_Manejo(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)));
                 ClUtilitarios.LlenaCombo(ClCatalogos.Considera_Dictamen_Juridico_GET(), CboConsidera, "ConsideraId", "Considera");
                 ClUtilitarios.LlenaCombo(ClCatalogos.Opinion_Dictamen_Juridico_GET(1), CboOpinion, "OpinionId", "Opinion");
-
+                DatosDictamenJuridico();
             }
 
+        }
+
+        void DatosDictamenJuridico()
+        {
+            int GestionId = Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true));
+            DataSet DsDatosDictamenJurico = ClGestion.Get_Datos_Dictamen_Juridico(GestionId);
+            if (DsDatosDictamenJurico.Tables["Datos"].Rows.Count > 0 )
+            {
+                TxtTitulo.Text = DsDatosDictamenJurico.Tables["Datos"].Rows[0]["Asunto"].ToString();
+                TxtTituloRegente.Text = DsDatosDictamenJurico.Tables["Datos"].Rows[0]["Antecedente"].ToString();
+                TxtAnalisisGen.Text = DsDatosDictamenJurico.Tables["Datos"].Rows[0]["IntroAnalisis"].ToString();
+                CboConsidera.SelectedValue = DsDatosDictamenJurico.Tables["Datos"].Rows[0]["ConsideraId"].ToString();
+                CboConsidera.Text = DsDatosDictamenJurico.Tables["Datos"].Rows[0]["Considera"].ToString();
+                CboOpinion.SelectedValue = DsDatosDictamenJurico.Tables["Datos"].Rows[0]["OpinionId"].ToString();
+                CboOpinion.Text = DsDatosDictamenJurico.Tables["Datos"].Rows[0]["Opinion"].ToString();
+                if (DsDatosDictamenJurico.Tables["Datos1"].Rows.Count > 0)
+                {
+                    for (int i = 0; i < DsDatosDictamenJurico.Tables["Datos1"].Rows.Count; i++)
+                    {
+                        AgregarArticulo(DsDatosDictamenJurico.Tables["Datos1"].Rows[0]["Articulo"].ToString());
+                    }
+                }
+
+                if (DsDatosDictamenJurico.Tables["Datos2"].Rows.Count > 0)
+                {
+                    for (int i = 0; i < DsDatosDictamenJurico.Tables["Datos2"].Rows.Count; i++)
+                    {
+                        AgregarAnalisis(DsDatosDictamenJurico.Tables["Datos2"].Rows[0]["Analisis"].ToString());
+                    }
+                }
+
+                if (DsDatosDictamenJurico.Tables["Datos3"].Rows.Count > 0)
+                {
+                    for (int i = 0; i < DsDatosDictamenJurico.Tables["Datos3"].Rows.Count; i++)
+                    {
+                        AgregarEnmienda(DsDatosDictamenJurico.Tables["Datos3"].Rows[0]["Enmienda"].ToString());
+                    }
+                    OptEnmiendas.SelectedValue = "1";
+                    DivEnmiendas.Visible = true;
+                    DivEnmiendaGrid.Visible = true;
+                    ClUtilitarios.LlenaCombo(ClCatalogos.Opinion_Dictamen_Juridico_GET(2), CboOpinion, "OpinionId", "Opinion");
+                }
+                TxtEsModificacion.Text = "1";
+            }
+            DsDatosDictamenJurico.Clear();
         }
 
         void IngVerAnexos_Click(object sender, ImageClickEventArgs e)
@@ -287,9 +332,12 @@ namespace SEGEFOR.WebForms
             iInformacionEnmiendas.ChildNodes[1].AppendChild(iElementosEnmiendas);
 
             int Dictamen_Juridico_Id = ClGestion.Max_Dictamen_Juridico();
+             int DictamenJUridicoId = 0;
+            if (TxtEsModificacion.Text == "1")
+                DictamenJUridicoId =  ClGestion.Update_DictamenJuridico(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), TxtTitulo.Text, TxtTituloRegente.Text, iInformacion, TxtAnalisisGen.Text, iInformacionAnalisis, Convert.ToInt32(CboConsidera.SelectedValue), Convert.ToInt32(CboOpinion.SelectedValue), iInformacionEnmiendas);
+            else
+                ClGestion.Insert_Dictamen_Juridico(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), TxtTitulo.Text, TxtTituloRegente.Text, iInformacion, TxtAnalisisGen.Text, iInformacionAnalisis, Convert.ToInt32(CboConsidera.SelectedValue), Convert.ToInt32(CboOpinion.SelectedValue), Convert.ToInt32(Session["UsuarioId"]), RegionId, iInformacionEnmiendas);
             
-            
-            ClGestion.Insert_Dictamen_Juridico( Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)),TxtTitulo.Text,TxtTituloRegente.Text,iInformacion,TxtAnalisisGen.Text,iInformacionAnalisis,Convert.ToInt32(CboConsidera.SelectedValue),Convert.ToInt32(CboOpinion.SelectedValue),Convert.ToInt32(Session["UsuarioId"]),RegionId,iInformacionEnmiendas);
 
             if (Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["modulo"].ToString()), true)) == 2)
                 ClGestion.Manda_Gestion_Usuario_Validacion(Convert.ToInt32(ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["gestion"].ToString()), true)), 11, 2);
@@ -301,7 +349,12 @@ namespace SEGEFOR.WebForms
             string MensajeCorreo = "Se ha enviado a su despacho la gestión del señor (a): " + ClUtilitarios.Decrypt(HttpUtility.UrlDecode(Request.QueryString["nom"].ToString()), true);
             ClUtilitarios.EnvioCorreo(dsDatosSubRegional.Tables["Datos"].Rows[0]["Correo"].ToString(), dsDatosSubRegional.Tables["Datos"].Rows[0]["Nombre"].ToString(), "Envío de gestión", MensajeCorreo, 0, "", "");
             dsDatosSubRegional.Clear();
-            Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("4", true)) + "&consultationjuridique=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(Dictamen_Juridico_Id.ToString(), true)) + "");
+            if (TxtEsModificacion.Text == "1")
+            {
+                Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("4", true)) + "&consultationjuridique=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(DictamenJUridicoId.ToString(), true)) + "");
+            }
+            else
+                Response.Redirect("~/WebForms/Wfrm_GestionNueva.aspx?appel=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt("4", true)) + "&consultationjuridique=" + HttpUtility.UrlEncode(ClUtilitarios.Encrypt(Dictamen_Juridico_Id.ToString(), true)) + "");
         }
 
         void BtnEnviar_Click(object sender, EventArgs e)

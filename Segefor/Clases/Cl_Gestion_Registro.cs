@@ -7558,10 +7558,62 @@ namespace SEGEFOR.Clases
                 SqlCommand cmd = new SqlCommand("SP_RetornaPlanManejoEnmienda", cnSql);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@GestionId", SqlDbType.Int).Value = GestionId;
-                cmd.Parameters.Add("@AsignacionId", OleDbType.Double).Direction = ParameterDirection.Output;
+                cmd.Parameters.AddWithValue("@AsignacionId", OleDbType.Double).Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
                 cnSql.Close();
                 return Convert.ToInt32(cmd.Parameters["@AsignacionId"].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                cnSql.Close();
+                return 0;
+            }
+        }
+
+        public DataSet Get_Datos_Dictamen_Juridico(int GestionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                OleDbCommand cmd = new OleDbCommand("SP_Get_Datos_Dictamen_Juridico", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", OleDbType.Integer).Value = GestionId;
+                OleDbDataAdapter adp = new OleDbDataAdapter(cmd);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                DataSet ds = new DataSet();
+                return ds;
+            }
+        }
+
+        public int Update_DictamenJuridico(int GestionId, string Asunto, string Antecedentes, XmlDocument Articulo, string IntroAnalisis, XmlDocument Analisis, int ConsideraId, int OpinionId, XmlDocument Enmiendas)
+        {
+            try
+            {
+                cnSql.Open();
+                SqlCommand cmd = new SqlCommand("Sp_Update_DictamenJuridico", cnSql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@GestionId", SqlDbType.Int).Value = GestionId;
+                cmd.Parameters.Add("@Asunto", SqlDbType.VarChar,500).Value = Asunto;
+                cmd.Parameters.Add("@Antecedentes", SqlDbType.VarChar, 500).Value = Antecedentes;
+                cmd.Parameters.Add("@Articulo", SqlDbType.Xml).Value = Articulo.OuterXml.ToString();
+                cmd.Parameters.Add("@IntroAnalisis", SqlDbType.VarChar, 500).Value = IntroAnalisis;
+                cmd.Parameters.Add("@Analisis", SqlDbType.Xml).Value = Analisis.OuterXml.ToString();
+                cmd.Parameters.Add("@ConsideraId", SqlDbType.Int).Value = @ConsideraId;
+                cmd.Parameters.Add("@OpinionId", SqlDbType.Int).Value = @OpinionId;
+                cmd.Parameters.Add("@Enmiendas", SqlDbType.Xml).Value = Enmiendas.OuterXml.ToString();
+                cmd.Parameters.AddWithValue("@Dictamen_Juridico_Id", OleDbType.Double).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                cnSql.Close();
+                return Convert.ToInt32(cmd.Parameters["@Dictamen_Juridico_Id"].Value.ToString());
             }
             catch (Exception ex)
             {
